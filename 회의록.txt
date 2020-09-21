@@ -1,0 +1,26 @@
+
+
+
+20200915
+※ 개발툴 : eclipse photon / java 1.8
+※ was : Tomcat9
+※ 템플릿 : 부트스트랩
+
+ 1. 대시보드, 사이드 메뉴, 팝업창  -> 김지영
+ 2. 교육신청(교육목록/교육개설신청 -> 이은섭
+ 
+ 
+ 20200921
+ 
+ - 탬플릿 확정 : https://bootstrapthemes.co/item/klorofil-free-bootstrap-admin-dashboard-template/
+ - 화면 단위로 먼저 개발
+ - 탬플릿내의 UI를 최대한 활용
+  * WEB-INF/asset 으로 css및 js, 아이콘 디렉토리 이동하여 사용
+ - UI가 없거나 제한적일 경우 css를 수정하고 통합 개발시 취합하여 수정
+  * 공통적으로 수정된 부분(9.21)
+    (김지영) 팝업에 사용할 Read전용 테이블 형 폼
+	(이은섭) 교육신청시 사용할  Write전용 테이블형 폼
+  * 개발하고자 하는 화면이 유사할경우 개발영역 내에서 서로 공유하여 폼 제작 -> 통일성 유지 필요
+ - 아이콘 : https://bootstrapthemes.co/item/klorofil-free-bootstrap-admin-dashboard-template/
+   * 아이콘 확정 아니며 필요에 따라서 일부 사용
+ 
