@@ -1804,17 +1804,31 @@ ul.activity-timeline > li {
 
 
 /********************************
- * 메인화면
+ * 이미지, 아이콘
  ********************************/
-/* 아이콘 */
+/* 메뉴 아이콘 */
  .main-icon {
    margin-right: 10px;
-   vertical-align: middle;
+   vertical-align: top;
+   height: 80%;
+   width: auto;
  }
+/* 검색 아이콘 */
+.img-search {
+  float: left;
+  vertical-align: middle !important;
+  padding: 4px 0px 3px 4px !important;
+}
 
 /********************************
  * 팝업 & 테이블
+   tbl-type0 : 결재창 테이블들의 삼각형모양 배치를 위한 틀 
+   tbl-type1 : 교육 안내 테이블
+   tbl-type2 : 차수별 교육기간 및 신청 테이블 - type1과 비슷한테 컬럼 크기 정도만 다름
+   tbl-type3 : 결재제목, 결재내용 입력폼
+   tbl-type4 : 결재정보 (결재 대상자 불러오는) 테이블
  ********************************/
+ /* 팝업창 파넬 padding 조절 */
  .panel-popup {
    padding: 10px 15px 0px 15px !important;
  }
@@ -1822,6 +1836,7 @@ ul.activity-timeline > li {
    padding: 5px !important;
  }
 
+/* 테이블별로 컬럼 크기, 위치 등 조절 */
 .tbl-type0 > tbody > tr > td:last-child {
   padding-left: 15px !important;
   vertical-align: top;
@@ -1854,7 +1869,7 @@ ul.activity-timeline > li {
 .tbl-type4 > tbody > tr > td {
   text-align: left;
 }
-
+/* 테이블 내 padding 통일 (디폴트값 : 첫번째, 마지막 컬럼만 padding-left: 25px) */
 .tbl-type1 > tbody > tr > th:first-child,
 .tbl-type1 > tbody > tr > td:last-child,
 .tbl-type2 > thead > tr > th:first-child,
@@ -1868,20 +1883,17 @@ ul.activity-timeline > li {
   padding-left: 8px !important;
 }
 
+/* 결재내용 입력창 위치 조정 */
 .txt-long {
   text-align: left !important;
 }
-
+/* 결재대상자 입력칸 크기 조절 */
 .approver-form {
   width: 86%; 
   float: left;
 }
-.img-search {
-  float: left;
-  vertical-align: middle !important;
-  padding: 4px 0px 3px 4px !important;
 
-}
+
 
 
 /*# sourceMappingURL=main.css.map */
