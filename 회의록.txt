@@ -10,7 +10,7 @@
  2. 교육신청(교육목록/교육개설신청 -> 이은섭
  
  
- 20200921
+ 20200921_1
  
  - 탬플릿 확정 : https://bootstrapthemes.co/item/klorofil-free-bootstrap-admin-dashboard-template/
  - 화면 단위로 먼저 개발
@@ -23,6 +23,7 @@
   * 개발하고자 하는 화면이 유사할경우 개발영역 내에서 서로 공유하여 폼 제작 -> 통일성 유지 필요
  - 아이콘 : https://bootstrapthemes.co/item/klorofil-free-bootstrap-admin-dashboard-template/
    * 아이콘 확정 아니며 필요에 따라서 일부 사용
-   
-   test
  
+ 20200921_2
+ 기존 확정사항 추가 - 상단의 navvar는 삭제키로 하였음
+
