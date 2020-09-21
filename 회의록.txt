@@ -15,7 +15,7 @@
  - 탬플릿 확정 : https://bootstrapthemes.co/item/klorofil-free-bootstrap-admin-dashboard-template/
  - 화면 단위로 먼저 개발
  - 탬플릿내의 UI를 최대한 활용
-  * WEB-INF/asset 으로 css및 js, 아이콘 디렉토리 이동하여 사용
+  * WebContent/asset 으로 css및 js, 아이콘 디렉토리 이동하여 사용
  - UI가 없거나 제한적일 경우 css를 수정하고 통합 개발시 취합하여 수정
   * 공통적으로 수정된 부분(9.21)
     (김지영) 팝업에 사용할 Read전용 테이블 형 폼
