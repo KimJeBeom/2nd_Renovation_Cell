@@ -32,4 +32,29 @@
   * 적용해 놓은 화면의 style을 알아서 사용한다.
   * 최종적으로 나온 화면에서 공통되는 부분을 css화 한다.(or style태그 사용)
   * 만약 css가 수정되었을 경우 공유 한다.
+  
+20200922 소스 명명 규칙
+ - 소스명명규칙 : itep(?)(?) -> ex)교육신청 : itepEduApply.jsp
+ - UI표준 정의
+  * 목록제공 : table-hover
+  * 팝업폼 : table-border
+ 
+ - 용어정리
+  * 교육   edu
+  * 신청   apply
+  * 안내   info
+  * 공지   notice
+  * 목록   list
+  * 결재   approve
+  * 현황   status
+  * 관리   manage
+  * 완료   complete
+  * 수강신청   eduapply
+  * 수강신청중(수강전)   eduready
+  * 수강중   edunow
+  * 수강완료   educomplete
+  * 등록   register
+  * 수정   modify
+  * 학습실   classroom
+  * 사용자   user
 
