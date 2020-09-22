@@ -1893,6 +1893,51 @@ ul.activity-timeline > li {
   float: left;
 }
 
+/*
+(이은섭/2020922)
+입력폼 기본양식 활용을 위한 .tbl-type5 신규 등록
+=========================================================
+(특징) : 입력제목(1,3라인)의 경우 width를 수기로 작성해야한다
+        ex) : <td class="info" width="150px"><b>교육분류</b></td>
+*/
+
+/*.tbl-type5의 정렬 및 padding 설정 : 바디*/
+.panel .tbl-type5 > tbody > tr > td {
+  text-align: center;
+  vertical-align: middle;
+  padding-left: 8px; 
+  padding-right: 8px; 
+  padding-top: 8px; 
+  padding-bottom: 8px; 
+}
+/*.tbl-type의 border(선) 설정*/
+.panel .tbl-type5 {
+  width: 100%;
+  border: 1px solid #d8e1ee !important; 
+  border-collapse: collapse !important;
+}
+/*.tbl-type5의 높이 설정*/
+.panel .tbl-type5 > tbody > tr {
+  height: 60px !important;
+}
+/*.tbl-type5의 박스 border설정*/
+.panel .tbl-type5 > tbody > tr > td,
+.panel .tbl-type5 > tbody > tr > th{
+  border: 1px solid #d8e1ee !important;
+}
+/*.tbl-type5의 입력명(class=info사용시) background처리*/
+.panel .tbl-type5 > thead > tr > td.info,
+.panel .tbl-type5 > tbody > tr > td.info,
+.panel .tbl-type5 > tfoot > tr > td.info,
+.panel .tbl-type5 > thead > tr.info > td,
+.panel .tbl-type5 > tbody > tr.info > td,
+.panel .tbl-type5 > tfoot > tr.info > td{
+  background-color: #686f79;
+  color: #ffffff;
+}
+/*
+=========================================================
+*/
 
 
 
