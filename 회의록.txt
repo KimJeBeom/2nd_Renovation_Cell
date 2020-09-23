@@ -58,5 +58,5 @@
   * 학습실   classroom
   * 사용자   user
   * 반려   reject
-  * 승인	 confirm
+  * 승인   confirm
   * 요청   request
