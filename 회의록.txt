@@ -60,3 +60,15 @@
   * 반려   reject
   * 승인   confirm
   * 요청   request
+  * 공지사항 notice
+  * 자료실 archieve
+  
+ 20200923
+ - 화면개발 기한 : 다음주 화요일
+ - 강의는 알아서 잘 듣고 마무리 할것
+ 
+20200924
+ - 화면개발구조 정의
+  * 서블릿을 어디에 배치할지
+   1안) webcontent 밑에 바로 jsp 를 만들어 URL로 화면 호출
+   2안) Web-INF 밑에 만들어 java(controller)를 통해서만 화면 호출
