@@ -108,10 +108,10 @@
 	<!-- Javascript -->
 	<script>
 		function regPopup(){
-			window.open('/itep/views/board/pop/archRegPop','공지사항등록','location=no, width=750, height=600,left=100,top=100');
+			window.open('/view/board/pop/archRegPop','공지사항등록','location=no, width=750, height=600,left=100,top=100');
 		}
 		function modPopup(){
-			window.open('/itep/views/board/pop/archModPop','공지사항등록','location=no, width=750, height=600,left=100,top=100');
+			window.open('/view/board/pop/archModPop','공지사항등록','location=no, width=750, height=600,left=100,top=100');
 		}
 	</script>
 
