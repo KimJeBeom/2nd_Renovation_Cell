@@ -43,7 +43,7 @@
 											<tr onclick="window.location.href='notifications.html'"><td>공지사항2</td></tr>
 											<tr onclick="window.location.href='notifications.html'"><td>공지사항3</td></tr>
 											<tr onclick="window.location.href='notifications.html'"><td>공지사항4</td></tr>
-											<tr onclick="window.location.href='notifications.html'"><td>공지사항53</td></tr>
+											<tr onclick="window.location.href='notifications.html'"><td>공지사항5</td></tr>
 										</tbody>
 									</table>
 								</div>
