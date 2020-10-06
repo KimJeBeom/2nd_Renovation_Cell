@@ -102,10 +102,10 @@
 	<!-- Javascript -->
 	<script>
 	function regPopup(){
-		window.open('/view/board/pop/noticeRegPop','공지사항등록','location=no, width=750, height=600,left=100,top=100');
+		window.open('/itep/views/board/pop/noticeRegPop','공지사항등록','location=no, width=750, height=600,left=100,top=100');
 	}
 	function modPopup(){
-		window.open('/view/board/pop/noticeModPop','공지사항등록','location=no, width=750, height=600,left=100,top=100');
+		window.open('/itep/views/board/pop/noticeModPop','공지사항등록','location=no, width=750, height=600,left=100,top=100');
 	}
 	</script>
 	
