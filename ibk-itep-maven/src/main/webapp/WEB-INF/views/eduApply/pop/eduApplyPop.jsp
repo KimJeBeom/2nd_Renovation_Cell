@@ -102,7 +102,7 @@
  <script>
 	/* 팝업 */
     function showEduApplyPop() {
-       window.open('/itep/views/eduApply/pop/eduInfoPop', 'eduApplyPop', 'location=no, width=750, height=600, left=100, top=100');
+       window.open('eduApplyPop.jsp', 'eduApplyPop', 'location=no, width=750, height=600, left=100, top=100');
     };
 </script>
 
