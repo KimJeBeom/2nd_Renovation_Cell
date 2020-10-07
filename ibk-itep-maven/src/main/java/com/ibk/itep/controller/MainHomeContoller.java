@@ -16,6 +16,7 @@ import com.ibk.itep.HomeController;
 @Controller
 public class MainHomeContoller{
 	
+	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	@RequestMapping(value = "/views", method = RequestMethod.GET)
