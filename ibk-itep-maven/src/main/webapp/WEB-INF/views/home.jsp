@@ -20,7 +20,7 @@
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col-md-9">
-									<img class="headline-chart" src="/assets/itep/img/computer.jpg" />
+									<img class="headline-chart" src="/itep/assets/itep/img/computer.jpg" />
 								</div>
 							</div>
 						</div>
