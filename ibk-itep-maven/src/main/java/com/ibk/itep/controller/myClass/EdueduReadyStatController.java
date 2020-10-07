@@ -1,4 +1,4 @@
-package com.ibk.itep.controller.admin;
+package com.ibk.itep.controller.myClass;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.ibk.itep.HomeController;
 
 @Controller
-public class EmpAccMngController{
+public class EdueduReadyStatController{
 	
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
-	@RequestMapping(value = "/views/admin/empAccMng", method = RequestMethod.GET)
+	@RequestMapping(value = "/views/myClass/eduReadyStat", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 
 		logger.info("Welcome home! The client locale is {}.", locale);
@@ -31,7 +31,7 @@ public class EmpAccMngController{
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "/admin/empAccMng";
+		return "/myClass/eduReadyStat";
 	}
 
 }
