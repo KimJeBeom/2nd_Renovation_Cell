@@ -1,37 +1,37 @@
 package com.ibk.itep.controller.apprMng;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Locale;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-@WebServlet("/view/apprMng/apprStat")
-public class ApprStatController extends HttpServlet{
+import com.ibk.itep.HomeController;
+
+@Controller
+public class ApprStatController{
 	
-	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
+	@RequestMapping(value = "/views/apprMng/apprStat", method = RequestMethod.GET)
+	public String home(Locale locale, Model model) {
+
+		logger.info("Welcome home! The client locale is {}.", locale);
 		
-		response.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
-			
-		PrintWriter out = response.getWriter();
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
-		int cnt = 100;
-		String cnt_ = request.getParameter("cnt");
+		String formattedDate = dateFormat.format(date);
 		
-		if(cnt_ != null && !cnt_.equals("")) {
-			cnt = Integer.parseInt(cnt_);
-		}
-				
-		for (int i = 0; i < cnt; i++) {
-			out.println((i+1)+" : ¾È³ç~! Servlet<br >");
-		} 
+		model.addAttribute("serverTime", formattedDate );
 		
-		request.getRequestDispatcher("/WEB-INF/view/apprMng/apprStat.jsp").forward(request,response);
+		return "/apprMng/apprStat";
 	}
 
 }
