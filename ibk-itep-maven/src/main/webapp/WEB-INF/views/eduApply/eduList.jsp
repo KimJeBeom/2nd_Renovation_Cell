@@ -138,7 +138,7 @@
 	<!-- Javascript -->
 	<script>
 		function applyPop(){
-			window.open('/itep/views/eduApply/pop/eduApplyPop','안내 및 신청','location=no, width=750, height=750');
+			window.open('/view/apply/pop/eduApplyPop','안내 및 신청','location=no, width=750, height=750');
 		}
 	</script>
 
