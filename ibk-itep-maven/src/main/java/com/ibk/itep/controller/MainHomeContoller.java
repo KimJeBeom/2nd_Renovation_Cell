@@ -12,8 +12,18 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/view")
 public class MainHomeContoller extends HttpServlet{
 	
+<<<<<<< HEAD
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+=======
+	
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
+	@RequestMapping(value = "/views", method = RequestMethod.GET)
+	public String home(Locale locale, Model model) {
+
+		logger.info("Welcome home! The client locale is {}.", locale);
+>>>>>>> refs/heads/devLES
 		
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
