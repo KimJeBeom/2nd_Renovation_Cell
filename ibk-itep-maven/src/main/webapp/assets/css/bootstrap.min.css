@@ -2868,9 +2868,12 @@ output {
 	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
 }
 
+<<<<<<< HEAD
 /* 팝업 빈칸!! */
 
 
+=======
+>>>>>>> refs/heads/master
 .form-control:focus {
 	border-color: #66afe9;
 	outline: 0;
@@ -3732,7 +3735,7 @@ a.btn.disabled, fieldset[disabled] a.btn {
 
 .btn-group-xs>.btn, .btn-xs {
 	padding: 1px 5px;
-	font-size: 14px;
+	font-size: 12px;
 	line-height: 1.5;
 	border-radius: 3px
 }
