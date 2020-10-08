@@ -2635,7 +2635,7 @@ th {
 	border-bottom-width: 2px
 }
 
-/* table-striped ï§â‘¤ë±º row è«›ê³Œê¼ï¿½ê¹‹ ï¿½ë„»ï¿½ì”ª
+/* table-striped ¸ðµç row ¹è°æ»ö ÅëÀÏ
 .table-striped>tbody>tr:nth-of-type(odd) {
 	background-color: #f9f9f9
 }*/
@@ -2645,7 +2645,7 @@ th {
 	background-color: #f5f5f5
 }
 
-/* table-striped ï¿½ë£„ ï§ë‰ìŠ¦ï¿½ë’ª ï¿½ì‚±ç”±Ñ‰ãˆƒ ï¿½ê¹‹ è¹‚ï¿½ï¿½ë¸¯å¯ƒï¿½ */
+/* table-striped µµ ¸¶¿ì½º ¿Ã¸®¸é »ö º¯ÇÏ°Ô */
 .table-striped>tbody>tr:hover {
 	background-color: #f5f5f5
 }
@@ -2866,9 +2866,6 @@ output {
 		.15s;
 	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
 }
-
-/* ï¿½ë™˜ï¿½ë¾½ é®ë‰ë­!! */
-
 
 .form-control:focus {
 	border-color: #66afe9;
@@ -3731,7 +3728,7 @@ a.btn.disabled, fieldset[disabled] a.btn {
 
 .btn-group-xs>.btn, .btn-xs {
 	padding: 1px 5px;
-	font-size: 14px;
+	font-size: 12px;
 	line-height: 1.5;
 	border-radius: 3px
 }
