@@ -9,7 +9,7 @@
 				<!-- 기업은행 로고 -->
 				<div><a href="/itep/views" class="active"> <img class="logo-icon" src="/itep/assets/itep/img/ibkbank_logo.png" /></a></div>
 
-				<!-- 사용자 정보-->
+				<!-- 사용자 정보 -->
 				<div class="usr-info">
 					<img class="usr-icon" src="/itep/assets/itep/img/usr.png" />
 					<div class="usr-text">
