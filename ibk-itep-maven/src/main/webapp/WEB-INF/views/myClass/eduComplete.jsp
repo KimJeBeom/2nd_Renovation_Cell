@@ -46,7 +46,7 @@
 											<td>뽀리네집</td>
 											<td>2020.09.01 ~ 2020.09.31</td>
 											<td>
-												<button type="button" class="btn btn-primary">확인</button>
+												<button type="button" class="btn btn-primary" onclick="showPopup('eduApply','eduInfoPop');">확인</button>
 											</td>
 										</tr>
 										<tr>
@@ -55,7 +55,7 @@
 											<td>주작cmp</td>
 											<td>2020.09.01 ~ 2020.09.31</td>
 											<td>
-												<button type="button" class="btn btn-primary">확인</button>
+												<button type="button" class="btn btn-primary" onclick="showPopup('eduApply','eduInfoPop ');">확인</button>
 											</td>
 										</tr>
 									</tbody>

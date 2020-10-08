@@ -39,7 +39,7 @@
 											<td>멀티캠퍼스</td>
 											<td>2020.07.01 ~ 2020.08.31</td>
 											<td>
-												<button type="button" class="btn btn-primary">확인</button>
+												<button type="button" class="btn btn-primary" onclick="showPopup('eduApply','eduInfoPop');">확인</button>
 											</td>
 										</tr>
 										<tr>
@@ -48,7 +48,7 @@
 											<td>IBK</td>
 											<td>라인수도 늘고, 버튼 형식도 통일화 필요</td>
 											<td>
-												<button type="button" class="btn btn-primary">확인</button>
+												<button type="button" class="btn btn-primary" onclick="showPopup('eduApply','eduInfoPop');">확인</button>
 											</td>
 										</tr>
 									</tbody>
