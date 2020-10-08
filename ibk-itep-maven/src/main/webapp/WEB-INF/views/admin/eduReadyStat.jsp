@@ -63,7 +63,7 @@
 											<td>IBM AIX PowerHA 8.0</td>
 											<td>미르헨지</td>
 											<td>2020.09.01 ~ 2020.09.05</td>
-											<td><button type="button" class="btn btn-primary">확인</button></td>
+											<td><button type="button" class="btn btn-primary" onclick="showPopup('admin','newEduInfoPop');">확인</button></td>
 										</tr>
 										<tr>
 											<td>1</td>
@@ -73,7 +73,7 @@
 											<td>IBM AIX PowerHA 8.0</td>
 											<td>미르헨지</td>
 											<td>2020.09.01 ~ 2020.09.05</td>
-											<td><button type="button" class="btn btn-primary">확인</button></td>
+											<td><button type="button" class="btn btn-primary" onclick="showPopup('admin','newEduInfoPop');">확인</button></td>
 										</tr>
 									</tbody>
 								</table>
@@ -133,7 +133,7 @@
 												<td>IBM AIX PowerHA 8.0</td>
 												<td>미르헨지</td>
 												<td>5</td>
-												<td><button type="button" class="btn btn-primary">확인</button></td>
+												<td><button type="button" class="btn btn-primary" onclick="showPopup('admin','eduEmpListPop');">확인</button></td>
 											</tr>
 											<tr>
 												<td>2</td>
@@ -142,7 +142,7 @@
 												<td>리눅스 맛보기 2020</td>
 												<td>레드햇 코리아</td>
 												<td>2</td>
-												<td><button type="button" class="btn btn-primary">확인</button></td>
+												<td><button type="button" class="btn btn-primary" onclick="showPopup('admin','eduEmpListPop');">확인</button></td>
 											</tr>
 										</tbody>
 									</table>
