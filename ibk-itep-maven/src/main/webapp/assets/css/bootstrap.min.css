@@ -2635,7 +2635,7 @@ th {
 	border-bottom-width: 2px
 }
 
-/* table-striped 모든 row 배경색 통일
+/* table-striped 紐⑤뱺 row 諛곌꼍�깋 �넻�씪
 .table-striped>tbody>tr:nth-of-type(odd) {
 	background-color: #f9f9f9
 }*/
@@ -2645,7 +2645,7 @@ th {
 	background-color: #f5f5f5
 }
 
-/* table-striped 도 마우스 올리면 색 변하게 */
+/* table-striped �룄 留덉슦�뒪 �삱由щ㈃ �깋 蹂��븯寃� */
 .table-striped>tbody>tr:hover {
 	background-color: #f5f5f5
 }
@@ -2867,7 +2867,7 @@ output {
 	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
 }
 
-/* 팝업 빈칸!! */
+/* �뙘�뾽 鍮덉뭏!! */
 
 
 .form-control:focus {
