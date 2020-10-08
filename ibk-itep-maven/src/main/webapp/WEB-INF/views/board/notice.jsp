@@ -30,7 +30,7 @@
 					<div id="toastr-demo" class="panel" style="height:500px;">
 						<div class="panel-body">
 							<div class="form-group row" style="text-align: right; padding-right: 15px;">
-								<button class="btn btn-primary btn-xs" type="button" onclick="regPopup();">등 록</button>
+								<button class="btn btn-primary btn-xs" type="button" onclick="showPopup('board','noticeRegPop');">등 록</button>
 							</div>
 							<div class="table-responsive">
 								<table class="table table-hover">
@@ -42,7 +42,7 @@
 											<th style="text-align:center; width:15%;" id="4">등록일</th>
 											<th style="text-align:center; width:15%;" id="5">등록자</th>
 										</tr>
-										<tr onclick="modPopup();">
+										<tr onclick="showPopup('board','noticeModPop');">
 											<td style="text-align:center">1</td>
 											<td style="text-align:center">세미나</td>
 											<td style="text-align: left">업무에 바로쓰는 SQL활용실습</td>
@@ -99,15 +99,6 @@
 		</footer>
 	</div>
 	<!-- END WRAPPER -->
-	<!-- Javascript -->
-	<script>
-	function regPopup(){
-		window.open('/itep/views/board/pop/noticeRegPop','공지사항등록','location=no, width=750, height=600,left=100,top=100');
-	}
-	function modPopup(){
-		window.open('/itep/views/board/pop/noticeModPop','공지사항등록','location=no, width=750, height=600,left=100,top=100');
-	}
-	</script>
 	
 <!-- FOOTER -->
 <jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
