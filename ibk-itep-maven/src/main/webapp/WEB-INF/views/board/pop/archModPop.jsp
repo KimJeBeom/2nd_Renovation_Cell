@@ -17,7 +17,7 @@
 				   <div class="panel panel-headline">
 				   <div class="panel-body panel-popup">
 					<div style="text-align:right; padding-bottom: 10px;">
-						<button type="button" class="btn btn-success btn-toastr btn-xs">수정</button>
+						<button type="button" class="btn btn-success btn-toastr btn-xs" onclick="showPopup('board','archRegPop');">수정</button>
 						<button type="button" class="btn btn-danger btn-toastr btn-xs">삭제</button>
 					</div>
 					  <table class="table table-bordered tbl-type1">
