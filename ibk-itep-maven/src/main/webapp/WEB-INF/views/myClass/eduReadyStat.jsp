@@ -18,10 +18,10 @@
 					<div class="row"> 
 						<div class="panel">
 							<div class="panel-heading">
-								<h1 class="panel-title"><b>수강신청한 교육</b></h1>
+								<h3 class="panel-title"><b>수강신청한 교육</b></h3>
 							</div>
 							<div class="panel-body">
-								<h4 style="margin-bottom: 10px;"><b>▶ 과정개설 신청목록</b></h4>
+								<h3 class="panel-title" style="margin-bottom: 10px;"><b>▶ 과정개설 신청목록</b></h3>
 								<table class="table table-hover">
 									<thead>
 										<tr>
@@ -42,7 +42,7 @@
 											<td>2020.07.01 ~ 2020.08.31</td>
 											<td>20200601</td>
 											<td>
-												<button type="button" class="btn btn-primary" onclick="showPopup('eduApply','eduInfoPop');">확인</button>
+												<button type="button" class="btn btn-primary">확인</button>
 											</td>
 											<td>Y</td>
 										</tr>
@@ -54,7 +54,7 @@
 												<td>2020.08.01 ~ 2020.09.31</td>
 												<td>20200602</td>
 												<td>
-													<button type="button" class="btn btn-primary" onclick="showPopup('eduApply','eduInfoPop');">확인</button>
+													<button type="button" class="btn btn-primary">확인</button>
 												</td>
 												<td>N</td>
 											</tr>
@@ -123,11 +123,11 @@
 											<td>2020.09.01 ~ 2020.09.31</td>
 											<td>20200801</td>
 											<td>
-												<button type="button" class="btn btn-primary" onclick="showPopup('eduApply','eduInfoPop');">확인</button>
+												<button type="button" class="btn btn-primary">확인</button>
 											</td>
 											<td>결재 중</td>
 											<td>
-												<button type="button" class="btn btn-default">취소요청</button>
+												<button type="button" class="btn btn-primary" style="background-color: gray; border-color: gray;">취소요청</button>
 											</td>
 										</tr>
 										<tr>
@@ -137,11 +137,11 @@
 											<td>2020.09.01 ~ 2020.09.31</td>
 											<td>20200801</td>
 											<td>
-												<button type="button" class="btn btn-primary" onclick="showPopup('eduApply','eduInfoPop');">확인</button>
+												<button type="button" class="btn btn-primary">확인</button>
 											</td>
 											<td>반려? 중</td>
 											<td>
-												<button type="button" class="btn btn-default">취소요청</button>
+												<button type="button" class="btn btn-primary" style="background-color: gray; border-color: gray;">취소요청</button>
 											</td>
 										</tr>
 									</tbody>

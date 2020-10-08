@@ -58,8 +58,8 @@
 						<div class="panel-body">
 							<!-- 교육 modify 버튼 부분-->
 							<div class="form-group row" style="text-align: right; padding-right: 25px;">
-								<button class="btn btn-primary" type="button" onclick="showPopup('admin','newEduRegPop');">등록</button>
-								<button class="btn btn-primary" type="button" onclick="showPopup('admin','eduModPop');">수정</button>
+								<button class="btn btn-primary" type="button">등록</button>
+								<button class="btn btn-primary" type="button">수정</button>
 								<button class="btn btn-primary" type="button">삭제</button>
 								<button class="btn btn-primary" type="button">엑셀업로드</button>
 								<button class="btn btn-primary" type="button">엑셀다운로드</button>
@@ -85,7 +85,7 @@
 										<td>OTEDU001</td>
 										<td style="text-align:left">업무에 바로쓰는 SQL활용실습</td>										
 										<td>멀티캠퍼스</td>
-										<td><button type="button" class="btn btn-primary" onclick="showPopup('admin','addEduRndPop');">차수추가</button></td>
+										<td><button type="button" class="btn btn-primary">차수추가</button></td>
 									</tr>
 									<tr>
 										<td><input type="checkbox"></td>
@@ -94,7 +94,7 @@
 										<td>OTEDU002</td>
 										<td style="text-align:left">업무에 바로쓰는 컴파일러 명령어</td>										
 										<td>멀티캠퍼스</td>
-										<td><button type="button" class="btn btn-primary" onclick="showPopup('admin','addEduRndPop');">차수추가</button></td>
+										<td><button type="button" class="btn btn-primary">차수추가</button></td>
 									</tr>
 									<tr>
 										<td><input type="checkbox"></td>
@@ -103,7 +103,7 @@
 										<td>OTEDU007</td>
 										<td style="text-align:left">고가용성에 대한 다양한 사례 공유</td>										
 										<td>레드햇</td>
-										<td><button type="button" class="btn btn-primary" onclick="showPopup('admin','addEduRndPop');">차수추가</button></td>
+										<td><button type="button" class="btn btn-primary">차수추가</button></td>
 									</tr>									
 								</tbody>
 							</table>

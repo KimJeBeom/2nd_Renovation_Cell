@@ -69,6 +69,26 @@
 							</div>
 						</div>
 					</div>
+
+					<!-- 팝업샘플 패널 -->
+					<div class="row">
+						<div class="col-md-6">
+							<div class="panel">
+								<div class="panel-heading">
+									<h3 class="panel-title">팝업샘플</h3>
+								</div>
+								<div class="panel-body">
+									<p class="demo-button">
+										<button type="button" class="btn btn-default" onclick="showPopup('eduApply','eduInfoPop');">교육설명</button>
+										<button type="button" class="btn btn-primary" onclick="showPopup('admin','newEduRegPop');">신규교육등록</button>
+										<button type="button" class="btn btn-primary" onclick="showPopup('admin','eduModPop');">교육내용수정</button>
+										<button type="button" class="btn btn-primary" onclick="showPopup('admin','addEduRndPop');">차수추가</button>
+										<button type="button" class="btn btn-primary" onclick="showPopup('admin','newEduInfoPop');">과정개설신청현황확인</button>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<!-- END MAIN CONTENT -->

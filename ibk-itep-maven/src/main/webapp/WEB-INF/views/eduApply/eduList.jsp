@@ -77,7 +77,7 @@
 														<td style="text-align:left"><span class="badge badge-primary">초</span> 업무에 바로쓰는 SQL활용실습</td>
 														<td style="text-align:center">멀티캠퍼스</td>
 														<td style="text-align:center">2020.09.16 ~ 2020.09.30</td>
-														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup('eduApply','eduApplyPop');">안내 및 신청</button></td>
+														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="applyPop();">안내 및 신청</button></td>
 													</tr>
 													<tr>
 														<td style="text-align:center">2</td>
@@ -135,6 +135,12 @@
 		</footer>
 	</div>
 	<!-- END WRAPPER -->
+	<!-- Javascript -->
+	<script>
+		function applyPop(){
+			window.open('/itep/views/eduApply/pop/eduApplyPop','안내 및 신청','location=no, width=750, height=750');
+		}
+	</script>
 
 <!-- FOOTER -->
 <jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
