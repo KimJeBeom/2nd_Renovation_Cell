@@ -2868,12 +2868,7 @@ output {
 	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
 }
 
-<<<<<<< HEAD
-/* 팝업 빈칸!! */
 
-
-=======
->>>>>>> refs/heads/master
 .form-control:focus {
 	border-color: #66afe9;
 	outline: 0;
@@ -5569,8 +5564,7 @@ a.thumbnail.active, a.thumbnail:focus, a.thumbnail:hover {
 	color: #843534
 }
 
-@
--webkit-keyframes progress-bar-stripes {
+@-webkit-keyframes progress-bar-stripes {
 	from {background-position: 40px 0
 }
 
@@ -5579,8 +5573,7 @@ to {
 }
 
 }
-@
--o-keyframes progress-bar-stripes {
+@-o-keyframes progress-bar-stripes {
 	from {background-position: 40px 0
 }
 
@@ -5589,8 +5582,7 @@ to {
 }
 
 }
-@
-keyframes progress-bar-stripes {
+@keyframes progress-bar-stripes {
 	from {background-position: 40px 0
 }
 
@@ -7187,8 +7179,7 @@ button.close {
 	position: fixed
 }
 
-@
--ms-viewport {
+@-ms-viewport {
 	width: device-width
 }
 
