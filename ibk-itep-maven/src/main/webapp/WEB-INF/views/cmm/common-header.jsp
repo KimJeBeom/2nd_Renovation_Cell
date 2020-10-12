@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="/itep/assets/vendor/linearicons/style.css">
 	<link rel="stylesheet" href="/itep/assets/vendor/chartist/css/chartist-custom.css">
 	<link rel="stylesheet" href="/itep/assets/vendor/toastr/toastr.min.css">
+	<link rel="stylesheet" href="/itep/assets/vendor/semantic/semantic.min.css">
 	<!-- MAIN CSS -->
 	<link rel="stylesheet" href="/itep/assets/css/main.css">
 	<!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
