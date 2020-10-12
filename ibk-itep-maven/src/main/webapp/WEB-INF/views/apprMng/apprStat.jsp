@@ -29,9 +29,28 @@
 										<tbody>
 											<tr>
 												<td style="width: 130px; padding-left: 5px;"><b>결재요청일</b></td>
-												<td><input type="text" class="form-control" style="width: 40%; float: left;">
-													<h5 style="float: left;"> &nbsp; ~ &nbsp; </h5>
-													<input type="text" class="form-control" style="width: 40%; float: left;">
+												<td style="width: 600px; padding-right: 40px">
+													<div class="ui form">
+														<div class="two fields" style="margin-bottom: 0px;">
+														  <div class="field" style="margin-bottom: 0px; padding-top:3px;">
+															<div class="ui calendar" id="rangestart" style="height:30px">
+															  <div class="ui input left icon">
+																<i class="calendar icon"></i>
+																<input type="text" placeholder="Start">
+															  </div>
+															</div>
+														</div>
+														<h5 style="float: left;"> &nbsp; ~ &nbsp; </h5>
+														<div class="field" style="margin-bottom: 0px; padding-top:3px;">
+															<div class="ui calendar" id="rangeend">
+															  <div class="ui input left icon">
+																<i class="calendar icon"></i>
+																<input type="text" placeholder="End">
+															  </div>
+															</div>
+														  </div>
+														</div>
+													</div>
 												</td>
 												<td style="width: 100px;"><b>결재상태</b></td>
 												<td style="width: 200px;">

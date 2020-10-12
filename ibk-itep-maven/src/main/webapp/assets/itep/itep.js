@@ -4,6 +4,48 @@ $(document).ready(function() {
 	$('input[name=checkAll]').on('change', function () {
 		$('input[name=checkbox]').prop('checked', this.checked);
 	});	
+	
+	/* 달력 */
+	$('#custom_format_calendar').calendar({
+		monthFirst: false,
+		type: 'date',
+		formatter: {
+		date: function (date, settings) {
+			if (!date) return '';
+			var day = date.getDate();
+			var month = date.getMonth() + 1;
+			var year = date.getFullYear();
+			return year + '/' + month + '/' + day;
+		}
+		}
+	});
+	 
+	$('#rangestart').calendar({
+		type: 'date',
+		endCalendar: $('#rangeend'),
+		formatter: {
+			date: function (date, settings) {
+				if (!date) return '';
+				var day = date.getDate();
+				var month = date.getMonth() + 1;
+				var year = date.getFullYear();
+				return year + '/' + month + '/' + day;
+			}
+		}
+	});
+	$('#rangeend').calendar({
+		type: 'date',
+		startCalendar: $('#rangestart'),
+		formatter: {
+			date: function (date, settings) {
+				if (!date) return '';
+				var day = date.getDate();
+				var month = date.getMonth() + 1;
+				var year = date.getFullYear();
+				return year + '/' + month + '/' + day;
+			}
+		}
+	});
 
 });
 
