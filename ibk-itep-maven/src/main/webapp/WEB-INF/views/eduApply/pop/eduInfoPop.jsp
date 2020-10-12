@@ -19,12 +19,21 @@
 						<div class="col-md-9 col-popup">
 							<div class="panel panel-headline">
 							<div class="panel-body panel-popup">
+								<!--<div style="text-align:left; padding-bottom: 10px;">-->
+								<table>
+									<tbody>
+										<tr>
+											<td style="width: 80%; padding-left: 5px; text-align: left; padding-bottom: 10px;">
+												<b>* 결재요청시 부서 관리자(기획팀장/기획서무 책임자)에게 전달 됩니다.</b>
+											</td>
+											<td style="width: 10%; padding-left: 5px; text-align: right; padding-bottom: 10px;">	
+												<button style="text-align:right;" type="button" class="btn btn-primary btn-toastr">결재요청</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
 								<!-- 교육 안내 테이블 -->
 								<table class="table table-bordered tbl-type1">
-									<div style="text-align:left; padding-bottom: 10px;">
-										<b >* 결재요청시 부서 관리자(기획팀장/기획서무 책임자)에게 전달 됩니다.</b>
-										<button style="text-align:right;" type="button" class="btn btn-default btn-toastr"><b>결재요청</b></button>
-									</div>
 									<tbody>
 										<tr>
 											<th>교육분류</th>
@@ -52,7 +61,7 @@
 										   <th>첨부파일</th>
 										   <td colspan="3">
 												<input multiple="multiple" type="file" name="file" class="form-control" value="">
-											</td>
+										   </td>
 										</tr>
 									</tbody>
 								</table>
