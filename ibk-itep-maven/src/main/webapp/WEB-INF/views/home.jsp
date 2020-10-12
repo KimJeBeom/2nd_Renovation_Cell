@@ -31,9 +31,9 @@
 						<div class="col-md-6">
 							<div class="panel">
 								<div class="panel-heading">
-									<h3 class="panel-title">공지사항</h3>
+									<h3 class="panel-title"><b>공지사항</b></h3>
 									<div class="right">
-										<a href="notifications.html"><button type="button" class="btn-toggle-collapse_"><i class="lnr lnr-chevron-up"></i></button></a>
+										<a href="/itep/views/board/notice"><button type="button" class="btn-toggle-collapse_"><i class="lnr lnr-chevron-right"></i></button></a>
 									</div>
 								</div>
 								<div class="panel-body no-padding">
@@ -54,9 +54,9 @@
 						<div class="col-md-6">
 							<div class="panel">
 								<div class="panel-heading">
-									<h3 class="panel-title">수강중인 교육</h3>
+									<h3 class="panel-title"><b>수강중인 교육</b></h3>
 									<div class="right">
-										<a href="elements.html"><button type="button" class="btn-toggle-collapse_"><i class="lnr lnr-chevron-up"></i></button></a>
+										<a href="/WEB-INF/views/myClass/eduNow"><button type="button" class="btn-toggle-collapse_"><i class="lnr lnr-chevron-right"></i></button></a>
 									</div>
 								</div>
 								<div class="panel-body">

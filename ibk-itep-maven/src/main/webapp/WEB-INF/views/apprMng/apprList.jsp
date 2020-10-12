@@ -18,13 +18,14 @@
 			<!-- MAIN CONTENT -->
 			<div class="main-content">
 				<div class="container-fluid">
-					<!-- <div class="row">
- -->
-						<!-- 결재 할 문서 패널 시작 -->
+					<h1 class="page-title" style="padding-top: 20px;"><b>결재 할 문서</b></h1>
+					<div class="row">
+					
 						<div id="toastr-demo" class="panel">
-							<div class="panel-heading"><h3><b>결재 할 문서</b></h3></div>
+						
+							<!-- 결재 목록 -->
 							<div class="panel-body">
-								<h4 style="float: left;">결재 목록</h4>
+								<h4 class="panel-title" style="float:left;"><b>▶ 결재 목록</b></h4>
 								
 								<!-- 상단 버튼 -->
 								<button type="button" class="btn btn-primary btn-toastr btn-top" onclick="showPopup('apprMng','apprRejectPop');">반려</button>
@@ -169,10 +170,9 @@
 
 							</div>
 						</div>
-						<!-- 결재 할 문서 패널 끝 -->
 
 					</div>
-				<!-- </div> -->
+				</div>
 			</div>
 		</div>
 		<!-- END MAIN CONTENT -->
