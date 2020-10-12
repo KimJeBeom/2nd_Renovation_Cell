@@ -18,7 +18,7 @@
 			<!-- MAIN CONTENT -->
 			<div class="main-content">
 				<div class="container-fluid">
-					<h3 class="page-title" style="padding-top: 20px;"><b>결재 진행 및 완료문서</b></h3>
+					<h1 class="page-title" style="padding-top: 20px;"><b>결재 진행 및 완료문서</b></h1>
 					<div class="row">
 
 						<!-- 상단 검색 패널 -->
@@ -31,17 +31,17 @@
 												<td style="width: 130px; padding-left: 5px;"><b>결재요청일</b></td>
 												<td style="width: 600px; padding-right: 40px">
 													<div class="ui form">
-														<div class="two fields" style="margin-bottom: 0px;">
-														  <div class="field" style="margin-bottom: 0px; padding-top:3px;">
-															<div class="ui calendar" id="rangestart" style="height:30px">
+														<div class="two fields" style="margin-bottom: 0px">
+														  <div class="field">
+															<div class="ui calendar" id="rangestart">
 															  <div class="ui input left icon">
 																<i class="calendar icon"></i>
 																<input type="text" placeholder="Start">
 															  </div>
 															</div>
 														</div>
-														<h5 style="float: left;"> &nbsp; ~ &nbsp; </h5>
-														<div class="field" style="margin-bottom: 0px; padding-top:3px;">
+														<label style="padding-top: 6px; height: 7px;"> &nbsp; ~ &nbsp; </label>
+														<div class="field">
 															<div class="ui calendar" id="rangeend">
 															  <div class="ui input left icon">
 																<i class="calendar icon"></i>
@@ -67,14 +67,11 @@
 									</table>
 								</div>
 							</div>
-						</div>
+							<br>
 
-						<!-- 결재 현황 테이블 -->
-						<div class="panel">
-							<div class="panel-heading">
-								<h3 class="panel-title">결재 현황</h3>
-							</div>
+							<!-- 결재 현황 테이블 -->
 							<div class="panel-body">
+								<h4 class="panel-title" style="margin-bottom: 10px"><b>▶ 결재 현황</b></h4>
 								<div class="table-responsive">
 								<table class="table table-hover tbl-type2">
 									<thead>
@@ -129,14 +126,10 @@
 								</table>
 								</div>
 							</div>
-						</div>
 						
-						<!-- 결재 이력 테이블 -->
-						<div class="panel">
-							<div class="panel-heading">
-								<h3 class="panel-title">결재 이력</h3>
-							</div>
+							<!-- 결재 이력 테이블 -->
 							<div class="panel-body">
+								<h4 class="panel-title" style="margin-bottom: 10px"><b>▶ 결재 이력</b></h4>
 								<div class="table-responsive">
 									<table class="table table-hover tbl-type2">
 										<thead>
@@ -183,7 +176,6 @@
 	</div>
 	<!-- END MAIN -->
 	<div class="clearfix"></div>
-	</div>
 	<!-- END WRAPPER -->
 
 
