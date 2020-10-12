@@ -8,39 +8,42 @@
 
 		<!-- 사이드메뉴 -->
 		<jsp:include page="/WEB-INF/views/cmm/common-sidebar.jsp" />
-
+		
 		<!-- MAIN -->
 		<div class="main">
 			<!-- MAIN CONTENT -->
 			<div class="main-content">
 				<div class="container-fluid">
-					<br>
-					<h1 class="page-title"><b>자료실</b></h1>
-
-					<div id="toastr-demo" class="panel" style="height:500px;">
-						<br>
-						<div class="well" style="width: 90%;">
-							<div class="form-group row">
-								<label class="col-md-1 col-form-label form-control-label text-muted" style="text-align: right;vertical-align: middle;">■ 제 목</label>
-								<div class="col-md-3">
-									<input class="form-control" type="text" value="Bishop" style="width: 300px;">
+					<h1 class="page-title" style="padding-top: 20px;"><b>자료실</b></h1>
+						<div class="panel">
+							<div class="panel-body">
+								<br>
+								<div class="well">
+									<table>
+										<tbody>
+											<tr>
+												<td style="width: 80px; padding-left: 5px; text-align: center;"><b>■ 제 목</b></td>
+												<td style="width: 300px; padding-right: 40px">
+													<div>
+														<input class="form-control" type="text" value="">
+													</div>
+												</td>
+												<td style="width: 80px; padding-left: 5px; text-align: center;"><b>■ 작성자</b></td>
+												<td style="width: 300px; padding-right: 40px">
+													<div>
+														<input class="form-control" type="text" value="">
+													</div>
+												</td>
+												<td style="width: 10%; text-align: left;"><button type="button" class="btn btn-primary btn-toastr" style="float: right; margin-right: 20px;">조회</button></td>
+											</tr>
+										</tbody>
+									</table>
 								</div>
-								<div>
-									<label class="col-md-1 col-form-label form-control-label text-muted" style="text-align: right;vertical-align: middle;">■ 작성자</label>
-									<div class="col-md-2">
-										<input class="form-control" type="text" value="Bishop" style="width: 150px;">
-									</div>
-								</div>
-								<button class="btn btn-primary" type="button">검 색</button>
-							</div>								
-						</div>			
-						
-						<div class="panel-body">
 							<div class="form-group row" style="text-align: right; padding-right: 15px;">
-								<button class="btn btn-primary btn-xs" type="button" onclick="showPopup('board','archRegPop');">등 록</button>
+								<button class="btn btn-primary" type="button" onclick="showPopup('board','archRegPop');">등 록</button>
 							</div>
 							<div class="table-responsive">
-								<table class="table table-hover table-sm">
+								<table class="table table-hover">
 									<tbody>
 										<tr>
 											<th style="text-align:center; width:10%;" id="1">No.</th>
@@ -87,7 +90,7 @@
 									<li class="page-item"><a class="page-link" href="#">3</a></li>
 									<li class="page-item"><a class="page-link" href="#">▶</a></li>
 								</ul>
-							</nav>
+							</nav>	
 						</div>
 					</div>
 				</div>
@@ -100,11 +103,12 @@
 		<div class="clearfix"></div>
 		<footer>
 			<div class="container-fluid">
-				<p class="copyright">Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a></p>
+				<p class="copyright">Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a>
+</p>
 			</div>
 		</footer>
 	</div>
 	<!-- END WRAPPER -->
-
+	
 <!-- FOOTER -->
 <jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />

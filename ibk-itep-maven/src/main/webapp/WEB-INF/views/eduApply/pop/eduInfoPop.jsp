@@ -23,7 +23,7 @@
 								<table class="table table-bordered tbl-type1">
 									<div style="text-align:left; padding-bottom: 10px;">
 										<b >* 결재요청시 부서 관리자(기획팀장/기획서무 책임자)에게 전달 됩니다.</b>
-										<button style="text-align:right;" type="button" class="btn btn-default btn-toastr btn-xs"><b>결재요청</b></button>
+										<button style="text-align:right;" type="button" class="btn btn-default btn-toastr"><b>결재요청</b></button>
 									</div>
 									<tbody>
 										<tr>
