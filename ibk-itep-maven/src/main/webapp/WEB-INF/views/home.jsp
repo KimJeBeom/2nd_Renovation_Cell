@@ -110,7 +110,7 @@
 	<!-- WRAPPER -->
 	<div id="wrapper">
 
-		<!-- 사이드메뉴 -->
+		<!-- 사이드메뉴  -->
 		<jsp:include page="./cmm/common-sidebar.jsp" />
 
 		<!-- MAIN -->
@@ -181,7 +181,6 @@
 		<div class="clearfix"></div>
 	</div>
 	<!-- END WRAPPER -->
-
 
 <!-- FOOTER -->
 >>>>>>> refs/heads/master
