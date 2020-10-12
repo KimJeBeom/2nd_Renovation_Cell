@@ -8,6 +8,7 @@
 	<script src="/itep/assets/scripts/klorofil-common.js"></script>
 	<script src="/itep/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
 	<script src="/itep/assets/vendor/chartist/js/chartist.min.js"></script>
+	<script src="/itep/assets/vendor/semantic/semantic.min.js"></script>
 	
 	<!-- ITEP용 javascript -->
 	<script src="/itep/assets/itep/itep.js"></script>
