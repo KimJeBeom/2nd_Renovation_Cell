@@ -17,7 +17,7 @@
 				   <div class="panel panel-headline">
 				   <div class="panel-body panel-popup">
 					<div style="text-align:right; padding-bottom: 10px;">
-						<button type="button" class="btn btn-primary btn-toastr btn-xs">등록</button>
+						<button type="button" class="btn btn-primary btn-toastr">등록</button>
 					</div>
 					  <table class="table table-bordered tbl-type1">
 						 <tbody>
