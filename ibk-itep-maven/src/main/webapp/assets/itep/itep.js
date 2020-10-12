@@ -58,8 +58,16 @@ function showPopup(menu, name) {
 		size = 'location=no, width=500, height=250, left=100, top=100';
 
 	// 결재요청(결재자지정) 팝업
-	else if (name =='apprApplyPop' || name == 'eduApplyPop') 
+	else if (name =='apprApplyPop') 
 		size = 'location=no, width=750, height=630, left=100, top=100';
+		
+	// 교육 안내 및 신청 팝업
+	else if (name == 'eduApplyPop') 
+		size = 'location=no, width=750, height=700, left=100, top=100';
+		
+	// 교육신청 결재 요청 팝업
+	else if (name == 'eduInfoPop')
+		size = 'location=no, width=750, height=430, left=200, top=200';
 	
 	// 차수추가 팝업
 	else if (name =='addEduRndPop')
@@ -67,7 +75,7 @@ function showPopup(menu, name) {
 	
 	// 게시판 등록, 수정 팝업
 	else if (name == 'noticeRegPop' || name == 'noticeModPop' || name == 'archRegPop' || name == 'archModPop')
-		size = 'location=no, width=650, height=490, left=100, top=100';	
+		size = 'location=no, width=850, height=600, left=100, top=100';
 		
 	// 관리자페이지 교육 등록, 수정
 	else if (name == 'newEduRegPop' || name == 'eduModPop')
@@ -75,12 +83,12 @@ function showPopup(menu, name) {
 			
 	//
 	else if (name == 'eduEmpListPop')
-		size = 'location=no, width=650, height=560, left=100, top=100';		
+		size = 'location=no, width=650, height=560, left=100, top=100';
 	
 	else 
 		size = 'location=no, width=650, height=650, left=100, top=100';		
 
-	window.open('/itep/views/'+menu+'/pop/'+name, name, size); 
+	window.open('/itep/views/'+menu+'/pop/'+name, '_blank', size); 
 }	
 
 

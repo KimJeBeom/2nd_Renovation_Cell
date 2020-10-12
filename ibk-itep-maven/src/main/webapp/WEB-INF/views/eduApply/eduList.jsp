@@ -18,23 +18,31 @@
 					<h1 class="page-title"><b>교육목록</b></h1>
 					<div id="toastr-demo" class="panel" style="height:700px;">
 						<div class="panel-body">
-							<div style="height: auto; width: 60%;">
-								<h3 class="hidden">공지사항 검색폼</h3>
-								<br>
-								<form class="table-form">
-										<div class="input-group">
-										<span>
-										<select class="form-control"  style="height: auto; width: 20%;">
-											<option value="title">과목명</option>
-											<option value="type">유형</option>
-											<option value="e-id">순번</option>
-										</select>
-										</span>
-											<input class="form-control" type="text" style="height: auto; width: 80%;">
-											<span class="input-group-btn"><button class="btn btn-primary" type="button"  onclick="text();">검색</button></span>
-										</div>
-								</form>
+							<div class="well">
+								<table>
+									<tbody>
+										<tr>
+											<td style="width: 80px; padding-left: 5px; text-align: center;"><b>■ 검 색 </b></td>
+											<td style="width: 100px; padding-right: 40px">
+												<div>
+													<select class="form-control">
+														<option value="title">과목명</option>
+														<option value="type">유형</option>
+														<option value="e-id">순번</option>
+													</select>
+												</div>
+											</td>
+											<td style="width: 300px; padding-right: 40px">
+												<div>
+													<input class="form-control" type="text" value="">
+												</div>
+											</td>
+											<td style="width: 10%; text-align: left;"><button type="button" class="btn btn-primary btn-toastr" style="float: right; margin-right: 20px;">조회</button></td>
+										</tr>
+									</tbody>
+								</table>
 							</div>
+						
 							<br>
 							<div>	
 								 <ul class="nav nav-tabs">

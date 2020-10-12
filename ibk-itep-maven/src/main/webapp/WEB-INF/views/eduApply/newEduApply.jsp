@@ -121,12 +121,15 @@
 												</div>
 											</div>
 										<td class="info"><b>교육비용</b></td>
-										<td>
-											<div class="col-lg-3">
+										<td><input type="text" class="form-control" placeholder="350,000" style="width: 80%; float: left;">
+												<span><i></i>(원)</span>
+										</td>
+										<!--<td>
+											 <div class="col-lg-3">
 												<input type="eduCost" name="fax" class="form-control" value="">
 												<span><i></i>원</span>
-											</div>
 										</td>
+										 -->
 									</tr>
 									<tr>
 										<td class="info"><b>교육방식</b></td>
