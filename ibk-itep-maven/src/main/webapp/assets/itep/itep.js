@@ -75,7 +75,7 @@ function showPopup(menu, name) {
 	
 	// 게시판 등록, 수정 팝업
 	else if (name == 'noticeRegPop' || name == 'noticeModPop' || name == 'archRegPop' || name == 'archModPop')
-		size = 'location=no, width=650, height=490, left=100, top=100';	
+		size = 'location=no, width=850, height=600, left=100, top=100';
 		
 	// 관리자페이지 교육 등록, 수정
 	else if (name == 'newEduRegPop' || name == 'eduModPop')
@@ -83,7 +83,7 @@ function showPopup(menu, name) {
 			
 	//
 	else if (name == 'eduEmpListPop')
-		size = 'location=no, width=650, height=560, left=100, top=100';		
+		size = 'location=no, width=650, height=560, left=100, top=100';
 	
 	else 
 		size = 'location=no, width=650, height=650, left=100, top=100';		
