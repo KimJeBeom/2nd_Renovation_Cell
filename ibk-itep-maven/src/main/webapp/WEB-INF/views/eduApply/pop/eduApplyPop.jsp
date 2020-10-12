@@ -80,7 +80,7 @@
 							<td>20200201 ~ 20200205</td>
 							<td>20200101 ~ 20200131</td>
 							<td>
-							   <button type="button" class="btn btn-primary btn-toastr" onclick="showEduApplyPop();">교육신청</button>
+							   <button type="button" class="btn btn-primary btn-toastr" onclick="showPopup('eduApply','eduInfoPop');">교육신청</button>
 							</td>
 						 </tr>
 					  </tbody>
@@ -98,13 +98,6 @@
 	<div class="clearfix"></div>
  </div>
  <!-- END WRAPPER -->
- <!-- Javascript -->
- <script>
-	/* 팝업 */
-    function showEduApplyPop() {
-       window.open('/itep/views/eduApply/pop/eduInfoPop', 'eduApplyPop', 'location=no, width=750, height=600, left=100, top=100');
-    };
-</script>
 
 <!-- FOOTER -->
 <jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
