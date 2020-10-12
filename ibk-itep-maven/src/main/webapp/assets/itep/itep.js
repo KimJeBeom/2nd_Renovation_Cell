@@ -58,12 +58,16 @@ function showPopup(menu, name) {
 		size = 'location=no, width=500, height=250, left=100, top=100';
 
 	// 결재요청(결재자지정) 팝업
-	else if (name =='apprApplyPop' || name == 'eduApplyPop') 
+	else if (name =='apprApplyPop') 
 		size = 'location=no, width=750, height=630, left=100, top=100';
+		
+	// 교육 안내 및 신청 팝업
+	else if (name == 'eduApplyPop') 
+		size = 'location=no, width=750, height=700, left=100, top=100';
 		
 	// 교육신청 결재 요청 팝업
 	else if (name == 'eduInfoPop')
-		size = 'location=no, width=750, height=480, left=200, top=200';
+		size = 'location=no, width=750, height=430, left=200, top=200';
 	
 	// 차수추가 팝업
 	else if (name =='addEduRndPop')
