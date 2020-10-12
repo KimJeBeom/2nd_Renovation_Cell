@@ -16,19 +16,18 @@
 				<div class="container-fluid">
 					<br>
 					<h1 class="page-title"><b>공지사항</b></h1>
+					<div id="toastr-demo" class="panel">
+						<br>
+						<div class="form-group row">
+							<label class="col-md-1 col-form-label form-control-label text-muted" style="text-align: right;vertical-align: middle;">■ 제 목</label>
+							<div class="col-md-5">
+								<input class="form-control" type="text" value="Bishop">
+							</div>
+							<button class="btn btn-primary" type="button">검 색</button>
+						</div>					
+					</div>
 
 					<div id="toastr-demo" class="panel" style="height:500px;">
-						<br>
-						<div class="well" style="width: 90%;">
-							<div class="form-group row">
-								<label class="col-md-1 col-form-label form-control-label text-muted" style="text-align: right;vertical-align: middle;">■ 제 목</label>
-								<div class="col-md-5">
-									<input class="form-control" type="text" value="Bishop">
-								</div>
-								<button class="btn btn-primary" type="button">검 색</button>
-							</div>		
-						</div>
-						
 						<div class="panel-body">
 							<div class="form-group row" style="text-align: right; padding-right: 15px;">
 								<button class="btn btn-primary btn-xs" type="button" onclick="showPopup('board','noticeRegPop');">등 록</button>
