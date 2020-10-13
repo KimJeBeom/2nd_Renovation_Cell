@@ -2636,11 +2636,7 @@ th {
 	border-bottom-width: 2px
 }
 
-<<<<<<< HEAD
-/* table-striped ¸ðµç row ¹è°æ»ö ÅëÀÏ
-=======
 /* table-striped ëª¨ë“  row ë°°ê²½ìƒ‰ í†µì¼
->>>>>>> refs/heads/master
 .table-striped>tbody>tr:nth-of-type(odd) {
 	background-color: #f9f9f9
 }*/
@@ -2650,11 +2646,7 @@ th {
 	background-color: #f5f5f5
 }
 
-<<<<<<< HEAD
-/* table-striped µµ ¸¶¿ì½º ¿Ã¸®¸é »ö º¯ÇÏ°Ô */
-=======
 /* table-striped ë„ ë§ˆìš°ìŠ¤ ì˜¬ë¦¬ë©´ ìƒ‰ ë³€í•˜ê²Œ */
->>>>>>> refs/heads/master
 .table-striped>tbody>tr:hover {
 	background-color: #f5f5f5
 }
@@ -2876,10 +2868,6 @@ output {
 	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> refs/heads/master
 .form-control:focus {
 	border-color: #66afe9;
 	outline: 0;
