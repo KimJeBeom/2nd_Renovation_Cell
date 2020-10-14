@@ -19,8 +19,8 @@
 					<div class="panel panel-headline">
 						<div class="panel-heading">
 							<div class="row">
-								<div class="col-md-9">
-									<img class="headline-chart" src="/itep/assets/itep/img/computer.jpg" />
+								<div class="col-md-12" style="text-align:center;">
+									<img src="/itep/assets/itep/img/itepintro.png" style="height:100%; max-width:100%; display:block;"/>
 								</div>
 							</div>
 						</div>
@@ -77,6 +77,11 @@
 		<div class="clearfix"></div>
 	</div>
 	<!-- END WRAPPER -->
+
+	<!-- 메뉴폴딩 화살표 -->
+	<div class="navbar-btn" style="position:fixed; right:35px; top:5px;">
+		<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
+	</div>
 
 <!-- FOOTER -->
 <jsp:include page="./cmm/common-footer.jsp" />
