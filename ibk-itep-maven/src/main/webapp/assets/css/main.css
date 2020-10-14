@@ -375,16 +375,16 @@ ul.notifications > li {
       display:block;
       margin: auto; }   
 
-    /* »ç¿ëÀÚ Á¤º¸, ¾ÆÀÌÄÜ */  
+    /* ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */  
     .usr {
       padding: 20px 15px 25px 30px;
     }
     .usr-icon {
-      resize: both; /* ÀÌ¹ÌÁö ÃÖ´ë »çÀÌÁî¿¡ Àû¿ë */
-      float: left;  /* Á¤·Ä */
-      max-width: 38px; /* ³ÐÀÌ¸¦ ÁöÁ¤ */
-      height: auto; /* ³ôÀÌ¸¦ ÁöÁ¤ */
-      margin: 5px 10px 5px 50px; /* ¿©¹éÀ» Àû¿ë 4°¡Áö Á¶°ÇÀÌ °¡´É À§ÂÊ, ¿À¸¥ÂÊ, ¾Æ·¡ÂÊ, ¿ÞÂÊ ¼ø¼­ */ 
+      resize: both; /* ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½î¿¡ ï¿½ï¿½ï¿½ï¿½ */
+      float: left;  /* ï¿½ï¿½ï¿½ï¿½ */
+      max-width: 38px; /* ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ */
+      height: auto; /* ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ */
+      margin: 5px 10px 5px 50px; /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 4ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Æ·ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */ 
       vertical-align: middle;}  
     .usr-text {
       vertical-align: middle;
@@ -392,11 +392,11 @@ ul.notifications > li {
       font-size: 15px;
     }
     .usr-text > li {
-      display: block;      /* °¡·Î °ª ÁÙ¼ö ÀÖ°Ô blockÀ¸·Î ¹Ù²Û´Ù! */
-      width: 120px;        /* °¡·Î°ªÀ» Á¼°Ô ÁÖ°í */
-      white-space: nowrap; /* µÎÁÙ ÀÌ»óÀÇ ÅØ½ºÆ®¸¦ ÇÑÁÙ·Î Âß ´ÃÀÌ°í */
-      overflow: hidden;    /* ¹üÀ§¸¦ ³Ñ¾î°£ ±ÛÀÚµé Àß¶óÁÖ°í */
-      text-overflow: ellipsis; /* »ý·«±âÈ£ Ãß°¡ */
+      display: block;      /* ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ù¼ï¿½ ï¿½Ö°ï¿½ blockï¿½ï¿½ï¿½ï¿½ ï¿½Ù²Û´ï¿½! */
+      width: 120px;        /* ï¿½ï¿½ï¿½Î°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½ */
+      white-space: nowrap; /* ï¿½ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Ù·ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½ */
+      overflow: hidden;    /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°£ ï¿½ï¿½ï¿½Úµï¿½ ï¿½ß¶ï¿½ï¿½Ö°ï¿½ */
+      text-overflow: ellipsis; /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ ï¿½ß°ï¿½ */
     }
 
   .sidebar .nav > li > a {
@@ -1809,21 +1809,21 @@ ul.activity-timeline > li {
 
 
 /********************************
- * ÀÌ¹ÌÁö, ¾ÆÀÌÄÜ
+ * ï¿½Ì¹ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  ********************************/
-/* ¸Þ´º ¾ÆÀÌÄÜµé */
+/* ï¿½Þ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Üµï¿½ */
  .main-icon {
    margin-right: 10px;
    vertical-align: top;
    max-height: 20px;
    width: auto;
  }
-/* ¸Þ´º °Ë»ö ¾ÆÀÌÄÜ */
+/* ï¿½Þ´ï¿½ ï¿½Ë»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 .nav-search-icon {
   float: left;
   padding: 5px 0px 3px 12px;
 }
-/* °áÀçÀÚ °Ë»ö ¾ÆÀÌÄÜ */
+/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 .img-search {
   float: left;
   vertical-align: middle !important;
@@ -1834,14 +1834,14 @@ ul.activity-timeline > li {
 
 
 /********************************
- * ÆË¾÷ & Å×ÀÌºí
-   tbl-type0 : °áÀçÃ¢ Å×ÀÌºíµéÀÇ »ï°¢Çü¸ð¾ç ¹èÄ¡¸¦ À§ÇÑ Æ² 
-   tbl-type1 : ±³À° ¾È³» Å×ÀÌºí
-   tbl-type2 : Â÷¼öº° ±³À°±â°£ ¹× ½ÅÃ» Å×ÀÌºí - type1°ú ºñ½ÁÇÑÅ× ÄÃ·³ Å©±â Á¤µµ¸¸ ´Ù¸§
-   tbl-type3 : °áÀçÁ¦¸ñ, °áÀç³»¿ë ÀÔ·ÂÆû
-   tbl-type4 : °áÀçÁ¤º¸ (°áÀç ´ë»óÀÚ ºÒ·¯¿À´Â) Å×ÀÌºí
+ * ï¿½Ë¾ï¿½ & ï¿½ï¿½ï¿½Ìºï¿½
+   tbl-type0 : ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ï¿½ ï¿½ï°¢ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Æ² 
+   tbl-type1 : ï¿½ï¿½ï¿½ï¿½ ï¿½È³ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
+   tbl-type2 : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½â°£ ï¿½ï¿½ ï¿½ï¿½Ã» ï¿½ï¿½ï¿½Ìºï¿½ - type1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½
+   tbl-type3 : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ç³»ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½
+   tbl-type4 : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½Ìºï¿½
  ********************************/
- /* ÆË¾÷Ã¢ ÆÄ³Ú padding Á¶Àý */
+ /* ï¿½Ë¾ï¿½Ã¢ ï¿½Ä³ï¿½ padding ï¿½ï¿½ï¿½ï¿½ */
  .panel-popup {
    padding: 10px 15px 0px 15px !important;
  }
@@ -1849,7 +1849,7 @@ ul.activity-timeline > li {
    padding: 5px !important;
  }
 
-/* Å×ÀÌºíº°·Î ÄÃ·³ Å©±â, À§Ä¡ µî Á¶Àý */
+/* ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ Å©ï¿½ï¿½, ï¿½ï¿½Ä¡ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
 .tbl-type0 > tbody > tr > td:last-child {
   padding-left: 15px !important;
   vertical-align: top;
@@ -1882,7 +1882,7 @@ ul.activity-timeline > li {
 .tbl-type4 > tbody > tr > td {
   text-align: left;
 }
-/* Å×ÀÌºí ³» padding ÅëÀÏ (µðÆúÆ®°ª : Ã¹¹øÂ°, ¸¶Áö¸· ÄÃ·³¸¸ padding-left: 25px) */
+/* ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ padding ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ : Ã¹ï¿½ï¿½Â°, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ padding-left: 25px) */
 .tbl-type1 > tbody > tr > th:first-child,
 .tbl-type1 > tbody > tr > td:last-child,
 .tbl-type2 > thead > tr > th:first-child,
@@ -1896,11 +1896,11 @@ ul.activity-timeline > li {
   padding-left: 8px !important;
 }
 
-/* °áÀç³»¿ë ÀÔ·ÂÃ¢ À§Ä¡ Á¶Á¤ */
+/* ï¿½ï¿½ï¿½ç³»ï¿½ï¿½ ï¿½Ô·ï¿½Ã¢ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ */
 .txt-long {
   text-align: left !important;
 }
-/* °áÀç´ë»óÀÚ ÀÔ·ÂÄ­ Å©±â Á¶Àý */
+/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½Ä­ Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
 .approver-form {
   width: 86% !important; 
   float: left;
@@ -1908,14 +1908,14 @@ ul.activity-timeline > li {
 
 
 /*
-(ÀÌÀº¼·/2020922)
-ÀÔ·ÂÆû ±âº»¾ç½Ä È°¿ëÀ» À§ÇÑ .tbl-type5 ½Å±Ô µî·Ï
+(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/2020922)
+ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½âº»ï¿½ï¿½ï¿½ È°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ .tbl-type5 ï¿½Å±ï¿½ ï¿½ï¿½ï¿½
 =========================================================
-(Æ¯Â¡) : ÀÔ·ÂÁ¦¸ñ(1,3¶óÀÎ)ÀÇ °æ¿ì width¸¦ ¼ö±â·Î ÀÛ¼ºÇØ¾ßÇÑ´Ù
-        ex) : <td class="info" width="150px"><b>±³À°ºÐ·ù</b></td>
+(Æ¯Â¡) : ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½(1,3ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½ï¿½ï¿½ widthï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½
+        ex) : <td class="info" width="150px"><b>ï¿½ï¿½ï¿½ï¿½ï¿½Ð·ï¿½</b></td>
 */
 
-/*.tbl-type5ÀÇ Á¤·Ä ¹× padding ¼³Á¤ : ¹Ùµð*/
+/*.tbl-type5ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ padding ï¿½ï¿½ï¿½ï¿½ : ï¿½Ùµï¿½*/
 .panel .tbl-type5 > tbody > tr > td {
   text-align: center;
   vertical-align: middle;
@@ -1924,30 +1924,30 @@ ul.activity-timeline > li {
   padding-top: 8px; 
   padding-bottom: 8px; 
 }
-/*.tbl-typeÀÇ border(¼±) ¼³Á¤*/
+/*.tbl-typeï¿½ï¿½ border(ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½*/
 .panel .tbl-type5 {
   width: 100%;
-  border: 1px solid #d8e1ee !important; 
+  border: 1px solid #ddd !important; 
   border-collapse: collapse !important;
 }
-/*.tbl-type5ÀÇ ³ôÀÌ ¼³Á¤*/
+/*.tbl-type5ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½*/
 .panel .tbl-type5 > tbody > tr {
   height: 60px !important;
 }
-/*.tbl-type5ÀÇ ¹Ú½º border¼³Á¤*/
+/*.tbl-type5ï¿½ï¿½ ï¿½Ú½ï¿½ borderï¿½ï¿½ï¿½ï¿½*/
 .panel .tbl-type5 > tbody > tr > td,
 .panel .tbl-type5 > tbody > tr > th{
-  border: 1px solid #d8e1ee !important;
+  border: 1px solid #ddd !important;
 }
-/*.tbl-type5ÀÇ ÀÔ·Â¸í(class=info»ç¿ë½Ã) backgroundÃ³¸®*/
+/*.tbl-type5ï¿½ï¿½ ï¿½Ô·Â¸ï¿½(class=infoï¿½ï¿½ï¿½ï¿½) backgroundÃ³ï¿½ï¿½*/
 .panel .tbl-type5 > thead > tr > td.info,
 .panel .tbl-type5 > tbody > tr > td.info,
 .panel .tbl-type5 > tfoot > tr > td.info,
 .panel .tbl-type5 > thead > tr.info > td,
 .panel .tbl-type5 > tbody > tr.info > td,
 .panel .tbl-type5 > tfoot > tr.info > td{
-  background-color: #686f79;
-  color: #ffffff;
+  background-color: #daebf8;
+  color: #676a6d;
 }
 /*
 =========================================================
@@ -1955,24 +1955,24 @@ ul.activity-timeline > li {
 
 
 /*
-(±èÁö¿µ/2020922)
-- Å×ÀÌºí »ó´Ü ¹öÆ°À» À§ÇÑ btn-top ¾ç½Ä Ãß°¡
-- tbl-type0, tbl-type2 »çÀÌÁî Á¶Àý
+(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/2020922)
+- ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ btn-top ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
+- tbl-type0, tbl-type2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 =========================================================
 */
 
-/* »ó´Ü ¹öÆ° */
+/* ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° */
 .btn-top {
   float: right; 
   margin-bottom: 5px !important; 
   margin-left: 5px !important;
 }
 
-/* tbl-type0 Å©±âº¯°æ */
+/* tbl-type0 Å©ï¿½âº¯ï¿½ï¿½ */
 .tbl-type0 > tbody > tr > td:first-child {  
   width: 500px ;
 }
-/* tbl-type2 Å©±âº¯°æ */
+/* tbl-type2 Å©ï¿½âº¯ï¿½ï¿½ */
 .tbl-type2 {
   width: 100%;
 }

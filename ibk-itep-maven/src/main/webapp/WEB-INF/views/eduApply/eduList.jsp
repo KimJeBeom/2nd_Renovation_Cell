@@ -66,6 +66,7 @@
 										<a class="nav-link" href="#tab6" data-toggle="tab">Disabled</a>
 									</li>
 									 -->
+								</ul>
 							</div>
 							<div class="tab-content px-1 pt-2">
 								<div class="tab-pane active" id="tab1">		
@@ -100,7 +101,7 @@
 														<td style="text-align:center">멀티캠퍼스</td>
 														<td style="text-align:center">2020.09.16 ~ 2020.09.30</td>
 														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs">안내 및 신청</button></td>
-													</tr>
+													<tr>
 														<td style="text-align:center">4</td>
 														<td style="text-align:left"><span class="badge badge-primary">고</span> 핵심! Go프로그래밍</td>
 														<td style="text-align:center">패스트캠퍼스</td>
@@ -121,7 +122,7 @@
 										</nav>
 									</div>
 								</div>
-								<div class="tab-pane" id="tab2" value="1234">2. Put a little content in your pane.</div>
+								<div class="tab-pane" id="tab2">2. Put a little content in your pane.</div>
 								<div class="tab-pane" id="tab3">3. Put some more content in your pane here.</div>
 								<div class="tab-pane" id="tab4">4. Put some more content in your pane here.</div>
 								<div class="tab-pane" id="tab4">5. Put some more content in your pane here.</div>
@@ -138,7 +139,7 @@
 		<footer>
 			<div class="container-fluid">
 				<p class="copyright">Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a>
-</p>
+				</p>
 			</div>
 		</footer>
 	</div>
