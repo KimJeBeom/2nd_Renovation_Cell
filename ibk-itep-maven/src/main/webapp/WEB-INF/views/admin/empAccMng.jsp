@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!-- HEADER -->
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
 
@@ -8,135 +9,163 @@
 
 		<!-- 사이드메뉴 -->
 		<jsp:include page="/WEB-INF/views/cmm/common-sidebar.jsp" />
-		
+
 		<!-- MAIN -->
 		<div class="main">
 			<!-- MAIN CONTENT -->
 			<div class="main-content">
 				<div class="container-fluid">
+					<!-- Start 사용자 계정관리-대제목 -->
+					<h1 class="page-title" style="padding-top:20px">
+						<b>사용자 계정관리</b>
+					</h1>
+					<!-- End 사용자 계정관리-대제목 -->
+					<!-- Start 사용자 계정관리-본문 -->
 					<div class="panel">
-						<div class="panel-heading" > 
-							<h1 class="page-title" style="margin-bottom: 0px"><b>사용자 계정관리</b></h1>
-						</div>
-						<div class="panel-body">
-							<!-- 교육 modify 버튼 부분-->
-							<div class="form-group row" style="text-align: right;">
-<!-- 							<div class="form-group row" style="text-align: right; padding-right: 25px;"> -->
+						<!--Start-사용자 계정관리 button bar 부분-->
+						<div class="panel-body" style="padding-top:20px">
+							<div class="form-group col-md-12" style="text-align: right; padding:0px">
 								<button class="btn btn-primary" type="button">등록</button>
 								<button class="btn btn-primary" type="button">수정</button>
 								<button class="btn btn-primary" type="button">삭제</button>
 								<button class="btn btn-primary" type="button">엑셀다운로드</button>
 							</div>
-							<!-- END 교육 modify 버튼 부분-->
-						</div>
-						<div class="panel-body">
-							<div class="form-group row">
-								<b>부서</b>
-								<input type="text" class="form-control" placeholder="text field" name="dept">
-								<b>직원명/직원번호</b>
-								<input type="text" class="form-control" placeholder="text field" name="emp">
-								<button class="btn btn-primary" type="button">조회</button>
-							</div>
-						</div>
-						<div class="panel-body">
-							<div class="form-group row">
-								<b>부서</b>
-								<input type="text" class="form-control" placeholder="text field" name="dept">
-								<b>직원명/직원번호</b>
-								<input type="text" class="form-control" placeholder="text field" name="emp">
-								<button class="btn btn-primary" type="button">조회</button>
-							</div>
-						</div>
-					<div class="well">
-						<table>
-							<tbody>
-								<tr>
-									<td>
-										교육분류
-									</td>
-									<td>
-										<select class="form-control" style="text-align: left;">
-											<option value="outedu">외부교육</option>
-											<option value="inedu">내부교육</option>
-											<option value="seminar">세미나</option>
-										</select>
-									</td>
-									<td>
-										과목명
-									</td>
-									<td>
-										<input class="form-control" type="text" style="text-align: left;" value="과정명 입력하세요">
-									</td>
-									<td>
-										<button type="button" class="btn btn-primary">조회</button>
-									</td>
-								</tr>
-							</tbody>
-						</table>								
-					</div>			
 
-					<div class="panel">
-						
-						<div class="table-responsive">
-							<!-- 교육 조회 결과 리스트-->
-							<table class="table table-hover">
-								<tbody style="vertical-align: center;">
+							<!--End-사용자 계정관리 button bar 부분-->
+							<!--Start-직원관련 inputline1 부분-->
+							<div class="well col-md-12" style="display: table; padding: 10px; margin-top: 10px">
+								<div style="display: table-cell; vertical-align: middle">
+									<table>
+										<tbody>
+											<tr>
+												<td style="width: 100px"><b>부서</b></td>
+												<td style="width: 200px"><select class="form-control"
+													style="text-align: left;">
+														<option>IT시스템운영팀</option>
+														<option>IT금융개발부</option>
+														<option>IT디지털개발부</option>
+												</select></td>
+												<td style="width: 200px"><b>직원명/직원번호</b></td>
+												<td style="width: 200px"><input class="form-control"
+													type="text" style="text-align: left;"></td>
+												<td style="width: 100px"><b>권한</b></td>
+												<td style="width: 150px"><select class="form-control"
+													style="text-align: left;">
+														<option>관리자</option>
+														<option>사용자</option>
+												</select></td>
+
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div
+									style="display: table-cell; text-align: center; padding-right: 5px; width: 100px">
+									<button type="button" class="btn btn-primary"
+										style="float: right;">조회</button>
+								</div>
+							</div>
+							<!--End-직원관련 inputline1 부분-->
+
+							<!--Start-직원관련 inputline2 부분-->
+
+							<table class="table table-bordered tbl-type1">
+								<!-- 팝업용 form을 사용하면 될듯 -->
+								<tbody>
 									<tr>
-										<th style="width: 5px";><input type="checkbox"></th>
-										<th style="width: 65px;">No</th>
-										<th style="width: 15px;">교육분류</th>
-										<th style="width: 15px;">과목코드</th>
-										<th style="width: 15px;">과목명</th>
-										<th style="width: 15px;">기관</th>
-										<th style="width: 15px;">차수관리</th>
+										<th>직원번호</th>
+										<td><input type="text" class="form-control"
+											placeholder="text field"></td>
+										<th>직원명</th>
+										<td><input type="text" class="form-control"
+											placeholder="text field"></td>
+										<th>직책</th>
+										<td><input type="text" class="form-control"
+											placeholder="text field"></td>
 									</tr>
 									<tr>
-										<td><input type="checkbox"></td>
-										<td>1</td>
-										<td>외부교육</td>
-										<td>OTEDU001</td>
-										<td style="text-align:left">업무에 바로쓰는 SQL활용실습</td>										
-										<td>멀티캠퍼스</td>
-										<td><button type="button" class="btn btn-primary">차수추가</button></td>
+										<th>부서명</th>
+										<td><select class="form-control"
+											style="text-align: left;">
+												<option value="outedu">IT시스템운영팀</option>
+												<option value="inedu">IT금융개발부</option>
+												<option value="seminar">IT디지털개발부</option>
+										</select></td>
+
+
+
+										<th>행내전화</th>
+										<td><input type="text" class="form-control"
+											placeholder="text field"></td>
+										<th>권한</th>
+										<td><select class="form-control"
+											style="text-align: left;">
+												<option value="admin">관리자</option>
+												<option value="user">사용자</option>
+										</select></td>
 									</tr>
-									<tr>
-										<td><input type="checkbox"></td>
-										<td>2</td>
-										<td>내부교육</td>
-										<td>OTEDU002</td>
-										<td style="text-align:left">업무에 바로쓰는 컴파일러 명령어</td>										
-										<td>멀티캠퍼스</td>
-										<td><button type="button" class="btn btn-primary">차수추가</button></td>
-									</tr>
-									<tr>
-										<td><input type="checkbox"></td>
-										<td>3</td>
-										<td>세미나</td>
-										<td>OTEDU007</td>
-										<td style="text-align:left">고가용성에 대한 다양한 사례 공유</td>										
-										<td>레드햇</td>
-										<td><button type="button" class="btn btn-primary">차수추가</button></td>
-									</tr>									
 								</tbody>
 							</table>
-							<!-- END 교육 조회 결과 리스트-->
-						</div>						
+
+							<!--End-직원관련 inputline2 부분-->
+							<!-- Start-직원 조회 리스트 부분-->
+
+							<div class="table-responsive">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th style="width: 5px;"><input type="checkbox"></th>
+											<th style="width: 65px;">No</th>
+											<th style="width: 15px;">직원번호</th>
+											<th style="width: 15px;">직원명</th>
+											<th style="width: 15px;">직책</th>
+											<th style="width: 15px;">행내전화</th>
+											<th style="width: 15px;">부서명</th>
+											<th style="width: 15px;">권한</th>
+										</tr>
+									</thead>
+									<tbody style="vertical-align: center;">
+										<tr>
+											<td><input type="checkbox"></td>
+											<td>1</td>
+											<td>26673</td>
+											<td>한원석</td>
+											<td>대리</td>
+											<td>8-2680</td>
+											<td>IT시스템운영팀</td>
+											<td>사용자</td>
+										</tr>
+										<tr>
+											<td><input type="checkbox"></td>
+											<td>2</td>
+											<td>42780</td>
+											<td>현민지</td>
+											<td>대리</td>
+											<td>8-2961</td>
+											<td>IT시스템운영팀</td>
+											<td>관리자</td>
+										</tr>
+										<tr>
+											<td><input type="checkbox"></td>
+											<td>3</td>
+											<td>26333</td>
+											<td>이은섭</td>
+											<td>대리</td>
+											<td>8-2111</td>
+											<td>IT시스템운영팀</td>
+											<td>권한</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!-- End-직원 조회 리스트 부분-->
 					</div>
+					<!-- Start 사용자 계정관리-본문 -->
 				</div>
 			</div>
 		</div>
-		<!-- END MAIN CONTENT -->
-		</div>
-		<!-- END MAIN -->
-		<div class="clearfix"></div>
-		<footer>
-			<div class="container-fluid">
-				<p class="copyright">Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a>
-				</p>
-			</div>
-		</footer>
 	</div>
-	<!-- END WRAPPER -->
 
-<!-- FOOTER -->
-<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
+	<!-- FOOTER -->
+	<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
