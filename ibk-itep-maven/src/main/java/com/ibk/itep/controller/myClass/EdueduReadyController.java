@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.ibk.itep.HomeController;
 
 @Controller
-public class EdueduReadyStatController{
+public class EdueduReadyController{
 	
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
-	@RequestMapping(value = "/views/myClass/eduReadyStat", method = RequestMethod.GET)
+	@RequestMapping(value = "/views/myClass/eduReady", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 
 		logger.info("Welcome home! The client locale is {}.", locale);
@@ -31,7 +31,7 @@ public class EdueduReadyStatController{
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "/myClass/eduReadyStat";
+		return "/myClass/eduReady";
 	}
 
 }
