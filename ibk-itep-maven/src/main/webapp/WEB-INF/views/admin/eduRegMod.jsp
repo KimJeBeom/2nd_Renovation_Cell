@@ -12,9 +12,17 @@
 			<div class="main-content">
 				<div class="container-fluid">
 					<!-- Start 교육 등록 및 수정-대제목 -->
-					<h1 class="page-title" style="padding-top:20px">
-						<b>교육 등록 및 수정</b>
-					</h1>
+					<div class="row" style="display: table; padding: 20px">
+						<div style="display: table-cell; vertical-align: middle">
+							<img src="/itep/assets/itep/img/icon/admin-icon-big.png"
+								height="36px">
+						</div>
+						<div style="display: table-cell; vertical-align: middle">
+							<h1 class="page-title">
+								&nbsp;&nbsp;<b>교육 등록 및 수정</b>
+							</h1>
+						</div>
+					</div>
 					<!-- End 교육 등록 및 수정-대제목 -->
 					<div class="panel">
 						<div class="panel-body"  style="padding-top:20px">

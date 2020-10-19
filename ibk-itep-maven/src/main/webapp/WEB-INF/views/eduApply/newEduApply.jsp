@@ -15,7 +15,17 @@
 			<div class="main-content">
 				<div class="container-fluid">
 					<br>
-					<h1 class="page-title"><b>과정 개설 신청</b></h1>
+					<div class="row" style="display: table; padding: 20px">
+						<div style="display: table-cell; vertical-align: middle">
+							<img src="/itep/assets/itep/img/icon/eduapply-icon-big.png"
+								height="36px">
+						</div>
+						<div style="display: table-cell; vertical-align: middle">
+							<h1 class="page-title">
+								&nbsp;&nbsp;<b>과정 개설 신청</b>
+							</h1>
+						</div>
+					</div>
 					<div id="toastr-demo" class="panel">
 						<div class="panel-body">
 							<br>

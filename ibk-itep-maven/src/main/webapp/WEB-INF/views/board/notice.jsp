@@ -14,7 +14,17 @@
 			<!-- MAIN CONTENT -->
 			<div class="main-content">
 				<div class="container-fluid">
-					<h1 class="page-title" style="padding-top: 20px;"><b>공지사항</b></h1>
+					<div class="row" style="display: table; padding: 20px">
+						<div style="display: table-cell; vertical-align: middle">
+							<img src="/itep/assets/itep/img/icon/board-icon-big.png"
+								height="36px">
+						</div>
+						<div style="display: table-cell; vertical-align: middle">
+							<h1 class="page-title">
+								&nbsp;&nbsp;<b>공지사항</b>
+							</h1>
+						</div>
+					</div>
 						<div class="panel">
 							<div class="panel-body">
 								<br>

@@ -15,7 +15,17 @@
 			<div class="main-content">
 				<div class="container-fluid">
 					<br>
-					<h1 class="page-title"><b>교육목록</b></h1>
+					<div class="row" style="display: table; padding: 20px">
+						<div style="display: table-cell; vertical-align: middle">
+							<img src="/itep/assets/itep/img/icon/eduapply-icon-big.png"
+								height="36px">
+						</div>
+						<div style="display: table-cell; vertical-align: middle">
+							<h1 class="page-title">
+								&nbsp;&nbsp;<b>교육 목록</b>
+							</h1>
+						</div>
+					</div>
 					<div id="toastr-demo" class="panel" style="height:700px;">
 						<div class="panel-body">
 							<div class="well">

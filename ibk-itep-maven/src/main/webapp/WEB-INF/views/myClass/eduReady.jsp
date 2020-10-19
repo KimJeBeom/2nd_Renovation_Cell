@@ -11,9 +11,17 @@
 			<div class="main-content">
 				<div class="container-fluid">
 					<!-- 대제목 Start -->
-					<h1 class="page-title" style="padding-top:20px">
-						<b>수강신청한 교육</b>
-					</h1>
+					<div class="row" style="display: table; padding: 20px">
+						<div style="display: table-cell; vertical-align: middle">
+							<img src="/itep/assets/itep/img/icon/myclass-icon-big.png"
+								height="36px">
+						</div>
+						<div style="display: table-cell; vertical-align: middle">
+							<h1 class="page-title">
+								&nbsp;&nbsp;<b>수강 신청한 교육</b>
+							</h1>
+						</div>
+					</div>
 					<!-- 대제목 End -->
 					<!-- 본문 Start -->
 					<div class="row">

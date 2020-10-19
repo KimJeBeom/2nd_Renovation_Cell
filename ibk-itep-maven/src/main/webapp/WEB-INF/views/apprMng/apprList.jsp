@@ -18,7 +18,10 @@
 			<!-- MAIN CONTENT -->
 			<div class="main-content">
 				<div class="container-fluid">
-					<h1 class="page-title" style="padding-top: 20px;"><img src="/itep/assets/itep/img/icon/apprMng-icon-big.png" style="height:30px; vertical-align:middle;"/><b> 결재 할 문서</b></h1>
+					<div class="row" style="display: table; padding: 20px">
+						<div style="display: table-cell; vertical-align: middle"><img src="/itep/assets/itep/img/icon/apprmng-icon-big.png" height="36px" ></div>
+						<div style="display: table-cell; vertical-align: middle"><h1 class="page-title" style="vertical-align: middle;">&nbsp;&nbsp;<b>결재 할 문서</b></h1></div>						 	
+					</div>
 					<div class="row">
 					
 						<div id="toastr-demo" class="panel">
