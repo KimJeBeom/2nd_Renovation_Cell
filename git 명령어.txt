@@ -1,0 +1,40 @@
+//강제 overwrite
+git fetch --all 
+git reset --hard origin/master 
+git pull origin master
+
+//branch 삭제
+git branch --delete devKJB
+git push origin :devKJB
+
+
+//branch 생성
+git checkout -b devKJB
+git push origin devKJB
+
+//git status
+//git add .
+
+//git new file 추적되지 않을떄
+# 파일 추가
+git add --force test/test.cpp  
+# 폴더 및 하위 폴더/파일 추가
+git add --force test/  
+
+//git commit history 초기화
+rm -rf .git
+git init
+git add .
+git commit -m "initial commit"
+git remote add origin https://github.com/KimJeBeom/2nd_Renovation_Cell.git
+git push -u --force origin master
+
+//변경되도 추적되지 않게 변경
+git update-index --assume-unchanged "C:\Users\IBK\git\2nd_Renovation_Cell\ibk-itep-maven\src\test\resources\log4j.xml"
+git update-index --no-assume-unchanged "C:\Users\IBK\git\2nd_Renovation_Cell\ibk-itep-maven\src\test\resources\log4j.xml"
+
+//현재head위치
+git show head
+
+//commit 이력
+git reflog
