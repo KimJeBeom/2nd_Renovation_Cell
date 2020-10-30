@@ -16,6 +16,11 @@ public class TestDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	public String getSysdate() {
+		String sysdate = sqlSession.selectOne("query.getsysdate");
+		return sysdate;
+	}
+	
 	public List<TestVO> getList() {
 		List<TestVO> list = sqlSession.selectList("query.getList");
 		return list;
