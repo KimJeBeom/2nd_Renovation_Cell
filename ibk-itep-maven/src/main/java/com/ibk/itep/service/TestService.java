@@ -14,6 +14,10 @@ public class TestService {
 	@Autowired
 	private TestDAO testDAO;
 	
+	public String getSysdate(){
+		return testDAO.getSysdate();
+	}
+	
 	public List<TestVO> getList(){
 		return testDAO.getList();
 	}
