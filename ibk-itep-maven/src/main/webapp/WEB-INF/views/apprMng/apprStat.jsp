@@ -32,14 +32,14 @@
 										<tbody>
 											<tr>
 												<td style="width: 130px; padding-left: 5px;"><b>결재요청일</b></td>
-												<td style="width: 600px; padding-right: 40px">
+												<td style="width: 600px; padding-right: 20px">
 													<div class="ui form">
 														<div class="two fields" style="margin-bottom: 0px">
 														  <div class="field">
 															<div class="ui calendar" id="rangestart">
 															  <div class="ui input left icon">
-																<i class="calendar icon"></i>
-																<input type="text" placeholder="Start">
+																<i class="calendar icon" style="font-size:14px;"></i>
+																<input type="text" placeholder="Start" style="height:35px; font-size:14px;">
 															  </div>
 															</div>
 														</div>
@@ -47,8 +47,8 @@
 														<div class="field">
 															<div class="ui calendar" id="rangeend">
 															  <div class="ui input left icon">
-																<i class="calendar icon"></i>
-																<input type="text" placeholder="End">
+																<i class="calendar icon" style="font-size:14px;"></i>
+																<input type="text" placeholder="End" style="height:35px; font-size:14px;">
 															  </div>
 															</div>
 														  </div>
@@ -64,7 +64,7 @@
 														<option value="reject">반려</option>
 													</select>
 												</td>
-												<td style="width: 30%;"><button type="button" class="btn btn-primary btn-toastr" style="float: right; margin-right: 20px;">조회</button></td>
+												<td style="width: 30%;"><button type="button" class="btn btn-primary btn-toastr" margin-right: 20px;">조회</button></td>
 											</tr>
 										</tbody>
 									</table>
@@ -89,7 +89,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
+										<tr data-toggle="tab" data-target="#table1">
 											<td>1</td>
 											<td>IT금융개발부</td>
 											<td>조기은</td>
@@ -129,46 +129,53 @@
 								</table>
 								</div>
 							</div>
-						
+
 							<!-- 결재 이력 테이블 -->
 							<div class="panel-body">
-								<h4 class="panel-title" style="margin-bottom: 10px"><b>▶ 결재 이력</b></h4>
-								<div class="table-responsive">
-									<table class="table table-hover tbl-type2">
-										<thead>
-											<tr>
-												<th>NO</th>
-												<th>부서명</th>
-												<th>직원명</th>
-												<th>결재의견</th>
-												<th>결재일</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>1</td>
-												<td>IT금융개발부</td>
-												<td>조기은</td>
-												<td>외부교육 결재 요청 드립니다.</td>
-												<td>2020.01.02</td>
-											</tr>
-											<tr>
-												<td>2</td>
-												<td>IT금융개발부</td>
-												<td>김팀장</td>
-												<td>내용 확인함</td>
-												<td>2020.01.02</td>
-											</tr>
-											<tr>
-												<td>3</td>
-												<td>IT금융개발부</td>
-												<td>김부장</td>
-												<td>승인</td>
-												<td>2020.01.04</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
+								<h4 class="panel-title"><b>▶ 결재 이력</b></h4>
+								
+								<!-- 위의 결재항목별 교육상세설명 테이블 (TOGGLE 적용) -->
+								<div class="tab-content">
+									<!-- 테이블 1 -->
+									<div class="tab-pane fade in active" id="table1" style="padding-top:10px;">
+										<div class="table-responsive">
+											<table class="table table-hover tbl-type2">
+												<thead>
+													<tr>
+														<th>NO</th>
+														<th>부서명</th>
+														<th>직원명</th>
+														<th>결재의견</th>
+														<th>결재일</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>1</td>
+														<td>IT금융개발부</td>
+														<td>조기은</td>
+														<td>외부교육 결재 요청 드립니다.</td>
+														<td>2020.01.02</td>
+													</tr>
+													<tr>
+														<td>2</td>
+														<td>IT금융개발부</td>
+														<td>김팀장</td>
+														<td>내용 확인함</td>
+														<td>2020.01.02</td>
+													</tr>
+													<tr>
+														<td>3</td>
+														<td>IT금융개발부</td>
+														<td>김부장</td>
+														<td>승인</td>
+														<td>2020.01.04</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>	
 							</div>
 						</div>
 					</div>

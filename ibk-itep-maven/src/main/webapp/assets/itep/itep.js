@@ -1,9 +1,20 @@
 $(document).ready(function() {
 
-	/* 체크박스 전체선택 */
-	$('input[name=checkAll]').on('change', function () {
-		$('input[name=checkbox]').prop('checked', this.checked);
-	});	
+	/* 체크박스 전체체크 */
+	var checkAll = $('input[name=checkAll]');
+	var checkbox = $('input[name=checkbox]');
+
+	checkAll.on('change', function () {
+		checkbox.prop('checked', this.checked);
+	});
+	
+	checkbox.change(function(){
+		var cbLength = checkbox.length;
+		var checkedLength = $('input[name="checkbox"]:checked').length;
+		var isAllChecked = (cbLength == checkedLength);		
+		checkAll.prop('checked', isAllChecked);
+	});
+	
 	
 	/* 달력 */
 	$('#custom_format_calendar').calendar({
@@ -91,6 +102,19 @@ function showPopup(menu, name) {
 	window.open('/itep/views/'+menu+'/pop/'+name, '_blank', size); 
 }	
 
+/* 해당 페이지가 팝업인지 아닌지 체크 */
+function isPopup(){
+	var pageName = "";
+    var tempPageName = window.location.href;
+	var strPageName = tempPageName.split("/");
+	pageName = strPageName[strPageName.length-1].split("?")[0];
+			    
+	// 현재 페이지명이 Pop으로 끝나면 팝업
+	if(pageName.substring(pageName.length-3, pageName.length) == "Pop")
+		return true;
+	else
+		return false;
+}
 
 
 

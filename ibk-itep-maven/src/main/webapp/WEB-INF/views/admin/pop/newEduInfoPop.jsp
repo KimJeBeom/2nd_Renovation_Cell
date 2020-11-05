@@ -33,10 +33,10 @@
 											<td>장기은</td>
 										</tr>
 										<tr>
-											<th>교육분류</th>
-											<td>세미나</td>
 											<th>교육구분</th>
 											<td>행외</td>
+											<th>교육기관</th>
+											<td colspan="3">Amazon</td>
 										</tr>
 										<tr>
 											<th>과목명</th>
@@ -45,10 +45,6 @@
 										<tr>
 											<th>교육내용</th>
 											<td class="txt-long" colspan="3">AWS를 이용한 클라우드 구축 사례</td>
-										</tr>
-										<tr>
-											<th>교육기관</th>
-											<td colspan="3">Amazon</td>
 										</tr>
 										<tr>
 											<th>학습기간</th>

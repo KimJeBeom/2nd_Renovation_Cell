@@ -38,17 +38,25 @@
 								<table class="table table-hover tbl-type2">
 									<thead>
 										<tr>
-											<th><input type="checkbox" name="checkAll"></th>
-											<th style="width: 10%;">NO</th>
+											<th>
+												<label class="fancy-checkbox" onclick="event.cancelBubble=true">
+													<input type="checkbox" name="checkAll"><span></span>
+												</label>
+											</th>
+											<th style="width: 10px;">NO</th>
 											<th>부서명</th>
 											<th>직원명</th>
-											<th style="width: 150px;">신청교육</th>
+											<th style="width: 200px;">신청교육</th>
 											<th>신청일자</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr data-toggle="tab" data-target="#table1">
-											<td><input type="checkbox" name="checkbox"></td>
+											<td>
+												<label class="fancy-checkbox" onclick="event.cancelBubble=true">
+													<input type="checkbox" name="checkbox"><span></span>
+												</label>
+											</td>
 											<td>1</td>
 											<td>IT금융개발부</td>
 											<td>조기은</td>
@@ -56,7 +64,11 @@
 											<td>2020.01.02</td>
 										</tr>
 										<tr data-toggle="tab" data-target="#table2">
-											<td><input type="checkbox" name="checkbox"></td>
+											<td>
+												<label class="fancy-checkbox" onclick="event.cancelBubble=true">
+													<input type="checkbox" name="checkbox"><span></span>
+												</label>
+											</td>
 											<td>2</td>
 											<td>IT금융개발부</td>
 											<td>박기은</td>
@@ -64,7 +76,11 @@
 											<td>2020.01.06</td>
 										</tr>
 										<tr data-toggle="tab" data-target="#table3">
-											<td><input type="checkbox" name="checkbox"></td>
+											<td>
+												<label class="fancy-checkbox" onclick="event.cancelBubble=true">
+													<input type="checkbox" name="checkbox"><span></span>
+												</label>
+											</td>
 											<td>3</td>
 											<td>IT금융개발부</td>
 											<td>정기은</td>
@@ -72,7 +88,11 @@
 											<td>2020.01.15</td>
 										</tr>
 										<tr data-toggle="tab" data-target="#table4">
-											<td><input type="checkbox" name="checkbox"></td>
+											<td>
+												<label class="fancy-checkbox" onclick="event.cancelBubble=true">
+													<input type="checkbox" name="checkbox"><span></span>
+												</label>
+											</td>
 											<td>4</td>
 											<td>IT기획부</td>
 											<td>김기은</td>

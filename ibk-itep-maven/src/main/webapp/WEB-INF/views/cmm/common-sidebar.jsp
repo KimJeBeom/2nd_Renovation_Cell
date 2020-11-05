@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
-
+	
 <!-- LEFT SIDEBAR -->
 <div id="sidebar-nav" class="sidebar">
 	<div class="sidebar-scroll">
@@ -7,7 +7,7 @@
 			<ul class="nav">
 
 				<!-- 기업은행 로고 -->
-				<div><a href="/itep/views" class="active"> <img class="logo-icon" src="/itep/assets/itep/img/ibkbank-logo.png" /></a></div>
+				<div><a href="/itep/views" class="active"> <img class="logo-icon" style="padding-left:10px;" src="/itep/assets/itep/img/itep-logo.png" /></a></div>
 
 				<!-- 사용자 정보 -->
 				<div class="usr-info">
