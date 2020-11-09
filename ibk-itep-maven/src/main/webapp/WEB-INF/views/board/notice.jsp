@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- HEADER -->
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
 
@@ -56,6 +59,27 @@
 											<th style="text-align:center; width:15%;" id="4">등록일</th>
 											<th style="text-align:center; width:15%;" id="5">등록자</th>
 										</tr>
+										<c:forEach items="{$list}" var="vo">
+										<tr onclick="showPopup('board','noticeModPop');">
+											<td style="text-align:center">${startNum+i}</td>
+											<td style="text-align:center">${edctClsfCd}</td>
+											<td style="text-align: left">${ttl}</td>
+											<td style="text-align:center">${rgsnTs}</td>
+											<td style="text-align:center">${userId}</td>
+										</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							<!-- 
+								<table class="table table-hover">
+									<tbody>
+										<tr>
+											<th style="text-align:center; width:10%;" id="1">No.</th>
+											<th style="text-align:center; width:15%;" id="2">구분</th>
+											<th style="text-align:center; width:45%;" id="3">제목</th>
+											<th style="text-align:center; width:15%;" id="4">등록일</th>
+											<th style="text-align:center; width:15%;" id="5">등록자</th>
+										</tr>
 										<tr onclick="showPopup('board','noticeModPop');">
 											<td style="text-align:center">1</td>
 											<td style="text-align:center">세미나</td>
@@ -85,6 +109,7 @@
 										</tr>
 									</tbody>
 								</table>
+							-->
 							</div>
 							<nav aria-label="Page navigation" style="text-align: right;">
 								<ul class="pagination">
