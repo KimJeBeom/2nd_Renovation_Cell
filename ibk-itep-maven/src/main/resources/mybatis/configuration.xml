@@ -3,8 +3,10 @@
 <configuration>
 	<typeAliases>
 		<typeAlias alias="testvo" type="com.ibk.itep.vo.TestVO"></typeAlias>
+		<typeAlias alias="apprlistvo" type="com.ibk.itep.vo.ApprListVO"></typeAlias>
     </typeAliases>	
 	<mappers>
 		<mapper resource="mybatis/mappers/query.xml" />
+		<mapper resource="mybatis/mappers/kjy.xml" />
 	</mappers>
 </configuration>

@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ibk.itep.vo.ApprListVO;
 import com.ibk.itep.vo.TestVO;
 
 @Repository
@@ -39,6 +40,11 @@ public class TestDAO {
 	public boolean delete(Integer no) {
 		int count = sqlSession.delete("query.delete", no);
 		return count == 1;
+	}
+
+	public List<ApprListVO> getApprList(String userId) {
+		List<ApprListVO> list = sqlSession.selectList("kjy.getApprList", userId);
+		return list;
 	}
 
 }
