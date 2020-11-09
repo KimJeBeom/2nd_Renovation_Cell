@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kjy">
+	<select id="getApprList" parameterType="string" resultType="apprlistvo">
+		SELECT EDA.EDCT_APLC_ID AS edctAplcId
+			 , EDC.EDCT_CNT_ID AS edctCntId
+			 , EDM.EDCT_ID AS edctId
+			 , CMB.BRNM AS brNm
+			 , CMU.USER_NM AS userNm
+			 , EDM.EDCT_NM AS edctNm
+			 , EDA.APLC_TS as aplcTs
+		FROM TB_IEP_EDA001M EDA, TB_IEP_EDC001M EDC, TB_IEP_EDM001M EDM, TB_IEP_CMB001M CMB, TB_IEP_CMU001M CMU
+		WHERE EDA.USE_YN = 'Y'
+			  <choose>
+				<when test="athrCd = 'DPM'"> <!-- 부서결재자 : 나에게 넘어온 부서결재단계 목록  -->
+					AND EDA.DPM_ATHZ_ID = #{userId} AND EDA.APLC_STG_CD = 'APRDPM'
+				</when>
+				<when test="athrCd = 'GRM'"> <!-- 그룹결재자 : 그룹결재단계 목록  -->
+					AND EDA.APLC_STG_CD = 'APRGRM'
+				</when>
+				<otherwise> <!-- 관리자 : 부서결재단계, 그룹결재단계 목록  -->
+					AND (EDA.APLC_STG_CD = 'APRDPM' OR EDA.APLC_STG_CD = 'APRGRM')
+				</otherwise>
+			  </choose>
+			  AND EDA.EDCT_CNT_ID = EDC.EDCT_CNT_ID AND EDC.USE_YN = 'Y'
+			  AND EDC.EDCT_ID = EDM.EDCT_ID AND EDM.USE_YN = 'Y'
+			  AND EDA.DVCD = CMB.BRCD AND CMB.USE_YN = 'Y'
+			  AND EDA.USER_ID = CMU.USER_ID AND CMU.USE_YN = 'Y';
+	</select>
+</mapper>
