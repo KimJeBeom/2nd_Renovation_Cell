@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="queryhws">
+	<select id="selectEduRegMod" parameterType="EduRegModVo" resultType="EduRegModVo">
+	     <![CDATA[
+			/*교육목록조회*/
+			SELECT cld.EDCT_CLSF_NM as edctClsfNm 			#교육분류
+	 				, edm.EDCT_ID as edctId    				#교육메인ID
+	    			, edm.EDCT_NM as edctNm    				#교육명
+	    			, cli.EDIN_NM as edinNm    				#교육기관명
+			FROM itep.tb_iep_edm001m edm
+				, itep.tb_iep_cld001c cld
+				, itep.tb_iep_cli001c cli
+			where edm.EDCT_CLSF_CD = cld.EDCT_CLSF_CD 
+	 			and edm.EDIN_CD = cli.EDIN_CD
+	    		and edm.USE_YN = 'Y' 						# 삭제 안된 교육만 show
+	     ]]>
+	     <if test="edctClsfCd != null">
+	     	<![CDATA[
+	     		and edm.EDCT_CLSF_CD = #{edctClsfCd}     	# 조회조건 : 교육 분류
+	     	]]>	     		     
+	     </if>
+	     <if test="edctNm != null">
+	     	<![CDATA[
+	     		and edm.EDCT_NM like '%#{edctNm}%'     		# 조회조건 : 교육 명칭
+	     	]]>	     		     
+	     </if>
+	</select>
+	
+	<select id="selectEduReadyStat" parameterType="EduReadyStatVo" resultType="EduReadyStatVo">
+		    <![CDATA[
+	     		SELECT 	edc.EDCT_CNT_ID as edctCntId 				# 교육 차수 ID
+	     				,edm.EDCT_CLSF_CD as edctClsfCd				# 교육분류 코드
+						,cld.EDCT_CLSF_NM as edctClsfNm 			# 교육분류 명칭
+						,edc.EDCT_STTG_YMD as edctSttgYmd 			# 교육 시작 일자
+						,edc.EDCT_FNSH_YMD as edctFnshYmd 			# 교육 종료 일자
+        				,edm.EDCT_NM as edctNm						# 교육명
+        				,cli.EDIN_NM as edinNm 						# 교육기관명
+        				,count(eda.EDCT_APLC_ID) as edctAplcIdCnt	# 수강신청 인원
+				FROM 	itep.TB_IEP_EDC001M edc						# 테이블:교육차수
+						,itep.TB_IEP_EDM001M edm					# 테이블:교육메인
+						,itep.TB_IEP_EDA001M eda					# 테이블:교육신청
+						,itep.TB_IEP_CLI001C cli					# 테이블:기관코드
+						,itep.TB_IEP_CLD001C cld					# 테이블:교육분류코드
+				WHERE 	edc.EDCT_ID = edm.EDCT_ID
+					AND edm.EDCT_CLSF_CD = cld.EDCT_CLSF_CD
+					AND edm.EDIN_CD = cli.EDIN_CD
+					AND edc.EDCT_CNT_ID = eda.EDCT_CNT_ID
+    				AND eda.USE_YN='Y'												#신청서 USE상태
+    				AND (eda.APLC_STG_CD = 'EDUFIN' or eda.APLC_STG_CD = 'APRFIN')	#신청서가 승인 완료거나 교육 완료인 상태
+    				
+    				
+
+					/*없지만 명칭조회도 생길듯함*/
+    				AND
+						edm.EDCT_NM like '%자바%'
+        				/*edm.EDCT_NM like '%aix%'*/
+				
+	     	]]>	
+	     <if test="startDate != null and endDate != null">
+	     	<![CDATA[/*기간 조회 조회시 입력시작일 부터 입력종료일+1일*/
+    				AND (
+							(edc.EDCT_STTG_YMD >= '#{startDate}' and edc.EDCT_STTG_YMD < '#{endDate}')
+							or (edc.EDCT_FNSH_YMD >= '#{startDate}' and edc.EDCT_FNSH_YMD < '#{endDate}')		
+        				)
+	     	]]>	     		     
+	     </if>
+	     <if test="edctClsfCd != null">
+	     	<![CDATA[/*교육분류조회*/
+    				AND edm.EDCT_CLSF_CD = #{edctClsfCd}
+	     	]]>	     		     
+	     </if>
+	     <if test="edctNm != null">
+	     	<![CDATA[
+	     			AND edm.EDCT_NM like '%#{edctNm}%'     		# 조회조건 : 교육 명칭
+	     	]]>	     		     
+	     </if>
+	     <![CDATA[
+	     		GROUP BY edc.EDCT_CNT_ID;
+	     ]]>	 
+	     	
+	</select>
+	
+	<select id="selectEduOpenReadyStat" parameterType="EduOpenReadyStatVo" resultType="EduOpenReadyStatVo">
+		<![CDATA[
+	    	/*과정 개설 신청 현황 TB_IEP_EDO001M 전체 검색*/
+			/*부서명, 직원번호, 직원명, 과목명, 교육기관, 학습기간, 상세확인*/
+			/* 기본 조회는 전체가 아닌 처리해야될 대상이 먼저 나오느것으로 */
+			SELECT edo.APLC_ID as aplcID				# 과정개설신청 ID
+					,cmb.BRNM as brnm					# 부서명
+					,edo.USER_ID as userID				# 직원번호
+        			,cmu.USER_NM as userNm				# 직원명
+        			,edo.EDCT_NM as edctNm				# 교육명
+        			,edo.EDIN_NM as edinNm				# 교육기관명
+        			,edo.EDCT_STTG_YMD as edctSttgYmd	# 교육시작일
+        			,edo.EDCT_FNSH_YMD as edctFnshYmd	# 교육종료일
+			from 	itep.tb_iep_edo001m edo				# 테이블 : 과정개설신청
+					,itep.tb_iep_cmu001m cmu			# 테이블 : 유저정보
+					,itep.tb_iep_cmb001m cmb			# 테이블 : 부서정보
+			where 	edo.USER_ID = cmu.USER_ID 
+				and cmu.DVCD = cmb.BRCD
+		]]>
+		<if test="cnfaYn != null">
+	     	<![CDATA[
+	     		/*확인 여부 조건 검색시 추가*/
+	     		and edo.CNFA_YN='#{cnfaYn}'
+	     	]]>
+	     </if>
+	     <if test="userNm != null">
+	    	<![CDATA[
+	    		/*이름 조건 검색*/
+	    		and cmu.USER_NM='#{userNm}'
+	    	]]>
+	    </if>
+	     <if test="edctNm != null">
+	    	<![CDATA[
+	    		AND edo.EDCT_NM like '%#{edctNm}%'     		# 조회조건 : 교육 명칭
+	    	]]>
+	    </if>
+	</select>
+		  
+	<select id="selectEduHistory" parameterType="EduHistoryVo" resultType="EduHistoryVo">
+		<![CDATA[
+			/*eduHistor 페이지 */
+			/*교육ID, 교육분류, 부서명, 직원번호, 직원명, 과목명, 교육기관, 교육기간, 예산, 참고 */;
+			SELECT eda.EDCT_APLC_ID as edctAplcID	# 교육 신청 ID
+				,cld.EDCT_CLSF_NM as edctClsf		# 교육 분류
+    			,cmb.BRNM as brnm 					# 부서명 
+    			,eda.USER_ID as userId 				# 직원번호
+    			,cmu.USER_NM as userNm 				# 직원명
+    			,edm.EDCT_NM as edctNm 				# 교육명
+    			,cli.EDIN_NM as edinNm 				# 교육기관명
+    			,edc.EDCT_STTG_YMD as edctSttgYmd 	# 교육 시작일
+    			,edc.EDCT_FNSH_YMD as edctFnshYmd 	# 교육 종료일
+    			,edc.EDEX as edex 					# 예산
+    			,eda.RFRC_CON as rfrcCon 			# 참고
+			FROM itep.tb_iep_eda001m eda 			# 교육신청테이블
+				,itep.tb_iep_edc001m edc 			# 교육차수테이블
+    			,itep.tb_iep_edm001m edm 			# 교육메인테이블
+    			,itep.tb_iep_cmu001m cmu 			# 사용자
+    			,itep.tb_iep_cmb001m cmb 			# 부점
+    			,itep.tb_iep_cld001c cld 			# 교육분류코드
+    			,itep.tb_iep_cli001c cli 			# 교육기관코드
+			where eda.EDCT_CNT_ID = edc.EDCT_CNT_ID
+	  			and edc.EDCT_ID = edm.EDCT_ID
+      			and eda.USER_ID = cmu.USER_ID
+				and eda.DVCD = cmb.BRCD
+ 				and edm.EDCT_CLSF_CD = cld.EDCT_CLSF_CD
+				and edm.EDIN_CD = cli.EDIN_CD
+	    ]]>
+	    <if test="edctClsfCd != null">
+	    	<![CDATA[#교육구분코드
+	    		and edm.EDCT_CLSF_CD = '#{edctClsfCd}'
+	    	]]>
+	    </if>
+	    <if test="edinCd != null">
+	    	<![CDATA[#교육기관
+	    		and edm.EDIN_CD = '#{edinCd}'
+	    	]]>
+	    </if>
+	    <if test="brnm != null">
+	    	<![CDATA[# 부서
+	    		and eda.DVCD = '#{brnm}'
+	    	]]>
+	    </if>
+	    <if test="userNm != null">
+	    	<![CDATA[# 직원명
+	    		and cmu.USER_NM = '#{userNm}'
+	    	]]>
+	    </if>
+	    <if test="edctNm != null">
+	    	<![CDATA[
+	    		
+	    	]]>
+	    </if>
+	    <if test="edctNm != null">
+	    	<![CDATA[#교육명
+	 			and edm.EDCT_NM like '%#{edctNm}%'   		
+	    	]]>
+	    </if>
+	    <if test="startDate != null and endDate != null">
+	    	<![CDATA[#교육명
+	 		and (
+				(edc.EDCT_STTG_YMD >= '#{startDate}' and edc.EDCT_STTG_YMD < '#{endDate}')
+				or (edc.EDCT_FNSH_YMD >= '#{startDate}' and edc.EDCT_FNSH_YMD < '#{endDate}')		
+        		)   		
+	    	]]>
+	    </if>
+	</select>
+	
+	<select id="selectEmpAccMng" parameterType="EmpAccMngVo" resultType="EmpAccMngVo">
+		<![CDATA[
+			select	cmu.USER_ID as userId		-- 직원번호
+					,cmu.USER_NM as userNm		-- 직원명
+    				,cmu.USER_JTM as userJtm	-- 직책
+    				,cmu.USER_TPN as userTpn	-- 행내전화
+    				,cmb.BRNM as brnm			-- 부서명
+    				,cmu.TEAM_CD
+    				,(select BRNM from itep.tb_iep_cmb001m where cmu.TEAM_CD = itep.tb_iep_cmb001m.BRCD) as teamNM	-- 팀명
+    				,cmu.USE_YN as useYn	-- 퇴직여부
+    				,cla.ATHR_NM as athrNm	-- 권한명
+			from 	itep.tb_iep_cmu001m cmu, itep.tb_iep_cmb001m cmb, itep.tb_iep_cla001c cla
+			where	cmu.DVCD = cmb.BRCD
+    			and cmu.ATHR_CD = cla.ATHR_CD
+		]]>
+    	<if test="userId != null">
+	    	<![CDATA[
+	 	   		and cmu.USER_ID = '#{userId}'
+	    	]]>
+	    </if>
+    	<if test="userNm != null">
+	    	<![CDATA[#
+	 	   		and cmu.USER_NM = '#{userNm}'
+	    	]]>
+	    </if>
+    	<if test="brnm != null">
+	    	<![CDATA[#
+	 	   		and cmu.DVCD = '#{brnm}'
+	    	]]>
+	    </if>
+    	<if test="teamCd != null">
+	    	<![CDATA[#
+	 	   		and cmu.TEAM_CD = '#{teamCd}'
+	    	]]>
+	    </if>
+    	<if test="athrCd != null">
+	    	<![CDATA[#
+	 	   		and cmu.ATHR_CD ='#{athrCd}';
+	    	]]>
+	    </if>
+	</select>
+	<update id="updateEmpAccMng" parameterType="EmpAccMngVo">
+		<![CDATA[
+			update	itep.tb_iep_cmu001m cmu 
+			set 	cmu.ATHR_CD=#{athrCd}
+			where 	cmu.USER_ID=#{userId}
+		]]>
+	</update>
+	
+	
+	
+	<select id="selectTbIepCla001C" parameterType="AthrVo" resultType="AthrVo">
+		<![CDATA[
+			select	ATHR_CD 	as athrCd						
+					,ATHR_CON 	as athrCon						
+					,ATHR_NM 	as athrNm						
+					,USE_YN 	as useYn
+			from	itep.TB_IEP_CLA001C
+		]]>
+    	<if test="useYn != null">
+	    <![CDATA[
+
+	    ]]>
+	    </if>
+	</select>
+	<select id="selectTbIepCld001C" parameterType="EdctClsfVo" resultType="EdctClsfVo">
+		<![CDATA[
+			select	EDCT_CLSF_CD 	as edctClsfCd						
+				,	EDCT_CLSF_NM 	as edctClsfNm						
+				,	USE_YN 			as useYn
+			from	itep.TB_IEP_CLD001C
+		]]>
+    	<if test="useYn != null">
+		    <![CDATA[
+	 	   		where	USE_YN=#{useYn}
+	    	]]>
+	    </if>
+	</select>
+	<select id="selectTbIepCli001C" parameterType="EdinVo" resultType="EdinVo">
+		<![CDATA[
+			select	EDIN_CD 	as edinCd						
+				,	EDIN_NM 	as edinNm						
+				,	USE_YN 		as useYn
+			from	itep.TB_IEP_CLI001C
+		]]>
+    	<if test="useYn != null">
+		    <![CDATA[
+	 	   		where	USE_YN=#{useYn}
+	    	]]>
+	    </if>
+	</select>
+	<select id="selectTbIepClS001C" parameterType="EdinVo" resultType="EdinVo">
+		<![CDATA[
+			select	APLC_STG_CD 	as aplcStgCd						
+				,	APLC_STG_NM 	as aplcStgNm						
+				,	APLC_STG_DESC 	as aplcStgDesc						
+				,	USE_YN 			as useYn	
+			from	itep.TB_IEP_CLS001C
+		]]>
+    	<if test="useYn != null">
+		    <![CDATA[
+	 	   		where	USE_YN=#{useYn}
+	    	]]>
+	    </if>
+	</select>
+	<select id="selectTbIepCMB001M" parameterType="BrVo" resultType="BrVo">
+		<![CDATA[
+			select	BRCD 		as brcd						
+				,	BRNM 		as brnm						
+				,	HGRN_BRCD 	as hgrnBrcd						
+				,	USE_YN 		as useYn		
+			from	itep.TB_IEP_CMB001M		
+		]]>
+    	<if test="useYn != null">
+		    <![CDATA[
+	 	   		where	USE_YN=#{useYn}
+	    	]]>
+	    </if>
+	</select>
+</mapper>
