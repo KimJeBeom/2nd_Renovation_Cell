@@ -14,6 +14,6 @@
 		<mapper resource="mybatis/mappers/query.xml" />
 		<mapper resource="mybatis/mappers/queryLes.xml" />
 		<mapper resource="mybatis/mappers/kjy.xml" />
-		<mapper resource="mybatis/mappers/queryhws.xml" />
+		<!-- <mapper resource="mybatis/mappers/queryhws.xml" /> -->
 	</mappers>
 </configuration>
