@@ -39,18 +39,5 @@ public class TestService {
 		
 		return testDAO.delete(vo.getNo());
 	}
-	
-	public List<ApprListVO> getApprList(String userId){
-		return testDAO.getApprList(userId);
-	}
-	
-	
-//	public Timestamp getTimeStamp() {
-//		return Timestamp.valueOf("2020-08-10 10:00:00");
-//	}
-//	
-//	public Date getDate() {
-//		return Date.valueOf("2020-08-10 10:00:00");
-//	}
 }
 

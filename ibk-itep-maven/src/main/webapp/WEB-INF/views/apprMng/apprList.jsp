@@ -51,54 +51,9 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr data-toggle="tab" data-target="#table1">
-											<td>
-												<label class="fancy-checkbox" onclick="event.cancelBubble=true">
-													<input type="checkbox" name="checkbox"><span></span>
-												</label>
-											</td>
-											<td>1</td>
-											<td>IT금융개발부</td>
-											<td>조기은</td>
-											<td>R을 이용한 빅데이터 분석</td>
-											<td>2020.01.02</td>
-										</tr>
-										<tr data-toggle="tab" data-target="#table2">
-											<td>
-												<label class="fancy-checkbox" onclick="event.cancelBubble=true">
-													<input type="checkbox" name="checkbox"><span></span>
-												</label>
-											</td>
-											<td>2</td>
-											<td>IT금융개발부</td>
-											<td>박기은</td>
-											<td>업무에 바로 쓰는 SQL 튜닝</td>
-											<td>2020.01.06</td>
-										</tr>
-										<tr data-toggle="tab" data-target="#table3">
-											<td>
-												<label class="fancy-checkbox" onclick="event.cancelBubble=true">
-													<input type="checkbox" name="checkbox"><span></span>
-												</label>
-											</td>
-											<td>3</td>
-											<td>IT금융개발부</td>
-											<td>정기은</td>
-											<td>TenserFlow로 배우는 강화학습</td>
-											<td>2020.01.15</td>
-										</tr>
-										<tr data-toggle="tab" data-target="#table4">
-											<td>
-												<label class="fancy-checkbox" onclick="event.cancelBubble=true">
-													<input type="checkbox" name="checkbox"><span></span>
-												</label>
-											</td>
-											<td>4</td>
-											<td>IT기획부</td>
-											<td>김기은</td>
-											<td>Java Programming 핵심</td>
-											<td>2020.01.24</td>
-										</tr>
+										<c:forEach var="apprlist" items="${apprList}">
+											${apprlist.edctNm }
+										</c:forEach>
 									</tbody>
 								</table>
 								<br>
