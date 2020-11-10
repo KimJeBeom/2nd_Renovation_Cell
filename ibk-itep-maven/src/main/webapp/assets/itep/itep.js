@@ -91,6 +91,10 @@ function showPopup(menu, name) {
 	// 관리자페이지 교육 등록, 수정
 	else if (name == 'newEduRegPop' || name == 'eduModPop')
 		size = 'location=no, width=650, height=560, left=100, top=100';	
+		
+    // 관리자페이지 코드 등록
+	else if (name == 'addEduCdPop')
+		size = 'location=no, width=650, height=300, left=100, top=100';	
 			
 	//
 	else if (name == 'eduEmpListPop')
