@@ -50,13 +50,6 @@
 											</td>
 										</tr>
 										<tr>
-											<th>과목코드</th>
-											<td colspan="3">
-												<input id="eduTypeCode" type="text" class="form-control" placeholder="OTEDU" style="width: 30%; float: left;">
-												<input type="text" class="form-control" placeholder="0006" style="width: 30%; float: left; margin-left: 5px;">
-											</td>
-										</tr>
-										<tr>
 											<th>과목명</th>
 											<td colspan="3">
 												<input type="text" class="form-control" placeholder="IT Governance 핵심 이해">
@@ -69,20 +62,9 @@
 											</td>
 										</tr>
 										<tr>
-											<th>교육구분</th>
-											<td>
-												<label class="fancy-radio" style="width: 40%; float: left; margin-left: 15px;">
-													<input name="gender" value="in" type="radio">
-													<span><i></i>행내</span>
-												</label>
-												<label class="fancy-radio" style="width: 40%; float: left;">
-													<input name="gender" value="ex" type="radio">
-													<span><i></i>행외</span>
-												</label>
-											</td>
 											<th>교육기관</th>
-											<td>
-												<select id="eduInst" class="form-control" onchange="showEduInstBox();">
+											<td colspan="3">
+												<select id="eduInst" class="form-control" onchange="showEduInstBox();" style="width: 60%; float: left;">
 													<option value="ibk" selected="selected">IBK</option>
 													<option value="multicampus">멀티캠퍼스</option>
 													<option value="fastcampus">패스트캠퍼스</option>
@@ -99,23 +81,25 @@
 											</td>
 										</tr>
 										<tr>
-											<th>교육기간</th>
-											<td><input type="text" class="form-control" placeholder="1일"></td>
-											<th>이수시간</th>
-											<td><input type="text" class="form-control" placeholder="2시간"></td>
-										</tr>
-										<tr>
-											<th>교육비용</th>
-											<td><input type="text" class="form-control" placeholder="350,000" style="width: 80%; float: left;">
-												<span><i></i>(원)</span></td>
+											<th>교육구분</th>
+											<td>
+												<label class="fancy-radio" style="width: 40%; float: left; margin-left: 15px;">
+													<input name="gender" value="in" type="radio">
+													<span><i></i>행내</span>
+												</label>
+												<label class="fancy-radio" style="width: 40%; float: left;">
+													<input name="gender" value="ex" type="radio">
+													<span><i></i>행외</span>
+												</label>
+											</td>
 											<th>고용보험 적용</th>
 											<td>
 												<label class="fancy-radio" style="width: 40%; float: left; margin-left: 20px;">
-													<input name="gender" value="y" type="radio">
+													<input name="gender1" value="y" type="radio">
 													<span><i></i>Y</span>
 												</label>
 												<label class="fancy-radio" style="width: 40%; float: left;">
-													<input name="gender" value="n" type="radio">
+													<input name="gender1" value="n" type="radio">
 													<span><i></i>N</span>
 												</label>
 											</td>
@@ -124,26 +108,26 @@
 											<th>교육방식</th>
 											<td>
 												<label class="fancy-radio" style="width: 40%; float: left; margin-left: 5px;">
-													<input name="gender" value="online" type="radio">
+													<input name="gender2" value="online" type="radio">
 													<span><i></i>온라인</span>
 												</label>
 												<label class="fancy-radio" style="width: 50%; float: left; margin-left: 10px;">
-													<input name="gender" value="offline" type="radio">
+													<input name="gender2" value="offline" type="radio">
 													<span><i></i>오프라인</span>
 												</label>
 											</td>
 											<th>교육수준</th>
 											<td>
 												<label class="fancy-radio" style="width: 30%; float: left; margin-left: 10px">
-													<input name="gender" value="hard" type="radio">
+													<input name="gender3" value="hard" type="radio">
 													<span><i></i>상</span>
 												</label>
 												<label class="fancy-radio" style="width: 30%; float: left;">
-													<input name="gender" value="normal" type="radio">
+													<input name="gender3" value="normal" type="radio">
 													<span><i></i>중</span>
 												</label>
 												<label class="fancy-radio" style="width: 30%; float: left;">
-													<input name="gender" value="easy" type="radio">
+													<input name="gender3" value="easy" type="radio">
 													<span><i></i>하</span>
 												</label>
 											</td>
@@ -168,7 +152,7 @@
 	/* 교육분류 값에 따른 결재대상, 과목코드 자동 입력 */
 	function showEduType() {
 		var state = document.getElementById("eduType").value; // 선택된 교육분류 select option
-		var eduTypeCode = document.getElementById("eduTypeCode"); // 과목코드 text box
+		//var eduTypeCode = document.getElementById("eduTypeCode"); // 과목코드 text box
 		var appr = document.getElementsByName("appr"); // 결재대상 radio button
 
 		/* 
@@ -178,19 +162,19 @@
 			기타 - 과목코드 EXTRA, 결재대상 선택
 		 */
 		if(state == 'exedu') {
-			eduTypeCode.value = 'OTEDU';
+			//eduTypeCode.value = 'OTEDU'; 교육id 채번방식 변경
 			appr[0].checked = true;
 		}
 		else if(state == 'inedu') {
-			eduTypeCode.value = 'TREDU';
+			//eduTypeCode.value = 'TREDU';
 			appr[1].checked = true;
 		}
 		else if(state == 'seminar') {
-			eduTypeCode.value = 'SEMIN';
+			//eduTypeCode.value = 'SEMIN';
 			appr[1].checked = true;
 		}
 		else if(state == 'etc') {
-			eduTypeCode.value = 'EXTRA';
+			//eduTypeCode.value = 'EXTRA';
 			appr[0].checked = false;
 			appr[1].checked = false;
 		}

@@ -85,7 +85,7 @@
 							<!-- End 수강신청목록-소제목 -->
 							<div class="panel-body">
 								<!-- Start 수강신청목록-조회바 -->
-								<div class="well col-md-12"
+						<!-- 		<div class="well col-md-12"
 									style="display: table; padding: 10px">
 									<div style="display: table-cell; vertical-align: middle">
 										<table>
@@ -106,8 +106,9 @@
 										<button type="button" class="btn btn-primary"
 											style="float: right;">조회</button>
 									</div>
-								</div>
+								</div>	 -->
 								<!-- End 수강신청목록-조회바 -->
+							
 								<!-- Start 수강신청목록-리스트 -->
 								<table class="table table-hover">
 									<thead>
