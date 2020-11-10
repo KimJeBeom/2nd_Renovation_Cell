@@ -4,9 +4,16 @@
 	<typeAliases>
 		<typeAlias alias="testvo" type="com.ibk.itep.vo.TestVO"></typeAlias>
 		<typeAlias alias="apprlistvo" type="com.ibk.itep.vo.ApprListVO"></typeAlias>
+		<typeAlias alias="EduListVo" type="com.ibk.itep.vo.eduApply.EduListVo"></typeAlias>
+		<typeAlias alias="EduInfoVo" type="com.ibk.itep.vo.eduApply.EduInfoVo"></typeAlias>
+		<typeAlias alias="NewEduApplyVo" type="com.ibk.itep.vo.eduApply.NewEduApplyVo"></typeAlias>
+		<typeAlias alias="NoticeVo" type="com.ibk.itep.vo.board.NoticeVo"></typeAlias>
+		<typeAlias alias="ArchieveVo" type="com.ibk.itep.vo.board.ArchieveVo"></typeAlias>
     </typeAliases>	
 	<mappers>
 		<mapper resource="mybatis/mappers/query.xml" />
+		<mapper resource="mybatis/mappers/queryLes.xml" />
 		<mapper resource="mybatis/mappers/kjy.xml" />
+		<mapper resource="mybatis/mappers/queryhws.xml" />
 	</mappers>
 </configuration>

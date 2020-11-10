@@ -14,10 +14,6 @@
 			<!-- MAIN CONTENT -->
 			<div class="main-content">
 				<div class="container-fluid">
-
-					<!-- 상단 버튼 -->
-					<button type="button" class="btn btn-primary btn-toastr btn-top" style="float: right; vertical-align: bottom;">차수완료</button><br><br>
-					
 					<div class="row">
 						<div class="col-md-9 col-popup">
 							<div class="panel panel-headline">
