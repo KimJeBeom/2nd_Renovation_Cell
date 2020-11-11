@@ -84,42 +84,17 @@
 							</div>
 							<!-- End 수강신청목록-소제목 -->
 							<div class="panel-body">
-								<!-- Start 수강신청목록-조회바 -->
-						<!-- 		<div class="well col-md-12"
-									style="display: table; padding: 10px">
-									<div style="display: table-cell; vertical-align: middle">
-										<table>
-											<tbody>
-												<tr>
-													<td style="width: 50px;"><b>기간</b></td>
-													<td style="width: 130px; text-align: left"><input
-														type='date' name='startdate' value='2020-09-22' /></td>
-													<td style="width: 100px;"><b>~</b></td>
-													<td style="width: 130px; text-align: left"><input
-														type='date' name='enddate' value='2020-09-22' /></td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-									<div style="display: table-cell"
-										style="text-align: center; padding-right:5px;">
-										<button type="button" class="btn btn-primary"
-											style="float: right;">조회</button>
-									</div>
-								</div>	 -->
-								<!-- End 수강신청목록-조회바 -->
-							
 								<!-- Start 수강신청목록-리스트 -->
 								<table class="table table-hover">
 									<thead>
 										<tr>
 											<th>No</th>
-											<th>과목명</th>
+											<th style="width: 150px;">과목명</th>
 											<th>교육기관</th>
 											<th>학습기간</th>
 											<th>신청일자</th>
 											<th>상세확인</th>
-											<th>결제진행</th>
+											<th>결재진행</th>
 											<th>취소</th>
 										</tr>
 									</thead>
