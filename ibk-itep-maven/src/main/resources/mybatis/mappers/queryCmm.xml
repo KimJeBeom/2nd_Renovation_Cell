@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="queryCmm">
+	<select id="selectCla" parameterType="claVo" resultType="claVo">
+		<![CDATA[
+			select	ATHR_CD 	as athrCd						
+					,ATHR_CON 	as athrCon						
+					,ATHR_NM 	as athrNm						
+					,USE_YN 	as useYn
+			from	itep.TB_IEP_CLA001C
+		]]>
+    	<if test="useYn != null">
+	    <![CDATA[
+	    	where	USE_YN=#{useYn}
+	    ]]>
+	    </if>
+	</select>
+	<select id="selectCld" parameterType="cldVo" resultType="cldVo">
+		<![CDATA[
+			select	EDCT_CLSF_CD 	as edctClsfCd						
+				,	EDCT_CLSF_NM 	as edctClsfNm						
+				,	USE_YN 			as useYn
+			from	itep.TB_IEP_CLD001C
+		]]>
+    	<if test="useYn != null">
+		    <![CDATA[
+	 	   		where	USE_YN=#{useYn}
+	    	]]>
+	    </if>
+	</select>
+	<select id="selectCli" parameterType="cliVo" resultType="cliVo">
+		<![CDATA[
+			select	EDIN_CD 	as edinCd						
+				,	EDIN_NM 	as edinNm						
+				,	USE_YN 		as useYn
+			from	itep.TB_IEP_CLI001C
+		]]>
+    	<if test="useYn != null">
+		    <![CDATA[
+	 	   		where	USE_YN=#{useYn}
+	    	]]>
+	    </if>
+	</select>
+	<select id="selectCls" parameterType="clsVo" resultType="clsVo">
+		<![CDATA[
+			select	APLC_STG_CD 	as aplcStgCd						
+				,	APLC_STG_NM 	as aplcStgNm						
+				,	APLC_STG_DESC 	as aplcStgDesc						
+				,	USE_YN 			as useYn	
+			from	itep.TB_IEP_CLS001C
+		]]>
+    	<if test="useYn != null">
+		    <![CDATA[
+	 	   		where	USE_YN=#{useYn}
+	    	]]>
+	    </if>
+	</select>
+	<select id="selectCmb" parameterType="cmbVo" resultType="cmbVo">
+		<![CDATA[
+			select	BRCD 		as brcd						
+				,	BRNM 		as brnm						
+				,	HGRN_BRCD 	as hgrnBrcd						
+				,	USE_YN 		as useYn		
+			from	itep.TB_IEP_CMB001M		
+		]]>
+    	<if test="useYn != null">
+		    <![CDATA[
+	 	   		where	USE_YN=#{useYn}
+	    	]]>
+	    </if>
+	</select>
+</mapper>
