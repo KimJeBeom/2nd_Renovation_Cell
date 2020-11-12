@@ -9,13 +9,14 @@
 		<typeAlias alias="NewEduApplyVo" type="com.ibk.itep.vo.eduApply.NewEduApplyVo"></typeAlias>
 		<typeAlias alias="NoticeVo" type="com.ibk.itep.vo.board.NoticeVo"></typeAlias>
 		<typeAlias alias="ArchieveVo" type="com.ibk.itep.vo.board.ArchieveVo"></typeAlias>
-		<typeAlias alias="EduNowVo" type="com.ibk.itep.vo.EduNowVO"></typeAlias>
+		<typeAlias alias="EduNowVo" type="com.ibk.itep.vo.myClass.EduNowVO"></typeAlias>
+		<typeAlias alias="EduNewReadyVo" type="com.ibk.itep.vo.myClass.EduNewReadyVO"></typeAlias>
+		<typeAlias alias="EduReadyVo" type="com.ibk.itep.vo.myClass.EduReadyVO"></typeAlias>
     </typeAliases>	
 	<mappers>
 		<mapper resource="mybatis/mappers/query.xml" />
 		<mapper resource="mybatis/mappers/queryLes.xml" />
 		<mapper resource="mybatis/mappers/kjy.xml" />
-		<mapper resource="mybatis/mappers/querykdj.xml" />
-		<!-- <mapper resource="mybatis/mappers/queryhws.xml" /> -->
+		<mapper resource="mybatis/mappers/queryMyClass.xml" />
 	</mappers>
 </configuration>
