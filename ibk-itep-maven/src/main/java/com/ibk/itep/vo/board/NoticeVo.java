@@ -1,5 +1,6 @@
 package com.ibk.itep.vo.board;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -8,13 +9,29 @@ import java.util.Date;
  */
 
 public class NoticeVo {
+
 	private Integer pbnsId;
 	private String edctClsfCd;
+	private String edctClsfNm;
 	private String ttl;
 	private String con;
 	private Date rgsnTs;
 	private String userId;
+	private String userNm;
 	private String apndDat;
+	
+	public String getEdctClsfNm() {
+		return edctClsfNm;
+	}
+	public void setEdctClsfNm(String edctClsfNm) {
+		this.edctClsfNm = edctClsfNm;
+	}
+	public String getUserNm() {
+		return userNm;
+	}
+	public void setUserNm(String userNm) {
+		this.userNm = userNm;
+	}
 	public Integer getPbnsId() {
 		return pbnsId;
 	}
@@ -39,8 +56,9 @@ public class NoticeVo {
 	public void setCon(String con) {
 		this.con = con;
 	}
-	public Date getRgsnTs() {
-		return rgsnTs;
+	public String getRgsnTs() {
+		SimpleDateFormat ymd = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		return ymd.format(rgsnTs);
 	}
 	public void setRgsnTs(Date rgsnTs) {
 		this.rgsnTs = rgsnTs;
