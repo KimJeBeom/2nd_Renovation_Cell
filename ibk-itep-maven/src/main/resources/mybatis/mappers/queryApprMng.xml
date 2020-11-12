@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="queryApprMng">
+	<select id="selectApprList" parameterType="SessionVo" resultType="ApprListVo">
+		<![CDATA[
+		SELECT @ROWNUM := @ROWNUM + 1 AS rowNum
+			 , EDA.EDCT_APLC_ID AS edctAplcId 
+			 , EDC.EDCT_CNT_ID AS edctCntId
+			 , EDM.EDCT_ID AS edctId
+			 , CMB.BRNM AS brNm
+			 , CMU.USER_NM AS userNm
+			 , EDM.EDCT_NM AS edctNm
+			 , EDA.APLC_TS AS aplcTs
+		FROM TB_IEP_EDA001M EDA, TB_IEP_EDC001M EDC, TB_IEP_EDM001M EDM, TB_IEP_CMB001M CMB, TB_IEP_CMU001M CMU
+		WHERE (@ROWNUM:=0)=0 AND EDA.USE_YN = 'Y'
+		]]>
+			<choose>
+				<when test="athrCd == 'DPM'">
+					AND EDA.DPM_ATHZ_ID = #{userId} AND EDA.APLC_STG_CD = 'APRDPM'
+				</when>
+				<when test="athrCd == 'GRM'">
+					AND EDA.APLC_STG_CD = 'APRGRM'
+				</when>
+				<otherwise>
+					AND (EDA.APLC_STG_CD = 'APRDPM' OR EDA.APLC_STG_CD = 'APRGRM')	
+				</otherwise>
+			</choose>
+			<![CDATA[
+			AND EDA.EDCT_CNT_ID = EDC.EDCT_CNT_ID AND EDC.USE_YN = 'Y'
+			AND EDC.EDCT_ID = EDM.EDCT_ID AND EDM.USE_YN = 'Y'
+			AND EDA.DVCD = CMB.BRCD AND CMB.USE_YN = 'Y'
+			AND EDA.USER_ID = CMU.USER_ID AND CMU.USE_YN = 'Y'
+			]]>
+	</select>
+	
+	<select id="selectApprListDetail" parameterType="Integer" resultType="ApprListDetailVo">
+		<![CDATA[
+		SELECT EDA.EDCT_APLC_ID AS edctAplcId
+			 , EDC.EDCT_CNT_ID AS edctCntId
+			 , EDM.EDCT_ID AS edctId
+			 , EDM.EDCT_NM AS edctNm
+			 , EDM.EDCT_CON AS edctCon
+			 , CLI.EDIN_NM AS edinNm
+			 , EDM.EDCT_LEVL AS edctLevl
+			 , EDM.ONL_EDCT_YN AS onlEdctYn
+			 , EDC.EDCT_STTG_YMD AS edctSttgYmd
+			 , EDC.EDCT_FNSH_YMD AS edctFnshYmd
+			 , EDC.APLC_STTG_YMD AS aplcSttgYmd
+			 , EDC.APLC_FNSH_YMD aplcFnshYmd
+			 , EDA.APND_DAT apndDat
+		FROM TB_IEP_EDA001M EDA, TB_IEP_EDC001M EDC, TB_IEP_EDM001M EDM, TB_IEP_CLI001C CLI
+		WHERE EDA.EDCT_APLC_ID = #{edctAplcId} AND EDA.USE_YN = 'Y' 
+		AND EDA.EDCT_CNT_ID = EDC.EDCT_CNT_ID AND EDC.USE_YN = 'Y'
+		AND EDC.EDCT_ID = EDM.EDCT_ID AND EDM.USE_YN = 'Y'
+		AND EDM.EDIN_CD = CLI.EDIN_CD AND CLI.USE_YN = 'Y'
+		]]>
+	</select>
+</mapper>
