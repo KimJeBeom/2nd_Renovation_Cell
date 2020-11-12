@@ -5,33 +5,33 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ibk.itep.vo.cmm.claVo;
-import com.ibk.itep.vo.cmm.cldVo;
-import com.ibk.itep.vo.cmm.cliVo;
-import com.ibk.itep.vo.cmm.clsVo;
+import com.ibk.itep.vo.cmm.ClaVo;
+import com.ibk.itep.vo.cmm.CldVo;
+import com.ibk.itep.vo.cmm.CliVo;
+import com.ibk.itep.vo.cmm.ClsVo;
 
 
 public class CmmDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<claVo> selectCla(claVo vo) {
-		List<claVo> list = sqlSession.selectList("queryCmm.selectCla", vo);
+	public List<ClaVo> selectCla(ClaVo vo) {
+		List<ClaVo> list = sqlSession.selectList("queryCmm.selectCla", vo);
 		return list;
 	}
 
-	public List<cldVo> selectCld(cldVo vo) {
-		List<cldVo> list = sqlSession.selectList("queryCmm.selectCld", vo);
+	public List<CldVo> selectCld(CldVo vo) {
+		List<CldVo> list = sqlSession.selectList("queryCmm.selectCld", vo);
 		return list;
 	}
 	
-	public List<cliVo> selectCli(cliVo vo) {
-		List<cliVo> list = sqlSession.selectList("queryCmm.selectCli", vo);
+	public List<CliVo> selectCli(CliVo vo) {
+		List<CliVo> list = sqlSession.selectList("queryCmm.selectCli", vo);
 		return list;
 	}
 	
-	public List<clsVo> selectCls(clsVo vo) {
-		List<clsVo> list = sqlSession.selectList("queryCmm.selectCls", vo);
+	public List<ClsVo> selectCls(ClsVo vo) {
+		List<ClsVo> list = sqlSession.selectList("queryCmm.selectCls", vo);
 		return list;
 	}
 }

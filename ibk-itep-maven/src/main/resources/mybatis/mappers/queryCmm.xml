@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="queryCmm">
-	<select id="selectCla" parameterType="claVo" resultType="claVo">
+	<select id="selectCla" parameterType="ClaVo" resultType="ClaVo">
 		<![CDATA[
 			select	ATHR_CD 	as athrCd						
 					,ATHR_CON 	as athrCon						
@@ -16,7 +16,7 @@
 	    ]]>
 	    </if>
 	</select>
-	<select id="selectCld" parameterType="cldVo" resultType="cldVo">
+	<select id="selectCld" parameterType="CldVo" resultType="CldVo">
 		<![CDATA[
 			select	EDCT_CLSF_CD 	as edctClsfCd						
 				,	EDCT_CLSF_NM 	as edctClsfNm						
@@ -29,7 +29,7 @@
 	    	]]>
 	    </if>
 	</select>
-	<select id="selectCli" parameterType="cliVo" resultType="cliVo">
+	<select id="selectCli" parameterType="CliVo" resultType="CliVo">
 		<![CDATA[
 			select	EDIN_CD 	as edinCd						
 				,	EDIN_NM 	as edinNm						
@@ -42,7 +42,7 @@
 	    	]]>
 	    </if>
 	</select>
-	<select id="selectCls" parameterType="clsVo" resultType="clsVo">
+	<select id="selectCls" parameterType="ClsVo" resultType="ClsVo">
 		<![CDATA[
 			select	APLC_STG_CD 	as aplcStgCd						
 				,	APLC_STG_NM 	as aplcStgNm						
