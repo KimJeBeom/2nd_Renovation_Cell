@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ibk.itep.repository.TestDAO;
-import com.ibk.itep.vo.ApprListVO;
+import com.ibk.itep.vo.ApprListVo;
 import com.ibk.itep.vo.TestVO;
 
 

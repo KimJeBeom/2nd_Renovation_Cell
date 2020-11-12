@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!-- HEADER -->
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
 
@@ -51,100 +53,71 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="apprlist" items="${apprList}">
-											${apprlist.edctNm }
-										</c:forEach>
+										<!-- 컨트롤러에서 가져온 리스트에서 VO 하나씩 꺼내서 출력 -->
+										<c:forEach items="${apprList }" var="apprlist">
+											<!--  <tr data-toggle="tab" data-target="#${apprlist.edctAplcId }" onclick="location.href='/itep/views/apprMng/apprListDetail?edctAplcId=693'"> -->
+											<tr data-toggle="tab" data-target="#table" onclick="showDetail(${apprlist.edctAplcId })">
+												<td>
+													<label class="fancy-checkbox" onclick="event.cancelBubble=true">
+														<input type="checkbox" name="checkbox"><span></span>
+													</label>
+												</td>
+												<td>${apprlist.rowNum }</td>
+												<td>${apprlist.brnm }</td>
+												<td>${apprlist.userNm }</td>
+												<td>${apprlist.edctNm }</td>
+												<td>${apprlist.aplcTs }</td>
+											</tr>
+									    </c:forEach>
 									</tbody>
 								</table>
+								
 								<br>
 								
-								<!-- 위의 결재항목별 교육상세설명 테이블 (TOGGLE 적용) -->
-								<div class="tab-content">
-									<!-- 테이블 1 -->
-									<div class="tab-pane fade in active" id="table1">
-										<div class="table-responsive">
-											<table class="table tbl-type1">
-												<tbody>
-													<tr>
-														<th>과목명</th>
-														<td colspan="3">R을 이용한 빅데이터 분석</td>
-													</tr>
-													<tr>
-														<th>교육내용</th>
-														<td class="txt-long" colspan="3">
-															<br>
-															- R을 이용한 빅데이터 분석
-															<br><br>
-														</td>
-													</tr>
-													<tr>
-														<th>교육기관</th>
-														<td colspan="3">멀티캠퍼스</td>
-													</tr>
-													<tr>
-														<th>교육방식</th>
-														<td>오프라인</td>
-														<th>교육수준</th>
-														<td>중급</td>
-													</tr>
-													<tr>
-														<th>학습기간</th>
-														<td>20200201 ~ 20200205</td>
-														<th>신청기간</th>
-														<td>20200101 ~ 20200131</td>
-													</tr>
-													<tr>
-														<th>제출파일</th>
-														<td colspan="3"></td>
-													</tr>
-												</tbody>
-											</table>
+								<!-- apprList가 하나도 없으면 apprDetail == null (Controller에서 지정) -->
+								<!-- apprDetail 이 not null일 때만 아래 화면 보여줌 -->
+								<c:if test="${not empty apprDetail}">
+									<!-- 위의 결재항목별 교육상세설명 테이블 (TOGGLE 적용) -->
+									<div id="tab-content" class="tab-content">
+										<!-- 테이블 1 -->
+										<div class="tab-pane fade in active" id="table">
+											<div class="table-responsive">
+												<table class="table tbl-type1">
+													<tbody>
+														<tr>
+															<th>과목명</th>
+															<td colspan="3" id="edctNm">${apprDetail.edctNm }</td>
+														</tr>
+														<tr>
+															<th>교육내용</th>
+															<td class="txt-long" colspan="3" id="edctCon"><br>${apprDetail.edctCon }<br><br></td>
+														</tr>
+														<tr>
+															<th>교육기관</th>
+															<td colspan="3" id="edinNm">${apprDetail.edinNm }</td>
+														</tr>
+														<tr>
+															<th>교육방식</th>
+															<td id="onlEdctYn">${apprDetail.onlEdctYn }</td>
+															<th>교육수준</th>
+															<td id="edctLevl">${apprDetail.edctLevl }</td>
+														</tr>
+														<tr>
+															<th>학습기간</th>
+															<td id="edctYmd">${apprDetail.edctSttgYmd } ~ ${apprDetail.edctFnshYmd}</td>
+															<th>신청기간</th>
+															<td id="aplcYmd">${apprDetail.aplcSttgYmd } ~ ${apprDetail.aplcFnshYmd}</td>
+														</tr>
+														<tr>
+															<th>제출파일</th>
+															<td colspan="3" id="apndDat">${apprDetail.apndDat }</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
 										</div>
-									</div>
-									<!-- 테이블 2 -->
-									<div class="tab-pane fade" id="table4">
-										<div class="table-responsive">
-											<table class="table tbl-type1">
-												<tbody>
-													<tr>
-														<th>과목명</th>
-														<td colspan="3">Java Programming 핵심</td>
-													</tr>
-													<tr>
-														<th>교육내용</th>
-														<td class="txt-long" colspan="3">
-															<br>
-															- 다형성과 Loose Coupling 개념을 개발기간 뿐만 아니라 유지보수 및 확장시 개발자가 어떻게
-															적용할 수 있는지 학습합니다. <br>
-															- 디자인 패턴 등 현장의 개발자에게 필요하지만 어려운 개념을 쉽고 구체적으로 접근합니다.
-															<br><br>
-														</td>
-													</tr>
-													<tr>
-														<th>교육기관</th>
-														<td colspan="3">멀티캠퍼스</td>
-													</tr>
-													<tr>
-														<th>교육방식</th>
-														<td>오프라인</td>
-														<th>교육수준</th>
-														<td>중급</td>
-													</tr>
-													<tr>
-														<th>학습기간</th>
-														<td>20200201 ~ 20200205</td>
-														<th>신청기간</th>
-														<td>20200101 ~ 20200131</td>
-													</tr>
-													<tr>
-														<th>제출파일</th>
-														<td colspan="3"></td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-									</div>
-								</div>
+									</div>																	
+								</c:if>
 
 							</div>
 						</div>
@@ -154,11 +127,36 @@
 			</div>
 		</div>
 		<!-- END MAIN CONTENT -->
-	</div>
 	<!-- END MAIN -->
-	<div class="clearfix"></div>
 	</div>
 	<!-- END WRAPPER -->
+	
+	<script type="text/javascript">
+	
+		// 결재건 클릭 시 상세내역 동적변경을 위한 함수
+		function showDetail(edctAplcId) {
+		    $.ajax({
+		    	url:"/itep/views/apprMng/apprListDetail", //데이터를  넘겨줄 링크 설정
+		        type:"POST", // post 방식
+				data: {"edctAplcId" : edctAplcId}, //넘겨줄 데이터
+				
+				success: function (responseData) {						
+					// apprDetail 결과값을 테이블에 동적으로 반영
+					$('#edctNm').html(responseData.edctNm);
+					$('#edctCon').html('<br>'+responseData.edctCon+'<br><br>');
+					$('#edctLevl').html(responseData.edctLevl);
+					$('#onlEdctYn').html(responseData.onlEdctYn);
+					$('#edctYmd').html(responseData.edctSttgYmd+' ~ '+responseData.edctFnshYmd);
+					$('#aplcYmd').html(responseData.aplcSttgYmd+' ~ '+responseData.aplcFnshYmd);
+					$('#apndDat').html(responseData.apndDat);
+				},
+				error: function (xhr, status, error) {
+					
+				}
+			});
+		}
+		
+	</script>
 
 <!-- FOOTER -->
 <jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
