@@ -23,7 +23,7 @@ import com.ibk.itep.vo.board.NoticeVo;
 public class NoticeController{
 	
 	@Autowired private NoticeService service;
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(NoticeController.class);
 
 	@RequestMapping(value = "/views/board/notice", method = RequestMethod.GET)
