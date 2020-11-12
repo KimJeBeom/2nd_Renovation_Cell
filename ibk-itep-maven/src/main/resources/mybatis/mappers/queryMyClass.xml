@@ -87,7 +87,7 @@
 	     <![CDATA[
 			/*수강신청 취소*/
 			UPDATE TB_IEP_EDA001M 
-			SET USE_YN = 'N'  -- 사용여부
+			SET APLC_STG_CD = 'CANCEL'
 			WHERE EDCT_APLC_ID = #{edctAplcId}
 	     ]]>
 	</update>
