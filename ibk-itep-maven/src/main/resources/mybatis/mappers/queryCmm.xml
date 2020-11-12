@@ -56,18 +56,4 @@
 	    	]]>
 	    </if>
 	</select>
-	<select id="selectCmb" parameterType="cmbVo" resultType="cmbVo">
-		<![CDATA[
-			select	BRCD 		as brcd						
-				,	BRNM 		as brnm						
-				,	HGRN_BRCD 	as hgrnBrcd						
-				,	USE_YN 		as useYn		
-			from	itep.TB_IEP_CMB001M		
-		]]>
-    	<if test="useYn != null">
-		    <![CDATA[
-	 	   		where	USE_YN=#{useYn}
-	    	]]>
-	    </if>
-	</select>
 </mapper>
