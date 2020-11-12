@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ibk.itep.controller.HomeController;
 import com.ibk.itep.service.board.NoticeService;
@@ -25,7 +26,7 @@ public class NoticeModPopController{
 	private static final Logger logger = LoggerFactory.getLogger(NoticeModPopController.class);
 
 	@RequestMapping(value = "/views/board/pop/noticeModPop", method = RequestMethod.GET)
-	public String NoticeModPop(NoticeVo vo, Model model) {
+	public String NoticeModPop(NoticeVo vo, Model model, @RequestParam("modType") String modType) {
 		System.out.println("@ReauestParam : " + vo.getPbnsId());
 		
 		NoticeVo outVo = service.getDetail(vo);

@@ -18,9 +18,6 @@ public class NoticeDao {
 	
 	public List<NoticeVo> selectNotice(NoticeVo vo) {
 		System.out.println("### DAO OK!!"+vo.getTtl());
-		String sql = sqlSession.getConfiguration().getMappedStatement("queryLes.selectNotice").getBoundSql(vo).getSql();
- 
-        System.out.println("sql : " + sql);
 	
 		//List<NoticeVo> list = sqlSession.selectList("queryLes.selectNotice",vo);
 		List<NoticeVo> list = sqlSession.selectList("queryLes.selectNotice",vo);
