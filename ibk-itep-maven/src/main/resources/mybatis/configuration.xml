@@ -18,10 +18,10 @@
 		<typeAlias alias="EduNowVo" type="com.ibk.itep.vo.EduNowVO"></typeAlias>
 		<!-- admin -->
 		<!-- cmm -->
-		<typeAlias alias="claVo" type="com.ibk.itep.vo.cmm.ClaVo"></typeAlias>
-		<typeAlias alias="cliVo" type="com.ibk.itep.vo.cmm.CliVo"></typeAlias>
-		<typeAlias alias="cldVo" type="com.ibk.itep.vo.cmm.CldVo"></typeAlias>
-		<typeAlias alias="clsVo" type="com.ibk.itep.vo.cmm.ClsVo"></typeAlias>		
+		<typeAlias alias="ClaVo" type="com.ibk.itep.vo.cmm.ClaVo"></typeAlias>
+		<typeAlias alias="CliVo" type="com.ibk.itep.vo.cmm.CliVo"></typeAlias>
+		<typeAlias alias="CldVo" type="com.ibk.itep.vo.cmm.CldVo"></typeAlias>
+		<typeAlias alias="ClsVo" type="com.ibk.itep.vo.cmm.ClsVo"></typeAlias>		
     </typeAliases>	
 	<mappers>
 		<mapper resource="mybatis/mappers/query.xml" />
