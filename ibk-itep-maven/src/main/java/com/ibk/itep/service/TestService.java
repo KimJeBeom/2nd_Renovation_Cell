@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ibk.itep.repository.TestDAO;
-import com.ibk.itep.vo.ApprListVO;
+import com.ibk.itep.vo.ApprListVo;
 import com.ibk.itep.vo.TestVO;
 
 
@@ -39,18 +39,5 @@ public class TestService {
 		
 		return testDAO.delete(vo.getNo());
 	}
-	
-	public List<ApprListVO> getApprList(String userId){
-		return testDAO.getApprList(userId);
-	}
-	
-	
-//	public Timestamp getTimeStamp() {
-//		return Timestamp.valueOf("2020-08-10 10:00:00");
-//	}
-//	
-//	public Date getDate() {
-//		return Date.valueOf("2020-08-10 10:00:00");
-//	}
 }
 

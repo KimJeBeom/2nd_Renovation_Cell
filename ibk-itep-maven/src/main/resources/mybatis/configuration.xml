@@ -5,17 +5,20 @@
 		<!-- typeApliases 대분류후 배치-미분류 재배치 필요_201112 hws -->
 		<!-- 미분류 -->
 		<typeAlias alias="testvo" type="com.ibk.itep.vo.TestVO"></typeAlias>
-		<typeAlias alias="apprlistvo" type="com.ibk.itep.vo.ApprListVO"></typeAlias>
 		<typeAlias alias="EduListVo" type="com.ibk.itep.vo.eduApply.EduListVo"></typeAlias>
 		<typeAlias alias="EduInfoVo" type="com.ibk.itep.vo.eduApply.EduInfoVo"></typeAlias>
 		<typeAlias alias="NewEduApplyVo" type="com.ibk.itep.vo.eduApply.NewEduApplyVo"></typeAlias>
 		<!-- home -->
 		<!-- Myclass -->
 		<!-- apprMng -->
+		<typeAlias alias="sessionvo" type="com.ibk.itep.vo.SessionVo"></typeAlias>
+		<typeAlias alias="apprlistvo" type="com.ibk.itep.vo.ApprListVo"></typeAlias>
+		<typeAlias alias="apprlistdetailvo" type="com.ibk.itep.vo.ApprListDetailVo"></typeAlias>
 		<!-- board -->
 		<typeAlias alias="NoticeVo" type="com.ibk.itep.vo.board.NoticeVo"></typeAlias>
 		<typeAlias alias="ArchieveVo" type="com.ibk.itep.vo.board.ArchieveVo"></typeAlias>
 		<typeAlias alias="EduNowVo" type="com.ibk.itep.vo.EduNowVO"></typeAlias>
+
 		<!-- admin -->
 		<!-- cmm -->
 		<typeAlias alias="ClaVo" type="com.ibk.itep.vo.cmm.ClaVo"></typeAlias>
@@ -26,9 +29,10 @@
 	<mappers>
 		<mapper resource="mybatis/mappers/query.xml" />
 		<mapper resource="mybatis/mappers/queryLes.xml" />
-		<mapper resource="mybatis/mappers/kjy.xml" />
 		<mapper resource="mybatis/mappers/querykdj.xml" />		
 		<mapper resource="mybatis/mappers/queryCmm.xml" />
 		<!-- <mapper resource="mybatis/mappers/queryAdmin.xml" /> -->
+		<mapper resource="mybatis/mappers/querykdj.xml" />
+		<mapper resource="mybatis/mappers/queryApprMng.xml" />
 	</mappers>
 </configuration>
