@@ -25,7 +25,9 @@ import com.ibk.itep.vo.cmm.CldVo;
 public class EduRegModController{
 	
 	private static final Logger logger = LoggerFactory.getLogger(EduRegModController.class);
-
+	@Autowired
+	CmmDao cmmdao;
+	
 	@RequestMapping(value = "/views/admin/eduRegMod", method = RequestMethod.GET)
 	public String eduRegMod(Locale locale, Model model) {
 
@@ -36,18 +38,10 @@ public class EduRegModController{
 		logger.info("before set y : {}.", tst);
 		tst.setUseYn("Y");
 		logger.info("after set y : {}.", tst.getUseYn());
+	
+		List<CldVo> resultlist = cmmdao.selectCld(tst); 
 		
-		CmmDao cdao = new CmmDao();
-		logger.info("make finish cmmdao");
-		
-		
-		
-		//List<cldVo> resultlist = new List<cldVo>; 
-		
-		logger.info("{}.", cdao.selectCld(tst));
-		
-		
-		
+		logger.info("{}.", resultlist);		
 		
 		
 		return "/admin/eduRegMod";
