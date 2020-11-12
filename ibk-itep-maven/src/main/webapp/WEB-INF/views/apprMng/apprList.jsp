@@ -55,7 +55,6 @@
 									<tbody>
 										<!-- 컨트롤러에서 가져온 리스트에서 VO 하나씩 꺼내서 출력 -->
 										<c:forEach items="${apprList }" var="apprlist">
-											<!--  <tr data-toggle="tab" data-target="#${apprlist.edctAplcId }" onclick="location.href='/itep/views/apprMng/apprListDetail?edctAplcId=693'"> -->
 											<tr data-toggle="tab" data-target="#table" onclick="showDetail(${apprlist.edctAplcId })">
 												<td>
 													<label class="fancy-checkbox" onclick="event.cancelBubble=true">
@@ -154,8 +153,7 @@
 					
 				}
 			});
-		}
-		
+		}		
 	</script>
 
 <!-- FOOTER -->

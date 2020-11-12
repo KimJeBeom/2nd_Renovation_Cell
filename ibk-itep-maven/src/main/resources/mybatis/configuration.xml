@@ -8,12 +8,12 @@
 		<typeAlias alias="EduListVo" type="com.ibk.itep.vo.eduApply.EduListVo"></typeAlias>
 		<typeAlias alias="EduInfoVo" type="com.ibk.itep.vo.eduApply.EduInfoVo"></typeAlias>
 		<typeAlias alias="NewEduApplyVo" type="com.ibk.itep.vo.eduApply.NewEduApplyVo"></typeAlias>
+		<typeAlias alias="SessionVo" type="com.ibk.itep.vo.SessionVo"></typeAlias>
 		<!-- home -->
 		<!-- Myclass -->
 		<!-- apprMng -->
-		<typeAlias alias="sessionvo" type="com.ibk.itep.vo.SessionVo"></typeAlias>
-		<typeAlias alias="apprlistvo" type="com.ibk.itep.vo.ApprListVo"></typeAlias>
-		<typeAlias alias="apprlistdetailvo" type="com.ibk.itep.vo.ApprListDetailVo"></typeAlias>
+		<typeAlias alias="ApprListVo" type="com.ibk.itep.vo.apprMng.ApprListVo"></typeAlias>
+		<typeAlias alias="ApprListDetailVo" type="com.ibk.itep.vo.apprMng.ApprListDetailVo"></typeAlias>
 		<!-- board -->
 		<typeAlias alias="NoticeVo" type="com.ibk.itep.vo.board.NoticeVo"></typeAlias>
 		<typeAlias alias="ArchieveVo" type="com.ibk.itep.vo.board.ArchieveVo"></typeAlias>
