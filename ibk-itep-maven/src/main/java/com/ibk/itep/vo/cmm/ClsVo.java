@@ -1,6 +1,6 @@
 package com.ibk.itep.vo.cmm;
 
-public class clsVo {
+public class ClsVo {
 	private String	aplcStgCd;		// 결재상태코드
 	private String	aplcStgNm;		// 결재상태명								
 	private String	aplcStgDesc;	// 결재상태설명

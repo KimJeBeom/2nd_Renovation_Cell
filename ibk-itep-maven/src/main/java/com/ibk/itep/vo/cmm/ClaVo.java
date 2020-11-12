@@ -1,6 +1,6 @@
 package com.ibk.itep.vo.cmm;
 
-public class claVo {
+public class ClaVo {
 	private String	athrCd;		//권한코드
 	private String	athrCon;	// 권한 설명			
 	private String	athrNm;		//권한 이름						

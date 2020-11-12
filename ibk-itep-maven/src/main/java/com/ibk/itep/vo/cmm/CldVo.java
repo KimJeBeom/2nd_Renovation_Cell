@@ -1,6 +1,6 @@
 package com.ibk.itep.vo.cmm;
 
-public class cldVo {
+public class CldVo {
 	private String	edctClsfCd;	// 교육분류코드
 	private String	edctClsfNm;	// 교육분류명									
 	private String	useYn;		// 사용여부
