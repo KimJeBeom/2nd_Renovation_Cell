@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="query">
+<mapper namespace="queryLes">
 
 	<select id="selectEduList" parameterType="EduListVo" resultType="EduListVo">
 	     <![CDATA[
@@ -201,26 +201,30 @@
 	</insert>
 	
 	<select id="selectNotice" parameterType="NoticeVo" resultType="NoticeVo">
-	     <![CDATA[
-		/*공지사항조회*/
-		SELECT  
-			   PBNS_ID AS PBNSID#공지사항ID
-			  ,EDCT_CLSF_CD AS EDCTCLSFCD #교육분류코드
-			  ,(SELECT EDCT_CLSF_NM FROM TB_IEP_CLD001C D WHERE D.EDCT_CLSF_CD = N.EDCT_CLSF_CD) AS EDCTCLSFNM #교육기관명
-			  ,TTL AS TTL#제목 
-			  ,CON AS CON#내용
-			  ,RGSN_TS AS RGSNTS#등록일시 
-			  ,USER_ID AS USERID#사용자ID
-			  ,(SELECT USER_NM FROM TB_IEP_CMU001M U WHERE U.USER_ID = USER_ID) AS USERNM #신청자명
-			  ,APND_DAT AS APNDDAT  #첨부파일
-			  ,USE_YN AS USEYN 	#사용여부
-		FROM  TB_IEP_BDN001M N
-		WHERE 1=1
-	<if case="ttl != null">
-		AND   TTL LIKE '%'||#{ttl}||'%'
-	</if>
-		AND   USE_YN ='Y'
-	     ]]>
+       <![CDATA[
+      /*게시판>공지사항>공지사항조회*/
+      SELECT  
+            PBNS_ID AS PBNSID#공지사항ID
+           ,EDCT_CLSF_CD AS EDCTCLSFCD #교육분류코드
+           ,(SELECT EDCT_CLSF_NM FROM TB_IEP_CLD001C D WHERE D.EDCT_CLSF_CD = N.EDCT_CLSF_CD LIMIT 1 ) AS EDCTCLSFNM #교육기관명
+           ,TTL AS TTL#제목 
+           ,CON AS CON#내용
+           ,RGSN_TS AS RGSNTS#등록일시 
+           ,USER_ID AS USERID#사용자ID
+           ,(SELECT USER_NM FROM TB_IEP_CMU001M U WHERE U.USER_ID = N.USER_ID LIMIT 1 ) AS USERNM #신청자명
+           ,APND_DAT AS APNDDAT  #첨부파일
+           ,USE_YN AS USEYN    #사용여부
+      FROM  TB_IEP_BDN001M N
+      WHERE 1=1
+      ]]>
+   <if test="ttl != null">
+      <![CDATA[
+      AND   TTL LIKE CONCAT('%',#{ttl},'%')
+      ]]>
+   </if>
+      <![CDATA[
+      AND   USE_YN ='Y'
+       ]]>
 	</select>
 	
 	<select id="insertNotice" parameterType="NoticeVo" resultType="String">

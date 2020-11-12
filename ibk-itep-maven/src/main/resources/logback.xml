@@ -4,7 +4,6 @@
 	<!-- 콘솔로 로그를 남김 -->
 	<appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
-			<charset>UTF-8</charset>
 			<!-- 로그 메시지 패턴 -->
 			<Pattern>
 				[%d{HH:mm:ss.SSS}] [%thread] %-5level %logger{36} : %msg%n
@@ -40,8 +39,19 @@
 		<appender-ref ref="consoleAppender" />
 	</logger>
 	
-	<logger name="jdbc.sqlonly" level="debug" appender-ref="consoleAppender" />
-	<logger name="jdbc.resultsettable" level="debug" appender-ref="consoleAppender" />
+	<!-- mybatis query log setting -->
+	<logger name="jdbc" level="OFF" />
+	<!--  SQL 쿼리 문장 -->
+	<logger name="jdbc.sqlonly" level="OFF" />
+	<!--  SQL문과 해당 SQL을 실행시키는데 수행된 시간 정보(milliseconds) -->
+	<logger name="jdbc.sqltiming" level="DEBUG" />
+	<!--  ResultSet을 제외한 모든 JDBC 호출 정보 -->
+	<logger name="jdbc.audit" level="OFF" />
+	<!--  ResultSet을 포함한 모든 JDBC 호출 정보 -->
+	<logger name="jdbc.resultset" level="OFF" />
+	<!-- SQL 결과 조회된 데이터의 table을 로그 -->
+	<logger name="jdbc.resultsettable" level="OFF" />
+	<logger name="jdbc.connection" level="OFF" />
 
 	<!-- root는 글로벌 로거를 의미하며, 위의 logger에 해당하지 않으면 root 로거가 실행된다. -->
 	<root level="info">
