@@ -1,4 +1,4 @@
-package com.ibk.itep.vo;
+package com.ibk.itep.vo.apprMng;
 
 import java.text.SimpleDateFormat;
 import java.sql.Date;

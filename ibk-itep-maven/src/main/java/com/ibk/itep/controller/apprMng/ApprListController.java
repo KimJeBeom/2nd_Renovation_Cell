@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ibk.itep.service.ApprMngService;
-import com.ibk.itep.vo.ApprListDetailVo;
-import com.ibk.itep.vo.ApprListVo;
 import com.ibk.itep.vo.SessionVo;
+import com.ibk.itep.vo.apprMng.ApprListDetailVo;
+import com.ibk.itep.vo.apprMng.ApprListVo;
 
 @Controller
 public class ApprListController{
