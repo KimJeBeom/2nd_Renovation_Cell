@@ -26,7 +26,7 @@ public class ApprMngDao {
 		return vo;
 	}
 	
-	public void updateApprConfirm(List<Integer> edctAplcId, SessionVo ssnVo) {
+	/*public void updateApprConfirm(List<Integer> edctAplcId, SessionVo ssnVo) {
 		//sqlSession.update("queryApprMng.updateApprConfirm", edctAplcId, ssnVo);
-	}
+	}*/
 }

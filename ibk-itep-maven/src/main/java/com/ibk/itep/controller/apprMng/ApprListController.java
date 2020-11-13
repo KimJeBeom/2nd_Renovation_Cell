@@ -42,11 +42,11 @@ public class ApprListController{
 		ssnVo.setAthrCd("ADM");
 		
 		/* 결재목록 조회 */
-		List<ApprListVo> apprList = apprMngService.selectApprList(ssnVo); 
+		List<ApprListVo> apprList = apprMngService.selectApprList(ssnVo);
 		ApprListDetailVo apprDetail = null; // 상세 내용을 담기위한 객체
 		
 		/* 결재 대상이 하나라도 있으면 첫번째 결재건에 대한 상세내용 조회 */
-		if(apprList != null) {
+		if(apprList.size() != 0) {
 			int edctAplcId = apprList.get(0).getEdctAplcId(); // 첫번째 결재건의 신청ID
 			apprDetail = apprMngService.selectApprListDetail(edctAplcId); // 상세내용 조회
 		}
@@ -75,7 +75,7 @@ public class ApprListController{
 		ssnVO.setBrcd("0710");
 		ssnVO.setAthrCd("ADM");
 		
-//		apprMngService.updateApprConfirm(edctAplcIdArr, ssnVO);
+		//apprMngService.updateApprConfirm(edctAplcIdArr, ssnVO);
 	}
 }
 
