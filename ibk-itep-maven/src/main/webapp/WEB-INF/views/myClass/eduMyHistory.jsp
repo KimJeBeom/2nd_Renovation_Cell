@@ -91,7 +91,7 @@
 											<td>신청취소</td>
 											<td>
 												<button type="button" class="btn btn-primary btn-xs"
-													onclick="showPopup('eduApply','eduInfoPop');">확인</button>
+													onclick="showPopup('myClass','eduInfoPop');">확인</button>
 											</td>
 										</tr>
 										<tr>
@@ -103,7 +103,7 @@
 											<td>교육종료</td>
 											<td>
 												<button type="button" class="btn btn-primary btn-xs"
-													onclick="showPopup('eduApply','eduInfoPop ');">확인</button>
+													onclick="showPopup('myClass','eduInfoPop ');">확인</button>
 											</td>
 										</tr>
 									</tbody>

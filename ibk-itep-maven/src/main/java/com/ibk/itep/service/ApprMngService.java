@@ -17,16 +17,13 @@ public class ApprMngService {
 	@Autowired
 	private ApprMngDao apprMngDAO;
 	
-	public List<ApprListVo> selectApprList(SessionVo ssnVo){
-		return apprMngDAO.selectApprList(ssnVo);
+	public List<ApprListVo> selectApprList(SessionVo ssnVO){
+		return apprMngDAO.selectApprList(ssnVO);
 	}
 	
 	public ApprListDetailVo selectApprListDetail(int edctAplcId){
 		return apprMngDAO.selectApprListDetail(edctAplcId);
 	}
-	
-	public void updateApprConfirm(List<Integer> edctAplcId, SessionVo ssnVo){
-		apprMngDAO.updateApprConfirm(edctAplcId, ssnVo);
-	}
 }
+
 

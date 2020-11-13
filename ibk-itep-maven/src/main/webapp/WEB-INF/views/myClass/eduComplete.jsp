@@ -89,7 +89,7 @@
 											<td>Y</td>
 											<td>
 												<button type="button" class="btn btn-primary btn-xs"
-													onclick="showPopup('eduApply','eduInfoPop');">확인</button>
+													onclick="showPopup('myClass','eduInfoPop');">확인</button>
 											</td>
 										</tr>
 										<tr>
@@ -100,7 +100,7 @@
 											<td>N</td>
 											<td>
 												<button type="button" class="btn btn-primary btn-xs"
-													onclick="showPopup('eduApply','eduInfoPop ');">확인</button>
+													onclick="showPopup('myClass','eduInfoPop ');">확인</button>
 											</td>
 										</tr>
 									</tbody>
