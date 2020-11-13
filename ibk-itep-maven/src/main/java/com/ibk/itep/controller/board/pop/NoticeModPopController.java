@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ibk.itep.controller.HomeController;
 import com.ibk.itep.service.board.NoticeService;
 import com.ibk.itep.vo.board.NoticeVo;
 
@@ -28,35 +27,19 @@ public class NoticeModPopController{
 	@RequestMapping(value = "/views/board/pop/noticeModPop", method = RequestMethod.GET)
 	public String NoticeModPop(NoticeVo vo, Model model, @RequestParam(value="modType", required = false) String modType) {
 		
-		System.out.println("@ReauestParam : " + vo.getPbnsId());
+		System.out.println("@RequestParam : " + vo.getPbnsId());
+		System.out.println("@RequestParam : " + modType);
 		
-		String rstMsg ="";
-		if(modType!=null || !modType.equals("")) {
+		if(modType!=null) {
 			boolean modRst = service.modAction(vo,modType);
-			if(modRst==true){
-				rstMsg = "변경되었습니다!";
-			}else {
-				rstMsg = "변경 실패!";
-			}
+			System.out.println("modRst : "+modRst);
 		}
 		
 		NoticeVo outVo = service.getDetail(vo);
-		System.out.println("Service 잘 받았어!!!! getTtl : "+outVo.getTtl());
+		System.out.println("Service OK : "+outVo.getTtl());
 		
 		model.addAttribute("vo",outVo);
-		model.addAttribute("rstMsg", rstMsg);
-		
-		/*
-		 * model.addAttribute("pbnsId", outVo.getPbnsId());
-		 * model.addAttribute("edctClsfCd", outVo.getEdctClsfCd());
-		 * model.addAttribute("edctClsfNm", outVo.getEdctClsfNm());
-		 * model.addAttribute("ttl", outVo.getTtl()); 
-		 * model.addAttribute("con",outVo.getCon()); 
-		 * model.addAttribute("rgsnTs", outVo.getRgsnTs());
-		 * model.addAttribute("userId", outVo.getUserId()); 
-		 * model.addAttribute("userNm",outVo.getUserNm());
-		 * model.addAttribute("apndDat", outVo.getApndDat());
-		 */
+		model.addAttribute("modType", modType);
 		
 		return "/board/pop/noticeModPop";
 	}

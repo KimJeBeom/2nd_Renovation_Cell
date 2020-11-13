@@ -284,8 +284,7 @@
 		/*게시판>공지사항>공지사항 수정*/
 		UPDATE TB_IEP_BDN001M
 		set 
-		    EDCT_CLSF_CD = #{edctClsfCd} #교육분류코드
-		   ,TTL = #{ttl} #제목 
+		    TTL = #{ttl} #제목 
 		   ,CON = #{con}#내용
 		   ,APND_DAT = #{apndDat} #첨부파일
 		WHERE PBNS_ID =#{pbnsId}

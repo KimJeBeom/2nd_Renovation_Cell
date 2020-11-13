@@ -18,43 +18,32 @@ public class NoticeDao {
 	
 	public List<NoticeVo> selectNotice(NoticeVo vo) {
 		System.out.println("### DAO OK!!"+vo.getTtl());
-	
-		//List<NoticeVo> list = sqlSession.selectList("queryLes.selectNotice",vo);
-		List<NoticeVo> list = sqlSession.selectList("queryLes.selectNotice",vo);
+		List<NoticeVo> list = sqlSession.selectList("queryBoard.selectNotice",vo);
 		return list;
 	}
 	
 	
 	public NoticeVo selectNoticeDetail(NoticeVo vo) {
 		System.out.println("### DAO OK!! getPbnsId: "+vo.getPbnsId());
-		String sql = sqlSession.getConfiguration().getMappedStatement("queryLes.selectNoticeDetail").getBoundSql(vo).getSql();
- 
-        //System.out.println("sql : " + sql);
-	
-		//List<NoticeVo> list = sqlSession.selectList("queryLes.selectNotice",vo);
-		NoticeVo outVo = sqlSession.selectOne("queryLes.selectNoticeDetail",vo);
+		NoticeVo outVo = sqlSession.selectOne("queryBoard.selectNoticeDetail",vo);
 		System.out.println("### SELECT OK!! getTtl: "+vo.getTtl());
-		System.out.println("vo:"+vo);
 		return outVo;
 	}
 	
 	public boolean insertNotice(NoticeVo vo) {
-		int count = sqlSession.insert("queryLes.insertNotice", vo);
+		System.out.println("%%%getUserId =" + vo.getUserId());
+		int count = sqlSession.insert("queryBoard.insertNotice", vo);
 		return count == 1;
 	}
 	
 	public boolean updateNotice(NoticeVo vo) {
-		int count = sqlSession.delete("queryLes.updateNotice", vo);
+		int count = sqlSession.delete("queryBoard.updateNotice", vo);
 		return count == 1;
 	}
 	
-	public boolean deleteNotice(NoticeVo pbnsId) {
-		int count = sqlSession.delete("queryLes.deleteNotice", pbnsId);
+	public boolean deleteNotice(NoticeVo vo) {
+		int count = sqlSession.delete("queryBoard.deleteNotice", vo);
 		return count == 1;
 	}
 
-	public String getSysdate() {
-		String sysdate = sqlSession.selectOne("query.getsysdate");
-		return sysdate;
-	}
 }

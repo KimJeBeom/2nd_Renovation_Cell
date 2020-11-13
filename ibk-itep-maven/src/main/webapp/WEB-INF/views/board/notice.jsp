@@ -82,9 +82,9 @@
 											<th style="text-align:center; width:15%;" id="4">등록일</th>
 											<th style="text-align:center; width:15%;" id="5">등록자</th>
 										</tr>
-										<c:forEach items="${list}" var="noti" >
+										<c:forEach items="${list}" var="noti" varStatus="status">
 										<tr onclick="showPopupN('board','noticeModPop','${noti.pbnsId}');">
-	 										<td style="text-align:center">${noti.pbnsId}</td>
+	 										<td style="text-align:center">${status.count}</td>
 											<td style="text-align:center">${noti.edctClsfNm}</td>
 											<td style="text-align:  left">${noti.ttl}</td>
 											<td style="text-align:center">${noti.rgsnTs}</td>
@@ -93,46 +93,6 @@
 										</c:forEach>
 									</tbody>
 								</table>
-							<!-- 
-								<table class="table table-hover">
-									<tbody>
-										<tr>
-											<th style="text-align:center; width:10%;" id="1">No.</th>
-											<th style="text-align:center; width:15%;" id="2">구분</th>
-											<th style="text-align:center; width:45%;" id="3">제목</th>
-											<th style="text-align:center; width:15%;" id="4">등록일</th>
-											<th style="text-align:center; width:15%;" id="5">등록자</th>
-										</tr>
-										<tr onclick="showPopup('board','noticeModPop');">
-											<td style="text-align:center">1</td>
-											<td style="text-align:center">세미나</td>
-											<td style="text-align: left">업무에 바로쓰는 SQL활용실습</td>
-											<td style="text-align:center">2020.09.23</td>
-											<td style="text-align:center">김기은</td>
-										</tr>
-										<tr>
-											<td style="text-align:center">2</td>
-											<td style="text-align:center">세미나</td>
-											<td style="text-align: left">실천!초보자를 위한 Java</td>
-											<td style="text-align:center">2020.09.23</td>
-											<td style="text-align:center">김기은</td>
-										</tr>
-										<tr class="table-primary">
-											<td style="text-align:center">3</td>
-											<td style="text-align:center">세미나</td>
-											<td style="text-align: left">Java Programing 핵심</td>
-											<td style="text-align:center">2020.09.23</td>
-											<td style="text-align:center">김기은</td>
-										</tr>
-											<td style="text-align:center">4</td>
-											<td style="text-align:center">세미나</td>
-											<td style="text-align: left">핵심! Go프로그래밍</td>
-											<td style="text-align:center">2020.09.23</td>
-											<td style="text-align:center">김기은</td>
-										</tr>
-									</tbody>
-								</table>
-							-->
 							</div>
 							<nav aria-label="Page navigation" style="text-align: right;">
 								<ul class="pagination">

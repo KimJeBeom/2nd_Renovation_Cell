@@ -46,15 +46,17 @@ public class NoticeService {
 	public boolean modAction(NoticeVo vo,String modType){
 		
 		System.out.println("###service OK"+vo.getPbnsId()+"/ ActionType="+modType);
-		boolean modResult = false;
+		boolean modRst = false;
 		
 		if(modType.equals("update")) {
-			modResult =  noticeDAO.updateNotice(vo);
+			modRst =  noticeDAO.updateNotice(vo);
 		}else if(modType.equals("delete")){
-			modResult =  noticeDAO.deleteNotice(vo);
+			modRst =  noticeDAO.deleteNotice(vo);
+		}else if(modType.equals("insert")){
+			vo.setUserId("40868");
+			modRst =  noticeDAO.insertNotice(vo);
 		}
-
-		return modResult;
+		return modRst;
 	}
 
 }

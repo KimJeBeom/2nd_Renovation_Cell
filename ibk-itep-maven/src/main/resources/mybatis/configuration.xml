@@ -35,5 +35,6 @@
 		<!-- <mapper resource="mybatis/mappers/queryAdmin.xml" /> -->
 		<mapper resource="mybatis/mappers/queryApprMng.xml" />
 		<mapper resource="mybatis/mappers/queryMyClass.xml" />
+		<mapper resource="mybatis/mappers/queryBoard.xml" />
 	</mappers>
 </configuration>
