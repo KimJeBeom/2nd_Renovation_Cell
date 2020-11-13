@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="queryBoard">
+
+	<select id="selectNotice" parameterType="NoticeVo" resultType="NoticeVo">
+	    <![CDATA[
+		/*게시판>공지사항>공지사항조회*/
+		SELECT  
+			   PBNS_ID AS PBNSID#공지사항ID
+			  ,EDCT_CLSF_CD AS EDCTCLSFCD #교육분류코드
+			  ,(SELECT EDCT_CLSF_NM FROM TB_IEP_CLD001C D WHERE D.EDCT_CLSF_CD = N.EDCT_CLSF_CD LIMIT 1 ) AS EDCTCLSFNM #교육기관명
+			  ,TTL AS TTL#제목 
+			  ,CON AS CON#내용
+			  ,RGSN_TS AS RGSNTS#등록일시 
+			  ,USER_ID AS USERID#사용자ID
+			  ,(SELECT USER_NM FROM TB_IEP_CMU001M U WHERE U.USER_ID = N.USER_ID LIMIT 1 ) AS USERNM #신청자명
+			  ,APND_DAT AS APNDDAT  #첨부파일
+			  ,USE_YN AS USEYN 	#사용여부
+		FROM  TB_IEP_BDN001M N
+		WHERE 1=1
+		]]>
+	<if test="ttl != null">
+		<![CDATA[
+		AND   TTL LIKE CONCAT('%',#{ttl},'%')
+		]]>
+	</if>
+		<![CDATA[
+		AND   USE_YN ='Y'
+	    ]]>
+	</select>
+	
+	<select id="selectNoticeDetail" parameterType="NoticeVo" resultType="NoticeVo">
+	    <![CDATA[
+		/*게시판>공지사항>공지사항조회*/
+		SELECT  
+			   PBNS_ID AS PBNSID #공지사항ID
+			  ,EDCT_CLSF_CD AS EDCTCLSFCD #교육분류코드
+			  ,(SELECT EDCT_CLSF_NM FROM TB_IEP_CLD001C D WHERE D.EDCT_CLSF_CD = N.EDCT_CLSF_CD LIMIT 1 ) AS EDCTCLSFNM #교육기관명
+			  ,TTL AS TTL #제목 
+			  ,CON AS CON #내용
+			  ,RGSN_TS AS RGSNTS #등록일시 
+			  ,USER_ID AS USERID #사용자ID
+			  ,(SELECT USER_NM FROM TB_IEP_CMU001M U WHERE U.USER_ID = N.USER_ID LIMIT 1 ) AS USERNM #신청자명
+			  ,APND_DAT AS APNDDAT #첨부파일
+			  ,USE_YN AS USEYN 	#사용여부
+		FROM  TB_IEP_BDN001M N
+		WHERE 1=1
+		AND   PBNS_ID = #{pbnsId}
+		LIMIT 1
+		]]>
+	</select>
+	
+	<select id="insertNotice" parameterType="NoticeVo" resultType="String">
+	     <![CDATA[
+		/*게시판>공지사항>공지사항등록*/
+		INSERT INTO TB_IEP_BDN001M(
+			 EDCT_CLSF_CD#교육분류코드
+			,TTL#제목 
+			,CON#내용
+			,RGSN_TS#등록일시 
+			,USER_ID#사용자ID
+			,APND_DAT #첨부파일
+			,USE_YN	#사용여부
+		) VALUES(
+			 #{edctClsfCd}
+			,#{ttl}
+			,#{con}
+			,NOW()
+			,#{userId}
+			,#{apndDat}
+			,'Y' 
+		)
+	     ]]>
+	</select>
+	
+	<update id="updateNotice" parameterType="NoticeVo">
+	     <![CDATA[
+		/*게시판>공지사항>공지사항 수정*/
+		UPDATE TB_IEP_BDN001M
+		set 
+		    EDCT_CLSF_CD = #{edctClsfCd} #교육분류코드
+		   ,TTL = #{ttl} #제목 
+		   ,CON = #{con}#내용
+		   ,APND_DAT = #{apndDat} #첨부파일
+		WHERE PBNS_ID =#{pbnsId}
+	     ]]>
+	</update>
+	
+	<delete id="deleteNotice" parameterType="NoticeVo">
+	     <![CDATA[
+		/*게시판>공지사항>공지사항삭제*/
+		UPDATE TB_IEP_BDN001M
+		set USE_YN ='N'	#사용여부
+		WHERE PBNS_ID = #{pbnsId}
+	     ]]>
+	</delete>
+	
+	<select id="selectArchList" parameterType="ArchieveVo" resultType="ArchieveVo">
+	    <![CDATA[
+		/*게시판>자료실>자료실조회*/
+		SELECT 
+			   RFLB_ID AS RFLBID#공지사항ID
+			  ,EDCT_CLSF_CD AS EDCTCLSFCD#교육분류코드
+			  ,(SELECT EDCT_CLSF_NM FROM TB_IEP_CLD001C D WHERE D.EDCT_CLSF_CD = EDCT_CLSF_CD) AS EDCTCLSFNM #교육기관명
+			  ,TTL AS TTL#제목 
+			  ,CON AS CON#내용
+			  ,RGSN_TS AS RGSNTS#등록일시 
+			  ,USER_ID AS USERID#사용자ID
+			  ,(SELECT USER_NM FROM TB_IEP_CMU001M U WHERE U.USER_ID = USER_ID) AS USERNM #신청자명
+			  ,APND_DAT AS APNDDAT  #첨부파일
+			  ,USE_YN AS USEYN 	#사용여부
+		FROM  TB_IEP_BDR001M
+		WHERE 1=1
+		]]>
+	<if test="ttl != null">
+		<![CDATA[
+		AND   TTL LIKE CONCAT('%',#{ttl},'%')	 
+		]]>
+	</if>
+		<![CDATA[
+		AND   USE_YN ='Y'
+	    ]]>
+	</select>
+	
+	<select id="insertArchieve" parameterType="ArchieveVo" resultType="String">
+	     <![CDATA[
+		/*게시판>자료실>자료실등록*/
+		INSERT INTO TB_IEP_BDN001R(
+			 EDCT_CLSF_CD#교육분류코드
+			,TTL#제목 
+			,CON#내용
+			,RGSN_TS#등록일시 
+			,USER_ID#사용자ID
+			,APND_DAT #첨부파일
+			,USE_YN	#사용여부
+		) VALUES(
+			 #{edctClsfCd},
+			,#{ttl}
+			,#{con}'
+			,NOW()
+			,#{userId}
+			,#{apndDat}
+			,'Y' 
+		)
+	     ]]>
+	</select>
+	
+	<update id="updateArchieve" parameterType="ArchieveVo">
+	     <![CDATA[
+		/*게시판>자료실>자료실 수정*/
+		UPDATE TB_IEP_BDR001M
+		set 
+		    EDCT_CLSF_CD = #{edctClsfCd} #교육분류코드
+		   ,TTL = #{ttl} #제목 
+		   ,CON = #{con}#내용
+		   ,APND_DAT = #{apndDat} #첨부파일
+		WHERE RFLB_ID = #{rflbId}
+	     ]]>
+	</update>
+	
+	<delete id="deleteArchieve" parameterType="ArchieveVo">
+	     <![CDATA[
+		/*게시판>자료실>자료실삭제*/
+		UPDATE TB_IEP_BDR001M
+		set USE_YN ='N'	#사용여부
+		WHERE RFLB_ID = #{rflbId}
+	     ]]>
+	</delete>
+</mapper>
