@@ -42,5 +42,19 @@ public class NoticeService {
 
 		return outVo;
 	}
+	
+	public boolean modAction(NoticeVo vo,String modType){
+		
+		System.out.println("###service OK"+vo.getPbnsId()+"/ ActionType="+modType);
+		boolean modResult = false;
+		
+		if(modType.equals("update")) {
+			modResult =  noticeDAO.updateNotice(vo);
+		}else if(modType.equals("delete")){
+			modResult =  noticeDAO.deleteNotice(vo);
+		}
+
+		return modResult;
+	}
 
 }

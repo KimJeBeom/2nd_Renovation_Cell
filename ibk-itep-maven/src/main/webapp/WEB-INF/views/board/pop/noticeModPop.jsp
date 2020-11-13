@@ -6,6 +6,11 @@
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
 
 <body>
+ <script>
+ if(${rstMsg}!==""){
+	 alert("${rstMsg}");
+ }
+ </script>
    <!-- WRAPPER -->
    <div id="wrapper">
 	<!-- MAIN -->

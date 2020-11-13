@@ -26,13 +26,25 @@ public class NoticeModPopController{
 	private static final Logger logger = LoggerFactory.getLogger(NoticeModPopController.class);
 
 	@RequestMapping(value = "/views/board/pop/noticeModPop", method = RequestMethod.GET)
-	public String NoticeModPop(NoticeVo vo, Model model, @RequestParam("modType") String modType) {
+	public String NoticeModPop(NoticeVo vo, Model model, @RequestParam(value="modType", required = false) String modType) {
+		
 		System.out.println("@ReauestParam : " + vo.getPbnsId());
+		
+		String rstMsg ="";
+		if(modType!=null || !modType.equals("")) {
+			boolean modRst = service.modAction(vo,modType);
+			if(modRst==true){
+				rstMsg = "변경되었습니다!";
+			}else {
+				rstMsg = "변경 실패!";
+			}
+		}
 		
 		NoticeVo outVo = service.getDetail(vo);
 		System.out.println("Service 잘 받았어!!!! getTtl : "+outVo.getTtl());
 		
 		model.addAttribute("vo",outVo);
+		model.addAttribute("rstMsg", rstMsg);
 		
 		/*
 		 * model.addAttribute("pbnsId", outVo.getPbnsId());
