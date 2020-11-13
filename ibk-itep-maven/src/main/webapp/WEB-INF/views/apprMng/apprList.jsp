@@ -34,7 +34,7 @@
 								
 								<!-- 상단 버튼 -->
 								<button type="button" class="btn btn-primary btn-toastr btn-top" onclick="showPopup('apprMng','apprRejectPop');">반려</button>
-								<button type="button" class="btn btn-primary btn-toastr btn-top" data-context="info" data-message="승인되었습니다." data-position="top-center">승인</button>
+								<button type="button" class="btn btn-primary btn-toastr btn-top" onclick="apprConfirm();" data-context="info" data-message="승인되었습니다." data-position="top-center">승인</button>
 							
 								<!-- 결재 목록 테이블 (TOGGLE 적용)-->
 								<table class="table table-hover tbl-type2">
@@ -66,6 +66,8 @@
 												<td>${apprlist.userNm }</td>
 												<td>${apprlist.edctNm }</td>
 												<td>${apprlist.aplcTs }</td>
+												<!-- 체크된 row의 교육신청ID를 넘겨주기 위한 숨겨진 요소 -->
+												<td style="display:none">${apprlist.edctAplcId }</td>
 											</tr>
 									    </c:forEach>
 									</tbody>
@@ -154,6 +156,42 @@
 				}
 			});
 		}		
+		
+		// 결재 승인
+		function apprConfirm() {
+			var checkbox = $('input[name="checkbox"]:checked'); // 선택된 체크박스
+			var checkedLength = checkbox.length; // 선택된 체크박스의 개수
+			
+			// 체크된게 하나도 없으면 에러메세지 띄움
+			if(checkedLength == 0) {
+				alert("선택된 결재건이 없습니다.");
+			} 
+			
+			// 체크된 결재건의 승인처리
+			// 체크된 row의 교육신청ID를 배열에 담아 넘김
+			else {
+				var edctAplcIdArr = new Array(); // 선택된 교육신청ID를 담기위한 배열
+				
+				// 체크된 체크박스 값을 하나씩 가져온다
+				checkbox.each(function(i) {
+					var tr = checkbox.parent().parent().parent().eq(i); // checkbox의 부모의 부모의 부모는 tr
+					var td = tr.children(); // tr의 자식은 td들
+					
+					edctAplcIdArr.push(td.eq(6).text());
+				});
+				
+		        $.ajax({
+			    	url:"/itep/views/apprMng/apprConfirm", //데이터를  넘겨줄 링크 설정
+			        type:"POST", // post 방식
+					data: {"edctAplcIdArr" : edctAplcIdArr}, //넘겨줄 데이터
+					
+					success: function (responseData) {						
+						 alert("post로 데이터 넘기기 성공");  
+					},
+					error: function (xhr, status, error) {}
+				});
+			}
+		}
 	</script>
 
 <!-- FOOTER -->

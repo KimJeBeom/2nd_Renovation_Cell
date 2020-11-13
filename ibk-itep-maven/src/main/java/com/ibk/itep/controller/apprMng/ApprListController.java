@@ -31,17 +31,18 @@ public class ApprListController{
 		return apprList(model);
 	}
 
+	/* 결재 목록, 첫번째 결재건의 상세내용 호출 */
 	@RequestMapping(value = "/views/apprMng/apprList", method = RequestMethod.GET)
 	public String apprList(Model model) {
 	    
 		/* 테스트를 위한 임의의 세션VO 객체 생성 */
-		SessionVo ssnVO = new SessionVo();
-		ssnVO.setUserId("42664");
-		ssnVO.setBrcd("0710");
-		ssnVO.setAthrCd("ADM");
+		SessionVo ssnVo = new SessionVo();
+		ssnVo.setUserId("42664");
+		ssnVo.setBrcd("0710");
+		ssnVo.setAthrCd("ADM");
 		
 		/* 결재목록 조회 */
-		List<ApprListVo> apprList = apprMngService.selectApprList(ssnVO); 
+		List<ApprListVo> apprList = apprMngService.selectApprList(ssnVo); 
 		ApprListDetailVo apprDetail = null; // 상세 내용을 담기위한 객체
 		
 		/* 결재 대상이 하나라도 있으면 첫번째 결재건에 대한 상세내용 조회 */
@@ -55,12 +56,26 @@ public class ApprListController{
 		return "/apprMng/apprList";
 	}
 
+	/* 교육신청ID에 따른 상세내용 호출 */
 	@RequestMapping(value = "/views/apprMng/apprListDetail", method = RequestMethod.POST)
 	public @ResponseBody ApprListDetailVo apprListDetail(@RequestParam("edctAplcId") String edctAplcId) {
 		
 		// Service한테 결재상세정보 받아오기
 		ApprListDetailVo apprListDetail = apprMngService.selectApprListDetail(Integer.parseInt(edctAplcId));
 		return apprListDetail;
+	}
+	
+	/* 결재 승인처리 */
+	@RequestMapping(value = "/views/apprMng/apprConfirm", method = RequestMethod.POST)
+	public void apprConfirm(@RequestParam(value="edctAplcIdArr[]") List<Integer> edctAplcIdArr) {
+		
+		/* 테스트를 위한 임의의 세션VO 객체 생성 */
+		SessionVo ssnVO = new SessionVo();
+		ssnVO.setUserId("42664");
+		ssnVO.setBrcd("0710");
+		ssnVO.setAthrCd("ADM");
+		
+		apprMngService.updateApprConfirm(edctAplcIdArr, ssnVO);
 	}
 }
 
