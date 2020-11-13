@@ -75,7 +75,7 @@ public class ApprListController{
 		ssnVO.setBrcd("0710");
 		ssnVO.setAthrCd("ADM");
 		
-		apprMngService.updateApprConfirm(edctAplcIdArr, ssnVO);
+//		apprMngService.updateApprConfirm(edctAplcIdArr, ssnVO);
 	}
 }
 
