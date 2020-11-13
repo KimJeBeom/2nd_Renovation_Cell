@@ -20,7 +20,7 @@
 							<div class="panel panel-headline">
 								<div class="panel-body panel-popup">
 
-									<h4 style="float: left;">차수</h4>
+									<h4 style="float: left;"><b>차수</b></h4>
 									
 									<!-- 상단 버튼 -->
 									<button type="button" class="btn btn-primary btn-toastr btn-top">삭제</button>
@@ -30,32 +30,33 @@
 										<thead>
 											<tr>
 												<th>No</th>
-												<th style="width: 30%;">차수</th>
-												<th>학습기간</th>
+												<th style="width: 50%;">학습기간</th>
+												<th>교육기간</th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr data-toggle="tab" data-target="#table1">
 												<td>1</td>
-												<td>20191101</td>
 												<td>20191101 ~ 20191130</td>
+												<td>30일</td>
 											</tr>
 											<tr data-toggle="tab" data-target="#table2">
 												<td>2</td>
-												<td>20191201</td>
 												<td>20191201 ~ 20191231</td>
+												<td>30일</td>
 											</tr>
 											<tr data-toggle="tab" data-target="#table3">
 												<td>3</td>
-												<td>20200101</td>
 												<td>20200101 ~ 20200131</td>
+												<td>30일</td>
 											</tr>
 										</tbody>
 									</table>
 									<br>
 
-									<h4 style="float: left;">차수 추가</h4>
+									<h4 style="float: left;"><b>차수 추가</b></h4>
 									<button type="button" class="btn btn-primary btn-toastr btn-top">등록/수정</button>
+									<br><br>
 
 									<!-- 차수추가 포맷 및 위의 차수별 상세내용(TOGGLE) -->
 									<div class="tab-content">
@@ -64,24 +65,11 @@
 											<div class="table-responsive">
 												<!-- 교육 안내 테이블 -->
 												<table class="table table-bordered tbl-type1">
-													<tbody>
-														<tr>
-															<th>과목코드</th>
-															<td colspan="3">
-																<input id="eduTypeCode" type="text" class="form-control" placeholder="OTEDU" style="width: 30%; float: left;">
-																<input type="text" class="form-control" placeholder="0006" style="width: 30%; float: left; margin-left: 5px;">
-															</td>
-														</tr>	
+													<tbody>	
 														<tr>
 															<th>과목명</th>
 															<td colspan="3">
-																<input type="text" class="form-control" placeholder="IT Governance 핵심 이해">
-															</td>
-														</tr>
-														<tr>
-															<th>차수</th>
-															<td colspan="3">
-																<input type="text" class="form-control" placeholder="20200101">
+																<input type="text" class="form-control" placeholder="IT Governance 핵심 이해" readonly onfocus="this.blur();">
 															</td>
 														</tr>
 														<tr>
@@ -102,7 +90,7 @@
 																<input type="text" class="form-control" placeholder="20200101">
 																<input type="text" class="form-control" placeholder="20200105">
 															</td>
-															<th>취소기간</th>
+															<th>학습시간</th>
 															<td>
 																<input type="text" class="form-control" placeholder="09:00">
 																<input type="text" class="form-control" placeholder="17:00">
@@ -111,37 +99,12 @@
 														<tr>
 															<th>이수시간</th>
 															<td><input type="text" class="form-control" placeholder="35시간"></td>
-															<th>교육비용</th>
-															<td><input type="text" class="form-control" placeholder="350,000" style="width: 80%; float: left;">
-																<span><i></i>(원)</span></td>
+															<th>교육기간</th>
+															<td><input type="text" class="form-control" placeholder="5일"></td>
 														</tr>
 														<tr>
-															<th>교육방식</th>
-															<td>
-																<label class="fancy-radio" style="width: 40%; float: left; margin-left: 5px;">
-																	<input name="gender" value="online" type="radio">
-																	<span><i></i>온라인</span>
-																</label>
-																<label class="fancy-radio" style="width: 50%; float: left; margin-left: 10px;">
-																	<input name="gender" value="offline" type="radio">
-																	<span><i></i>오프라인</span>
-																</label>
-															</td>
-															<th>교육수준</th>
-															<td>
-																<label class="fancy-radio" style="width: 30%; float: left; margin-left: 10px">
-																	<input name="gender" value="hard" type="radio">
-																	<span><i></i>상</span>
-																</label>
-																<label class="fancy-radio" style="width: 30%; float: left;">
-																	<input name="gender" value="normal" type="radio">
-																	<span><i></i>중</span>
-																</label>
-																<label class="fancy-radio" style="width: 30%; float: left;">
-																	<input name="gender" value="easy" type="radio">
-																	<span><i></i>하</span>
-																</label>
-															</td>
+															<th>교육비용</th>
+															<td><input type="text" class="form-control" placeholder="350,000원"></td>
 														</tr>
 													</tbody>
 												</table>

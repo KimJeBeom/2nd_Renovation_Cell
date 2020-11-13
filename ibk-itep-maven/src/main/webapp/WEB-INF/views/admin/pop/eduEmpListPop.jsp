@@ -14,10 +14,6 @@
 			<!-- MAIN CONTENT -->
 			<div class="main-content">
 				<div class="container-fluid">
-
-					<!-- 상단 버튼 -->
-					<button type="button" class="btn btn-primary btn-toastr" style="float: right; vertical-align: bottom; ">등록</button><br><br>
-
 					<div class="row">
 						<div class="col-md-9 col-popup">
 							<div class="panel panel-headline">
@@ -53,6 +49,8 @@
 										<th>부서</th>
 										<th>직원번호</th>
 										<th>직원명</th>
+										<th style="width:50px;">수료</th>
+										<th style="width:50px;">미수료</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -61,30 +59,80 @@
 										<td>IT기획부</td>
 										<td>50000</td>
 										<td>김기은</td>
+										<td>
+											<label class="fancy-radio" style="margin-bottom:0px;">
+												<input name="ctcr_1" value="y" type="radio" checked/><span><i style="margin-right:0"></i></span>										
+											</label>
+										</td>
+										<td>
+											<label class="fancy-radio" style="margin-bottom:0px;">
+												<input name="ctcr_1" value="n" type="radio"/><span><i style="margin-right:0"></i></span>
+											</label>
+										</td>
 									</tr>
 									<tr>
 										<td>2</td>
 										<td>IT시스템운영팀</td>
 										<td>50001</td>
 										<td>박기은</td>
+										<td>
+											<label class="fancy-radio" style="margin-bottom:0px;">
+												<input name="ctcr_2" value="y" type="radio" checked/><span><i style="margin-right:0"></i></span>										
+											</label>
+										</td>
+										<td>
+											<label class="fancy-radio" style="margin-bottom:0px;">
+												<input name="ctcr_2" value="n" type="radio"/><span><i style="margin-right:0"></i></span>
+											</label>
+										</td>
 									</tr>
 									<tr>
 										<td>3</td>
 										<td>IT금융개발부</td>
 										<td>50002</td>
 										<td>이기은</td>
+										<td>
+											<label class="fancy-radio" style="margin-bottom:0px;">
+												<input name="ctcr_3" value="y" type="radio" checked/><span><i style="margin-right:0"></i></span>										
+											</label>
+										</td>
+										<td>
+											<label class="fancy-radio" style="margin-bottom:0px;">
+												<input name="ctcr_3" value="n" type="radio"/><span><i style="margin-right:0"></i></span>
+											</label>
+										</td>
 									</tr>
 									<tr>
 										<td>4</td>
 										<td>IT금융개발부</td>
 										<td>50003</td>
 										<td>정기은</td>
+										<td>
+											<label class="fancy-radio" style="margin-bottom:0px;">
+												<input name="ctcr_4" value="y" type="radio" checked/><span><i style="margin-right:0"></i></span>										
+											</label>
+										</td>
+										<td>
+											<label class="fancy-radio" style="margin-bottom:0px;">
+												<input name="ctcr_4" value="n" type="radio"/><span><i style="margin-right:0"></i></span>
+											</label>
+										</td>
 									</tr>
 									<tr>
 										<td>5</td>
 										<td>IT금융개발부</td>
 										<td>50004</td>
 										<td>강기은</td>
+										<td>
+											<label class="fancy-radio" style="margin-bottom:0px;">
+												<input name="ctcr_5" value="y" type="radio" checked/><span><i style="margin-right:0"></i></span>										
+											</label>
+										</td>
+										<td>
+											<label class="fancy-radio" style="margin-bottom:0px;">
+												<input name="ctcr_5" value="n" type="radio"/><span><i style="margin-right:0"></i></span>
+											</label>
+										</td>
 									</tr>
 								</tbody>
 								</table>

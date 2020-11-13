@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- HEADER -->
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
 
@@ -35,18 +38,62 @@
 												<td style="width: 80px; padding-left: 5px; text-align: center;"><b>■ 제 목</b></td>
 												<td style="width: 300px; padding-right: 40px">
 													<div>
-														<input class="form-control" type="text" value="">
+														<input class="form-control" type="text" name="ttl" value="${param.ttl}"/>
 													</div>
 												</td>
-												<td style="width: 10%; text-align: left;"><button type="button" class="btn btn-primary btn-toastr" style="float: right; margin-right: 20px;">조회</button></td>
+												<td style="width: 10%; text-align: left;">
+													<!-- <button class="btn btn-primary btn-toastr" type="button"  onclick="location.href='/itep/views/board/notice?ttl=가나다'">조회</button> -->
+													<button class="btn btn-primary btn-toastr" type="button"  onclick="search();">조회</button>
+													
+												</td>
 											</tr>
 										</tbody>
 									</table>
+								<!-- 
+								<from id ="frm" method="get" action="/itep/board/notice">
+									<table>
+										<tbody>
+											<tr>
+												<td style="width: 80px; padding-left: 5px; text-align: center;"><b>■ 제 목</b></td>
+												<td style="width: 300px; padding-right: 40px">
+													<div>
+														<input class="form-control" type="text" value="" name="ttl"/>
+													</div>
+												</td>
+												<td style="width: 10%; text-align: left;">
+													<input type="submit" class="btn btn-primary btn-toastr" style="float: right; margin-right: 20px;"/>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</from>
+								-->
 								</div>
 							<div class="form-group row" style="text-align: right; padding-right: 15px;">
 								<button class="btn btn-primary" type="button" onclick="showPopup('board','noticeRegPop');">등 록</button>
 							</div>
 							<div class="table-responsive">
+								<table class="table table-hover">
+									<tbody>
+										<tr>
+											<th style="text-align:center; width:10%;" id="1">No.</th>
+											<th style="text-align:center; width:15%;" id="2">구분</th>
+											<th style="text-align:center; width:45%;" id="3">제목</th>
+											<th style="text-align:center; width:15%;" id="4">등록일</th>
+											<th style="text-align:center; width:15%;" id="5">등록자</th>
+										</tr>
+										<c:forEach items="${list}" var="noti" >
+										<tr onclick="showPopupN('board','noticeModPop','${noti.pbnsId}');">
+	 										<td style="text-align:center">${noti.pbnsId}</td>
+											<td style="text-align:center">${noti.edctClsfNm}</td>
+											<td style="text-align:  left">${noti.ttl}</td>
+											<td style="text-align:center">${noti.rgsnTs}</td>
+											<td style="text-align:center">${noti.userNm}</td>
+										</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							<!-- 
 								<table class="table table-hover">
 									<tbody>
 										<tr>
@@ -85,6 +132,7 @@
 										</tr>
 									</tbody>
 								</table>
+							-->
 							</div>
 							<nav aria-label="Page navigation" style="text-align: right;">
 								<ul class="pagination">
@@ -115,4 +163,28 @@
 	<!-- END WRAPPER -->
 	
 <!-- FOOTER -->
+<script>
+	//(조회)제목을 필드값을 가져와 URL에 세팅하여 화면을 재수행한다.
+function search() {
+	var ttl = $('input[name=ttl]').val();
+	
+	if(ttl!=null){
+		location.href='/itep/views/board/notice?ttl='+ttl;
+	}else{
+		location.href='/itep/views/board/notice';
+	}
+}	
+	
+/* 팝업 : name에 팝업으로 띄울 jsp 이름 써서 호출 */
+function showPopupN(menu, name, id) {
+	var size = '';
+	
+	// 게시판 등록, 수정 팝업
+	if (name == 'noticeRegPop' || name == 'noticeModPop' || name == 'archRegPop' || name == 'archModPop')
+		size = 'location=no, width=850, height=600, left=100, top=100';
+
+	window.open('/itep/views/'+menu+'/pop/'+name+'?pbnsId='+id, '_blank', size); 
+}	
+</script>
+
 <jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />

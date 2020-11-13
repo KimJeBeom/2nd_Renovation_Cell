@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- HEADER -->
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
 
@@ -39,26 +39,19 @@
 										</tr>
 									</thead>
 									<tbody>
+									<c:forEach items="${list}" var="edulist">
+										<c:set var="sum" value="${sum+1}"/>
 										<tr>
-											<td>1</td>
-											<td>업무에 바로 쓰는 SQL 활용 실습</td>
-											<td>멀티캠퍼스</td>
-											<td>2020.07.01 ~ 2020.08.31</td>
+											<td>${sum}</td>
+											<td>${edulist.edctNm}</td>
+											<td>${edulist.edinNm }</td>
+											<td>${edulist.edctSttgYmd } ~ ${edulist.edctFnshYmd }</td>
 											<td>
 												<button type="button" class="btn btn-primary btn-xs"
-													onclick="showPopup('eduApply','eduInfoPop');">확인</button>
+													onclick="showPopup('myClass','eduInfoPop');">확인</button>
 											</td>
 										</tr>
-										<tr>
-											<td>1</td>
-											<td>업무에 바로 쓰는 SQL 활용 실습</td>
-											<td>멀티캠퍼스</td>
-											<td>2020.07.01 ~ 2020.08.31</td>
-											<td>
-												<button type="button" class="btn btn-primary btn-xs"
-													onclick="showPopup('eduApply','eduInfoPop');">확인</button>
-											</td>
-										</tr>
+									</c:forEach>
 									</tbody>
 								</table>
 							</div>

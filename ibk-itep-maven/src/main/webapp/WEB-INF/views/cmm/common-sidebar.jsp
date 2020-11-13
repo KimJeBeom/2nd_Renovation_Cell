@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
-
+	
 <!-- LEFT SIDEBAR -->
 <div id="sidebar-nav" class="sidebar">
 	<div class="sidebar-scroll">
@@ -7,7 +7,7 @@
 			<ul class="nav">
 
 				<!-- 기업은행 로고 -->
-				<div><a href="/itep/views" class="active"> <img class="logo-icon" src="/itep/assets/itep/img/ibkbank-logo.png" /></a></div>
+				<div><a href="/itep/views" class="active"> <img class="logo-icon" style="padding-left:10px;" src="/itep/assets/itep/img/itep-logo.png" /></a></div>
 
 				<!-- 사용자 정보 -->
 				<div class="usr-info">
@@ -27,6 +27,7 @@
 							<li><a href="/itep/views/myClass/eduNow" class="">수강중인 교육</a></li>
 							<li><a href="/itep/views/myClass/eduReady" class="">수강신청한 교육</a></li>
 							<li><a href="/itep/views/myClass/eduComplete" class="">수강완료한 교육</a></li>
+							<li><a href="/itep/views/myClass/eduMyHistory" class="">수강신청 이력</a></li>
     					</ul>
                     </div>
                 </li>
@@ -65,6 +66,7 @@
 							<li><a href="/itep/views/admin/eduReadyStat" class="">교육 신청현황</a></li>
 							<li><a href="/itep/views/admin/eduHistory" class="">수강이력</a></li>
 							<li><a href="/itep/views/admin/empAccMng" class="">사용자 계정관리</a></li>
+							<li><a href="/itep/views/admin/eduCdMng" class="">코드관리</a></li>
                         </ul>
                     </div>
 				</li>

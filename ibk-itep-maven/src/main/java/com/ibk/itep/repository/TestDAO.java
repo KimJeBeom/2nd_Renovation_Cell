@@ -3,8 +3,6 @@ package com.ibk.itep.repository;
 
 import java.util.List;
 
-import javax.sql.DataSource;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -40,5 +38,4 @@ public class TestDAO {
 		int count = sqlSession.delete("query.delete", no);
 		return count == 1;
 	}
-
 }

@@ -76,7 +76,7 @@
 								<!-- Start 수강이력 - 버튼바-->
 								<div class="form-group row"
 									style="text-align: right; padding-right: 20px;">
-									<button class="btn btn-primary" type="button">참고사항 등록</button>
+									<button class="btn btn-primary" type="button" onclick="showPopup('admin','memoRegPop');">참고사항 등록</button>
 									<button class="btn btn-primary" type="button">엑셀 다운로드</button>
 								</div>
 								<!-- End 수강이력 - 버튼바-->
