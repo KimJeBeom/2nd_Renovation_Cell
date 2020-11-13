@@ -24,6 +24,12 @@ public class ApprMngService {
 	public ApprListDetailVo selectApprListDetail(int edctAplcId){
 		return apprMngDAO.selectApprListDetail(edctAplcId);
 	}
+	
+	/*
+	public ApprListDetailVo updateApprConfirm(List<Integer> edctAplcIdArr, SessionVo ssnVo){
+		updateApprConfirm(edctAplcIdArr, ssnVo);
+	}
+	*/
 }
 
 
