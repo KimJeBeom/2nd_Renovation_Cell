@@ -57,23 +57,57 @@
 		]]>
 	</select>
 	
-	<!-- 
-	<update id="updateApprConfirm" parameterType="Integer; SessionVo">
-		-
-			UPDATE TB_IEP_EDA001M
-			SET 
-			<choose>
-				<when aplcStgCd = 'APRDPM'>
-					DPM_ATHZ_ID = #{사용자ID},
-					APLC_STG_CD = 'APRGRM'
-				</when>
-				<when aplcStgCd = 'APRGRM'>
-					GRM_ATHZ_ID = #{사용자ID},
-					APLC_STG_CD = 'APRFIN'
-				</when>
-			</choose>
-			WHERE EDCT_APLC_ID = #{교육신청ID};
+	<select id="selectAplcStgCd" parameterType="Integer" resultType="String">
+		<![CDATA[
+		SELECT APLC_STG_CD AS aplcStgCd
+		FROM TB_IEP_EDA001M
+		WHERE EDCT_APLC_ID = #{edctAplcId} AND USE_YN = 'Y' 
+		FOR UPDATE
+		]]>
+	</select>
 	
+	<update id="updateApprConf" parameterType="ApprConfRejVo">
+		<![CDATA[
+		UPDATE TB_IEP_EDA001M
+		SET 
+		]]>
+		<choose>
+			<when test="aplcStgCd == 'APRDPM'">
+				DPM_ATHZ_ID = #{userId},
+				APLC_STG_CD = 'APRGRM',
+				DPM_ATHZ_TS = NOW()
+			</when>
+			<when test="aplcStgCd == 'APRGRM'">
+				GRM_ATHZ_ID = #{userId},
+				APLC_STG_CD = 'APRFIN',
+				GRM_ATHZ_TS = NOW()
+			</when>
+		</choose>
+		<![CDATA[
+		WHERE EDCT_APLC_ID = #{edctAplcId};
+		]]>
 	</update>
-	 -->
+	
+	<update id="updateApprRej" parameterType="ApprConfRejVo">
+	<![CDATA[
+		UPDATE TB_IEP_EDA001M
+		SET 
+		]]>
+		<choose>
+			<when test="aplcStgCd == 'APRDPM'">
+				DPM_ATHZ_ID = #{userId},
+				APLC_STG_CD = 'REJDPM',
+				DPM_ATHZ_TS = NOW()
+			</when>
+			<when test="aplcStgCd == 'APRGRM'">
+				GRM_ATHZ_ID = #{userId},
+				APLC_STG_CD = 'REJGRM',
+				GRM_ATHZ_TS = NOW()
+			</when>
+		</choose>
+		<![CDATA[
+		, RTRE_CON = #{rtreCon}
+		WHERE EDCT_APLC_ID = #{edctAplcId};
+		]]>
+	</update>
 </mapper>

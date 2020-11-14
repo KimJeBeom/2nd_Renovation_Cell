@@ -14,6 +14,7 @@
 		<!-- apprMng -->
 		<typeAlias alias="ApprListVo" type="com.ibk.itep.vo.apprMng.ApprListVo"></typeAlias>
 		<typeAlias alias="ApprListDetailVo" type="com.ibk.itep.vo.apprMng.ApprListDetailVo"></typeAlias>
+		<typeAlias alias="ApprConfRejVo" type="com.ibk.itep.vo.apprMng.ApprConfRejVo"></typeAlias>
 		<!-- board -->
 		<typeAlias alias="NoticeVo" type="com.ibk.itep.vo.board.NoticeVo"></typeAlias>
 		<typeAlias alias="ArchieveVo" type="com.ibk.itep.vo.board.ArchieveVo"></typeAlias>

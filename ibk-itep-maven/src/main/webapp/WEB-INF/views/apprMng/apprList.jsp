@@ -33,8 +33,8 @@
 								<h4 class="panel-title" style="float:left;"><b>▶ 결재 목록</b></h4>
 								
 								<!-- 상단 버튼 -->
-								<button type="button" class="btn btn-primary btn-toastr btn-top" onclick="showPopup('apprMng','apprRejectPop');">반려</button>
-								<button type="button" class="btn btn-primary btn-toastr btn-top" onclick="apprConfirm();" data-context="info" data-message="승인되었습니다." data-position="top-center">승인</button>
+								<button type="button" class="btn btn-primary btn-toastr btn-top" onclick="apprRej();">반려</button>
+								<button type="button" class="btn btn-primary btn-toastr btn-top" onclick="apprConf();">승인</button>
 							
 								<!-- 결재 목록 테이블 (TOGGLE 적용)-->
 								<table class="table table-hover tbl-type2">
@@ -157,8 +157,9 @@
 			});
 		}		
 		
+		
 		// 결재 승인
-		function apprConfirm() {
+		function apprConf() {
 			var checkbox = $('input[name="checkbox"]:checked'); // 선택된 체크박스
 			var checkedLength = checkbox.length; // 선택된 체크박스의 개수
 			
@@ -170,28 +171,58 @@
 			// 체크된 결재건의 승인처리
 			// 체크된 row의 교육신청ID를 배열에 담아 넘김
 			else {
-				var edctAplcIdArr = new Array(); // 선택된 교육신청ID를 담기위한 배열
 				
-				// 체크된 체크박스 값을 하나씩 가져온다
-				checkbox.each(function(i) {
-					var tr = checkbox.parent().parent().parent().eq(i); // checkbox의 부모의 부모의 부모는 tr
-					var td = tr.children(); // tr의 자식은 td들
-					
-					edctAplcIdArr.push(td.eq(6).text());
-				});
-				
-		        $.ajax({
-			    	url:"/itep/views/apprMng/apprConfirm", //데이터를  넘겨줄 링크 설정
-			        type:"POST", // post 방식
-					data: {"edctAplcIdArr" : edctAplcIdArr}, //넘겨줄 데이터
-					
-					success: function (responseData) {						
-						 alert("post로 데이터 넘기기 성공");  
-					},
-					error: function (xhr, status, error) {}
-				});
+				 if (confirm("승인하시겠습니까?") == true){
+					 var aplcIdArr = new Array(); // 선택된 교육신청ID를 담기위한 배열
+					 
+					// 체크된 체크박스 값을 하나씩 가져온다
+					checkbox.each(function(i) {
+						var tr = checkbox.parent().parent().parent().eq(i); // checkbox의 부모의 부모의 부모는 tr
+						var td = tr.children(); // tr의 자식은 td들
+						
+						aplcIdArr.push(td.eq(6).text());
+					});
+				       
+				    $.ajax({ 
+		            	url:"/itep/views/apprMng/apprConf", //데이터를  넘겨줄 링크 설정
+		    		    type:"POST", // post 방식
+		    			data: {"aplcIdArr" : aplcIdArr}, //넘겨줄 데이터
+				        	
+				        success: function (responseData) {		
+				        	if(responseData == 1) {
+				        		confirm("승인이 완료되었습니다"); // 결과가 1이면 정상적으로 승인처리 완료
+				        		window.location.href = "/itep/views/apprMng/apprList";
+				        	} else {
+				        		confirm("실패하였습니다. 다시 시도해주십시오."); // 1이 아니면 승인 실패
+				        		window.location.href = "/itep/views/apprMng/apprList";
+				        	}
+						},
+						error: function (xhr, status, error) {}
+				 	});
+
+				 }else{
+				     return false;
+				 }
 			}
 		}
+		
+		
+		// 결재반려 
+		function apprRej() {
+			var checkedLength = $('input[name="checkbox"]:checked').length; // 선택된 체크박스의 개수
+						
+			if(checkedLength != 0) { // 체크된게 하나라도 있으면 결재반려 팝업 띄움
+				var url = '/itep/views/apprMng/pop/apprRejectPop';
+				var name = '_blank';
+				var size = 'location=no, width=500, height=250, left=100, top=100';
+				
+				window.open(url, name, size);
+			} 
+			else { // 체크된게 하나도 없으면 에러메세지 띄움
+				alert("선택된 결재건이 없습니다.");
+			}
+		}
+		
 	</script>
 
 <!-- FOOTER -->
