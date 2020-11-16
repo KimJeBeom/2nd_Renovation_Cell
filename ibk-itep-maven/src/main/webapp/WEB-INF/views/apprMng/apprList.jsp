@@ -52,10 +52,10 @@
 											<th>신청일자</th>
 										</tr>
 									</thead>
-									<tbody>
+									<tbody id="apprListBody">
 										<!-- 컨트롤러에서 가져온 리스트에서 VO 하나씩 꺼내서 출력 -->
 										<c:forEach items="${apprList }" var="apprlist">
-											<tr data-toggle="tab" data-target="#table" onclick="showDetail(${apprlist.edctAplcId })">
+											<tr data-toggle="tab" data-target="#table" onclick="showDetail(this, ${apprlist.edctAplcId })">
 												<td>
 													<label class="fancy-checkbox" onclick="event.cancelBubble=true">
 														<input type="checkbox" name="checkbox"><span></span>
@@ -131,11 +131,22 @@
 	<!-- END MAIN -->
 	</div>
 	<!-- END WRAPPER -->
+
+<!-- FOOTER -->
+<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		var tbody = document.getElementById('apprListBody');
+		var trs = tbody.getElementsByTagName('tr');
 	
-	<script type="text/javascript">
+		HighLightTableTr(trs[0]);	
+	});
 	
 		// 결재건 클릭 시 상세내역 동적변경을 위한 함수
-		function showDetail(edctAplcId) {
+		function showDetail(target, edctAplcId) {
+			HighLightTableTr(target);
+			
 		    $.ajax({
 		    	url:"/itep/views/apprMng/apprListDetail", //데이터를  넘겨줄 링크 설정
 		        type:"POST", // post 방식
@@ -214,7 +225,7 @@
 			if(checkedLength != 0) { // 체크된게 하나라도 있으면 결재반려 팝업 띄움
 				var url = '/itep/views/apprMng/pop/apprRejectPop';
 				var name = '_blank';
-				var size = 'location=no, width=500, height=250, left=100, top=100';
+				var size = 'location=no, width=500, height=250, left=300, top=300';
 				
 				window.open(url, name, size);
 			} 
@@ -224,6 +235,3 @@
 		}
 		
 	</script>
-
-<!-- FOOTER -->
-<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />

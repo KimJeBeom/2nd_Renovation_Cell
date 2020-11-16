@@ -110,4 +110,66 @@
 		WHERE EDCT_APLC_ID = #{edctAplcId};
 		]]>
 	</update>
+	
+	<select id="selectApprStat" parameterType="ApprStatSrchVo" resultType="ApprStatVo">
+		<![CDATA[
+		WITH EDA AS
+		(
+			SELECT EDA.EDCT_APLC_ID, EDA.DVCD, EDA.USER_ID, EDM.EDCT_NM, EDA.APLC_TS
+		         , EDA.DPM_ATHZ_ID, EDA.DPM_ATHZ_TS, EDA.GRM_ATHZ_ID, EDA.GRM_ATHZ_TS
+				 , EDA.APLC_STG_CD, EDA.RTRE_CON
+			FROM TB_IEP_EDA001M EDA, TB_IEP_EDC001M EDC, TB_IEP_EDM001M EDM
+			WHERE EDA.USE_YN = 'Y'
+			AND EDA.EDCT_CNT_ID = EDC.EDCT_CNT_ID AND EDC.USE_YN = 'Y'
+			AND EDC.EDCT_ID = EDM.EDCT_ID AND EDM.USE_YN = 'Y'
+			]]>
+			<if test="athrCd == 'DPM'">
+				AND EDA.DVCD = #{dvcd}
+			</if>
+			<choose>
+				<when test="!sttgYmd.equals('') and !fnshYmd.equals('')">
+					AND EDA.APLC_TS BETWEEN CONCAT(#{sttgYmd}, ' 00:00:00') AND CONCAT(#{fnshYmd}, ' 23:59:59')
+				</when>
+				<otherwise>
+					AND EDA.APLC_TS BETWEEN DATE_ADD(NOW(),INTERVAL -1 MONTH ) AND NOW()
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="aplcStg == 'fin'">
+					AND EDA.APLC_STG_CD = 'APRFIN'
+				</when>
+				<when test="aplcStg == 'apr'">
+					AND (EDA.APLC_STG_CD = 'APRDPM' OR EDA.APLC_STG_CD = 'APRGRM')
+				</when>
+				<when test="aplcStg == 'rej'">
+					AND (EDA.APLC_STG_CD = 'REJDPM' OR EDA.APLC_STG_CD = 'REJGRM')
+				</when>
+			</choose>
+			<![CDATA[
+			ORDER BY EDA.APLC_TS DESC	
+		),
+		CMUB AS
+		(
+			SELECT CMU.USER_ID, CMU.USER_NM, CMB.BRCD, CMB.BRNM 
+		    FROM TB_IEP_CMU001M CMU, TB_IEP_CMB001M CMB
+		    WHERE CMU.DVCD = CMB.BRCD AND CMU.USE_YN = 'Y'
+		    AND CMB.USE_YN = 'Y'
+		)
+		SELECT EDA.EDCT_APLC_ID AS edctAplcId
+			 , CMUB.BRNM AS brnm
+			 , CMUB.USER_NM AS userNm
+			 , EDA.EDCT_NM AS edctNm
+			 , EDA.APLC_TS AS aplcTs
+		     , (SELECT BRNM FROM CMUB WHERE USER_ID = EDA.DPM_ATHZ_ID) AS dpmAThzDvcd
+		     , (SELECT USER_NM FROM CMUB WHERE USER_ID = EDA.DPM_ATHZ_ID) AS dpmAThzNm
+		     , EDA.DPM_ATHZ_TS AS dpmAthzTs
+		     , (SELECT BRNM FROM CMUB WHERE USER_ID = EDA.GRM_ATHZ_ID) AS grmAThzDvcd
+		     , (SELECT USER_NM FROM CMUB WHERE USER_ID = EDA.GRM_ATHZ_ID) AS grmAThzNm
+		     , EDA.GRM_ATHZ_TS AS grmAthzTs
+			 , EDA.APLC_STG_CD AS aplcStgCd
+		     , EDA.RTRE_CON AS rtreCon
+		FROM EDA, CMUB
+		WHERE EDA.USER_ID = CMUB.USER_ID;
+		]]>			
+	</select>
 </mapper>

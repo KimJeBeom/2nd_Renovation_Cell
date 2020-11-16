@@ -13,6 +13,8 @@ import com.ibk.itep.vo.SessionVo;
 import com.ibk.itep.vo.apprMng.ApprConfRejVo;
 import com.ibk.itep.vo.apprMng.ApprListDetailVo;
 import com.ibk.itep.vo.apprMng.ApprListVo;
+import com.ibk.itep.vo.apprMng.ApprStatSrchVo;
+import com.ibk.itep.vo.apprMng.ApprStatVo;
 
 @Repository
 public class ApprMngDao {
@@ -43,5 +45,10 @@ public class ApprMngDao {
 	
 	public void updateApprRej(ApprConfRejVo apprConfRejVo) {
 		sqlSession.update("queryApprMng.updateApprRej", apprConfRejVo);
+	}
+	
+	public List<ApprStatVo> selectApprStat(ApprStatSrchVo apprStatSrchVo) {
+		List<ApprStatVo> list = sqlSession.selectList("queryApprMng.selectApprStat", apprStatSrchVo);
+		return list;
 	}
 }

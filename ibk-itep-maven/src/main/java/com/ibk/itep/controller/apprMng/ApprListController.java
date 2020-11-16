@@ -1,6 +1,5 @@
 package com.ibk.itep.controller.apprMng;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -31,7 +30,7 @@ public class ApprListController{
 		return apprList(model);
 	}
 
-	/* 결재 목록, 첫번째 결재건의 상세내용 호출 */
+	/* 결재 목록, 첫번째 결재건의 상세내용 조회 */
 	@RequestMapping(value = "/views/apprMng/apprList", method = RequestMethod.GET)
 	public String apprList(Model model) {
 		
@@ -50,7 +49,7 @@ public class ApprListController{
 		return "/apprMng/apprList";
 	}
 
-	/* 교육신청ID에 따른 상세내용 호출 */
+	/* 교육신청ID에 따른 상세내용 조회 */
 	@RequestMapping(value = "/views/apprMng/apprListDetail", method = RequestMethod.POST)
 	public @ResponseBody ApprListDetailVo apprListDetail(@RequestParam("edctAplcId") String edctAplcId) {
 		ApprListDetailVo apprListDetail = apprMngService.selectApprListDetail(Integer.parseInt(edctAplcId));

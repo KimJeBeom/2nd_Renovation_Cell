@@ -1,5 +1,6 @@
 package com.ibk.itep.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -12,6 +13,8 @@ import com.ibk.itep.vo.SessionVo;
 import com.ibk.itep.vo.apprMng.ApprConfRejVo;
 import com.ibk.itep.vo.apprMng.ApprListDetailVo;
 import com.ibk.itep.vo.apprMng.ApprListVo;
+import com.ibk.itep.vo.apprMng.ApprStatSrchVo;
+import com.ibk.itep.vo.apprMng.ApprStatVo;
 
 
 @Service
@@ -96,6 +99,58 @@ public class ApprMngService {
 		return check;
 	}
 	
+	public List<ApprStatVo> selectApprStat(String sttgYmd, String fnshYmd, String aplcStg){
+		ApprStatSrchVo srchVo = new ApprStatSrchVo();
+		srchVo.setDvcd("0710");
+		srchVo.setAthrCd("ADM");
+		
+		if(sttgYmd != null && !sttgYmd.equals("")) {
+			srchVo.setSttgYmd(Date.valueOf(sttgYmd.replace("/", "-"))); // 검색 - 시작일자
+		}if(fnshYmd != null && !fnshYmd.equals(""))
+			srchVo.setFnshYmd(Date.valueOf(fnshYmd.replace("/", "-"))); // 검색 - 종료일자 
+		if(aplcStg != null && !aplcStg.equals(""))
+			srchVo.setAplcStg(aplcStg); // 검색 - 결재단계
+		
+		List<ApprStatVo> list = apprMngDAO.selectApprStat(srchVo);
+		
+		for(ApprStatVo vo : list) {
+			String aplcStgCd = vo.getAplcStgCd();
+			
+			/*
+			 *  결재단계코드에 따른 결재의견 지정
+			 *  APRFIN - 결재완료 / 결재자 GRM / DPM, GRM 결재완료
+			 *  EDUFIN - 결재완료 / 결재자 GRM / DPM, GRM 결재완료
+			 *  APRDPM - 결재중 / 결재자 DPM / DPM 결재중, GRM 빈칸
+			 *  APRGRM - 결재중 / 결재자 GRM / DPM 결재완료, GRM 결재중
+			 *  REJDPM - 반려 / 결재자 DPM / DPM 반려사유, GRM 빈칸
+			 *  REJGRM - 반려 / 결재자 GRM / DPM 결재완료, GRM 반려사유
+			*/
+			if(aplcStgCd.equals("APRFIN") || aplcStgCd.equals("EDUFIN")) {
+				vo.setAplcStg("결재완료");
+				vo.setApprNm(vo.getGrmAthzNm());
+				vo.setDpmAthzCon("결재완료");
+			} else if(aplcStgCd.equals("APRDPM")) {
+				vo.setAplcStg("결재중");
+				vo.setApprNm(vo.getDpmAthzNm());
+				vo.setDpmAthzCon("결재중");
+			} else if(aplcStgCd.equals("APRGRM")) {
+				vo.setAplcStg("결재중");
+				vo.setApprNm(vo.getGrmAthzNm());
+				vo.setDpmAthzCon("결재완료");
+				vo.setGrmAthzCon("결재중");
+			} else if(aplcStgCd.equals("REJDPM")) {
+				vo.setAplcStg("반려");
+				vo.setApprNm(vo.getDpmAthzNm());
+				vo.setDpmAthzCon(vo.getRtreCon());
+			} else if(aplcStgCd.equals("REJGRM")) {
+				vo.setAplcStg("반려");
+				vo.setApprNm(vo.getGrmAthzNm());
+				vo.setDpmAthzCon("결재완료");
+				vo.setGrmAthzCon(vo.getRtreCon());
+			}
+		}
+		return list;
+	}
 }
 
 
