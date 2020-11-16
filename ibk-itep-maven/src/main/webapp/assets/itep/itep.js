@@ -63,41 +63,43 @@ $(document).ready(function() {
 /* 팝업 : name에 팝업으로 띄울 jsp 이름 써서 호출 */
 function showPopup(menu, name) {
 	var size = '';
+	var nameArr = name.spilt("?");
+	var popName = nameArr[0];
 	
 	// 결재반려 팝업
-	if (name =='apprRejectPop') 
+	if (popName =='apprRejectPop') 
 		size = 'location=no, width=500, height=250, left=100, top=100';
 
 	// 결재요청(결재자지정) 팝업
-	else if (name =='apprApplyPop') 
+	else if (popName =='apprApplyPop') 
 		size = 'location=no, width=750, height=630, left=100, top=100';
 		
 	// 교육 안내 및 신청 팝업
-	else if (name == 'eduApplyPop') 
+	else if (popName == 'eduApplyPop') 
 		size = 'location=no, width=750, height=700, left=100, top=100';
 		
 	// 교육신청 결재 요청 팝업
-	else if (name == 'eduInfoPop')
+	else if (popName == 'eduInfoPop')
 		size = 'location=no, width=750, height=430, left=200, top=200';
 	
 	// 차수추가 팝업
-	else if (name =='addEduRndPop')
+	else if (popName =='addEduRndPop')
 		size = 'location=no, width=650, height=830, left=100, top=100';	
 	
 	// 게시판 등록, 수정 팝업
-	else if (name == 'noticeRegPop' || name == 'noticeModPop' || name == 'archRegPop' || name == 'archModPop')
+	else if (popName == 'noticeRegPop' || popName == 'noticeModPop' || popName == 'archRegPop' || popName == 'archModPop')
 		size = 'location=no, width=850, height=600, left=100, top=100';
 		
 	// 관리자페이지 교육 등록, 수정
-	else if (name == 'newEduRegPop' || name == 'eduModPop')
+	else if (popName == 'newEduRegPop' || popName == 'eduModPop')
 		size = 'location=no, width=650, height=560, left=100, top=100';	
    
  // 관리자페이지 코드 등록
-	else if (name == 'addEduCdPop')
+	else if (popName == 'addEduCdPop')
 		size = 'location=no, width=650, height=300, left=100, top=100';	
 			
 	//
-	else if (name == 'eduEmpListPop')
+	else if (popName == 'eduEmpListPop')
 		size = 'location=no, width=650, height=560, left=100, top=100';
 	
 	else 
