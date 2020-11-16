@@ -7,6 +7,19 @@
 			SELECT sysdate()
 		]]>
 	</select>
+
+	<select id="selectUserById"
+		resultType="com.ibk.itep.common.security.custom.CustomUserDetails">
+        <![CDATA[
+            SELECT
+                user_id, user_nm, use_yn, athr_cd
+            FROM
+                tb_iep_cmu001m
+            WHERE
+                user_id=#{user_id}
+        ]]>
+	</select>
+
 	<select id="getList" resultType="testvo">
 		<![CDATA[
 			SELECT no, name, pwd, content, reg_date as regDate
