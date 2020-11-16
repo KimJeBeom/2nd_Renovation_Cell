@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ibk.itep.service.board.ArchieveService;
 import com.ibk.itep.vo.board.ArchieveVo;
 
-/*게시판>자료실>변경팝업*/
+/*게시판>자료실>상세조회팝업*/
 @Controller
 public class ArchModPopController{
 	

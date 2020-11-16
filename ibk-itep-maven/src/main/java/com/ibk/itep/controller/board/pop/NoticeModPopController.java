@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ibk.itep.service.board.NoticeService;
 import com.ibk.itep.vo.board.NoticeVo;
 
-/* 게시판>공지사항>변경팝업 */
+/* 게시판>공지사항>상세조회팝업 */
 @Controller
 public class NoticeModPopController{
 	

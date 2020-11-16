@@ -27,6 +27,7 @@
 	</if>
 		<![CDATA[
 		AND   USE_YN ='Y'
+		ORDER BY RGSN_TS DESC
 	    ]]>
 	</select>
 	
@@ -120,10 +121,11 @@
 	</if>
 		<![CDATA[
 		AND   USE_YN ='Y'
+		ORDER BY RGSN_TS DESC
 	    ]]>
 	</select>
 
-	<select id="selectArchieveDetail" parameterType="NoticeVo" resultType="NoticeVo">
+	<select id="selectArchieveDetail" parameterType="ArchieveVo" resultType="ArchieveVo">
 	    <![CDATA[
 		/*게시판>공지사항>공지사항조회*/
 		SELECT  

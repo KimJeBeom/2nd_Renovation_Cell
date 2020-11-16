@@ -5,6 +5,7 @@
 <!-- HEADER -->
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
 
+<!-- 게시판>공지사항>상세조회팝업 -->
 <body>
  <script>
  //화면 재호출시(작업완료) 제어를 위한 sctipt

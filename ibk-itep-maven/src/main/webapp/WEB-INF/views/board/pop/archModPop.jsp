@@ -5,6 +5,7 @@
 <!-- HEADER -->
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
 
+<!-- 게시판>자료실>상세조회팝업 -->
 <body>
  <script>
  //화면 재호출시(작업완료) 제어를 위한 sctipt
@@ -72,7 +73,7 @@
 						   </tr>
 							<tr>
 							   <td class="txt-long" colspan="4">
-								<textarea id ="con" style="width:100%; height: 200px;"><p>$(fn:replace(${vo.con}, newLine, '<br>')}<p></textarea>
+								<textarea id ="con" style="width:100%; height: 200px;">${vo.con}</textarea>
 							   </td>
 							</tr>
 						 </tbody>

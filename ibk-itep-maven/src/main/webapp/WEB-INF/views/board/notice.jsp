@@ -5,6 +5,7 @@
 <!-- HEADER -->
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
 
+<!-- 게시판>공지사항 -->
 <body>
 	<!-- WRAPPER -->
 	<div id="wrapper">
@@ -65,7 +66,7 @@
 										</tr>
 										<c:forEach items="${list}" var="noti" varStatus="status">
 										<tr onclick="detailPopup('board','noticeModPop','${noti.pbnsId}');">
-	 										<td style="text-align:center">${status.count}</td>
+	 										<td style="text-align:center">${fn:length(list)-status.count+1}
 											<td style="text-align:center">${noti.edctClsfNm}</td>
 											<td style="text-align:  left">${noti.ttl}</td>
 											<td style="text-align:center">${noti.rgsnTs}</td>

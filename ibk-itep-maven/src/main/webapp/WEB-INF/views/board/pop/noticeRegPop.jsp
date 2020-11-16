@@ -2,6 +2,7 @@
 <!-- HEADER -->
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
 
+<!-- 게시판>공지사항>등록팝업 -->
 <body>
 <script>
  if(${modRst}==true){

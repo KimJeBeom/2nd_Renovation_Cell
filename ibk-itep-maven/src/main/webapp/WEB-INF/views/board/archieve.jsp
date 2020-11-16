@@ -5,6 +5,7 @@
 <!-- HEADER -->
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
 
+<!-- 게시판>자료실 -->
 <body>
 	<!-- WRAPPER -->
 	<div id="wrapper">
@@ -65,7 +66,7 @@
 										</tr>
 										<c:forEach items="${list}" var="arch" varStatus="status">
 										<tr onclick="detailPopup('board','archModPop','${arch.rflbId}');">
-	 										<td style="text-align:center">${status.count}</td>
+	 										<td style="text-align:center">${fn:length(list)-status.count+1}
 											<td style="text-align:center">${arch.edctClsfNm}</td>
 											<td style="text-align:  left">${arch.ttl}</td>
 											<td style="text-align:center">${arch.rgsnTs}</td>
