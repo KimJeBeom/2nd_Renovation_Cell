@@ -57,13 +57,11 @@
 							<!-- Start 교육 등록 및 수정 - 버튼바-->
 							<div class="form-group row"
 								style="text-align: right; padding-right: 25px;">
-								<button class="btn btn-primary" type="button"
-									onclick="showPopup('admin','newEduRegPop');">등록</button>
-								<button class="btn btn-primary" type="button"
-									onclick="showPopup('admin','eduModPop');">수정</button>
-								<button class="btn btn-primary" type="button">삭제</button>
-								<button class="btn btn-primary" type="button">엑셀업로드</button>
-								<button class="btn btn-primary" type="button">엑셀다운로드</button>
+								<button class="btn btn-primary" type="button" id="btnReg">등록</button>
+								<button class="btn btn-primary" type="button" id="btnMod">수정</button>
+								<button class="btn btn-primary" type="button" id="btnDel">삭제</button>
+								<button class="btn btn-primary" type="button" id="btnXlsUp">엑셀업로드</button>
+								<button class="btn btn-primary" type="button" id="btnXlsDown">엑셀다운로드</button>
 							</div>
 							<!-- End 교육 등록 및 수정 - 버튼바-->
 							<!-- Start 교육 조회 결과 리스트-->
@@ -101,8 +99,34 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- FOOTER -->
+	<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 	<script type="text/javascript">
 		// 결재건 클릭 시 상세내역 동적변경을 위한 함수
+		
+		$(document).ready(function(){
+			$("#btnReg").click(function(){
+				showPopup('admin','newEduRegPop');
+			})
+ 			$("#btnMod").click(function(){
+ 				var radioVal = $('input[name="chkEdctId"]:checked').val();
+ 				if(radioVal != null){
+ 					showPopup('admin','eduModPop?edctId='+radioVal);	
+ 				}else{
+ 					alert("수정할 교육을 선택해주세요");
+ 				} 				
+			})
+			$("#btnDel").click(function(){
+				var radioVal = $('input[name="chkEdctId"]:checked').val();
+ 				if(radioVal != null){
+ 					alert("삭제기능호출구현 필요");
+ 					/*showPopup('admin','eduModPop?edctId='+radioVal);*/	
+ 				}else{
+ 					alert("삭제할 교육을 선택해주세요");
+ 				}				
+			})
+		});
 		function selectEduRegMod() {
 			var edctClsfCd = $("#edctClsfCd").val();
 			var edctNm = $("#edctNm").val();
@@ -121,7 +145,7 @@
 						str += '<td>'+responseData[i].edctClsfNm+'</td>'
 						str += '<td style=\"text-align: left\">'+responseData[i].edctNm+'</td>'
 						str += '<td>'+responseData[i].edinNm+'</td>'
-						str += '<td><button type=\"button\" class=\"btn btn-primary bts-xs\" onclick=\"showPopup(\'admin\',\'addEduRndPop?edctId=1\');\">차수추가</button></td>'
+						str += '<td><button type=\"button\" class=\"btn btn-primary bts-xs\" onclick=\"showPopup(\'admin\',\'addEduRndPop\');\">차수추가</button></td>'
 						str += '</tr>'
 					});
 					str += '</tbody>'
@@ -134,5 +158,3 @@
 			});
 		}
 	</script>
-	<!-- FOOTER -->
-	<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />

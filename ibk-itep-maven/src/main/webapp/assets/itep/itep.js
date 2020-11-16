@@ -63,7 +63,7 @@ $(document).ready(function() {
 /* 팝업 : name에 팝업으로 띄울 jsp 이름 써서 호출 */
 function showPopup(menu, name) {
 	var size = '';
-	var nameArr = name.spilt("?");
+	var nameArr = name.split("?");
 	var popName = nameArr[0];
 	
 	// 결재반려 팝업
