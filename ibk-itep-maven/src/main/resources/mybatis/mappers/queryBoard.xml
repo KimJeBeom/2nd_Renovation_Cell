@@ -96,37 +96,58 @@
 	     ]]>
 	</delete>
 	
-	<select id="selectArchList" parameterType="ArchieveVo" resultType="ArchieveVo">
+	<select id="selectArchieve" parameterType="ArchieveVo" resultType="ArchieveVo">
 	    <![CDATA[
 		/*게시판>자료실>자료실조회*/
 		SELECT 
-			   RFLB_ID AS RFLBID#공지사항ID
-			  ,EDCT_CLSF_CD AS EDCTCLSFCD#교육분류코드
-			  ,(SELECT EDCT_CLSF_NM FROM TB_IEP_CLD001C D WHERE D.EDCT_CLSF_CD = EDCT_CLSF_CD) AS EDCTCLSFNM #교육기관명
+			   RFLB_ID AS RFLBID #자료실ID
+			  ,EDCT_CLSF_CD AS EDCTCLSFCD #교육분류코드
+			  ,(SELECT EDCT_CLSF_NM FROM TB_IEP_CLD001C D WHERE D.EDCT_CLSF_CD = R.EDCT_CLSF_CD LIMIT 1 ) AS EDCTCLSFNM #교육기관명
 			  ,TTL AS TTL#제목 
 			  ,CON AS CON#내용
 			  ,RGSN_TS AS RGSNTS#등록일시 
 			  ,USER_ID AS USERID#사용자ID
-			  ,(SELECT USER_NM FROM TB_IEP_CMU001M U WHERE U.USER_ID = USER_ID) AS USERNM #신청자명
+			  ,(SELECT USER_NM FROM TB_IEP_CMU001M U WHERE U.USER_ID = R.USER_ID LIMIT 1 ) AS USERNM #신청자명
 			  ,APND_DAT AS APNDDAT  #첨부파일
 			  ,USE_YN AS USEYN 	#사용여부
-		FROM  TB_IEP_BDR001M
+		FROM  TB_IEP_BDR001M R
 		WHERE 1=1
 		]]>
 	<if test="ttl != null">
 		<![CDATA[
-		AND   TTL LIKE CONCAT('%',#{ttl},'%')	 
+		AND   TTL LIKE CONCAT('%',#{ttl},'%')
 		]]>
 	</if>
 		<![CDATA[
 		AND   USE_YN ='Y'
 	    ]]>
 	</select>
-	
+
+	<select id="selectArchieveDetail" parameterType="NoticeVo" resultType="NoticeVo">
+	    <![CDATA[
+		/*게시판>공지사항>공지사항조회*/
+		SELECT  
+			   RFLB_ID AS RFLBID #공지사항ID
+			  ,EDCT_CLSF_CD AS EDCTCLSFCD #교육분류코드
+			  ,(SELECT EDCT_CLSF_NM FROM TB_IEP_CLD001C D WHERE D.EDCT_CLSF_CD = R.EDCT_CLSF_CD LIMIT 1 ) AS EDCTCLSFNM #교육기관명
+			  ,TTL AS TTL #제목 
+			  ,CON AS CON #내용
+			  ,RGSN_TS AS RGSNTS #등록일시 
+			  ,USER_ID AS USERID #사용자ID
+			  ,(SELECT USER_NM FROM TB_IEP_CMU001M U WHERE U.USER_ID = R.USER_ID LIMIT 1 ) AS USERNM #신청자명
+			  ,APND_DAT AS APNDDAT #첨부파일
+			  ,USE_YN AS USEYN 	#사용여부
+		FROM  TB_IEP_BDR001M R
+		WHERE 1=1
+		AND   RFLB_ID = #{rflbId}
+		LIMIT 1
+		]]>
+	</select>
+
 	<select id="insertArchieve" parameterType="ArchieveVo" resultType="String">
 	     <![CDATA[
 		/*게시판>자료실>자료실등록*/
-		INSERT INTO TB_IEP_BDN001R(
+		INSERT INTO TB_IEP_BDR001M(
 			 EDCT_CLSF_CD#교육분류코드
 			,TTL#제목 
 			,CON#내용
@@ -135,9 +156,9 @@
 			,APND_DAT #첨부파일
 			,USE_YN	#사용여부
 		) VALUES(
-			 #{edctClsfCd},
+			 #{edctClsfCd}
 			,#{ttl}
-			,#{con}'
+			,#{con}
 			,NOW()
 			,#{userId}
 			,#{apndDat}

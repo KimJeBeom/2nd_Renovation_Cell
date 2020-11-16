@@ -1,10 +1,5 @@
 package com.ibk.itep.controller.board.pop;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ibk.itep.service.board.NoticeService;
 import com.ibk.itep.vo.board.NoticeVo;
 
+/* 게시판>공지사항>등록팝업 */
 @Controller
 public class NoticeRegPopController{
 	
@@ -26,16 +22,27 @@ public class NoticeRegPopController{
 
 	@RequestMapping(value = "/views/board/pop/noticeRegPop", method = RequestMethod.GET)
 	public String NoticeRegPop(NoticeVo vo, Model model, @RequestParam(value="modType", required = false) String modType) {
+	//화면에서  Vo + 수정모드(insert)를 파라미터로 받아온다.
+	//수정모드(modType)은 String으로 받으며 필수값이 아님 
+	//modType이 있을경우 = 빈화면 호출 / 없을경우 창종료
 		
-		if(modType!=null) {
+		logger.info("NoticeRegContoll Start");
+		
+		if(modType!=null) {//modType = insert
+			logger.info("NoticeRegControll Insert Start");
+			logger.info("--- @RequestParam : " + vo.getPbnsId());
+			logger.info("--- @RequestParam : " + modType);
+			
+			//화면에서 입력 받은 정보(Vo) 및 변경정보를 Service로 던져 boolean(성공/실패)로 받아옴
 			boolean modRst = service.modAction(vo,modType);
 			model.addAttribute("modRst",modRst);
+			
+			logger.info("NoticeRegContoll Insert End");
 		}
-		/*
-		 * String nowTs = ""; Date time = new Date(); SimpleDateFormat ymd = new
-		 * SimpleDateFormat("yyyy-MM-dd hh:mm:ss"); nowTs = ymd.format(time);
-		 * model.addAttribute("nowTs",nowTs);
-		 */
+		
+		logger.info("NoticeRegContoll End");
+		
+		//insert는 상세조회 기능 필요 없음으로 인한 별도 재조회 없이 화면을 호출하여 창종료 시킴
 		return "/board/pop/noticeRegPop";
 	}
 

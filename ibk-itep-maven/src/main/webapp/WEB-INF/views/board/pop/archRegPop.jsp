@@ -3,6 +3,14 @@
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
 
 <body>
+<script>
+ if(${modRst}==true){
+	 alert("등록완료");
+	 window.close();
+ }else{
+	 alert("등록실패");
+ }
+ </script>
    <!-- WRAPPER -->
    <div id="wrapper">
 	<!-- MAIN -->
@@ -17,24 +25,31 @@
 				   <div class="panel panel-headline">
 					<div class="panel-body panel-popup">
 					 <div style="text-align:right; padding-bottom: 10px;">
-						 <button type="button" class="btn btn-primary btn-toastr">등록</button>
+						 <button type="button" class="btn btn-primary btn-toastr" onclick="actMod('insert');" >등록</button>
 					 </div>
 					   <table class="table table-bordered tbl-type1">
 						  <tbody>
 							 <tr>
 								<th>제목</th>
 								<td>
-									<input type="title" name="title" class="form-control" value="">                                    
+									<input type="title" id="ttl" class="form-control" value="">                                    
 								</td>
-								<th>등록일</th>
+								<th>구분</th>
 								<td>
-									<input type="reg" name="reg" class="form-control" value="2020-09-25">                                    
+									<div>
+									<select id='edctClsfCd' class="form-control">
+										<option value="OTEDU">외부교육</option>
+										<option value="TREDU">신전입교육</option>
+										<option value="SEMIN">세미나</option>
+										<option value="EXTRA">기타</option>
+									</select>
+									</div>                                  
 								</td>
 							 </tr>
 							 <tr>
 								<th>첨부파일</th>
 								<td colspan="3">
-									<input multiple="multiple" type="file" name="file" class="form-control" value="">
+									<input multiple="multiple" type="file" id="apndDat" class="form-control" value="">
 									<!--
 								   <span>
 									   <span class="input-group-btn"><button class="btn btn-default btn-xs" type="button">첨부</button></span>
@@ -45,7 +60,7 @@
 							 <tr>
 								<td class="txt-long" colspan="4">
 									<form>
-										<p><textarea placeholder="공지내용을 입력하세요" style="width:100%; height: 200px;"></textarea></p>
+										<p><textarea id="con" placeholder="공지내용을 입력하세요" style="width:100%; height: 200px;"></textarea></p>
 									</form>
 								</td>
 							 </tr>
@@ -66,10 +81,16 @@
  <!-- END WRAPPER -->
  <!-- Javascript -->
  <script>
-	/* 팝업 */
-    function showEduApplyPop() {
-       window.open('eduApplyPop.jsp', 'eduApplyPop', 'location=no, width=750, height=600, left=100, top=100');
-    };
+ function actMod(modType) {
+ 	var conf = confirm('등록하시겠습니까?');
+ 	if(conf){
+    	var ttl = $("#ttl").val();
+    	var apndDat = $("#apndDat").val();
+    	var con = $("#con").val();
+    	var edctClsfCd = $("#edctClsfCd").val();
+		location.href='/itep/views/board/pop/archRegPop?modType='+modType+'&&ttl='+ttl+'&&apndDat='+apndDat+'&&con='+con+"&&edctClsfCd="+edctClsfCd;
+ 	}
+ }
 </script>
 
 <!-- FOOTER -->

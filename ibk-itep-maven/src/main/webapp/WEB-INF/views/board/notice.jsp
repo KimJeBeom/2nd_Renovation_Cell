@@ -31,6 +31,7 @@
 						<div class="panel">
 							<div class="panel-body">
 								<br>
+								<!-- 검색 BAR -->
 								<div class="well">
 									<table>
 										<tbody>
@@ -42,36 +43,16 @@
 													</div>
 												</td>
 												<td style="width: 10%; text-align: left;">
-													<!-- <button class="btn btn-primary btn-toastr" type="button"  onclick="location.href='/itep/views/board/notice?ttl=가나다'">조회</button> -->
 													<button class="btn btn-primary btn-toastr" type="button"  onclick="search();">조회</button>
-													
 												</td>
 											</tr>
 										</tbody>
 									</table>
-								<!-- 
-								<from id ="frm" method="get" action="/itep/board/notice">
-									<table>
-										<tbody>
-											<tr>
-												<td style="width: 80px; padding-left: 5px; text-align: center;"><b>■ 제 목</b></td>
-												<td style="width: 300px; padding-right: 40px">
-													<div>
-														<input class="form-control" type="text" value="" name="ttl"/>
-													</div>
-												</td>
-												<td style="width: 10%; text-align: left;">
-													<input type="submit" class="btn btn-primary btn-toastr" style="float: right; margin-right: 20px;"/>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</from>
-								-->
 								</div>
 							<div class="form-group row" style="text-align: right; padding-right: 15px;">
 								<button class="btn btn-primary" type="button" onclick="showPopup('board','noticeRegPop');">등 록</button>
 							</div>
+							<!-- 조회 목록 -->
 							<div class="table-responsive">
 								<table class="table table-hover">
 									<tbody>
@@ -83,7 +64,7 @@
 											<th style="text-align:center; width:15%;" id="5">등록자</th>
 										</tr>
 										<c:forEach items="${list}" var="noti" varStatus="status">
-										<tr onclick="showPopupN('board','noticeModPop','${noti.pbnsId}');">
+										<tr onclick="detailPopup('board','noticeModPop','${noti.pbnsId}');">
 	 										<td style="text-align:center">${status.count}</td>
 											<td style="text-align:center">${noti.edctClsfNm}</td>
 											<td style="text-align:  left">${noti.ttl}</td>
@@ -94,6 +75,7 @@
 									</tbody>
 								</table>
 							</div>
+							<!-- nextPage설정 -->
 							<nav aria-label="Page navigation" style="text-align: right;">
 								<ul class="pagination">
 									<li class="page-item"><a class="page-link" href="#">◀◀</a></li>
@@ -124,7 +106,7 @@
 	
 <!-- FOOTER -->
 <script>
-	//(조회)제목을 필드값을 가져와 URL에 세팅하여 화면을 재수행한다.
+//(조회)제목을 필드값을 가져와 URL에 세팅하여 화면을 재수행한다.
 function search() {
 	var ttl = $('input[name=ttl]').val();
 	
@@ -135,8 +117,8 @@ function search() {
 	}
 }	
 	
-/* 팝업 : name에 팝업으로 띄울 jsp 이름 써서 호출 */
-function showPopupN(menu, name, id) {
+//(상세조회)공지사항id값을 받아 상세화면을 팝업
+function detailPopup(menu, name, id) {
 	var size = '';
 	
 	// 게시판 등록, 수정 팝업

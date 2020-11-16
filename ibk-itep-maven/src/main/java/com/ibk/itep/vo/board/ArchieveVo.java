@@ -1,5 +1,6 @@
 package com.ibk.itep.vo.board;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -8,14 +9,28 @@ import java.util.Date;
  */
 public class ArchieveVo {
 	
-	private Integer rflbId;
-	private String edctClsfCd;
-	private String ttl;
-	private String con;
-	private Date rgsnTs;
-	private String userId;
-	private String apndDat;
+	private Integer rflbId; //자료실ID
+	private String edctClsfCd; //교육구분코드
+	private String edctClsfNm; //교욱구분코드명
+	private String ttl; //제목
+	private String con; //내용
+	private Date rgsnTs; //등록일시(TimeStamp)
+	private String userId; //등록자직원번호
+	private String userNm; //등록자명
+	private String apndDat; //첨부파일
 	
+	public String getEdctClsfNm() {
+		return edctClsfNm;
+	}
+	public void setEdctClsfNm(String edctClsfNm) {
+		this.edctClsfNm = edctClsfNm;
+	}
+	public String getUserNm() {
+		return userNm;
+	}
+	public void setUserNm(String userNm) {
+		this.userNm = userNm;
+	}
 	public Integer getRflbId() {
 		return rflbId;
 	}
@@ -40,8 +55,10 @@ public class ArchieveVo {
 	public void setCon(String con) {
 		this.con = con;
 	}
-	public Date getRgsnTs() {
-		return rgsnTs;
+	public String getRgsnTs() {
+		//화면에 날짜 표기를 위한 출력(get) DATETYPE설정(String:"2020-01-01 00:00:00")
+		SimpleDateFormat ymd = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		return ymd.format(rgsnTs);
 	}
 	public void setRgsnTs(Date rgsnTs) {
 		this.rgsnTs = rgsnTs;

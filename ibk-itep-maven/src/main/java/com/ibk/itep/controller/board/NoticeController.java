@@ -1,9 +1,6 @@
 package com.ibk.itep.controller.board;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,30 +12,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ibk.itep.repository.board.NoticeDao;
 import com.ibk.itep.service.board.NoticeService;
 import com.ibk.itep.vo.board.NoticeVo;
 
+/* 게시판>공지사항 */
 @Controller
 public class NoticeController{
 	
 	@Autowired private NoticeService service;
 
 	private static final Logger logger = LoggerFactory.getLogger(NoticeController.class);
-
 	@RequestMapping(value = "/views/board/notice", method = RequestMethod.GET)
-//	public String Notice(@RequestParam(value="ttl",required=false) String ttl, Model model) {
-	public String Notice(NoticeVo vo, Model model) {
-			
-//		System.out.println("TTL : "+ vo.getTtl());
-//		System.out.println("@ReauestParam : " + ttl);
-		System.out.println("@ReauestParam : " + vo.getTtl());
-						
+	
+	public String Notice(NoticeVo vo, Model model) { //화면에서 받아온 파라미터를 Vo에 저장
+		logger.info("NoticeContoll Start");
+		logger.info("@@@ReauestParam (Title): " + vo.getTtl());
+		
+		//List형태로 Vo값을 Return받아옴(Input Vo -> OutPut List)
 		List<NoticeVo> list = service.getList(vo);
-		System.out.println("Service �� �޾Ҿ�!!!!"+list.size());
 		
+		logger.info("Service Retrn OK");
+		logger.info("-- List line : "+list.size());
 		
+		//model을 통한 결과값 화면(notice.jsp)에 전달
 		model.addAttribute("list", list);
+		
+		logger.info("NoticeContoll End");
 		
 		return "/board/notice";
 	}

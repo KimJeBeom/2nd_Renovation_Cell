@@ -1,35 +1,48 @@
 package com.ibk.itep.controller.board.pop;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ibk.itep.controller.HomeController;
+import com.ibk.itep.service.board.ArchieveService;
+import com.ibk.itep.vo.board.ArchieveVo;
 
+/*게시판>자료실>등록팝업*/
 @Controller
 public class ArchRegPopController{
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	@Autowired private ArchieveService service;
+	
+	private static final Logger logger = LoggerFactory.getLogger(ArchRegPopController.class);
 
 	@RequestMapping(value = "/views/board/pop/archRegPop", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-
-		logger.info("Welcome home! The client locale is {}.", locale);
+	public String ArchRegPop(ArchieveVo vo, Model model, @RequestParam(value="modType", required = false) String modType) {
+	//화면에서  Vo + 수정모드(insert)를 파라미터로 받아온다.
+	//수정모드(modType)은 String으로 받으며 필수값이 아님 
+	//modType이 있을경우 = 빈화면 호출 / 없을경우 창종료
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		logger.info("ArchRegContoll Start");
 		
-		String formattedDate = dateFormat.format(date);
+		if(modType!=null) {//modType = insert
+			logger.info("ArchRegControll Insert Start");
+			logger.info("--- @RequestParam : " + vo.getRflbId());
+			logger.info("--- @RequestParam : " + modType);
+			
+			//화면에서 입력 받은 정보(Vo) 및 변경정보를 Service로 던져 boolean(성공/실패)로 받아옴
+			boolean modRst = service.modAction(vo,modType);
+			model.addAttribute("modRst",modRst);
+			
+			logger.info("ArchRegControll Insert End");
+		}
 		
-		model.addAttribute("serverTime", formattedDate );
+		logger.info("ArchModContoll End");
 		
+		//insert는 상세조회 기능 필요 없음으로 인한 별도 재조회 없이 화면을 호출하여 창종료 시킴
 		return "/board/pop/archRegPop";
 	}
 
