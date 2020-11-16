@@ -1,35 +1,33 @@
 package com.ibk.itep.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.ibk.itep.service.MainHomeService;
+import com.ibk.itep.vo.HomeBdnVo;
+import com.ibk.itep.vo.HomeEduNowVo;
+
 @Controller
 public class MainHomeContoller{
 	
-	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	@Autowired
+	private MainHomeService mainHomeService;
 
 	@RequestMapping(value = "/views", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-
-		logger.info("Welcome home! The client locale is {}.", locale);
+	public String home(Model model) {
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		String userId = "40868";
 		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
+		List<HomeBdnVo> bdnList = mainHomeService.selectHomeBdnList();
+		List<HomeEduNowVo> eduNowList = mainHomeService.selectHomeEduNow(userId);
+		model.addAttribute("bdnList", bdnList);
+		model.addAttribute("eduNowList", eduNowList);
 		
 		return "home";
 	}
-
 }

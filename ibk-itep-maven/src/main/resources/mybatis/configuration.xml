@@ -9,6 +9,8 @@
 		<typeAlias alias="EduInfoVo" type="com.ibk.itep.vo.eduApply.EduInfoVo"></typeAlias>
 		<typeAlias alias="NewEduApplyVo" type="com.ibk.itep.vo.eduApply.NewEduApplyVo"></typeAlias>
 		<typeAlias alias="SessionVo" type="com.ibk.itep.vo.SessionVo"></typeAlias>
+		<typeAlias alias="HomeBdnVo" type="com.ibk.itep.vo.HomeBdnVo"></typeAlias>
+		<typeAlias alias="HomeEduNowVo" type="com.ibk.itep.vo.HomeEduNowVo"></typeAlias>
 		<!-- home -->
 		<!-- Myclass -->
 		<!-- apprMng -->
@@ -38,5 +40,6 @@
 		<!-- <mapper resource="mybatis/mappers/queryAdmin.xml" /> -->
 		<mapper resource="mybatis/mappers/queryApprMng.xml" />
 		<mapper resource="mybatis/mappers/queryMyClass.xml" />
+		<mapper resource="mybatis/mappers/queryMainHome.xml" />
 	</mappers>
 </configuration>

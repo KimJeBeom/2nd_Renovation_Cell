@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- HEADER -->
 <jsp:include page="./cmm/common-header.jsp" />
 
@@ -39,11 +40,9 @@
 								<div class="panel-body no-padding">
 									<table class="table table-hover">
 										<tbody>
-											<tr onclick="window.location.href='notifications.html'"><td>공지사항1</td></tr>
-											<tr onclick="window.location.href='notifications.html'"><td>공지사항2</td></tr>
-											<tr onclick="window.location.href='notifications.html'"><td>공지사항3</td></tr>
-											<tr onclick="window.location.href='notifications.html'"><td>공지사항4</td></tr>
-											<tr onclick="window.location.href='notifications.html'"><td>공지사항5</td></tr>
+											<c:forEach items="${bdnList }" var="bdnlist">
+												<tr><td>${bdnlist.ttl }</td></tr>
+											</c:forEach>
 										</tbody>
 									</table>
 								</div>
@@ -56,14 +55,14 @@
 								<div class="panel-heading">
 									<h3 class="panel-title"><b>수강중인 교육</b></h3>
 									<div class="right">
-										<a href="/WEB-INF/views/myClass/eduNow"><button type="button" class="btn-toggle-collapse_"><i class="lnr lnr-chevron-right"></i></button></a>
+										<a href="/itep/views/myClass/eduNow"><button type="button" class="btn-toggle-collapse_"><i class="lnr lnr-chevron-right"></i></button></a>
 									</div>
 								</div>
 								<div class="panel-body">
 									<ul class="list-unstyled activity-list">
-										<li><a href="elements.html" class=""><p>교육1<span class="timestamp">2020.07.17 ~ 2020.10.17</span></p></a></li>
-										<li><a href="elements.html" class=""><p>교육2<span class="timestamp">2020.07.17 ~ 2020.10.17</span></p></a></li>
-										<li><a href="elements.html" class=""><p>교육3<span class="timestamp">2020.07.17 ~ 2020.10.17</span></p></a></li>
+										<c:forEach items="${eduNowList }" var="edunowlist">
+											<li><a href="elements.html" class=""><p>${edunowlist.edctNm }<span class="timestamp">${edunowlist.edctSttgYmd } ~ ${edunowlist.edctFnshYmd }</span></p></a></li>
+										</c:forEach>
 									</ul>
 								</div>
 							</div>

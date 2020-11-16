@@ -129,10 +129,12 @@ public class ApprMngService {
 				vo.setAplcStg("결재완료");
 				vo.setApprNm(vo.getGrmAthzNm());
 				vo.setDpmAthzCon("결재완료");
+				vo.setGrmAthzCon("결재완료");
 			} else if(aplcStgCd.equals("APRDPM")) {
 				vo.setAplcStg("결재중");
 				vo.setApprNm(vo.getDpmAthzNm());
 				vo.setDpmAthzCon("결재중");
+				vo.setGrmAthzCon("");
 			} else if(aplcStgCd.equals("APRGRM")) {
 				vo.setAplcStg("결재중");
 				vo.setApprNm(vo.getGrmAthzNm());
@@ -142,6 +144,7 @@ public class ApprMngService {
 				vo.setAplcStg("반려");
 				vo.setApprNm(vo.getDpmAthzNm());
 				vo.setDpmAthzCon(vo.getRtreCon());
+				vo.setGrmAthzCon("");
 			} else if(aplcStgCd.equals("REJGRM")) {
 				vo.setAplcStg("반려");
 				vo.setApprNm(vo.getGrmAthzNm());
