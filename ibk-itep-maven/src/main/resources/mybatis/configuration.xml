@@ -18,6 +18,13 @@
 		<typeAlias alias="NoticeVo" type="com.ibk.itep.vo.board.NoticeVo"></typeAlias>
 		<typeAlias alias="ArchieveVo" type="com.ibk.itep.vo.board.ArchieveVo"></typeAlias>
 		<!-- admin -->
+		<typeAlias alias="EduEmpListVo" type="com.ibk.itep.vo.admin.EduEmpListVo"></typeAlias>
+		<typeAlias alias="EduHistoryVo" type="com.ibk.itep.vo.admin.EduHistoryVo"></typeAlias>
+		<typeAlias alias="EduOpenReadyStatVo" type="com.ibk.itep.vo.admin.EduOpenReadyStatVo"></typeAlias>
+		<typeAlias alias="EduReadyStatVo" type="com.ibk.itep.vo.admin.EduReadyStatVo"></typeAlias>
+		<typeAlias alias="EduRegModVo" type="com.ibk.itep.vo.admin.EduRegModVo"></typeAlias>
+		<typeAlias alias="EduRndRegModVo" type="com.ibk.itep.vo.admin.EduRndRegModVo"></typeAlias>
+		<typeAlias alias="EmpAccMngVo" type="com.ibk.itep.vo.admin.EmpAccMngVo"></typeAlias>
 		<!-- cmm -->
 		<typeAlias alias="ClaVo" type="com.ibk.itep.vo.cmm.ClaVo"></typeAlias>
 		<typeAlias alias="CliVo" type="com.ibk.itep.vo.cmm.CliVo"></typeAlias>
@@ -32,7 +39,7 @@
 		<mapper resource="mybatis/mappers/query.xml" />
 		<mapper resource="mybatis/mappers/queryLes.xml" />		
 		<mapper resource="mybatis/mappers/queryCmm.xml" />
-		<!-- <mapper resource="mybatis/mappers/queryAdmin.xml" /> -->
+		<mapper resource="mybatis/mappers/queryAdmin.xml" />
 		<mapper resource="mybatis/mappers/queryApprMng.xml" />
 		<mapper resource="mybatis/mappers/queryMyClass.xml" />
 		<mapper resource="mybatis/mappers/queryBoard.xml" />
