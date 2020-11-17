@@ -34,17 +34,19 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         logger.debug(password);
         logger.debug(user.getPassword());
         
-        if(!matchPassword(password, user.getPassword())) {
+/*        if(!matchPassword(password, user.getPassword())) {
             throw new BadCredentialsException(username);
-        }
+        }*/
  
         if(!user.isEnabled()) {
             throw new BadCredentialsException(username);
         }
-
+        
+        String role = "ROLE_" + user.getAuthorities().toString().replace("[", "").replace("]", "");
+        logger.debug("권한 : " + role);
         List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
-        roles.add(new SimpleGrantedAuthority("ROLE_USER"));
-
+        roles.add(new SimpleGrantedAuthority(role));
+        logger.debug("GrantedAuthority 권한 : " + roles.toString());
         return new UsernamePasswordAuthenticationToken(username, password, roles);
     }
  
@@ -53,8 +55,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         return true;
     }
     
-    private boolean matchPassword(String loginPwd, String password) {
-        return loginPwd.equals(password);
-    }
+/*    private boolean matchPassword(String loginPwd, String password) {
+        return true;
+    }*/
  
 }

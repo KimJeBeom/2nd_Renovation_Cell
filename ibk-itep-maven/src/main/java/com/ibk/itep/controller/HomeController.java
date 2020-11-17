@@ -28,11 +28,14 @@ public class HomeController {
 	public String home(Model model) {
 		
 		logger.debug(testService.getSysdate());
-		logger.info(testService.getSysdate());
-		logger.warn(testService.getSysdate());
-		logger.error(testService.getSysdate());
-		
 		return "home";
+	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login(Model model) {
+		
+		logger.debug("Login page »£√‚");
+		return "login";
 	}
 	
 }

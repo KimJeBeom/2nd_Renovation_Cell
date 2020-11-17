@@ -9,7 +9,7 @@ http://www.springframework.org/schema/security
 http://www.springframework.org/schema/security/spring-security-4.2.xsd
 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-   <!--  <context:component-scan base-package="com.ibk.itep.common.security.custom" /> -->
+    <context:component-scan base-package="com.ibk.itep.common.security.custom" />
 	<http pattern="/assets/**/*.*" security="none" />
 
 	<beans:bean id="customizeAuthenticationSuccessHandler"
@@ -21,14 +21,22 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 
 	<http use-expressions="true" auto-config="true"
 		disable-url-rewriting="true">
-		<intercept-url pattern="/views/**"
-			access="hasAnyRole('ROLE_USER,ROLE_ADMIN')" />
 		<intercept-url pattern="/views/admin/**"
 			access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/**" access="permitAll" />
+		<intercept-url pattern="/views/apprMng/**"
+			access="hasAnyRole('ROLE_USR,ROLE_ADMIN,ROLE_DPM')" />
+		<intercept-url pattern="/views/board/**"
+			access="hasAnyRole('ROLE_USR,ROLE_ADMIN')" />
+		<intercept-url pattern="/views/eduApply/**"
+			access="hasAnyRole('ROLE_USR,ROLE_ADMIN')" />
+		<intercept-url pattern="/views/myClass/**"
+			access="hasAnyRole('ROLE_USR,ROLE_ADMIN')" />
+		<intercept-url pattern="/views"
+			access="hasAnyRole('ROLE_USR,ROLE_ADMIN,ROLE_DPM')" />
+<!-- 		<intercept-url pattern="/**" access="permitAll" /> -->
 
-		<form-login username-parameter="user_id" 
-			password-parameter="password" default-target-url="/"
+		<form-login login-page="/login" username-parameter="user_id" 
+			password-parameter="password" default-target-url="/views"
 			login-processing-url="/j_spring_security_check"
 			authentication-success-handler-ref="customizeAuthenticationSuccessHandler"
 			authentication-failure-handler-ref="customizeAuthenticationFailureHandler" />
@@ -54,7 +62,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 		</authentication-provider>
 	</authentication-manager>  --> 
 	
-   <authentication-manager>
+   <!-- <authentication-manager>
         <authentication-provider>
             <user-service>
                 <user name="user" password="{noop}password" authorities="ROLE_USER" />
@@ -62,9 +70,9 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
                 <user name="admin" password="{noop}password" authorities="ROLE_ADMIN" />
             </user-service>
         </authentication-provider>
-    </authentication-manager>
+    </authentication-manager> -->
 
-<!-- 	 <authentication-manager>
+	 <authentication-manager>
 		<authentication-provider ref="userAuthProvider">
 		</authentication-provider>
 		<authentication-provider user-service-ref="userService">
@@ -73,7 +81,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 	
 	<beans:bean id="userService" class="com.ibk.itep.common.security.custom.CustomUserDetailsService"/>
 	<beans:bean id="userAuthProvider" class="com.ibk.itep.common.security.custom.CustomAuthenticationProvider"/>
- -->
+
 	<!-- <beans:bean id="customDataSource"
 		class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
 		<beans:property name="dataSource"

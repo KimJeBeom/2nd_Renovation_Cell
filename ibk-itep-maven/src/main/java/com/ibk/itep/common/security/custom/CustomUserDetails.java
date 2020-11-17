@@ -23,10 +23,6 @@ public class CustomUserDetails implements UserDetails {
         return auth;
     }
  
-    public void setpassword(String password) {
-    	PASSWORD = user_id;
-    }
-    
     @Override
     public String getPassword() {
         return PASSWORD;
