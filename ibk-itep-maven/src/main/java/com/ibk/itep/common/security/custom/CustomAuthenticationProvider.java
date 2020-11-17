@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -31,22 +32,23 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         
         CustomUserDetails user = (CustomUserDetails) userDeSer.loadUserByUsername(username);
         
-        logger.debug(password);
-        logger.debug(user.getPassword());
+        if(user.getUsername().isEmpty()) {
+            throw new CredentialsExpiredException(username);
+        }
         
-/*        if(!matchPassword(password, user.getPassword())) {
-            throw new BadCredentialsException(username);
-        }*/
- 
-        if(!user.isEnabled()) {
+        logger.debug("화면입력 패스워드 : " + password);
+        logger.debug("DB입력 패스워드 : " +user.getPassword());
+        logger.debug("DB계정사용여부 : " +user.getUse_yn());
+        
+        if("N".equals(user.getUse_yn())) {
             throw new BadCredentialsException(username);
         }
         
         String role = "ROLE_" + user.getAuthorities().toString().replace("[", "").replace("]", "");
-        logger.debug("���� : " + role);
+        logger.debug("사용자계정 권한 : " + role);
         List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
         roles.add(new SimpleGrantedAuthority(role));
-        logger.debug("GrantedAuthority ���� : " + roles.toString());
+        logger.debug("GrantedAuthority 사용권한 : " + roles.toString());
         return new UsernamePasswordAuthenticationToken(username, password, roles);
     }
  
@@ -54,9 +56,4 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     public boolean supports(Class<?> authentication) {
         return true;
     }
-    
-/*    private boolean matchPassword(String loginPwd, String password) {
-        return true;
-    }*/
- 
 }

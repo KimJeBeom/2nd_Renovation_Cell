@@ -28,13 +28,13 @@ public class HomeController {
 	public String home(Model model) {
 		
 		logger.debug(testService.getSysdate());
-		return "home";
+		return "login";
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Model model) {
 		
-		logger.debug("Login page È£Ãâ");
+		logger.debug("Login page í˜¸ì¶œ");
 		return "login";
 	}
 	

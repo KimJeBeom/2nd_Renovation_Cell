@@ -23,10 +23,10 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException(username);
         }
         
-        logger.debug("password : " + user.getPassword());
-        logger.debug("id : " + user.getUsername());
-        logger.debug("name : " + user.getuser_nm());
-        logger.debug("auth : " + user.getAuthorities());
+        logger.debug("DB password : " + user.getPassword());
+        logger.debug("DB id : " + user.getUsername());
+        logger.debug("DB name : " + user.getuser_nm());
+        logger.debug("DB auth : " + user.getAuthorities());
         
         return user;
     }

@@ -21,22 +21,22 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 
 	<http use-expressions="true" auto-config="true"
 		disable-url-rewriting="true">
-		<intercept-url pattern="/views/admin/**"
-			access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/views/apprMng/**"
-			access="hasAnyRole('ROLE_USR,ROLE_ADMIN,ROLE_DPM')" />
-		<intercept-url pattern="/views/board/**"
-			access="hasAnyRole('ROLE_USR,ROLE_ADMIN')" />
-		<intercept-url pattern="/views/eduApply/**"
-			access="hasAnyRole('ROLE_USR,ROLE_ADMIN')" />
-		<intercept-url pattern="/views/myClass/**"
-			access="hasAnyRole('ROLE_USR,ROLE_ADMIN')" />
 		<intercept-url pattern="/views"
-			access="hasAnyRole('ROLE_USR,ROLE_ADMIN,ROLE_DPM')" />
+			access="hasAnyRole('ROLE_USR,ROLE_DPM,ROLE_GRM,ROLE_ADM')" />
+		<intercept-url pattern="/views/myClass/**"
+			access="hasAnyRole('ROLE_USR,ROLE_DPM,ROLE_GRM,ROLE_ADM')" />
+		<intercept-url pattern="/views/eduApply/**"
+			access="hasAnyRole('ROLE_USR,ROLE_DPM,ROLE_GRM,ROLE_ADM')" />
+		<intercept-url pattern="/views/apprMng/**"
+			access="hasAnyRole('ROLE_DPM,ROLE_GRM,ROLE_ADM')" />
+		<intercept-url pattern="/views/board/**"
+			access="hasAnyRole('ROLE_USR,ROLE_DPM,ROLE_GRM,ROLE_ADM')" />
+		<intercept-url pattern="/views/admin/**"
+			access="hasAnyRole('ROLE_ADM,ROLE_GRM')" />
 <!-- 		<intercept-url pattern="/**" access="permitAll" /> -->
 
-		<form-login login-page="/login" username-parameter="user_id" 
-			password-parameter="password" default-target-url="/views"
+		<form-login login-page="/login" username-parameter="user_id"
+			password-parameter="password" always-use-default-target="true"
 			login-processing-url="/j_spring_security_check"
 			authentication-success-handler-ref="customizeAuthenticationSuccessHandler"
 			authentication-failure-handler-ref="customizeAuthenticationFailureHandler" />

@@ -15,8 +15,9 @@ public class CustomUserDetails implements UserDetails {
     private String athr_cd;
     private boolean ENABLED;
     private String user_nm;
+    private String use_yn;
     
-    @Override
+	@Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
         auth.add(new SimpleGrantedAuthority(athr_cd));
@@ -60,5 +61,13 @@ public class CustomUserDetails implements UserDetails {
     public void setuser_nm(String username) {
     	user_nm = username;
     }
+    
+    public String getUse_yn() {
+		return use_yn;
+	}
+
+	public void setUse_yn(String use_yn) {
+		this.use_yn = use_yn;
+	}
  
 }

@@ -11,7 +11,7 @@ public class UserAuthDAO {
     private SqlSessionTemplate sqlSession;
  
     public CustomUserDetails getUserById(String user_id) {
-        return sqlSession.selectOne("query.selectUserById", user_id);
+        return sqlSession.selectOne("queryLogin.selectUserById", user_id);
     }
  
 }

@@ -21,7 +21,7 @@ public class CustomizeAuthenticationFailureHandler implements AuthenticationFail
             org.springframework.security.core.AuthenticationException exception)
 throws IOException, ServletException {
         new_encoder = new BCryptPasswordEncoder();
-        System.err.println("로그인 실패");
+        System.err.println("Login Fail");
 
 //      System.err.println("user_passwd : " + new_encoder.encode(req.getParameter("user_passwd")));
         System.out.println(req.getParameter("user_passwd"));

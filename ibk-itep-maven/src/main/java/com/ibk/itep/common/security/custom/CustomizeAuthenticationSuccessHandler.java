@@ -15,8 +15,8 @@ public class CustomizeAuthenticationSuccessHandler implements AuthenticationSucc
     public void onAuthenticationSuccess(
 HttpServletRequest req, HttpServletResponse res, Authentication auth)
             throws IOException, ServletException {
-        System.err.println("로그인 성공");
-        res.sendRedirect(req.getContextPath() + "/");
+        System.err.println("Login Success");
+        res.sendRedirect(req.getContextPath() + "/views");
     }
 
 }

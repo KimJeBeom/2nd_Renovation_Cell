@@ -13,7 +13,7 @@
 				<div class="usr-info">
 					<img class="usr-icon" src="/itep/assets/itep/img/usr.png" />
 					<div class="usr-text">
-						<li>IT기획부</li>
+						<li>${id}</li>
 						<li>김다정 대리</li>
 					</div>
 				</div>

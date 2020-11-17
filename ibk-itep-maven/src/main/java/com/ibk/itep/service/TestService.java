@@ -19,24 +19,5 @@ public class TestService {
 	public String getSysdate(){
 		return testDAO.getSysdate();
 	}
-	
-	public List<TestVO> getList(){
-		return testDAO.getList();
-	}
-	
-	public boolean insert(TestVO vo ) {
-		return testDAO.insert(vo);
-	}
-	
-	public boolean delete(TestVO vo) {
-		String originPwd = testDAO.getPwd(vo.getNo());
-		String inputPwd = "pwd";
-		
-		if(!originPwd.equals(inputPwd) ) {
-			return false;
-		}
-		
-		return testDAO.delete(vo.getNo());
-	}
 }
 
