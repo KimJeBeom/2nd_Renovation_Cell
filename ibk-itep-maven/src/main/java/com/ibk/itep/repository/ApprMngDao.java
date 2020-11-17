@@ -13,13 +13,12 @@ import com.ibk.itep.vo.SessionVo;
 import com.ibk.itep.vo.apprMng.ApprConfRejVo;
 import com.ibk.itep.vo.apprMng.ApprListDetailVo;
 import com.ibk.itep.vo.apprMng.ApprListVo;
+import com.ibk.itep.vo.apprMng.ApprStatDetailVo;
 import com.ibk.itep.vo.apprMng.ApprStatSrchVo;
 import com.ibk.itep.vo.apprMng.ApprStatVo;
 
 @Repository
 public class ApprMngDao {
-	
-	private static final Logger logger = LoggerFactory.getLogger(ApprMngDao.class);
 	
 	@Autowired
 	private SqlSession sqlSession;
@@ -50,5 +49,10 @@ public class ApprMngDao {
 	public List<ApprStatVo> selectApprStat(ApprStatSrchVo apprStatSrchVo) {
 		List<ApprStatVo> list = sqlSession.selectList("queryApprMng.selectApprStat", apprStatSrchVo);
 		return list;
+	}
+	
+	public ApprStatDetailVo selectApprStatDetail(int edctAplcId) {
+		ApprStatDetailVo vo = sqlSession.selectOne("queryApprMng.selectApprStatDetail", edctAplcId);
+		return vo;
 	}
 }

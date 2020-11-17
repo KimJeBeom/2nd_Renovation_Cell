@@ -13,6 +13,7 @@ import com.ibk.itep.vo.SessionVo;
 import com.ibk.itep.vo.apprMng.ApprConfRejVo;
 import com.ibk.itep.vo.apprMng.ApprListDetailVo;
 import com.ibk.itep.vo.apprMng.ApprListVo;
+import com.ibk.itep.vo.apprMng.ApprStatDetailVo;
 import com.ibk.itep.vo.apprMng.ApprStatSrchVo;
 import com.ibk.itep.vo.apprMng.ApprStatVo;
 
@@ -77,7 +78,7 @@ public class ApprMngService {
 			if(aplcStgCd.equals("APRDPM") || aplcStgCd.equals("APRGRM")) {
 				
 				// 반려사유 개행처리
-				//rtreCon = rtreCon.replace("\r\n", "<br>");
+				rtreCon = rtreCon.replace("\n", "<br />");
 				
 				// 파라미터 전달을 위한 vo 객체 생성
 				ApprConfRejVo apprConfRejVo = new ApprConfRejVo();
@@ -118,41 +119,66 @@ public class ApprMngService {
 			
 			/*
 			 *  결재단계코드에 따른 결재의견 지정
-			 *  APRFIN - 결재완료 / 결재자 GRM / DPM, GRM 결재완료
-			 *  EDUFIN - 결재완료 / 결재자 GRM / DPM, GRM 결재완료
-			 *  APRDPM - 결재중 / 결재자 DPM / DPM 결재중, GRM 빈칸
-			 *  APRGRM - 결재중 / 결재자 GRM / DPM 결재완료, GRM 결재중
-			 *  REJDPM - 반려 / 결재자 DPM / DPM 반려사유, GRM 빈칸
-			 *  REJGRM - 반려 / 결재자 GRM / DPM 결재완료, GRM 반려사유
+			 *  APRFIN - 결재완료 / 결재자 GRM 
+			 *  EDUFIN - 결재완료 / 결재자 GRM 
+			 *  APRDPM - 결재중 / 결재자 DPM 
+			 *  APRGRM - 결재중 / 결재자 GRM 
+			 *  REJDPM - 반려 / 결재자 DPM 
+			 *  REJGRM - 반려 / 결재자 GRM 
 			*/
 			if(aplcStgCd.equals("APRFIN") || aplcStgCd.equals("EDUFIN")) {
 				vo.setAplcStg("결재완료");
 				vo.setApprNm(vo.getGrmAthzNm());
-				vo.setDpmAthzCon("결재완료");
-				vo.setGrmAthzCon("결재완료");
 			} else if(aplcStgCd.equals("APRDPM")) {
 				vo.setAplcStg("결재중");
 				vo.setApprNm(vo.getDpmAthzNm());
-				vo.setDpmAthzCon("결재중");
-				vo.setGrmAthzCon("");
 			} else if(aplcStgCd.equals("APRGRM")) {
 				vo.setAplcStg("결재중");
 				vo.setApprNm(vo.getGrmAthzNm());
-				vo.setDpmAthzCon("결재완료");
-				vo.setGrmAthzCon("결재중");
 			} else if(aplcStgCd.equals("REJDPM")) {
 				vo.setAplcStg("반려");
 				vo.setApprNm(vo.getDpmAthzNm());
-				vo.setDpmAthzCon(vo.getRtreCon());
-				vo.setGrmAthzCon("");
 			} else if(aplcStgCd.equals("REJGRM")) {
 				vo.setAplcStg("반려");
 				vo.setApprNm(vo.getGrmAthzNm());
-				vo.setDpmAthzCon("결재완료");
-				vo.setGrmAthzCon(vo.getRtreCon());
 			}
 		}
 		return list;
+	}
+	
+	public ApprStatDetailVo selectApprStatDetail(int edctAplcId){
+		
+		ApprStatDetailVo vo = apprMngDAO.selectApprStatDetail(edctAplcId);
+		
+		String aplcStgCd = vo.getAplcStgCd();
+			
+		/*
+		 *  결재단계코드에 따른 결재의견 지정
+		 *  APRFIN - DPM, GRM 결재완료
+		 *  EDUFIN - DPM, GRM 결재완료
+		 *  APRDPM - DPM 결재중, GRM 빈칸
+		 *  APRGRM - DPM 결재완료, GRM 결재중
+		 *  REJDPM - DPM 반려사유, GRM 빈칸
+		 *  REJGRM - DPM 결재완료, GRM 반려사유
+		*/
+		if(aplcStgCd.equals("APRFIN") || aplcStgCd.equals("EDUFIN")) {
+			vo.setDpmAthzCon("결재완료");
+			vo.setGrmAthzCon("결재완료");
+		} else if(aplcStgCd.equals("APRDPM")) {
+			vo.setDpmAthzCon("결재중");
+			vo.setGrmAthzCon("");
+		} else if(aplcStgCd.equals("APRGRM")) {
+			vo.setDpmAthzCon("결재완료");
+			vo.setGrmAthzCon("결재중");
+		} else if(aplcStgCd.equals("REJDPM")) {
+			vo.setDpmAthzCon(vo.getRtreCon());
+			vo.setGrmAthzCon("");
+		} else if(aplcStgCd.equals("REJGRM")) {
+			vo.setDpmAthzCon("결재완료");
+			vo.setGrmAthzCon(vo.getRtreCon());
+		}
+		
+		return vo;
 	}
 }
 

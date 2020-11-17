@@ -18,6 +18,7 @@
 		<typeAlias alias="ApprListDetailVo" type="com.ibk.itep.vo.apprMng.ApprListDetailVo"></typeAlias>
 		<typeAlias alias="ApprConfRejVo" type="com.ibk.itep.vo.apprMng.ApprConfRejVo"></typeAlias>
 		<typeAlias alias="ApprStatVo" type="com.ibk.itep.vo.apprMng.ApprStatVo"></typeAlias>
+		<typeAlias alias="ApprStatDetailVo" type="com.ibk.itep.vo.apprMng.ApprStatDetailVo"></typeAlias>
 		<typeAlias alias="ApprStatSrchVo" type="com.ibk.itep.vo.apprMng.ApprStatSrchVo"></typeAlias>
 		<!-- board -->
 		<typeAlias alias="NoticeVo" type="com.ibk.itep.vo.board.NoticeVo"></typeAlias>

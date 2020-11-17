@@ -20,8 +20,16 @@
 					<div class="panel panel-headline">
 						<div class="panel-heading">
 							<div class="row">
-								<div class="col-md-12" style="text-align:center;">
+								<div class="col-md-9" style="text-align:center;">
 									<img src="/itep/assets/itep/img/itepintro.png" style="height:100%; max-width:100%; display:block;"/>
+								</div>
+								<div class="col-md-3" style="height:100px"></div>
+								<div class="col-md-3">
+									<div class="metric" style="padding: 20px 20px 10px 20px">
+										<p>
+											<img src="/itep/assets/itep/img/icon/dpttop2.png" style="max-height:100%; max-width:100%;"/>
+										</p>
+									</div>
 								</div>
 							</div>
 						</div>

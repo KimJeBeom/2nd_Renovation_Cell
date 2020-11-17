@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ibk.itep.controller.HomeController;
 import com.ibk.itep.service.ApprMngService;
+import com.ibk.itep.vo.apprMng.ApprStatDetailVo;
 import com.ibk.itep.vo.apprMng.ApprStatVo;
 
 @Controller
@@ -30,8 +31,17 @@ public class ApprStatController{
 						 , @RequestParam(value="fnshYmd", required=false) String fnshYmd
 						 , @RequestParam(value="aplcStg", required=false) String aplcStg, Model model) {
 		
+		/* 결재현황 조회 */
 		List<ApprStatVo> apprStat = apprMngService.selectApprStat(sttgYmd, fnshYmd, aplcStg);
+		ApprStatDetailVo apprDetail = null; // 상세 내용을 담기위한 객체
+		
+		/* 결재 대상이 하나라도 있으면 첫번째 결재건에 대한 상세내용 조회 */
+		if(apprStat.size() != 0 || apprStat != null) {
+			int edctAplcId = apprStat.get(0).getEdctAplcId(); // 첫번째 결재건의 신청ID
+			apprDetail = apprMngService.selectApprStatDetail(edctAplcId); // 상세내용 조회
+		}
 		model.addAttribute("apprStat", apprStat);
+		model.addAttribute("apprDetail", apprDetail);
 		
 		return "/apprMng/apprStat";
 	}
@@ -42,7 +52,13 @@ public class ApprStatController{
 						 , @RequestParam(value="aplcStg", required=false) String aplcStg, Model model) {
 		
 		List<ApprStatVo> apprStat = apprMngService.selectApprStat(sttgYmd, fnshYmd, aplcStg);
-		
 		return apprStat;
+	}
+	
+	/* 교육신청ID에 따른 상세내용 조회 */
+	@RequestMapping(value = "/views/apprMng/apprStatDetail", method = RequestMethod.POST)
+	public @ResponseBody ApprStatDetailVo apprStatDetail(@RequestParam("edctAplcId") String edctAplcId) {
+		ApprStatDetailVo apprStatDetail = apprMngService.selectApprStatDetail(Integer.parseInt(edctAplcId));
+		return apprStatDetail;
 	}
 }
