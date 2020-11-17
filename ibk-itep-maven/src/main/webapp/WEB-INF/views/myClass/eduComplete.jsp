@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- HEADER -->
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
 
@@ -81,28 +81,29 @@
 										</tr>
 									</thead>
 									<tbody>
+							<c:choose>
+								<c:when test="${not empty edueduCompleteList}">
+									<c:forEach items="${edueduCompleteList}" var="edueduCompleteList">
+										<c:set var="sum" value="${sum+1}"/>
 										<tr>
-											<td>1</td>
-											<td>최은혜의 인생이 원래 그런거다</td>
-											<td>뽀리네집</td>
-											<td>2020.09.01 ~ 2020.09.31</td>
-											<td>Y</td>
+											<td>${sum }</td>
+											<td>${eduCompleteList.edctNm }</td>
+											<td>${eduCompleteList.edinNm }</td>
+											<td>${eduCompleteList.edctSttgYmd } ~ ${eduCompleteList.edctFnshYmd }</td>
+											<td>${eduCompleteList.cnfaYn }</td>
 											<td>
 												<button type="button" class="btn btn-primary btn-xs"
 													onclick="showPopup('myClass','eduInfoPop');">확인</button>
 											</td>
 										</tr>
-										<tr>
-											<td>2</td>
-											<td>현민지의 3병이 제일 쉬웠어요</td>
-											<td>주작cmp</td>
-											<td>2020.09.01 ~ 2020.09.31</td>
-											<td>N</td>
-											<td>
-												<button type="button" class="btn btn-primary btn-xs"
-													onclick="showPopup('myClass','eduInfoPop ');">확인</button>
-											</td>
-										</tr>
+																			</c:forEach>
+								</c:when>
+							<c:otherwise>
+									<tr height="130">
+										<td colspan="7" class="txt_center"><h4>수강 완료한 교육이 없습니다.</h4></td>
+									</tr>
+								</c:otherwise>
+							</c:choose>
 									</tbody>
 								</table>
 								<!-- End 수강완료한 교육-조회결과 -->

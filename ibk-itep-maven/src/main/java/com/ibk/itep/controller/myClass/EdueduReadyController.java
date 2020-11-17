@@ -12,9 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ibk.itep.controller.HomeController;
 import com.ibk.itep.service.MyClassService;
+import com.ibk.itep.vo.SessionVo;
 import com.ibk.itep.vo.myClass.EduNewReadyVO;
 import com.ibk.itep.vo.myClass.EduReadyVO;
 
@@ -27,16 +30,33 @@ public class EdueduReadyController{
     	@Autowired
 		private MyClassService myClassService;
 		
+    	/*수강 신청한 교육*/
 		@RequestMapping(value = "/views/myClass/eduReady", method = RequestMethod.GET)
-		public String home(Model model) {
+		public String eduReady(Model model) {
 
-			List<EduNewReadyVO> list = myClassService.getNewList("42374");
-			List<EduReadyVO> list1 = myClassService.getReadyList("42374");
+			SessionVo ssnVo = new SessionVo();
+			ssnVo.setUserId("42374");
+			ssnVo.setBrcd("0710");
+			ssnVo.setAthrCd("ADM");
 			
-			model.addAttribute("list", list);
-			model.addAttribute("list1", list1);
+			//과정개설 신청목록
+			List<EduNewReadyVO> eduNewList = myClassService.getNewList(ssnVo);
+			//수강신청 목록
+			List<EduReadyVO> eduReadyList = myClassService.getReadyList(ssnVo);
+			
+			model.addAttribute("eduNewList", eduNewList);
+			model.addAttribute("eduReadyList", eduReadyList);
 					
 					
 		return "/myClass/eduReady";
+	}
+		
+		/*수강신청 목록 - 취소요청처리*/
+		@RequestMapping(value = "/views/myClass/eduReady/cancel", method = RequestMethod.POST)
+		public @ResponseBody EduReadyVO cancel(@RequestParam("edctAplcId") int edctAplcId, Model model) {
+
+			EduReadyVO eduCancl = myClassService.getUpdateEduReady(edctAplcId);
+			
+		return eduCancl;
 	}
 }

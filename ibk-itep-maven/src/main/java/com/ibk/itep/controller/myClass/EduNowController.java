@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ibk.itep.controller.myClass.EduNowController;
 import com.ibk.itep.repository.MyClassDao;
 import com.ibk.itep.service.MyClassService;
+import com.ibk.itep.vo.SessionVo;
+import com.ibk.itep.vo.myClass.EduInfoPopVO;
 import com.ibk.itep.vo.myClass.EduNowVO;
 
 @Controller
@@ -28,14 +30,20 @@ public class EduNowController{
 	
 	@Autowired
 	private MyClassService myClassService;
-	
-	@RequestMapping(value = "/views/myClass/eduNow", method = RequestMethod.GET)
-	public String home(Model model) {
 
-		List<EduNowVO> list = myClassService.getList("42374");
-		model.addAttribute("list", list);
+	/*수강중인 교육 조회*/
+	@RequestMapping(value = "/views/myClass/eduNow", method = RequestMethod.GET)
+	public String EduNow(Model model) {
+		
+		//임시 세션값
+		SessionVo ssnVo = new SessionVo();
+		ssnVo.setUserId("42374");
+		ssnVo.setBrcd("0710");
+		ssnVo.setAthrCd("ADM");
+
+		List<EduNowVO> eduNowList = myClassService.getList(ssnVo);
+		model.addAttribute("eduNowList", eduNowList);
 				
 		return "/myClass/eduNow";
-	}
-	
+	}	
 }

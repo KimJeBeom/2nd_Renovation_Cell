@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- HEADER -->
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
 
@@ -28,45 +29,45 @@
 									<tbody>
 										<tr>
 											<th>부서명</th>
-											<td>IT금융개발부</td>
+											<td>${newEduInfoPop.brnm }</td>
 											<th>직원명</th>
-											<td>장기은</td>
+											<td>${newEduInfoPop.userNm }</td>
 										</tr>
 										<tr>
 											<th>교육구분</th>
-											<td>행외</td>
+											<td>${newEduInfoPop.edctYn }</td>
 											<th>교육기관</th>
-											<td colspan="3">Amazon</td>
+											<td colspan="3">${newEduInfoPop.edinNm }</td>
 										</tr>
 										<tr>
 											<th>과목명</th>
-											<td colspan="3">AWS SUMMIT SEOUL</td>
+											<td colspan="3">${newEduInfoPop.edctNm}</td>
 										</tr>
 										<tr>
 											<th>교육내용</th>
-											<td class="txt-long" colspan="3">AWS를 이용한 클라우드 구축 사례</td>
+											<td class="txt-long" colspan="3">${newEduInfoPop.edctCon }</td>
 										</tr>
 										<tr>
 											<th>학습기간</th>
-											<td>20200917 ~ 20200918</td>
+											<td>${newEduInfoPop.edctSttgYmd} ~ ${newEduInfoPop.edctFnshYmd }</td>
 											<th>신청기간</th>
-											<td>20200901 ~ 20200910</td>
+											<td>${newEduInfoPop.aplcSttgYmd } ~ ${newEduInfoPop.aplcFnshYmd }</td>
 										</tr>
 										<tr>
 											<th>교육시간</th>
-											<td>09:00 ~ 17:00</td>
+											<td>${newEduInfoPop.edctSttgTim } ~ ${newEduInfoPop.edctFnshTim }</td>
 											<th>교육비용</th>
-											<td>50,000원</td>
+											<td>${newEduInfoPop.edex }</td>
 										</tr>
 										<tr>
 											<th>교육방식</th>
-											<td>오프라인</td>
+											<td>${newEduInfoPop.onlEdctYn }</td>
 											<th>교육수준</th>
-											<td>중급</td>
+											<td>${newEduInfoPop.edctLevl }</td>
 										</tr>
 										<tr>
 											<th>첨부파일</th>
-											<td class="txt-long" colspan="3">AWS SUMMIT SEOUL(SAVE THE DATE) 소개.pdf</td>
+											<td class="txt-long" colspan="3">${newEduInfoPop.apndDat }</td>
 										</tr>
 									</tbody>
 								</table>

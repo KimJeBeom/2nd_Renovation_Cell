@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- HEADER -->
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
 
@@ -42,7 +42,7 @@
 															<div class="ui calendar" id="rangestart">
 															  <div class="ui input left icon">
 																<i class="calendar icon" style="font-size:14px;"></i>
-																<input type="text" placeholder="Start" style="height:35px; font-size:14px;">
+																<input value="startDate"type="text" placeholder="Start" style="height:35px; font-size:14px;">
 															  </div>
 															</div>
 														</div>
@@ -51,7 +51,7 @@
 															<div class="ui calendar" id="rangeend">
 															  <div class="ui input left icon">
 																<i class="calendar icon" style="font-size:14px;"></i>
-																<input type="text" placeholder="End" style="height:35px; font-size:14px;">
+																<input value ="endDate" type="text" placeholder="End" style="height:35px; font-size:14px;">
 															  </div>
 															</div>
 														  </div>
@@ -64,7 +64,7 @@
 									</div>
 									<div style="display: table-cell"
 										style="text-align: center; padding-right:5px;">
-										<button type="button" class="btn btn-primary">조회</button>
+										<button type="button" class="btn btn-primary" onclick="historySearch();">조회</button>
 									</div>
 								</div>
 								<!-- End 수강신청 이력-조회바 -->
@@ -80,32 +80,32 @@
 											<th>신청상태</th>
 											<th>상세확인</th>
 										</tr>
-									</thead>
-									<tbody>
+										</thead>
+										<tbody>
+							<c:choose>
+								<c:when test="${not empty eduMyHistroy}">
+									<c:forEach items="${eduMyHistroy}" var="eduMyHistroy">
+										<c:set var="sum" value="${sum+1}"/>
 										<tr>
-											<td>1</td>
-											<td>최은혜의 인생이 원래 그런거다</td>
-											<td>뽀리네집</td>
-											<td>2020.09.01 ~ 2020.09.31</td>
-											<td> </td>
-											<td>신청취소</td>
+											<td>${sum }</td>
+											<td>${eduMyHistroy.edctNm }</td>
+											<td>${eduMyHistroy.edinNm }</td>
+											<td>${eduMyHistroy.edctSttgYmd } ~ ${eduMyHistroy.edctFnshYmd }</td>
+											<td>${eduMyHistroy.fnshYn }</td>
+											<td>${eduMyHistroy.aplcStgNm }</td>
 											<td>
 												<button type="button" class="btn btn-primary btn-xs"
 													onclick="showPopup('myClass','eduInfoPop');">확인</button>
 											</td>
 										</tr>
-										<tr>
-											<td>2</td>
-											<td>현민지의 3병이 제일 쉬웠어요</td>
-											<td>주작cmp</td>
-											<td>2020.09.01 ~ 2020.09.31</td>
-											<td>차수종료</td>
-											<td>교육종료</td>
-											<td>
-												<button type="button" class="btn btn-primary btn-xs"
-													onclick="showPopup('myClass','eduInfoPop ');">확인</button>
-											</td>
-										</tr>
+							       </c:forEach>
+								</c:when>
+							   <c:otherwise>
+									<tr height="130">
+										<td colspan="7" class="txt_center"><h4>수강신청 이력이 없습니다.</h4></td>
+									</tr>
+							   </c:otherwise>
+					    	</c:choose>
 									</tbody>
 								</table>
 								<!-- End 수강신청 이력-조회결과 -->

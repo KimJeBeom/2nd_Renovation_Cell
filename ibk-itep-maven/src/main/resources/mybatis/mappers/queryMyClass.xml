@@ -55,7 +55,6 @@
 	     <![CDATA[
 			/*수강신청 목록 조회*/
 			SELECT 
-			@rowNum := @rowNum + 1 AS rowNum,
 			EDA.EDCT_APLC_ID AS edctAplcId, -- 교육신청id
 			EDM.EDCT_ID AS edctId, -- 교육id
 			EDA.EDCT_CNT_ID AS edctCntId, -- 차수id
@@ -66,7 +65,7 @@
 			DATE_FORMAT(EDC.EDCT_FNSH_YMD,'%Y.%m.%d') AS edctFnshYmd,    -- 학습종료일
 			DATE_FORMAT(EDA.APLC_TS, '%Y.%m.%d')  AS aplcTs, -- 신청일시
 			CLS.APLC_STG_NM AS aplcStgNm -- 신청단계명
-			FROM (SELECT @rowNum := 0) R, TB_IEP_EDA001M EDA
+			FROM TB_IEP_EDA001M EDA
 			LEFT JOIN TB_IEP_EDC001M EDC ON EDA.EDCT_CNT_ID = EDC.EDCT_CNT_ID
 			JOIN TB_IEP_EDM001M EDM ON EDC.EDCT_ID = EDM.EDCT_ID
 			JOIN TB_IEP_CLI001C CLI ON EDM.EDIN_CD = CLI.EDIN_CD
@@ -92,12 +91,11 @@
 	     ]]>
 	</update>
 	
-<!-- myclass.xml > eduNow -->
-	<select id="selectEduComplete" parameterType="EduNowVO" resultType="EduNowVO">
+<!-- myclass.xml > eduNow AND EDC.EDCT_STTG_YMD BETWEEN #{조회시작일자} AND #{조회종료일자} -->
+	<select id="selectEduComplete" parameterType="String" resultType="EduCompleteVO">
 	     <![CDATA[
 			/*수강완료교육 조회*/
 			SELECT 
-			@rowNum := @rowNum + 1 AS rowNum,
 			EDA.EDCT_APLC_ID AS edctAplcId, -- 교육신청id
 			EDM.EDCT_ID AS edctId, -- 교육id
 			EDA.EDCT_CNT_ID AS edctCntId, -- 차수id
@@ -107,7 +105,7 @@
 			DATE_FORMAT(EDC.EDCT_STTG_YMD,'%Y.%m.%d') AS edctSttgYmd,   -- 학습시작일 
 			DATE_FORMAT(EDC.EDCT_FNSH_YMD,'%Y.%m.%d') AS edctFnshYmd,    -- 학습종료일
 			IF(EDA.CTCR_YN = 'Y','수료','미수료') AS ctcrYn -- 수료여부
-			FROM (SELECT @rowNum := 0) R, TB_IEP_EDA001M EDA
+			FROM TB_IEP_EDA001M EDA
 			LEFT JOIN TB_IEP_EDC001M EDC ON EDA.EDCT_CNT_ID = EDC.EDCT_CNT_ID
 			JOIN TB_IEP_EDM001M EDM ON EDC.EDCT_ID = EDM.EDCT_ID
 			JOIN TB_IEP_CLI001C CLI ON EDM.EDIN_CD = CLI.EDIN_CD
@@ -115,17 +113,16 @@
 			AND EDA.USER_ID = #{userId} 
 			AND EDA.APLC_STG_CD = 'EDUFIN'
 			AND EDA.USE_YN = 'Y'
-			AND EDC.EDCT_STTG_YMD BETWEEN #{조회시작일자} AND #{조회종료일자}
+			
 			ORDER BY EDC.EDCT_STTG_YMD DESC
 	     ]]>
 	</select>
 	
 <!-- myclass.xml > eduNow -->
-	<select id="selectEduMyHistory" parameterType="EduNowVO" resultType="EduNowVO">
+	<select id="selectEduMyHistory" parameterType="String" resultType="EduMyHistoryVO">
 	     <![CDATA[
 			/*수강신청이력 조회*/
 			SELECT 
-			@rowNum := @rowNum + 1 AS rowNum,
 			EDA.EDCT_APLC_ID AS edctAplcId, -- 교육신청id
 			EDM.EDCT_ID AS edctId, -- 교육id
 			EDA.EDCT_CNT_ID AS edctCntId, -- 차수id
@@ -134,23 +131,28 @@
 			CLI.EDIN_NM AS edinNm, -- 교육기관명
 			DATE_FORMAT(EDC.EDCT_STTG_YMD,'%Y.%m.%d') AS edctSttgYmd,   -- 학습시작일 
 			DATE_FORMAT(EDC.EDCT_FNSH_YMD,'%Y.%m.%d') AS edctFnshYmd,    -- 학습종료일
-			DATE_FORMAT(EDA.APLC_TS, '%Y.%m.%d')  AS aplcTs, -- 신청일시
 			IF(EDC.FNSH_YN = 'Y','차수종료','') AS fnshYn, -- 차수종료여부
-			CLS.APLC_STG_NM AS aplcStgNm, -- 신청단계명
-			FROM (SELECT @rowNum := 0) R, TB_IEP_EDA001M EDA
+			CLS.APLC_STG_NM AS aplcStgNm -- 신청단계명
+			FROM TB_IEP_EDA001M EDA
 			LEFT JOIN TB_IEP_EDC001M EDC ON EDA.EDCT_CNT_ID = EDC.EDCT_CNT_ID
 			JOIN TB_IEP_EDM001M EDM ON EDC.EDCT_ID = EDM.EDCT_ID
 			JOIN TB_IEP_CLI001C CLI ON EDM.EDIN_CD = CLI.EDIN_CD
 			JOIN TB_IEP_CLS001C CLS ON EDA.APLC_STG_CD = CLS.APLC_STG_CD
 			WHERE 1=1
 			AND EDA.USER_ID = #{userId} 
-			AND EDC.EDCT_STTG_YMD BETWEEN #{조회시작일자} AND #{조회종료일자}
+		]]>
+	<!--  <if test="startDate != null">
+		<![CDATA[
+		AND EDC.EDCT_STTG_YMD BETWEEN #{startDate} AND #{endDate}
+		]]>
+	</if> -->
+		<![CDATA[
 			AND EDA.USE_YN='Y'
 	     ]]>
 	</select>
 	
 <!-- myclass.xml > eduInfoPop -->
-	<select id="selectEduInfoPop" parameterType="EduNowVO" resultType="EduNowVO">
+	<select id="selectEduInfoPop" parameterType="Integer" resultType="EduInfoPopVO">
 	     <![CDATA[
 			/*교육신청 상세확인 팝업 -- 반려중인 경우만 결재요청버튼 활성화*/
 			SELECT 
@@ -161,10 +163,11 @@
 				EDM.EDIN_CD AS edinCd, -- 교육기관
 				CLI.EDIN_Nm AS edinNm, -- 교육기관명
 				IF(EDM.ONL_EDCT_YN = "N", "오프라인","온라인") AS onlEdctYn, -- 교육방식
-				EDC.EDCT_STTG_YMD AS edctSttgYmd, -- 학습시작일
-				EDC.EDCT_FNSH_YMD AS edctFnshYmd, -- 학습종료일
+				DATE_FORMAT(EDC.EDCT_STTG_YMD,'%Y.%m.%d') AS edctSttgYmd, -- 학습시작일
+				DATE_FORMAT(EDC.EDCT_FNSH_YMD,'%Y.%m.%d') AS edctFnshYmd, -- 학습종료일
 				EDM.EDCT_LEVL AS edctLevl, -- 교육수준
-				EDA.APND_DAT -- 첨부파일
+				EDA.APND_DAT AS apndDat, -- 첨부파일
+				EDA.APLC_STG_CD AS aplcStgCd -- 신청단계코드
 				FROM TB_IEP_EDA001M EDA
 				LEFT JOIN TB_IEP_EDC001M EDC ON EDA.EDCT_CNT_ID = EDC.EDCT_CNT_ID
 				LEFT JOIN TB_IEP_EDM001M EDM ON EDC.EDCT_ID = EDM.EDCT_ID
@@ -188,24 +191,24 @@
 	</update>
 	
 <!-- myclass.xml > newEduInfoPop -->
-	<select id="selectNewEduInfoPop" parameterType="EduNowVO" resultType="EduNowVO">
+	<select id="selectNewEduInfoPop" parameterType="Integer" resultType="NewEduInfoPopVO">
 	     <![CDATA[
 			/*과정개설 신청내역 팝업*/
 			SELECT EDO.APLC_ID AS aplcId-- 신청ID
 				, CMB.BRNM AS brnm-- 부서명
 				, CMU.USER_NM AS userNm-- 직원명
-				, EDO.INBK_EDCT_YN AS edctYn-- 행내교육
+				, IF(EDO.INBK_EDCT_YN='Y','행내','행외') AS edctYn-- 행내교육
 				, EDO.EDIN_NM AS edinNm-- 교육기관명
 				, EDO.EDCT_NM AS edctNm-- 교육명
 				, EDO.EDCT_CON AS edctCon-- 교육내용 
-				, EDO.EDCT_STTG_YMD AS edctSttgYmd-- 교육시작일
-				, EDO.EDCT_FNSH_YMD AS edctFnshYmd-- 교육종료일 
-				, APLC_STTG_YMD AS aplcSttgYmd-- 신청시작일
-				, APLC_FNSH_YMD AS aplcFnshYmd-- 신청종료일
-				, EDO.EDCT_STTG_TIM AS edctSttgTim-- 교육시작시간
-				, EDO.EDCT_FNSH_TIM AS edctFnshTim-- 교육종료시간
-				, EDO.EDEX AS edex -- 교육비
-				, EDO.ONL_EDCT_YN AS onlEdctYn -- 온라인교육여부
+				, DATE_FORMAT(EDO.EDCT_STTG_YMD,'%Y.%m.%d') AS edctSttgYmd-- 교육시작일
+				, DATE_FORMAT(EDO.EDCT_FNSH_YMD,'%Y.%m.%d') AS edctFnshYmd-- 교육종료일 
+				, DATE_FORMAT(APLC_STTG_YMD,'%Y.%m.%d') AS aplcSttgYmd-- 신청시작일
+				, DATE_FORMAT(APLC_FNSH_YMD,'%Y.%m.%d') AS aplcFnshYmd-- 신청종료일
+				, DATE_FORMAT(EDO.EDCT_STTG_TIM, '%H:%i') AS edctSttgTim-- 교육시작시간
+				, DATE_FORMAT(EDO.EDCT_FNSH_TIM, '%H:%i') AS edctFnshTim-- 교육종료시간
+				, FORMAT(EDO.EDEX,0) AS edex -- 교육비
+				, IF(EDO.ONL_EDCT_YN = "N", "오프라인","온라인") AS onlEdctYn -- 온라인교육여부
 				, EDO.EDCT_LEVL AS edctLevl -- 교육수준
 				, EDO.APND_DAT AS apndDat -- 첨부파일
 			FROM TB_IEP_EDO001M EDO, TB_IEP_CMB001M CMB, TB_IEP_CMU001M CMU

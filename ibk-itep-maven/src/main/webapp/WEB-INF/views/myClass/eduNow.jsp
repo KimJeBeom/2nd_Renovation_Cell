@@ -39,19 +39,29 @@
 										</tr>
 									</thead>
 									<tbody>
-									<c:forEach items="${list}" var="edulist">
-										<c:set var="sum" value="${sum+1}"/>
-										<tr>
-											<td>${sum}</td>
-											<td>${edulist.edctNm}</td>
-											<td>${edulist.edinNm }</td>
-											<td>${edulist.edctSttgYmd } ~ ${edulist.edctFnshYmd }</td>
-											<td>
-												<button type="button" class="btn btn-primary btn-xs"
-													onclick="showPopup('myClass','eduInfoPop');">확인</button>
-											</td>
-										</tr>
-									</c:forEach>
+								<c:choose>
+									<c:when test="${not empty eduNowList}">
+										<c:forEach items="${eduNowList}" var="eduNowList">
+											<c:set var="sum" value="${sum+1}"/>
+											<tr>
+												<td>${sum}</td>
+												<td>${eduNowList.edctNm}</td>
+												<td>${eduNowList.edinNm }</td>
+												<td>${eduNowList.edctSttgYmd } ~ ${eduNowList.edctFnshYmd }</td>
+												<td>
+													<button type="button" class="btn btn-primary btn-xs"
+													onclick="window.open('/itep/views/myClass/pop/eduInfoPop?edctAplcId='+${eduNowList.edctAplcId},'eduInfoPop','_blank');">확인</button>
+												</td>
+												<td id="edctAplcId" style="display:none">${eduNowList.edctAplcId}</td>
+											</tr>
+										</c:forEach>
+									</c:when>
+									<c:otherwise>
+									<tr height="100">
+										<td colspan="7" class="txt_center"><h4>현재 수강 중인 교육이 없습니다.</h4></td>
+									</tr>
+									</c:otherwise>
+								</c:choose>
 									</tbody>
 								</table>
 							</div>
@@ -62,6 +72,7 @@
 			</div>
 		</div>
 	</div>
+
 
 	<!-- FOOTER -->
 	<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />

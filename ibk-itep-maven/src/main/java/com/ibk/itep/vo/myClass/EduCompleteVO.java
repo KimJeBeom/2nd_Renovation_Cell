@@ -1,7 +1,7 @@
 package com.ibk.itep.vo.myClass;
 
-public class EduNowVO {
-	
+public class EduCompleteVO {
+
 	private Integer edctAplcId;
 	private Integer edctId;
 	private Integer edctCntId;
@@ -10,12 +10,8 @@ public class EduNowVO {
 	private String edinNm;
 	private String edctSttgYmd;
 	private String edctFnshYmd;
-	private String ctcrYn;
-	private String useYn;
-	private String aplcStgCd;
-	private String fnshYn;
-
-
+	private String cnfaYn;
+	
 	public Integer getEdctAplcId() {
 		return edctAplcId;
 	}
@@ -64,31 +60,11 @@ public class EduNowVO {
 	public void setEdctFnshYmd(String edctFnshYmd) {
 		this.edctFnshYmd = edctFnshYmd;
 	}
-	public String getCtcrYn() {
-		return ctcrYn;
+	public String getCnfaYn() {
+		return cnfaYn;
 	}
-	public void setCtcrYn(String ctcrYn) {
-		this.ctcrYn = ctcrYn;
-	}
-	public String getUseYn() {
-		return useYn;
-	}
-	public void setUseYn(String useYn) {
-		this.useYn = useYn;
-	}
-	public String getAplcStgCd() {
-		return aplcStgCd;
-	}
-	public void setAplcStgCd(String aplcStgCd) {
-		this.aplcStgCd = aplcStgCd;
-	}
-	public String getFnshYn() {
-		return fnshYn;
-	}
-	public void setFnshYn(String fnshYn) {
-		this.fnshYn = fnshYn;
+	public void setCnfaYn(String cnfaYn) {
+		this.cnfaYn = cnfaYn;
 	}
 
-	
-	
 }

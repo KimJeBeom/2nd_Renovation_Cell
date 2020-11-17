@@ -6,9 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ibk.itep.repository.MyClassDao;
+import com.ibk.itep.vo.SessionVo;
+import com.ibk.itep.vo.myClass.EduCompleteVO;
+import com.ibk.itep.vo.myClass.EduInfoPopVO;
+import com.ibk.itep.vo.myClass.EduMyHistoryVO;
 import com.ibk.itep.vo.myClass.EduNewReadyVO;
 import com.ibk.itep.vo.myClass.EduNowVO;
 import com.ibk.itep.vo.myClass.EduReadyVO;
+import com.ibk.itep.vo.myClass.NewEduInfoPopVO;
 
 
 @Service
@@ -17,23 +22,44 @@ public class MyClassService {
 	@Autowired
 	private MyClassDao myClassDao;
 	
-	//수강중인 교육 조회
-	public List<EduNowVO> getList(String userId){
+	public List<EduNowVO> getList(SessionVo ssnVo){
 		
-		return myClassDao.selectEduNow(userId);
+		return myClassDao.selectEduNow(ssnVo);
 	}
 	
-	//수강신청한 교육 > 과정개설 신청목록 조회
-	public List<EduNewReadyVO> getNewList(String userId){
+	public List<EduNewReadyVO> getNewList(SessionVo ssnVo){
 		
-		return myClassDao.selectNewEduReady(userId);
+		return myClassDao.selectNewEduReady(ssnVo);
 	}
 	
-	//수강신청한 교육 > 수강신청 목록 조회
-	public List<EduReadyVO> getReadyList(String userId){
+	public List<EduReadyVO> getReadyList(SessionVo ssnVo){
 		
-		return myClassDao.selectEduReady(userId);
+		return myClassDao.selectEduReady(ssnVo);
+	}
+	
+	public List<EduCompleteVO> getCompleteList(SessionVo ssnVo){
+		
+		return myClassDao.selectEduComplete(ssnVo);
+	}
+	
+	public List<EduMyHistoryVO> getHistoryList(SessionVo ssnVo){
+		
+		return myClassDao.selectEduMyHistory(ssnVo);
 	}
 
+	public EduInfoPopVO getEduInfoPop(int edctAplcId){
+		
+		return myClassDao.selectEduInfoPop(edctAplcId);
+	}
+	
+	public NewEduInfoPopVO getNewEduInfoPop(int aplcId){
+		
+		return myClassDao.selectNewEduInfoPop(aplcId);
+	}
+	
+	public EduReadyVO getUpdateEduReady(int edctAplcId){
+		
+		return myClassDao.updateEduReady(edctAplcId);
+	}
 }
 
