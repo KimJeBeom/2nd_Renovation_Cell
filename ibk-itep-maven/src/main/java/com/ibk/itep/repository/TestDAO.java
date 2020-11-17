@@ -15,27 +15,7 @@ public class TestDAO {
 	private SqlSession sqlSession;
 	
 	public String getSysdate() {
-		String sysdate = sqlSession.selectOne("query.getsysdate");
+		String sysdate = sqlSession.selectOne("queryLogin.getsysdate");
 		return sysdate;
-	}
-	
-	public List<TestVO> getList() {
-		List<TestVO> list = sqlSession.selectList("query.getList");
-		return list;
-	}
-	
-	public String getPwd(Integer no) {
-		String pwd = sqlSession.selectOne("query.getPwd", no);
-		return pwd;
-	}
-	
-	public boolean insert(TestVO vo ) {
-		int count = sqlSession.insert("query.insert", vo);
-		return count == 1;
-	}
-	
-	public boolean delete(Integer no) {
-		int count = sqlSession.delete("query.delete", no);
-		return count == 1;
 	}
 }

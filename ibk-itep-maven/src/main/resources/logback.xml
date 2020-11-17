@@ -50,7 +50,7 @@
 	<!--  ResultSet을 포함한 모든 JDBC 호출 정보 -->
 	<logger name="jdbc.resultset" level="OFF" />
 	<!-- SQL 결과 조회된 데이터의 table을 로그 -->
-	<logger name="jdbc.resultsettable" level="OFF" />
+	<logger name="jdbc.resultsettable" level="DEBUG" />
 	<logger name="jdbc.connection" level="OFF" />
 
 	<!-- root는 글로벌 로거를 의미하며, 위의 logger에 해당하지 않으면 root 로거가 실행된다. -->

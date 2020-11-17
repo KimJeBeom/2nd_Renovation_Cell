@@ -1,11 +1,11 @@
 package com.ibk.itep.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,21 +15,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class MainHomeContoller{
 	
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	private static final Logger logger = LoggerFactory.getLogger(MainHomeContoller.class);
 
 	@RequestMapping(value = "/views", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-
-		logger.info("Welcome home! The client locale is {}.", locale);
+	public String home(Authentication authentication, HttpServletRequest request, Model model) {
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		HttpSession session = request.getSession();
+		String id = (String) authentication.getPrincipal();
 		
-		String formattedDate = dateFormat.format(date);
+		session.setAttribute("id", authentication.getPrincipal());
+		logger.debug(session.getAttribute("id").toString());
 		
-		model.addAttribute("serverTime", formattedDate );
-		
+		logger.debug("Login  ID : " + authentication.getPrincipal());
+		logger.debug("name : " + authentication.getAuthorities().toString());
 		return "home";
 	}
+	
 
 }
