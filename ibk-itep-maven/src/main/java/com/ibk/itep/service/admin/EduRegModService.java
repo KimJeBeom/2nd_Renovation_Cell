@@ -22,5 +22,12 @@ public class EduRegModService {
 		}
 		return adminDao.selectEduRegMod(vo);
 	}
+	
+	public boolean deleteEduRegMod(EduRegModVo vo) {
+		if(vo.getEdctId() != null) {
+			return adminDao.deleteEduRegMod(vo);
+		}
+		return false;		
+	}
 }
 

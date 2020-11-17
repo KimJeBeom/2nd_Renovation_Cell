@@ -113,8 +113,7 @@
 			$("#btnDel").click(function(){
 				var radioVal = $('input[name="chkEdctId"]:checked').val();
  				if(radioVal != null){
- 					alert("삭제기능호출구현 필요");
- 					/*showPopup('admin','eduModPop?edctId='+radioVal);*/	
+ 					deleteEduRegMod();	
  				}else{
  					alert("삭제할 교육을 선택해주세요");
  				}				
@@ -147,6 +146,24 @@
 				error: function (xhr, status, error) {
 					alert("error");
 					
+				}
+			});
+		}
+		function deleteEduRegMod() {
+			var chkEdctId = $('input[name="chkEdctId"]:checked').val();
+		    $.ajax({
+		    	url:"/itep/views/admin/deleteEduRegMod", //데이터를  넘겨줄 링크 설정
+		        type:"POST", // post 방식
+				data: {"edctId" : chkEdctId}, //넘겨줄 데이터
+				success: function (responseData) {
+					alert("삭제success");
+					selectEduRegMod();
+				},
+				error: function (xhr, status, error) {
+					alert(xhr);
+					alert(status);
+					alert(error);					
+					alert("삭제 error");					
 				}
 			});
 		}

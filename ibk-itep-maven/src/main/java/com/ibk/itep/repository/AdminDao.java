@@ -21,6 +21,11 @@ public class AdminDao {
 		return list;
 	}
 	
+	public boolean deleteEduRegMod(EduRegModVo vo) {
+		int count = sqlSession.delete("queryAdmin.deleteEduRegMod", vo);
+		return count == 1;
+	}
+	
 	public boolean updateAdmin(Integer userId) {
 		int count = sqlSession.update("queryAdmin.updateEudRegModUseN", userId);
 		return count == 1;

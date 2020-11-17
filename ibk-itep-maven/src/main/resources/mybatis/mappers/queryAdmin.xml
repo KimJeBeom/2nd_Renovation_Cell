@@ -27,11 +27,11 @@
 	     	]]>	     		     
 	     </if>
 	</select>
-	<update id="updateEudRegModUseN" parameterType="Integer">
+	<update id="deleteEduRegMod" parameterType="EduRegModVo">
 		<![CDATA[
 			update	itep.tb_iep_edm001m edm 
 			set 	edm.USE_YN='N'
-			where 	edm.USER_ID=#{userId}
+			where 	edm.EDCT_ID=#{edctId}
 		]]>
 	</update>
 	<!-- Popup - 신규교육등록 newEduRegPop -->
