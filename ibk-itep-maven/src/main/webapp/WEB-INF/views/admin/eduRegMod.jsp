@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- HEADER -->
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
 
@@ -34,14 +35,14 @@
 											<tr>
 												<td style="width: 150px"><b>교육분류</b></td>
 												<td style="width: 150px"><select class="form-control"
-													style="text-align: left;">
-														<option value="outedu">외부교육</option>
+													id="edctClsfCd" style="text-align: left;">
+														<option value="otedu">외부교육</option>
 														<option value="inedu">내부교육</option>
 														<option value="seminar">세미나</option>
 												</select></td>
 												<td style="width: 150px"><b>과목명</b></td>
 												<td style="width: 300px"><input class="form-control"
-													type="text" style="text-align: left;" value="과정명 입력하세요"></td>
+													type="text" style="text-align: left;" id="edctNm"></td>
 											</tr>
 										</tbody>
 									</table>
@@ -49,65 +50,45 @@
 								<div style="display: table-cell"
 									style="text-align: center; padding-right:5px;">
 									<button type="button" class="btn btn-primary"
-										style="float: right;">조회</button>
+										style="float: right;" onclick="selectEduRegMod();">조회</button>
 								</div>
 							</div>
 							<!-- End 수강완료한 교육-조회바 -->
 							<!-- Start 교육 등록 및 수정 - 버튼바-->
 							<div class="form-group row"
 								style="text-align: right; padding-right: 25px;">
-								<button class="btn btn-primary" type="button"
-									onclick="showPopup('admin','newEduRegPop');">등록</button>
-								<button class="btn btn-primary" type="button"
-									onclick="showPopup('admin','eduModPop');">수정</button>
-								<button class="btn btn-primary" type="button">삭제</button>
-								<button class="btn btn-primary" type="button">엑셀업로드</button>
-								<button class="btn btn-primary" type="button">엑셀다운로드</button>
+								<button class="btn btn-primary" type="button" id="btnReg">등록</button>
+								<button class="btn btn-primary" type="button" id="btnMod">수정</button>
+								<button class="btn btn-primary" type="button" id="btnDel">삭제</button>
+								<button class="btn btn-primary" type="button" id="btnXlsUp">엑셀업로드</button>
+								<button class="btn btn-primary" type="button" id="btnXlsDown">엑셀다운로드</button>
 							</div>
 							<!-- End 교육 등록 및 수정 - 버튼바-->
 							<!-- Start 교육 조회 결과 리스트-->
 							<div class="table-responsive">
 								<table class="table table-hover">
-									<tbody>
+									<thead>
 										<tr>
-											<th style="width: 5px;"><input type="checkbox"></th>
-											<th style="width: 65px;">No</th>
+											<th style="width: 5px;">구분</th>
+											<th style="width: 15px;">교육ID</th>
 											<th style="width: 15px;">교육분류</th>
-											<th style="width: 15px;">과목코드</th>
-											<th style="width: 15px;">과목명</th>
-											<th style="width: 15px;">기관</th>
+											<th style="width: 15px;">교육명</th>
+											<th style="width: 15px;">교육기관</th>
 											<th style="width: 15px;">차수관리</th>
 										</tr>
-										<tr>
-											<td><input type="checkbox"></td>
-											<td>1</td>
-											<td>외부교육</td>
-											<td>OTEDU001</td>
-											<td style="text-align: left">업무에 바로쓰는 SQL활용실습</td>
-											<td>멀티캠퍼스</td>
-											<td><button type="button" class="btn btn-primary bts-xs"
+									</thead>
+									<tbody  id="eduRegModVoListTbody">
+										<c:forEach items="${eduRegModVoList }" var="eduRegModVo">
+											<tr>
+												<td><input type="radio" name="chkEdctId" value=${eduRegModVo.edctId }></td>
+												<td>${eduRegModVo.edctId }</td>
+												<td>${eduRegModVo.edctClsfNm }</td>
+												<td style="text-align: left">${eduRegModVo.edctNm }</td>
+												<td>${eduRegModVo.edinNm }</td>
+												<td><button type="button" class="btn btn-primary bts-xs"
 													onclick="showPopup('admin','addEduRndPop');">차수추가</button></td>
-										</tr>
-										<tr>
-											<td><input type="checkbox"></td>
-											<td>2</td>
-											<td>내부교육</td>
-											<td>OTEDU002</td>
-											<td style="text-align: left">업무에 바로쓰는 컴파일러 명령어</td>
-											<td>멀티캠퍼스</td>
-											<td><button type="button" class="btn btn-primary bts-xs"
-													onclick="showPopup('admin','addEduRndPop');">차수추가</button></td>
-										</tr>
-										<tr>
-											<td><input type="checkbox"></td>
-											<td>3</td>
-											<td>세미나</td>
-											<td>OTEDU007</td>
-											<td style="text-align: left">고가용성에 대한 다양한 사례 공유</td>
-											<td>레드햇</td>
-											<td><button type="button" class="btn btn-primary bts-xs"
-													onclick="showPopup('admin','addEduRndPop');">차수추가</button></td>
-										</tr>
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>
@@ -118,5 +99,62 @@
 			</div>
 		</div>
 	</div>
+
 	<!-- FOOTER -->
 	<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
+	<script type="text/javascript">
+		// 결재건 클릭 시 상세내역 동적변경을 위한 함수
+		
+		$(document).ready(function(){
+			$("#btnReg").click(function(){
+				showPopup('admin','newEduRegPop');
+			})
+ 			$("#btnMod").click(function(){
+ 				var radioVal = $('input[name="chkEdctId"]:checked').val();
+ 				if(radioVal != null){
+ 					showPopup('admin','eduModPop?edctId='+radioVal);	
+ 				}else{
+ 					alert("수정할 교육을 선택해주세요");
+ 				} 				
+			})
+			$("#btnDel").click(function(){
+				var radioVal = $('input[name="chkEdctId"]:checked').val();
+ 				if(radioVal != null){
+ 					alert("삭제기능호출구현 필요");
+ 					/*showPopup('admin','eduModPop?edctId='+radioVal);*/	
+ 				}else{
+ 					alert("삭제할 교육을 선택해주세요");
+ 				}				
+			})
+		});
+		function selectEduRegMod() {
+			var edctClsfCd = $("#edctClsfCd").val();
+			var edctNm = $("#edctNm").val();
+		    $.ajax({
+		    	url:"/itep/views/admin/selectEduRegMod", //데이터를  넘겨줄 링크 설정
+		        type:"POST", // post 방식
+				data: {"edctClsfCd" : edctClsfCd, "edctNm" : edctNm}, //넘겨줄 데이터
+				
+				success: function (responseData) {
+					var str = '';
+					str += '<tbody  id=\"eduRegModVoListTbody\">'
+					$.each(responseData, function (i){
+						str += '<tr>'
+						str += '<td><input type="radio" name="chkEdctId" value='+responseData[i].edctId+'></td>'
+						str += '<td>'+responseData[i].edctId+'</td>'
+						str += '<td>'+responseData[i].edctClsfNm+'</td>'
+						str += '<td style=\"text-align: left\">'+responseData[i].edctNm+'</td>'
+						str += '<td>'+responseData[i].edinNm+'</td>'
+						str += '<td><button type=\"button\" class=\"btn btn-primary bts-xs\" onclick=\"showPopup(\'admin\',\'addEduRndPop\');\">차수추가</button></td>'
+						str += '</tr>'
+					});
+					str += '</tbody>'
+					$("#eduRegModVoListTbody").replaceWith(str);
+				},
+				error: function (xhr, status, error) {
+					alert("error");
+					
+				}
+			});
+		}
+	</script>

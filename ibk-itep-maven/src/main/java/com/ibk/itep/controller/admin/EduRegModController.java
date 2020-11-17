@@ -12,10 +12,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ibk.itep.controller.HomeController;
 import com.ibk.itep.repository.CmmDao;
 import com.ibk.itep.repository.board.NoticeDao;
+import com.ibk.itep.service.admin.EduRegModService;
+import com.ibk.itep.vo.admin.EduRegModVo;
 import com.ibk.itep.vo.board.NoticeVo;
 import com.ibk.itep.vo.cmm.CldVo;
 
@@ -25,26 +29,40 @@ import com.ibk.itep.vo.cmm.CldVo;
 public class EduRegModController{
 	
 	private static final Logger logger = LoggerFactory.getLogger(EduRegModController.class);
+	
+	
 	@Autowired
-	CmmDao cmmdao;
+	private EduRegModService eduRegModService;
+	
+	
+	@RequestMapping(value = "/views/admin/eduRegMod", method = RequestMethod.POST)
+	public String eduRegModPOST(Model model) {
+	    
+		return eduRegMod(model);
+	}
 	
 	@RequestMapping(value = "/views/admin/eduRegMod", method = RequestMethod.GET)
-	public String eduRegMod(Locale locale, Model model) {
-
-		logger.info("Start_EduRegModController", locale);
+	public String eduRegMod(Model model) {		
 		
-		CldVo tst = new CldVo();
-		logger.info("make finish cldvo");		
-		logger.info("before set y : {}.", tst);
-		tst.setUseYn("Y");
-		logger.info("after set y : {}.", tst.getUseYn());
-	
-		List<CldVo> resultlist = cmmdao.selectCld(tst); 
+		EduRegModVo ermVo = new EduRegModVo();
 		
-		logger.info("{}.", resultlist);		
-		
-		
+		List<EduRegModVo> eduRegModVoList = eduRegModService.selectEduRegMod(ermVo);
+		model.addAttribute("eduRegModVoList", eduRegModVoList);
 		return "/admin/eduRegMod";
 	}
+	
+	@RequestMapping(value = "/views/admin/selectEduRegMod", method = RequestMethod.POST)
+	public @ResponseBody List<EduRegModVo> selectEduRegMod(@RequestParam("edctClsfCd") String edctClsfCd, @RequestParam("edctNm") String edctNm) {
+		logger.info("컨트롤러 진입완료");
+		EduRegModVo ermVo = new EduRegModVo();
+		ermVo.setEdctClsfCd(edctClsfCd);
+		ermVo.setEdctNm(edctNm);
+		
+		List<EduRegModVo> eduRegModVoList = eduRegModService.selectEduRegMod(ermVo);
+		logger.info("{}", eduRegModVoList);
+		
+		return eduRegModVoList;		
+	}
+	
 
 }

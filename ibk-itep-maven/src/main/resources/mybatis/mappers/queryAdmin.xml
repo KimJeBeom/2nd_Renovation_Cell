@@ -5,25 +5,25 @@
 	<select id="selectEduRegMod" parameterType="EduRegModVo" resultType="EduRegModVo">
 	     <![CDATA[
 			/*교육목록조회*/
-			SELECT cld.EDCT_CLSF_NM as edctClsfNm 			#교육분류
-	 				, edm.EDCT_ID as edctId    				#교육메인ID
-	    			, edm.EDCT_NM as edctNm    				#교육명
-	    			, cli.EDIN_NM as edinNm    				#교육기관명
-			FROM itep.tb_iep_edm001m edm
-				, itep.tb_iep_cld001c cld
-				, itep.tb_iep_cli001c cli
-			where edm.EDCT_CLSF_CD = cld.EDCT_CLSF_CD 
+			SELECT	edm.EDCT_ID as edctId    				#교육메인ID 
+	 			,	cld.EDCT_CLSF_NM as edctClsfNm 			#교육분류 
+	    		, 	edm.EDCT_NM as edctNm    				#교육명
+	    		, 	cli.EDIN_NM as edinNm    				#교육기관명
+			FROM 	itep.tb_iep_edm001m edm
+				, 	itep.tb_iep_cld001c cld
+				, 	itep.tb_iep_cli001c cli
+			where 	edm.EDCT_CLSF_CD = cld.EDCT_CLSF_CD 
 	 			and edm.EDIN_CD = cli.EDIN_CD
-	    		and edm.USE_YN = 'Y' 						# 삭제 안된 교육만 show
+	    		and edm.USE_YN = 'Y' 							# 삭제 안된 교육만 show
 	     ]]>
 	     <if test="edctClsfCd != null">
 	     	<![CDATA[
-	     		and edm.EDCT_CLSF_CD = #{edctClsfCd}     	# 조회조건 : 교육 분류
+	     		and edm.EDCT_CLSF_CD = #{edctClsfCd}     		# 조회조건 : 교육 분류
 	     	]]>	     		     
 	     </if>
 	     <if test="edctNm != null">
 	     	<![CDATA[
-	     		and edm.EDCT_NM like '%#{edctNm}%'     		# 조회조건 : 교육 명칭
+	     		and edm.EDCT_NM like concat('%',#{edctNm},'%')	# 조회조건 : 교육 명칭
 	     	]]>	     		     
 	     </if>
 	</select>
@@ -89,7 +89,7 @@
 				]]>
 			</select>
 		<!-- update 교육메인 -->
-			<update id="updateEduModPop" parameterType="EduNowVo">
+			<update id="updateEduModPop" parameterType="EduRegModVo">
 				<![CDATA[
 					/*교육내용 수정 팝업*/
 					UPDATE TB_IEP_EDM001M 
@@ -207,7 +207,7 @@
 			     ]]>
 			</update>
 		<!-- 차수 삭제 -->
-			<update id="updateModEduRndPopUseN" parameterType="int" >
+			<update id="updateModEduRndPopUseN" parameterType="Integer" >
 				<![CDATA[
 					/*교육 차수수정 팝업*/
 					UPDATE TB_IEP_EDC001M
@@ -382,7 +382,7 @@
 				]]>
 			</update>
 		<!-- update 교육차수 종료 -->
-			<update  id="updateEduEmpListPopFnshY" parameterType="int">
+			<update  id="updateEduEmpListPopFnshY" parameterType="Integer">
 				<![CDATA[
 					UPDATE TB_IEP_EDC001M
 					SET FNSH_YN = 'Y'
@@ -462,7 +462,7 @@
 	</select>
 	<!-- Start - Popup - 참고사항등록 memoRegPop -->
 		<!-- select 신청서 상세사항 -->
-		<select id="selectMemoRegPop" parameterType="int" resultType="EduHistoryVo">
+		<select id="selectMemoRegPop" parameterType="Integer" resultType="EduHistoryVo">
 			<![CDATA[
 				하나짜자...
 			]]>
