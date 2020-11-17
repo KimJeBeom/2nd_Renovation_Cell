@@ -82,15 +82,21 @@ public class ApprListDetailVo {
 		this.edctFnshYmd = edctFnshYmd;
 	}
 	public String getAplcSttgYmd() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		return sdf.format(aplcSttgYmd);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+		if(aplcSttgYmd != null)
+			return sdf.format(aplcSttgYmd);
+		else 
+			return "";
 	}
 	public void setAplcSttgYmd(Date aplcSttgYmd) {
 		this.aplcSttgYmd = aplcSttgYmd;
 	}
 	public String getAplcFnshYmd() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		return sdf.format(aplcFnshYmd);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+		if(aplcFnshYmd != null)
+			return sdf.format(aplcFnshYmd);
+		else 
+			return "";
 	}
 	public void setAplcFnshYmd(Date aplcFnshYmd) {
 		this.aplcFnshYmd = aplcFnshYmd;
