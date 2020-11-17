@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- HEADER -->
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
 
@@ -26,9 +29,24 @@
 											<td style="width: 80%; padding-left: 5px; text-align: left; padding-bottom: 10px;">
 												<b>* 결재요청시 부서 관리자(기획팀장/기획서무 책임자)에게 전달 됩니다.</b>
 											</td>
-											<td style="width: 10%; padding-left: 5px; text-align: right; padding-bottom: 10px;">	
-												<button style="text-align:right;" type="button" class="btn btn-primary btn-toastr">결재요청</button>
+											
+											<td style="width: 10%; padding-left: 5px; text-align: right; padding-bottom: 10px;">
+												<c:choose>
+													<c:when test="${modType eq 'insert'} or ${eginAplyYn eq 'Y'} ">
+														<button style="text-align:right;" type="button" class="btn btn-primary btn-toastr">결재요청</button>	 
+													</c:when>
+													<c:when test="${modType eq 'update'}">
+														<button style="text-align:right;" type="button" class="btn btn-primary btn-toastr">재요청</button>	 
+													</c:when>
+													<c:when test="${modType eq 'delete'}">
+														<button style="text-align:right;" type="button" class="btn btn-primary btn-toastr">삭제</button>	 
+													</c:when>
+													<c:otherwise>
+														<td></td>
+													</c:otherwise>
+												</c:choose>											
 											</td>
+											
 										</tr>
 									</tbody>
 								</table>
@@ -37,25 +55,32 @@
 									<tbody>
 										<tr>
 											<th>교육분류</th>
-											<td>외부교육</td>
+							   				<td>${vo.edctClsfNm}</td>
 											<th>결재대상</th>
-											<td>대상외</td>
+											<c:choose>
+												<c:when test="${vo.eginAplyYn eq 'Y'}">
+													<td>결재대상</td>	 
+												</c:when>
+												<c:otherwise>
+													<td>대상외</td>
+												</c:otherwise>
+											</c:choose>
 										</tr>
 										<tr>
 											<th>과목명</th>
-											<td colspan="3">Java Programming 핵심</td>
+							   				<td colspan="3">${vo.edctNm}</td>
 										</tr>
 										<tr>
 											<th>교육기관</th>
-											<td>멀티캠퍼스</td>
+							   				<td>${vo.edinNm}</td>
 											<th>교육방식</th>
-											<td>오프라인</td>
+							   				<td>${vo.edctTrm}일</td>
 										</tr>
 										<tr>
 											<th>학습기간</th>
 											<td>2020-02-01 ~ 2020-02-05</td>
 											<th>교육수준</th>
-											<td>중급</td>
+							   				<td>${vo.edctLevl}</td>
 										</tr>
 										<tr>
 										   <th>첨부파일</th>

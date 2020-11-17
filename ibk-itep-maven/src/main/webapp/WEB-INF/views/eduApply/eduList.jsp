@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- HEADER -->
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
 
@@ -26,7 +29,7 @@
 							</h1>
 						</div>
 					</div>
-					<div id="toastr-demo" class="panel" style="height:700px;">
+					<div id="toastr-demo" class="panel">
 						<div class="panel-body">
 							<div class="well">
 								<table>
@@ -87,7 +90,7 @@
 													<tr>
 														<th style="text-align:center; width:10%;" id="th1">순번</th>
 														<th style="text-align:center; width:40%;" id="th2">교육명</th>
-														<th style="text-align:center; width:15%;" id="th3">유형</th>
+														<th style="text-align:center; width:15%;" id="th3">기관명</th>
 														<th style="text-align:center; width:20%;" id="th4">접수기간</th>
 														<th style="text-align:center; width:15%;" id="th5">바로가기</th>
 													</tr>
@@ -98,26 +101,15 @@
 														<td style="text-align:center">2020.09.16 ~ 2020.09.30</td>
 														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup('eduApply','eduApplyPop');">안내 및 신청</button></td>
 													</tr>
+													<c:forEach items="${list}" var="eduList" varStatus="status">
 													<tr>
-														<td style="text-align:center">2</td>
-														<td style="text-align:left"><span class="badge badge-primary">초</span> 실천!초보자를 위한 Java</td>
-														<td style="text-align:center">멀티캠퍼스</td>
-														<td style="text-align:center">2020.09.16 ~ 2020.09.30</td>
-														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs">안내 및 신청</button></td>
+				 										<td style="text-align:center">${eduList.edctCntId}
+														<td style="text-align:  left"><span class="badge badge-primary">${eduList.edctLevl}</span>&nbsp;${eduList.edctNm}</td>
+														<td style="text-align:center">${eduList.edinNm}</td>
+														<td style="text-align:center">11<%-- ${eduList.aplcSttgYmd} ~ ${eduList.aplcFnshYmd} --%></td>
+														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showApplyPop('eduApply','eduApplyPop','${eduList.edctCntId}');">안내 및 신청</button></td>
 													</tr>
-													<tr class="table-primary">
-														<td style="text-align:center">3</td>
-														<td style="text-align:left"><span class="badge badge-primary">중</span> Java Programing 핵심</td>
-														<td style="text-align:center">멀티캠퍼스</td>
-														<td style="text-align:center">2020.09.16 ~ 2020.09.30</td>
-														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs">안내 및 신청</button></td>
-													<tr>
-														<td style="text-align:center">4</td>
-														<td style="text-align:left"><span class="badge badge-primary">고</span> 핵심! Go프로그래밍</td>
-														<td style="text-align:center">패스트캠퍼스</td>
-														<td style="text-align:center">2020.09.16 ~ 2020.09.30</td>
-														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs">안내 및 신청</button></td>
-													</tr>
+													</c:forEach>
 												</tbody>
 											</table>
 										</div>
@@ -132,11 +124,185 @@
 										</nav>
 									</div>
 								</div>
-								<div class="tab-pane" id="tab2">2. Put a little content in your pane.</div>
-								<div class="tab-pane" id="tab3">3. Put some more content in your pane here.</div>
-								<div class="tab-pane" id="tab4">4. Put some more content in your pane here.</div>
-								<div class="tab-pane" id="tab4">5. Put some more content in your pane here.</div>
-								<div class="tab-pane" id="tab5">6. Put some more content in your pane here.</div>
+								<div class="tab-pane" id="tab2">
+									<div class="col-md-12">
+										<div class="table-responsive">
+											<table class="table table-hover table-sm first">
+												<tbody>
+													<tr>
+														<th style="text-align:center; width:10%;" id="th1">순번</th>
+														<th style="text-align:center; width:40%;" id="th2">교육명</th>
+														<th style="text-align:center; width:15%;" id="th3">기관명</th>
+														<th style="text-align:center; width:20%;" id="th4">접수기간</th>
+														<th style="text-align:center; width:15%;" id="th5">바로가기</th>
+													</tr>
+													<tr>
+														<td style="text-align:center">1</td>
+														<td style="text-align:left"><span class="badge badge-primary">초</span> 업무에 바로쓰는 SQL활용실습</td>
+														<td style="text-align:center">멀티캠퍼스</td>
+														<td style="text-align:center">2020.09.16 ~ 2020.09.30</td>
+														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup('eduApply','eduApplyPop');">안내 및 신청</button></td>
+													</tr>
+													<c:forEach items="${list}" var="eduList" varStatus="status">
+													<c:if test="${edctClsfCd eq 'OTEDU'}">
+													<tr>
+				 										<td style="text-align:center">${eduList.edctCntId}
+														<td style="text-align:  left"><span class="badge badge-primary">${eduList.edctLevl}</span>&nbsp;${eduList.edctNm}</td>
+														<td style="text-align:center">${eduList.edinNm}</td>
+														<td style="text-align:center">${eduList.aplcSttgYmd}</td>
+														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showApplyPop('eduApply','eduApplyPop','${eduList.edctCntId}');">안내 및 신청</button></td>
+													</tr>
+													</c:if>
+													</c:forEach>
+												</tbody>
+											</table>
+										</div>
+										<nav aria-label="Page navigation example" style="text-align: right;">
+											<ul class="pagination">
+												<li class="page-item"><a class="page-link" href="#">◀◀</a></li>
+												<li class="page-item"><a class="page-link" href="#">1</a></li>
+												<li class="page-item"><a class="page-link" href="#">2</a></li>
+												<li class="page-item"><a class="page-link" href="#">3</a></li>
+												<li class="page-item"><a class="page-link" href="#">▶</a></li>
+											</ul>
+										</nav>
+									</div>
+								</div>
+								<div class="tab-pane" id="tab3">
+
+									<div class="col-md-12">
+										<div class="table-responsive">
+											<table class="table table-hover table-sm first">
+												<tbody>
+													<tr>
+														<th style="text-align:center; width:10%;" id="th1">순번</th>
+														<th style="text-align:center; width:40%;" id="th2">교육명</th>
+														<th style="text-align:center; width:15%;" id="th3">기관명</th>
+														<th style="text-align:center; width:20%;" id="th4">접수기간</th>
+														<th style="text-align:center; width:15%;" id="th5">바로가기</th>
+													</tr>
+													<tr>
+														<td style="text-align:center">1</td>
+														<td style="text-align:left"><span class="badge badge-primary">초</span> 업무에 바로쓰는 SQL활용실습</td>
+														<td style="text-align:center">멀티캠퍼스</td>
+														<td style="text-align:center">2020.09.16 ~ 2020.09.30</td>
+														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup('eduApply','eduApplyPop');">안내 및 신청</button></td>
+													</tr>
+													<c:forEach items="${list}" var="eduList" varStatus="status">
+													<c:if test="${edctClsfCd eq 'TREDU'}">
+													<tr>
+				 										<td style="text-align:center">${eduList.edctCntId}
+														<td style="text-align:  left"><span class="badge badge-primary">${eduList.edctLevl}</span>&nbsp;${eduList.edctNm}</td>
+														<td style="text-align:center">${eduList.edinNm}</td>
+														<td style="text-align:center">11<%-- ${eduList.aplcSttgYmd} --%></td>
+														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showApplyPop('eduApply','eduApplyPop','${eduList.edctCntId}');">안내 및 신청</button></td>
+													</tr>
+													</c:if>
+													</c:forEach>
+												</tbody>
+											</table>
+										</div>
+										<nav aria-label="Page navigation example" style="text-align: right;">
+											<ul class="pagination">
+												<li class="page-item"><a class="page-link" href="#">◀◀</a></li>
+												<li class="page-item"><a class="page-link" href="#">1</a></li>
+												<li class="page-item"><a class="page-link" href="#">2</a></li>
+												<li class="page-item"><a class="page-link" href="#">3</a></li>
+												<li class="page-item"><a class="page-link" href="#">▶</a></li>
+											</ul>
+										</nav>
+									</div>
+								</div>
+								<div class="tab-pane" id="tab4">
+
+									<div class="col-md-12">
+										<div class="table-responsive">
+											<table class="table table-hover table-sm first">
+												<tbody>
+													<tr>
+														<th style="text-align:center; width:10%;" id="th1">순번</th>
+														<th style="text-align:center; width:40%;" id="th2">교육명</th>
+														<th style="text-align:center; width:15%;" id="th3">기관명</th>
+														<th style="text-align:center; width:20%;" id="th4">접수기간</th>
+														<th style="text-align:center; width:15%;" id="th5">바로가기</th>
+													</tr>
+													<tr>
+														<td style="text-align:center">1</td>
+														<td style="text-align:left"><span class="badge badge-primary">초</span> 업무에 바로쓰는 SQL활용실습</td>
+														<td style="text-align:center">멀티캠퍼스</td>
+														<td style="text-align:center">2020.09.16 ~ 2020.09.30</td>
+														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup('eduApply','eduApplyPop');">안내 및 신청</button></td>
+													</tr>
+													<c:forEach items="${list}" var="eduList" varStatus="status">
+													<c:if test="${edctClsfCd eq 'SEMIN'}">
+													<tr>
+				 										<td style="text-align:center">${eduList.edctCntId}
+														<td style="text-align:  left"><span class="badge badge-primary">${eduList.edctLevl}</span>&nbsp;${eduList.edctNm}</td>
+														<td style="text-align:center">${eduList.edinNm}</td>
+														<td style="text-align:center">11<%-- ${eduList.aplcSttgYmd} --%></td>
+														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showApplyPop('eduApply','eduApplyPop','${eduList.edctCntId}');">안내 및 신청</button></td>
+													</tr>
+													</c:if>
+													</c:forEach>
+												</tbody>
+											</table>
+										</div>
+										<nav aria-label="Page navigation example" style="text-align: right;">
+											<ul class="pagination">
+												<li class="page-item"><a class="page-link" href="#">◀◀</a></li>
+												<li class="page-item"><a class="page-link" href="#">1</a></li>
+												<li class="page-item"><a class="page-link" href="#">2</a></li>
+												<li class="page-item"><a class="page-link" href="#">3</a></li>
+												<li class="page-item"><a class="page-link" href="#">▶</a></li>
+											</ul>
+										</nav>
+									</div>
+								</div>
+								<div class="tab-pane" id="tab4">
+
+									<div class="col-md-12">
+										<div class="table-responsive">
+											<table class="table table-hover table-sm first">
+												<tbody>
+													<tr>
+														<th style="text-align:center; width:10%;" id="th1">순번</th>
+														<th style="text-align:center; width:40%;" id="th2">교육명</th>
+														<th style="text-align:center; width:15%;" id="th3">기관명</th>
+														<th style="text-align:center; width:20%;" id="th4">접수기간</th>
+														<th style="text-align:center; width:15%;" id="th5">바로가기</th>
+													</tr>
+													<tr>
+														<td style="text-align:center">1</td>
+														<td style="text-align:left"><span class="badge badge-primary">초</span> 업무에 바로쓰는 SQL활용실습</td>
+														<td style="text-align:center">멀티캠퍼스</td>
+														<td style="text-align:center">2020.09.16 ~ 2020.09.30</td>
+														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup('eduApply','eduApplyPop');">안내 및 신청</button></td>
+													</tr>
+													<c:forEach items="${list}" var="eduList" varStatus="status">
+													<c:if test="${edctClsfCd eq 'EXTRA'}">
+													<tr>
+				 										<td style="text-align:center">${eduList.edctCntId}
+														<td style="text-align:  left"><span class="badge badge-primary">${eduList.edctLevl}</span>&nbsp;${eduList.edctNm}</td>
+														<td style="text-align:center">${eduList.edinNm}</td>
+														<td style="text-align:center">${eduList.aplcSttgYmd}</td>
+														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showApplyPop('eduApply','eduApplyPop','${eduList.edctCntId}');">안내 및 신청</button></td>
+													</tr>
+													</c:if>
+													</c:forEach>
+												</tbody>
+											</table>
+										</div>
+										<nav aria-label="Page navigation example" style="text-align: right;">
+											<ul class="pagination">
+												<li class="page-item"><a class="page-link" href="#">◀◀</a></li>
+												<li class="page-item"><a class="page-link" href="#">1</a></li>
+												<li class="page-item"><a class="page-link" href="#">2</a></li>
+												<li class="page-item"><a class="page-link" href="#">3</a></li>
+												<li class="page-item"><a class="page-link" href="#">▶</a></li>
+											</ul>
+										</nav>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -154,7 +320,18 @@
 		</footer>
 	</div>
 	<!-- END WRAPPER -->
-
 <!-- FOOTER -->
+<script>
+function showApplyPop(menu, name, id) {
+ 	var size = '';
+	
+	// 결재요청(결재자지정) 팝업
+	if (name == 'eduApplyPop') 
+		size = 'location=no, width=750, height=700, left=100, top=100';
+
+	window.open('/itep/views/'+menu+'/pop/'+name+'?edctCntId='+id, '_blank', size); 
+}	
+</script>
 <jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
+
 

@@ -7,38 +7,87 @@
 	    <![CDATA[
 		/*교육신청>교육목록>교육목록조회*/
 		SELECT 
-			   EDCT_ID AS EDCTID #교육ID
-			  ,EDCT_NM AS EDCTNM #교육명 
-			  ,EDIN_CD AS EDINCD #교육기관코드
-			  ,(SELECT EDIN_NM FROM TB_IEP_CLI001C I WHERE I.EDIN_CD = M.EDIN_CD ) AS EDINNM #교육기관명
-			  ,EDCT_CLSF_CD AS EDCTCLSFCD #교육분류코드
-			  ,(SELECT EDCT_CLSF_NM FROM TB_IEP_CLD001C D WHERE D.EDCT_CLSF_CD = M.EDCT_CLSF_CD ) AS EDCTCLSFNM #교육뷴류명
-			  ,SNCT_TGT_YN AS SNCTTGTYN#결재대상여부 
-			  ,EDCT_CON AS EDCTCON#교육내용 
-			  ,INBK_EDCT_YN AS INBKEDCTYN #행내교육여부 
-			  ,EGIN_APLY_YN AS EGINAPLYYN #고용보험적용여부
-			  ,ONL_EDCT_YN AS ONLEDCTYN #온라인교육여부
-			  ,EDCT_LEVL AS EDCTLEVL #교육수준 
-			  ,USE_YN AS USEYN #사용여부
-			  ,RGSN_TS AS RGSNTS#등록일시 
-		FROM  TB_IEP_EDM001M M
+			   C.EDCT_CNT_ID AS EDCTCNTID #교육차수ID
+			  ,M.EDCT_NM AS EDCTNM #교육명 
+			  ,M.EDIN_CD AS EDINCD #교육기관코드
+			  ,(SELECT EDIN_NM FROM TB_IEP_CLI001C I WHERE I.EDIN_CD = M.EDIN_CD LIMIT 1) AS EDINNM #교육기관명
+			  ,M.EDCT_CLSF_CD AS EDCTCLSFCD #교육분류코드
+			  ,(SELECT EDCT_CLSF_NM FROM TB_IEP_CLD001C D WHERE D.EDCT_CLSF_CD = M.EDCT_CLSF_CD LIMIT 1) AS EDCTCLSFNM #교육뷴류명
+			  ,M.EDCT_LEVL AS EDCTLEVL #교육수준 
+              ,C.APLC_STTG_YMD
+              ,C.APLC_FNSH_YMD
+		FROM  TB_IEP_EDM001M M,
+			  (SELECT EDCT_CNT_ID,EDCT_ID, EDCT_STTG_YMD ,EDCT_FNSH_YMD, APLC_STTG_YMD, APLC_FNSH_YMD, CNCL_STTG_YMD, CNCL_FNSH_YMD, EDCT_STTG_TIM, EDCT_FNSH_TIM
+			  FROM TB_IEP_EDC001M 
+			  WHERE EDCT_CNT_ID IN
+			  	(SELECT MAX(EDCT_CNT_ID) FROM TB_IEP_EDC001M WHERE USE_YN='Y' GROUP BY EDCT_ID )) C
 		WHERE 1=1
+        AND   M.EDCT_ID = C.EDCT_ID
+        AND   M.USE_YN !='N'
 		]]>
-	<if test="edctNm != null">
+	<choose>
+		<when test="edctNm != null">
 		<![CDATA[
-		AND   EDCT_NM LIKE CONCAT('%',#{edctNm},'%')	 
+		AND   M.EDCT_NM LIKE CONCAT('%',#{edctNm},'%')	 
 		]]>
-	</if>
-	<if test="edctClsfCd != 'total'">
+		</when>
+		<when test="edinCd != null">
 		<![CDATA[
-		AND   EDCT_CLSF_CD = #{edctClsfCd}
+		AND   M.EDIN_CD LIKE CONCAT('%',#{edinCd},'%')	 
+		]]>
+		</when>
+		<when test="edctCntId != null">
+		<![CDATA[
+		AND   C.EDCT_CNT_ID = #{edctCntId}	 
+		]]>
+		</when>
+		<otherwise>
+		</otherwise>
+	</choose>
+	<if test="edctClsfCd != null">
+		<![CDATA[
+		AND   M.EDCT_CLSF_CD = #{edctClsfCd}
 	    ]]>
 	</if>
+	    <![CDATA[
+		ORDER BY C.APLC_STTG_YMD DESC
+		LIMIT 100
+		]]>
+		
 	</select>
 	
-	<select id="selectInfoCntPop" parameterType="EduInfoVo" resultType="EduInfoVo">
+	<select id="selectEduDetail" parameterType="EduListVo" resultType="EduListVo">
 	    <![CDATA[
-		/*교육신청>교육목록팝업>교육차수정보*/
+		/*교육신청>교육목록팝업>교육차수정보(상세)*/
+		SELECT 
+			   M.EDCT_ID AS EDCTID #교육ID
+			  ,M.EDCT_NM AS EDCTNM #교육명 
+			  ,M.EDIN_CD AS EDINCD #교육기관코드
+			  ,(SELECT EDIN_NM FROM TB_IEP_CLI001C I WHERE I.EDIN_CD = M.EDIN_CD LIMIT 1) AS EDINNM #교육기관명
+			  ,M.EDCT_CLSF_CD AS EDCTCLSFCD #교육분류코드
+			  ,(SELECT EDCT_CLSF_NM FROM TB_IEP_CLD001C D WHERE D.EDCT_CLSF_CD = M.EDCT_CLSF_CD LIMIT 1) AS EDCTCLSFNM #교육뷴류명
+			  ,M.SNCT_TGT_YN AS SNCTTGTYN#결재대상여부 
+			  ,M.EDCT_CON AS EDCTCON#교육내용 
+			  ,M.INBK_EDCT_YN AS INBKEDCTYN #행내교육여부 
+			  ,M.EGIN_APLY_YN AS EGINAPLYYN #고용보험적용여부
+			  ,M.ONL_EDCT_YN AS ONLEDCTYN #온라인교육여부
+			  ,M.EDCT_LEVL AS EDCTLEVL #교육수준 
+			  ,M.USE_YN AS USEYN #사용여부
+  			  ,C.EDCT_TRM AS edctTrm #교육기간
+			  ,C.CTCR_TIM AS ctcrTim #이수시간
+			  ,C.EDEX AS edex #교육비용
+              ,C.EDCT_STTG_YMD #학습시작시간
+              ,C.EDCT_FNSH_YMD #학습종료시간
+		FROM TB_IEP_EDM001M M,
+			 (SELECT EDCT_ID, EDCT_TRM, CTCR_TIM, EDEX, EDCT_STTG_YMD, EDCT_FNSH_YMD FROM TB_IEP_EDC001M WHERE EDCT_CNT_ID = #{edctCntId}) C
+        WHERE M.EDCT_ID = C.EDCT_ID
+        LIMIT 1
+	    ]]>
+	</select>
+	
+	<select id="selectInfoCntPop" parameterType="EduListVo" resultType="EduListVo">
+	    <![CDATA[
+		/*교육신청>교육목록팝업>교육차수정보(차수목록)*/
 		SELECT 
 			   EDCT_CNT_ID AS EDCTCNTID #교육차수ID
 			  ,EDCT_STTG_YMD AS EDCTSTTGYMD#학습시작일 
@@ -47,25 +96,20 @@
 			  ,APLC_FNSH_YMD AS APLCFNSHYMD  #신청종료일
 			  ,USE_YN AS USEYN#사용여부
 			  ,RGSN_TS AS RGSNTS#등록일시 
+			  ,CASE WHEN NOW() BETWEEN APLC_STTG_YMD AND APLC_FNSH_YMD THEN 'Y'
+			  ELSE 'N' END AS aplcAbleYn
 		FROM  TB_IEP_EDC001M
 		WHERE 1=1
-		]]>
-	<if test="edctId != null">
-		<![CDATA[
-		AND   EDCT_ID = #{edctId}
-		]]>
-	</if>
-		<![CDATA[
-		ORDER BY RGSN_TS ASC
+		AND   EDCT_ID = (SELECT DISTINCT EDCT_ID FROM TB_IEP_EDC001M WHERE EDCT_CNT_ID = #{edctCntId} )
+		ORDER BY APLC_STTG_YMD DESC
 	    ]]>
 	</select>
 	
-	<insert id="insertEduApplyPopApr" parameterType="EduInfoVo">
+	<insert id="insertEduApplyPopApr" parameterType="EduListVo">
 	     <![CDATA[
 		/*교육신청>교육목록팝업>교육신청등록(결재)*/
 		INSERT INTO TB_IEP_CLS001C(
-			 EDCT_APLC_ID	#교육신청ID 
-			,EDCT_CNT_ID	#교육차수ID
+			EDCT_CNT_ID	#교육차수ID
 			,TEAM_CD	#팀코드
 			,DVCD	#부서코드
 			,USER_ID	#신청자ID
@@ -75,13 +119,12 @@
 			,DPT_ATHZ_TS	#부서승인일시
 			,MNGR_ATHZ_ID	#관리자승인ID
 			,MNGR_ATHZ_TS	#관리자승인일시
-			,EDCT_APL_CSTG_CD	#교육신청단계코드
+			,APL_CSTG_CD	#교육신청단계코드
 			,CTCR_YN	#수료여부
 			,RFRC_CON	#참고
 			,RTRE_CON	#반려사유
 			,USE_YN	#사용여부
 		) VALUES(
-			,#{edctAplcId}
 			,#{edctCntId}
 			,#{teamCd}
 			,#{dvcd}
@@ -90,7 +133,7 @@
 			,#{apndDat}
 			,#{dptAthzId}
 			,NULL
-			,(SELECT USER_ID FROM TB_IEP_CMU001M ATHR_CD='GRM' LIMIT 1)
+			,(SELECT USER_ID FROM TB_IEP_CMU001M ATHR_CD='GRM')
 			,NULL
 			,'APRDPM'
 			,'N'
@@ -101,11 +144,10 @@
 	     ]]>
 	</insert>
 	
-	<insert id="insertEduApplyPopNon" parameterType="EduInfoVo">
+	<insert id="insertEduApplyPopNon" parameterType="EduListVo">
 	    <![CDATA[
 		/*교육신청>교육목록팝업>교육신청등록(비결재)*/
 		INSERT INTO TB_IEP_CLS001C(
-			 EDCT_APLC_ID	#교육신청ID 
 			,EDCT_CNT_ID	#교육차수ID
 			,TEAM_CD	#팀코드
 			,DVCD	#부서코드
@@ -116,13 +158,12 @@
 			,DPT_ATHZ_TS	#부서승인일시
 			,MNGR_ATHZ_ID	#관리자승인ID
 			,MNGR_ATHZ_TS	#관리자승인일시
-			,EDCT_APL_CSTG_CD	#교육신청단계코드
+			,APL_CSTG_CD	#교육신청단계코드
 			,CTCR_YN	#수료여부
 			,RFRC_CON	#참고
 			,RTRE_CON	#반려사유
 			,USE_YN	#사용여부
 		) VALUES(
-			,#{edctAplcId}
 			,#{edctCntId}
 			,#{teamCd}
 			,#{dvcd}
@@ -142,7 +183,7 @@
 	     ]]>
 	</insert>
 	
-	<update id="updateEduApplyPopRe" parameterType="EduInfoVo">
+	<update id="updateEduApplyPopRe" parameterType="EduListVo">
 	     <![CDATA[
 		/*교육신청>교육목록팝업>교육신청재등록*/
 		UPDATE TB_IEP_EDA001M

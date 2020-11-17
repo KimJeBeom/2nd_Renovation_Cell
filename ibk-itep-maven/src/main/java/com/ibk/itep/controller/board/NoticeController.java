@@ -23,7 +23,6 @@ public class NoticeController{
 
 	private static final Logger logger = LoggerFactory.getLogger(NoticeController.class);
 	@RequestMapping(value = "/views/board/notice", method = RequestMethod.GET)
-	
 	public String Notice(NoticeVo vo, Model model) { //화면에서 받아온 파라미터를 Vo에 저장
 		logger.info("NoticeContoll Start");
 		logger.info("@@@ReauestParam (Title): " + vo.getTtl());
