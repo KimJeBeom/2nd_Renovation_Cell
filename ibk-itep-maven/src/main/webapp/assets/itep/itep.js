@@ -57,7 +57,7 @@ $(document).ready(function() {
 			}
 		}
 	});
-
+	
 });
 
 /* 팝업 : name에 팝업으로 띄울 jsp 이름 써서 호출 */
