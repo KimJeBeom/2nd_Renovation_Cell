@@ -20,7 +20,6 @@
 						<div class="col-md-9 col-popup">
 							<div class="panel panel-headline">
 							<div class="panel-body panel-popup">
-								<!--<div style="text-align:left; padding-bottom: 10px;">-->
 								<table>
 									<tbody>
 									<c:if test="${eduInfoPop.aplcStgCd == 'REJDPM' || eduInfoPop.aplcStgCd == 'REJGRM' }">
@@ -29,7 +28,7 @@
 												<b>* 결재요청시 부서 관리자(기획팀장/기획서무 책임자)에게 전달 됩니다.</b>
 											</td>
 											<td style="width: 10%; padding-left: 5px; text-align: right; padding-bottom: 10px;">	
-												<button style="text-align:right;" type="button" class="btn btn-primary btn-toastr">결재요청</button>
+												<button style="text-align:right;" type="button" class="btn btn-primary btn-toastr" onclick ="reApply(${eduInfoPop.edctAplcId});">결재요청</button><br>
 											</td>
 										</tr>
 									</c:if>
@@ -75,6 +74,26 @@
 										</tr>
 									</tbody>
 								</table>
+								<c:if test="${eduInfoPop.aplcStgCd == 'REJDPM' || eduInfoPop.aplcStgCd == 'REJGRM' }">
+									<table>
+										<tbody>
+											<tr>
+												<td style="width: 80%; padding-left: 5px; text-align: left; padding-bottom: 10px;">
+													<font color="red"><b>* 반려된 신청건이므로 재결재요청 또는 취소신청을 하시기 바랍니다.</b></font>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<!-- 반려사유 확인 테이블 -->
+									<table class="table table-bordered tbl-type1">
+										<tbody>
+											<tr>
+											 	<th>반려사유</th>
+												<td style="width: 80%;">${eduInfoPop.rtreCon }</td>
+											</tr>
+										</tbody>
+									</table>
+								</c:if>
 							</div>
 							</div>
 						</div>
@@ -91,3 +110,24 @@
 <!-- FOOTER -->
 <jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 
+<script type="text/javascript">
+
+		function reApply(edctAplcId) {
+			
+	    $.ajax({
+	    	url:"/itep/views/myClass/pop/eduInfoPop/reApply", //데이터를  넘겨줄 링크 설정
+	        type:"POST", // post 방식
+			data: {"edctAplcId" : edctAplcId}, //넘겨줄 데이터
+			
+			success: function (responseData) {						
+
+				opener.parent.location.reload();
+				window.close();
+
+			},
+			error: function (xhr, status, error) {
+			}
+	    });
+	}
+
+</script>

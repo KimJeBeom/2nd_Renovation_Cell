@@ -2,6 +2,7 @@ package com.ibk.itep.controller.myClass.pop;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -18,6 +19,7 @@ import com.ibk.itep.controller.HomeController;
 import com.ibk.itep.service.MyClassService;
 import com.ibk.itep.vo.SessionVo;
 import com.ibk.itep.vo.myClass.EduInfoPopVO;
+import com.ibk.itep.vo.myClass.EduReadyVO;
 
 @Controller
 public class myClassEduInfoPopController{
@@ -27,7 +29,7 @@ public class myClassEduInfoPopController{
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
-	//상세확인 팝업 신청내용 조회
+	/*교육 신청내용 상세조회*/
 	@RequestMapping(value = "/views/myClass/pop/eduInfoPop", method = RequestMethod.GET)
 	public  String EduInfo(@RequestParam(value = "edctAplcId") int edctAplcId, Model model) {
 		EduInfoPopVO eduInfoPop = myClassService.getEduInfoPop(edctAplcId);
@@ -35,8 +37,14 @@ public class myClassEduInfoPopController{
 		model.addAttribute("eduInfoPop", eduInfoPop);
 		
 		return "/myClass/pop/eduInfoPop";
+}
+	/*수강신청 목록 - 반려건 재결재요청*/
+	//@RequestMapping(value = "/views/myClass/pop/eduInfoPop/reApply", method = RequestMethod.POST)
+	//public @ResponseBody EduReadyVO reApply(@RequestParam(value="edctAplcId", defaultValue="693") int edctAplcId, @RequestParam(value="apndDat", defaultValue="신청서임둥.txt") String apndDat , Model model) {
 
-	
+		//EduReadyVO eduReApply = myClassService.getUpdateEduInfoPop(edctAplcId);
+		
+	//return eduReApply;
 }
 	
-}
+//}

@@ -22,41 +22,60 @@ import com.ibk.itep.vo.myClass.EduNewReadyVO;
 import com.ibk.itep.vo.myClass.EduReadyVO;
 
 @Controller
-public class EdueduReadyController{
-	
-	
+public class EdueduReadyController {
+
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
-    	@Autowired
-		private MyClassService myClassService;
-		
-    	/*수강 신청한 교육*/
-		@RequestMapping(value = "/views/myClass/eduReady", method = RequestMethod.GET)
-		public String eduReady(Model model) {
+	@Autowired
+	private MyClassService myClassService;
+
+	/* 수강 신청한 교육 */
+	@RequestMapping(value = "/views/myClass/eduReady", method = RequestMethod.GET)
+	public String eduReady(Model model) {
+
+		SessionVo ssnVo = new SessionVo();
+		ssnVo.setUserId("42374");
+		ssnVo.setBrcd("0710");
+		ssnVo.setAthrCd("ADM");
+
+		// 과정개설 신청목록
+		List<EduNewReadyVO> eduNewList = myClassService.getNewList(ssnVo);
+		// 수강신청 목록
+		List<EduReadyVO> eduReadyList = myClassService.getReadyList(ssnVo);
+
+		model.addAttribute("eduNewList", eduNewList);
+		model.addAttribute("eduReadyList", eduReadyList);
+
+		return "/myClass/eduReady";
+	}
+
+	
+	  /*수강신청 목록 - 취소요청처리*/
+	  
+	  //@RequestMapping(value = "/views/myClass/eduReady/cancel", method = RequestMethod.POST)
+	  //public @ResponseBody EduReadyVO cancel(@RequestParam("edctAplcId") int edctAplcId, Model model) {
+	  
+	  //EduReadyVO eduCancel = myClassService.getUpdateEduReady(edctAplcId);
+	  
+	  //return eduCancel; 
+	 
+	 //}
+	 
+		/* 수강 신청한 교육 */
+		@RequestMapping(value = "/views/myClass/eduReady", method = RequestMethod.POST)
+		public @ResponseBody String eduReady(@RequestParam("edctAplcId") int edctAplcId, Model model) {
 
 			SessionVo ssnVo = new SessionVo();
 			ssnVo.setUserId("42374");
 			ssnVo.setBrcd("0710");
 			ssnVo.setAthrCd("ADM");
-			
-			//과정개설 신청목록
-			List<EduNewReadyVO> eduNewList = myClassService.getNewList(ssnVo);
-			//수강신청 목록
-			List<EduReadyVO> eduReadyList = myClassService.getReadyList(ssnVo);
-			
-			model.addAttribute("eduNewList", eduNewList);
-			model.addAttribute("eduReadyList", eduReadyList);
-					
-					
-		return "/myClass/eduReady";
-	}
-		
-		/*수강신청 목록 - 취소요청처리*/
-		@RequestMapping(value = "/views/myClass/eduReady/cancel", method = RequestMethod.POST)
-		public @ResponseBody EduReadyVO cancel(@RequestParam("edctAplcId") int edctAplcId, Model model) {
 
-			EduReadyVO eduCancl = myClassService.getUpdateEduReady(edctAplcId);
-			
-		return eduCancl;
-	}
+			// 수강신청 목록
+			List<EduReadyVO> eduReadyList = myClassService.getReadyList(ssnVo);
+
+			model.addAttribute("eduReadyList", eduReadyList);
+
+			return "/myClass/eduReady";
+		}
+	 
 }

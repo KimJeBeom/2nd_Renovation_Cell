@@ -57,9 +57,14 @@ public class MyClassService {
 		return myClassDao.selectNewEduInfoPop(aplcId);
 	}
 	
-	public EduReadyVO getUpdateEduReady(int edctAplcId){
+	public void getUpdateEduReady(int edctAplcId){
 		
-		return myClassDao.updateEduReady(edctAplcId);
+		//return myClassDao.updateEduReady(edctAplcId);
+	}
+	
+	public void getUpdateEduInfoPop(int edctAplcId){
+		
+		//return myClassDao.updateEduInfoPop(edctAplcId);
 	}
 }
 

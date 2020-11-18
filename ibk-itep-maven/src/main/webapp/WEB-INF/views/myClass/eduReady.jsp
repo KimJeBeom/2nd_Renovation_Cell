@@ -60,7 +60,7 @@
 											<td>${eduNewList.aplcTs }</td>
 											<td>
 												<button type="button" class="btn btn-primary btn-xs"
-													onclick="window.open('/itep/views/myClass/pop/newEduInfoPop?aplcId='+${eduNewList.aplcId},'newEduInfoPop','_blank');">확인</button>
+													onclick="showPopup('myClass','newEduInfoPop?aplcId='+${eduNewList.aplcId});">확인</button>
 											</td>
 											<td>${eduNewList.cnfaYn }</td>
 										</tr>
@@ -83,7 +83,7 @@
 								</h4>
 							</div>
 							<!-- End 수강신청목록-소제목 -->
-							<div class="panel-body" style="overflow-x:hidden; height:250px;">
+							<div id="eduReadyListdiv" class="panel-body" style="height:250px;">
 								<!-- Start 수강신청목록-리스트 -->
 								<table class="table table-hover">
 									<thead>
@@ -98,8 +98,8 @@
 											<th>취소</th>
 										</tr>
 									</thead>
-									<tbody>
-							<c:choose>
+									<tbody  id="eduReadyListTbody" >
+									<c:choose>
 								<c:when test="${not empty eduReadyList}">
 									<c:forEach items="${eduReadyList}" var="eduReadyList">
 										<c:set var="cnt" value="${cnt+1}"/>
@@ -145,30 +145,26 @@
 	<!-- FOOTER -->
 	<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 	
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 		<script type="text/javascript">
-
 		function button_event(edctAplcId) {
-		
-		if (confirm("해당 교육을 취소하시겠습니까?") == true){  
-	    $.ajax({
-	    	url:"/itep/views/myClass/eduReady/cancel", //데이터를  넘겨줄 링크 설정
-	        type:"POST", // post 방식
-			data: {"edctAplcId" : edctAplcId}, //넘겨줄 데이터
 			
-			success: function (responseData) {						
-				// apprDetail 결과값을 테이블에 동적으로 반영
-				$('#edctNm').html(responseData.edctNm);
-				$('#edinNm').html(responseData.edinNm);
-				$('#edctYmd').html(responseData.edctSttgYmd+' ~ '+responseData.edctFnshYmd);
-				$('#aplcTs').html(responseData.aplcTs);
-				$('#aplcStgNm').html(responseData.aplcStgNm);
-			},
-			error: function (xhr, status, error) {
-			}
-		});
-	}else{   //취소
- 		return;
-	}
+			if (confirm("해당 교육을 취소하시겠습니까?") == true){  
+		    $.ajax({
+		    	url:"/itep/views/myClass/eduReady/cancel", //데이터를  넘겨줄 링크 설정
+		        type:"POST", // post 방식
+				data: {"edctAplcId" : edctAplcId}, //넘겨줄 데이터
+				
+				success: function (responseData) {						
+					   $("#eduReadyListTbody").load("/itep/views/myClass/eduReady #eduReadyListTbody");
+				},
+				error: function (xhr, status, error) {
+				}
+			});
+		}else{   //취소
+	 		return;
 		}
+			}
+
 
 </script>

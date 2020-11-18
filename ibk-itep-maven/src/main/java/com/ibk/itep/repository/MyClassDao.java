@@ -34,8 +34,8 @@ public class MyClassDao {
 	}
 	
 	public List<EduReadyVO> selectEduReady(SessionVo ssnVo){
-		List<EduReadyVO> list1 = sqlSession.selectList("queryMyClass.selectEduReady",ssnVo);
-		return list1;
+		List<EduReadyVO> list = sqlSession.selectList("queryMyClass.selectEduReady",ssnVo);
+		return list;
 	}
 	
 	public List<EduCompleteVO> selectEduComplete(SessionVo ssnVo){
@@ -58,8 +58,11 @@ public class MyClassDao {
 		return vo;
 	}
 	
-	public EduReadyVO updateEduReady(int edctAplcId){
-		EduReadyVO vo = sqlSession.selectOne("queryMyClass.updateEduReady",edctAplcId);
-		return vo;
+	public void updateEduReady(int edctAplcId){
+		sqlSession.update("queryMyClass.updateEduReady",edctAplcId);
+	}
+	
+	public void updateEduInfoPop(int edctAplcId){
+		sqlSession.selectOne("queryMyClass.updateEduInfoPop",edctAplcId);
 	}
 }

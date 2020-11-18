@@ -15,11 +15,8 @@
 			<!-- MAIN CONTENT -->
 			<div class="main-content">
 				<div class="container-fluid">
-
-					<!-- 상단 버튼 -->
-					<button type="button" class="btn btn-primary btn-toastr" style="float: right; vertical-align: bottom; ">확인</button><br><br>
-					
-					<div class="row">
+					<h3 class="page-title"><b>과정개설 신청</b></h3>
+						<div class="row">
 						<div class="col-md-9 col-popup">
 							<div class="panel panel-headline">
 							<div class="panel-body panel-popup">

@@ -50,7 +50,7 @@
 												<td>${eduNowList.edctSttgYmd } ~ ${eduNowList.edctFnshYmd }</td>
 												<td>
 													<button type="button" class="btn btn-primary btn-xs"
-													onclick="window.open('/itep/views/myClass/pop/eduInfoPop?edctAplcId='+${eduNowList.edctAplcId},'eduInfoPop','_blank');">확인</button>
+													onclick="showPopup('myClass','eduInfoPop?edctAplcId='+${eduNowList.edctAplcId});">확인</button>
 												</td>
 												<td id="edctAplcId" style="display:none">${eduNowList.edctAplcId}</td>
 											</tr>
