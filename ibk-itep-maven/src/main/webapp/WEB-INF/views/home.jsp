@@ -23,11 +23,18 @@
 								<div class="col-md-9" style="text-align:center;">
 									<img src="/itep/assets/itep/img/itepintro.png" style="height:100%; max-width:100%; display:block;"/>
 								</div>
-								<div class="col-md-3" style="height:100px"></div>
+								<div class="col-md-3" style="height:150px"></div>
 								<div class="col-md-3">
-									<div class="metric" style="padding: 20px 20px 10px 20px">
+									<div class="metric" style="width:90%;">
 										<p>
-											<img src="/itep/assets/itep/img/icon/dpttop2.png" style="max-height:100%; max-width:100%;"/>
+											<img src="/itep/assets/itep/img/icon/dpttop.png" style="max-width:100%; max-height:100%;" />
+										</p>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="metric" style="width:90%;">
+										<p>
+											<img src="/itep/assets/itep/img/icon/curric.png" style="max-width:100%; max-height:100%;" />
 										</p>
 									</div>
 								</div>

@@ -24,6 +24,11 @@ public class MainHomeDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	public SessionVo selectSessionInfo(String userId) {
+		SessionVo vo = sqlSession.selectOne("queryMainHome.selectSessionInfo", userId);
+		return vo;
+	}
+	
 	public List<HomeBdnVo> selectHomeBdnList() {
 		List<HomeBdnVo> list = sqlSession.selectList("queryMainHome.selectHomeBdnList");
 		return list;

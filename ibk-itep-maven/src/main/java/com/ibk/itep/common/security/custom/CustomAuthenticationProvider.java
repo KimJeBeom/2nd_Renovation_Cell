@@ -44,6 +44,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException(username);
         }
         
+        //String role = "ROLE_" + user.getAuthorities().toString().replace("[", "").replace("]", "");
         String role = "ROLE_" + user.getAuthorities().toString().replace("[", "").replace("]", "");
         logger.debug("사용자계정 권한 : " + role);
         List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();

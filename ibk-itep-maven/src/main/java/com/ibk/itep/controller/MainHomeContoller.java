@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.ibk.itep.service.MainHomeService;
 import com.ibk.itep.vo.HomeBdnVo;
 import com.ibk.itep.vo.HomeEduNowVo;
+import com.ibk.itep.vo.SessionVo;
 
 @Controller
 public class MainHomeContoller{
@@ -31,16 +32,13 @@ public class MainHomeContoller{
 
 		HttpSession session = request.getSession();
 		String id = (String) authentication.getPrincipal();
-		String userId = "40868";
+		SessionVo ssnInfo = mainHomeService.selectSessionInfo(id); // 로그인한 id 기준으로 사용자 정보 조회
 		
-		session.setAttribute("id", authentication.getPrincipal());
-		logger.debug(session.getAttribute("id").toString());
+		session.setAttribute("ssnInfo", ssnInfo); // 사용자 정보 세션에 담음
 		
-		logger.debug("Login  ID : " + authentication.getPrincipal());
-		logger.debug("name : " + authentication.getAuthorities().toString());
-
-		List<HomeBdnVo> bdnList = mainHomeService.selectHomeBdnList();
-		List<HomeEduNowVo> eduNowList = mainHomeService.selectHomeEduNow(userId);
+		List<HomeBdnVo> bdnList = mainHomeService.selectHomeBdnList(); // 공지사항
+		List<HomeEduNowVo> eduNowList = mainHomeService.selectHomeEduNow(id); // 수강중인 교육
+		
 		model.addAttribute("bdnList", bdnList);
 		model.addAttribute("eduNowList", eduNowList);
 

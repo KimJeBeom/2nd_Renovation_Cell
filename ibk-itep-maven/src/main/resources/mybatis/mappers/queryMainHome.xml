@@ -2,6 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="queryMainHome">
+	<select id="selectSessionInfo" parameterType="String" resultType="SessionVo">
+		<![CDATA[
+		SELECT CMU.USER_ID AS userId
+			 , CMU.USER_NM AS userNm
+			 , CMU.USER_JTM AS userJtm
+			 , CMB.BRCD AS brcd
+			 , CMB.BRNM AS brnm
+			 , CMU.ATHR_CD AS athrCd
+		FROM TB_IEP_CMU001M CMU, TB_IEP_CMB001M CMB
+		WHERE CMU.USER_ID = #{userId} AND CMU.USE_YN = 'Y'
+		AND CMU.DVCD = CMB.BRCD AND CMB.USE_YN = 'Y'
+		]]>
+	</select>
+	
 	<select id="selectHomeBdnList" resultType="HomeBdnVo">
 		<![CDATA[
 		SELECT PBNS_ID AS pbnsId

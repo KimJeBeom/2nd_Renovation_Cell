@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
-	
+<%@ page import = "com.ibk.itep.vo.SessionVo" %>   
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<%
+	SessionVo ssnInfo = (SessionVo)session.getAttribute("ssnInfo");
+	String brnm = ssnInfo.getBrnm();
+	String userNm = ssnInfo.getUserNm();
+	String userJtm = ssnInfo.getUserJtm();
+	String athrCd = ssnInfo.getAthrCd();
+%>
 <!-- LEFT SIDEBAR -->
 <div id="sidebar-nav" class="sidebar">
 	<div class="sidebar-scroll">
@@ -13,8 +22,13 @@
 				<div class="usr-info">
 					<img class="usr-icon" src="/itep/assets/itep/img/usr.png" />
 					<div class="usr-text">
-						<li>${id}</li>
-						<li>김다정 대리</li>
+						<% if(athrCd.equals("ADM")) { %>
+							<li>admin</li>
+							<li><%=userNm %></li>
+						<% } else { %>
+							<li><%=brnm %></li>
+							<li><%=userNm %> <%=userJtm %></li>
+						<% } %>
 					</div>
 				</div>
 
@@ -40,6 +54,7 @@
 						</ul>
                     </div>
                 </li>
+                <% if(athrCd.equals("DPM") || athrCd.equals("GRM") || athrCd.equals("ADM")) { %>
        			<li><a href="#subPages2" data-toggle="collapse" class="collapsed">
                     <img src="/itep/assets/itep/img/icon/apprmng-icon.png" class="main-icon" /><span>결재관리</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 	    			<div id="subPages2" class="collapse ">
@@ -49,6 +64,7 @@
 						</ul>
                     </div>
                 </li>
+                <% } %>
 				<li><a href="#subPages3" data-toggle="collapse" class="collapsed">
                     <img src="/itep/assets/itep/img/icon/board-icon.png" class="main-icon" /><span>게시판</span><i class="icon-submenu lnr lnr-chevron-left"></i></a>
 					<div id="subPages3" class="collapse ">
@@ -58,6 +74,7 @@
 						</ul>
                     </div>
                 </li>
+                <% if(athrCd.equals("GRM") || athrCd.equals("ADM")) { %>
 				<li><a href="#subPages4" data-toggle="collapse" class="collapsed">
                     <img src="/itep/assets/itep/img/icon/admin-icon.png" class="main-icon" /><span>관리자</span><i class="icon-submenu lnr lnr-chevron-left"></i></a>
 					<div id="subPages4" class="collapse ">
@@ -70,6 +87,7 @@
                         </ul>
                     </div>
 				</li>
+                <% } %>
 				
 				<!-- 검색창 -->
 				<form class="navbar-form navbar-left">

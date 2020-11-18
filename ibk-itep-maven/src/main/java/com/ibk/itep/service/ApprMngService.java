@@ -26,14 +26,8 @@ public class ApprMngService {
 	@Autowired
 	private ApprMngDao apprMngDAO;
 	
-	public List<ApprListVo> selectApprList(){
-		/* 테스트를 위한 임의의 세션VO 객체 생성 */
-		SessionVo ssnVo = new SessionVo();
-		ssnVo.setUserId("42664");
-		ssnVo.setBrcd("0710");
-		ssnVo.setAthrCd("ADM");
-		
-		return apprMngDAO.selectApprList(ssnVo);
+	public List<ApprListVo> selectApprList(SessionVo ssnInfo){		
+		return apprMngDAO.selectApprList(ssnInfo);
 	}
 	
 	public ApprListDetailVo selectApprListDetail(int edctAplcId){
