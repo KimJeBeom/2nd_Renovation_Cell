@@ -8,7 +8,9 @@ public class EduRegModVo {
 	private Integer edctId;		//교육ID
 	private String 	edctNm;		//교육명
 	private String 	edinCd;		//교육기관코드
+	private String 	edinNm;		//교육기관명
 	private String 	edctClsfCd;	//교육분류코드
+	private String 	edctClsfNm;	//교육분류명
 	private String 	snctTgtYn;	//결재대상여부
 	private String 	edctCon;	//교육내용
 	private String 	inbkEdctYn;	//행내교육여부
@@ -18,14 +20,6 @@ public class EduRegModVo {
 	private String 	useYn;		//사용여부
 	private Date 	rgsnTs;		//등록일시
 	
-	public Date getRgsnTs() {
-		//SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		//return sdf.format(aplcSttgYmd);
-		return rgsnTs;
-	}
-	public void setRgsnTs(Date rgsnTs) {
-		this.rgsnTs = rgsnTs;
-	}
 	public Integer getEdctId() {
 		return edctId;
 	}
@@ -44,11 +38,23 @@ public class EduRegModVo {
 	public void setEdinCd(String edinCd) {
 		this.edinCd = edinCd;
 	}
+	public String getEdinNm() {
+		return edinNm;
+	}
+	public void setEdinNm(String edinNm) {
+		this.edinNm = edinNm;
+	}
 	public String getEdctClsfCd() {
 		return edctClsfCd;
 	}
 	public void setEdctClsfCd(String edctClsfCd) {
 		this.edctClsfCd = edctClsfCd;
+	}
+	public String getEdctClsfNm() {
+		return edctClsfNm;
+	}
+	public void setEdctClsfNm(String edctClsfNm) {
+		this.edctClsfNm = edctClsfNm;
 	}
 	public String getSnctTgtYn() {
 		return snctTgtYn;
@@ -92,11 +98,11 @@ public class EduRegModVo {
 	public void setUseYn(String useYn) {
 		this.useYn = useYn;
 	}
-	
-	
-	
-	
-
-	
+	public Date getRgsnTs() {
+		return rgsnTs;
+	}
+	public void setRgsnTs(Date rgsnTs) {
+		this.rgsnTs = rgsnTs;
+	}
 	
 }

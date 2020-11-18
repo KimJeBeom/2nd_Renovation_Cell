@@ -30,11 +30,11 @@ public class AdminDao {
 		int count = sqlSession.insert("queryAdmin.insertEduRegMod", vo);
 		return count == 1;
 	}
-	
+	/*
 	public boolean updateAdmin(Integer userId) {
 		int count = sqlSession.update("queryAdmin.updateEudRegModUseN", userId);
 		return count == 1;
-	}
+	}*/
 	
 
 	/*

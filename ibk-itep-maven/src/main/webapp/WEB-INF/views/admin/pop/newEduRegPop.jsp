@@ -17,7 +17,7 @@
 				<div class="container-fluid">
 					<h3 class="page-title" style="float: left;"><b>신규 교육 등록</b></h3>
 					<!-- 상단 버튼 -->
-					<button id="newEduRegBtn" type="button" class="btn btn-primary btn-toastr" style="float: right; vertical-align: bottom; ">등록</button><br><br>
+					<button id="btnRegEdu" type="button" class="btn btn-primary btn-toastr" style="float: right; vertical-align: bottom; ">등록</button><br><br>
 					<div class="row">
 						<div class="col-md-9 col-popup">
 							<div class="panel panel-headline">
@@ -201,7 +201,9 @@
 			etcInputForm.style.display = 'none'; // textbox 숨김
 	} */
 	$(document).ready(function(){
-		$("#newEduRegbtn").click(function(){
+		alert("레디는됨");
+		$("#btnRegEdu").click(function(){
+			alert("클릭은됨");
 			insertNewEduRegPop();
 		})
 	});
@@ -215,8 +217,45 @@
 		var onlEdctYn = $('input[name="onlEdctYn"]:checked').val();
 		var edctLevl = $('input[name="edctLevl"]:checked').val();
 		var snctTgtYn = $('input[name="snctTgtYn"]:checked').val();
+		if(edctClsfCd == "" || edctClsfCd == null){
+			alert("교육 분류 코드를 선택해주세요");return;
+		}
+		if(edctNm == "" || edctNm == null){
+			alert("교육명을 입력해주세요");return;				
+		}
+		if(edctCon == "" || edctCon == null){
+			alert("교육내용을 입력해주세요");return;				
+		}
+		if(edinCd == "" || edinCd == null){
+			alert("교육기관 코드를 선택해주세요");return;				
+		}
+		if(!(inbkEdctYn == "Y" || inbkEdctYn == "N")){
+			alert("행내교육여부를 선택해주세요");return;				
+		}
+		if(!(eginAplyYn == "Y" || eginAplyYn == "N")){
+			alert("고용보험적용 여부를 선택해주세요");return;				
+		}
+		if(!(onlEdctYn == "Y" || onlEdctYn == "N")){
+			alert("온라인 교육여부를 선택해주세요");return;				
+		}
+		if(!(edctLevl == "상" || edctLevl == "중" || edctLevl == "하")){
+			alert("교육 레벨을 선택해주세요");return;				
+		}
+		if(!(snctTgtYn != "Y" || snctTgtYn != "N")){
+			alert("결재 대상 여부를 선택해주세요");return;				
+		}
+		/* alert("edctClsfCd"+edctClsfCd);
+		alert("edctNm"+edctNm);
+		alert("edctCon"+edctCon);
+		alert("edinCd"+edinCd);
+		alert("inbkEdctYn"+inbkEdctYn);
+		ale	rt("eginAplyYn"+eginAplyYn);
+		alert("onlEdctYn"+onlEdctYn);
+		alert("edctLevl"+edctLevl);
+		alert("snctTgtYn"+snctTgtYn); */
+		alert("할당완료");
 	    $.ajax({
-			url : "/views/admin/pop/insertNewEduRegPop", //데이터를  넘겨줄 링크 설정
+			url : "/itep/views/admin/pop/insertNewEduRegPop", //데이터를  넘겨줄 링크 설정
 			type : "POST", // post 방식
 			data : {
 				"edctClsfCd" : edctClsfCd,
@@ -233,10 +272,10 @@
 				alert("정상등록되었습니다.");
 				window.open("about:blank", "_self").close();
 			},
-			error: function (xhr, status, error) {					
+			error: function (xhr, status, error) {
 				alert("등록 error");					
 			}
-		})
+		});
 	}
 </script>
 
