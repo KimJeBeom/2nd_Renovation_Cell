@@ -72,5 +72,4 @@ public class NoticeDao {
 		
 		return modRst == 1;
 	}
-
 }

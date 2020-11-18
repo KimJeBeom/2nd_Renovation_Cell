@@ -122,6 +122,14 @@ function isPopup(){
 		return false;
 }
 
+/* 테이블 클릭 시 하이라이트 처리 */ 
+var pos = 0;
+function HighLightTableTr(target) {
+	if(pos)
+		pos.style.background = "#ffffff";
+	target.style.background = "#e8e8e8";
+	pos = target;
+}
 
 
 
