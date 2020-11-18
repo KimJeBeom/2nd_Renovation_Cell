@@ -27,20 +27,19 @@
 	     	]]>	     		     
 	     </if>
 	</select>
-	<update id="updateEudRegModUseN" parameterType="Integer">
+	<update id="deleteEduRegMod" parameterType="EduRegModVo">
 		<![CDATA[
 			update	itep.tb_iep_edm001m edm 
 			set 	edm.USE_YN='N'
-			where 	edm.USER_ID=#{userId}
+			where 	edm.EDCT_ID=#{edctId}
 		]]>
 	</update>
 	<!-- Popup - 신규교육등록 newEduRegPop -->
 		<!-- insert 교육메인 -->
-		<insert  id="insertNewEduRegPop" parameterType="EduRegModVo">
+		<insert  id="insertEduRegMod" parameterType="EduRegModVo">
 		<![CDATA[
 			/*신규교육 등록팝업*/
 			INSERT INTO TB_IEP_EDM001M(
-			EDCT_ID, 		-- 교육id
 			EDCT_NM, 		-- 교육명
 			EDIN_CD, 		-- 교육기관코드
 			EDCT_CLSF_CD, 	-- 교육분류
@@ -53,14 +52,13 @@
 			USE_YN, 		-- 사용여부
 			RGSN_TS) 		-- 등록일시
 			VALUES(
-			NULL, 
 			#{ edctNm },
 			#{ edinCd },
 			#{ edctClsfCd },
 			#{ snctTgtYn },
 			#{ edctCon },
 			#{ inbkEdctYn },
-			#{ egingAplyYn },
+			#{ eginAplyYn },
 			#{ onlEdctYn },
 			#{ edctLevl },
 			'Y',
@@ -359,7 +357,7 @@
 	<!-- End - Popup - 과정개설신청현황확인 newEduInfoPop -->
 	<!-- Start - Popup - 교육신청직원목록 eduEmpListPop -->
 		<!-- select 해당 교육차수 신청직원 목록 -->
-			<!-- 다시짜보아라!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+			<!-- 다시짜보아라!!!!!!조금이상한듯함!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 			<select  id="selectEduEmpListPop" parameterType="int" resultType="EduEmpListVo">
 				<![CDATA[
 					SELECT CMB.BRNM AS brnm
@@ -382,7 +380,7 @@
 				]]>
 			</update>
 		<!-- update 교육차수 종료 -->
-			<update  id="updateEduEmpListPopFnshY" parameterType="Integer">
+			<update  id="updateEduEmpListPopFnshY" parameterType="EduEmpListVo">
 				<![CDATA[
 					UPDATE TB_IEP_EDC001M
 					SET FNSH_YN = 'Y'
