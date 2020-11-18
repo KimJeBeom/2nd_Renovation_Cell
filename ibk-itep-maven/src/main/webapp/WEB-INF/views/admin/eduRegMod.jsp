@@ -159,10 +159,7 @@
 					alert("삭제success");
 					selectEduRegMod();
 				},
-				error: function (xhr, status, error) {
-					alert(xhr);
-					alert(status);
-					alert(error);					
+				error: function (xhr, status, error) {		
 					alert("삭제 error");					
 				}
 			});

@@ -29,5 +29,12 @@ public class EduRegModService {
 		}
 		return false;		
 	}
+	
+	public boolean insertEduRegMod(EduRegModVo vo) {
+		if(vo.getEdctId() != null) {
+			return adminDao.insertEduRegMod(vo);
+		}
+		return false;		
+	}
 }
 
