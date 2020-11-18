@@ -31,6 +31,7 @@
 			AND EDC.EDCT_ID = EDM.EDCT_ID AND EDM.USE_YN = 'Y'
 			AND EDA.DVCD = CMB.BRCD AND CMB.USE_YN = 'Y'
 			AND EDA.USER_ID = CMU.USER_ID AND CMU.USE_YN = 'Y'
+			ORDER BY EDA.APLC_TS DESC
 			]]>
 	</select>
 	
@@ -57,23 +58,135 @@
 		]]>
 	</select>
 	
-	<!-- 
-	<update id="updateApprConfirm" parameterType="Integer; SessionVo">
-		-
-			UPDATE TB_IEP_EDA001M
-			SET 
-			<choose>
-				<when aplcStgCd = 'APRDPM'>
-					DPM_ATHZ_ID = #{사용자ID},
-					APLC_STG_CD = 'APRGRM'
-				</when>
-				<when aplcStgCd = 'APRGRM'>
-					GRM_ATHZ_ID = #{사용자ID},
-					APLC_STG_CD = 'APRFIN'
-				</when>
-			</choose>
-			WHERE EDCT_APLC_ID = #{교육신청ID};
+	<select id="selectAplcStgCd" parameterType="Integer" resultType="String">
+		<![CDATA[
+		SELECT APLC_STG_CD AS aplcStgCd
+		FROM TB_IEP_EDA001M
+		WHERE EDCT_APLC_ID = #{edctAplcId} AND USE_YN = 'Y' 
+		FOR UPDATE
+		]]>
+	</select>
 	
+	<update id="updateApprConf" parameterType="ApprConfRejVo">
+		<![CDATA[
+		UPDATE TB_IEP_EDA001M
+		SET 
+		]]>
+		<choose>
+			<when test="aplcStgCd == 'APRDPM'">
+				DPM_ATHZ_ID = #{userId},
+				APLC_STG_CD = 'APRGRM',
+				DPM_ATHZ_TS = NOW()
+			</when>
+			<when test="aplcStgCd == 'APRGRM'">
+				GRM_ATHZ_ID = #{userId},
+				APLC_STG_CD = 'APRFIN',
+				GRM_ATHZ_TS = NOW()
+			</when>
+		</choose>
+		<![CDATA[
+		WHERE EDCT_APLC_ID = #{edctAplcId};
+		]]>
 	</update>
-	 -->
+	
+	<update id="updateApprRej" parameterType="ApprConfRejVo">
+	<![CDATA[
+		UPDATE TB_IEP_EDA001M
+		SET 
+		]]>
+		<choose>
+			<when test="aplcStgCd == 'APRDPM'">
+				DPM_ATHZ_ID = #{userId},
+				APLC_STG_CD = 'REJDPM',
+				DPM_ATHZ_TS = NOW()
+			</when>
+			<when test="aplcStgCd == 'APRGRM'">
+				GRM_ATHZ_ID = #{userId},
+				APLC_STG_CD = 'REJGRM',
+				GRM_ATHZ_TS = NOW()
+			</when>
+		</choose>
+		<![CDATA[
+		, RTRE_CON = #{rtreCon}
+		WHERE EDCT_APLC_ID = #{edctAplcId};
+		]]>
+	</update>
+	
+	<select id="selectApprStat" parameterType="ApprStatSrchVo" resultType="ApprStatVo">
+		<![CDATA[
+		SELECT EDA.EDCT_APLC_ID AS edctAplcId
+			 , CMB.BRNM AS brnm
+        	 , CMU.USER_NM AS userNm
+        	 , EDM.EDCT_NM AS edctNm
+        	 , EDA.APLC_TS AS aplcTs
+			 , (SELECT USER_NM FROM TB_IEP_CMU001M WHERE USER_ID = EDA.DPM_ATHZ_ID) AS dpmAthzNm
+        	 , (SELECT USER_NM FROM TB_IEP_CMU001M WHERE USER_ID = EDA.GRM_ATHZ_ID) AS grmAthzNm
+			 , EDA.APLC_STG_CD AS aplcStgCd
+		FROM TB_IEP_EDA001M EDA, TB_IEP_EDC001M EDC, TB_IEP_EDM001M EDM, TB_IEP_CMU001M CMU, TB_IEP_CMB001M CMB
+		WHERE EDA.USE_YN = 'Y'
+		]]>
+		<if test="athrCd == 'DPM'">
+			AND EDA.DVCD = #{dvcd}
+		</if>
+		<choose>
+			<when test="!sttgYmd.equals('') and !fnshYmd.equals('')">
+				AND EDA.APLC_TS BETWEEN CONCAT(#{sttgYmd}, ' 00:00:00') AND CONCAT(#{fnshYmd}, ' 23:59:59')
+			</when>
+			<otherwise>
+			AND EDA.APLC_TS BETWEEN DATE_ADD(NOW(),INTERVAL -3 MONTH ) AND NOW()
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="aplcStg == 'fin'">
+				AND EDA.APLC_STG_CD = 'APRFIN'
+			</when>
+			<when test="aplcStg == 'apr'">
+				AND (EDA.APLC_STG_CD = 'APRDPM' OR EDA.APLC_STG_CD = 'APRGRM')
+			</when>
+			<when test="aplcStg == 'rej'">
+				AND (EDA.APLC_STG_CD = 'REJDPM' OR EDA.APLC_STG_CD = 'REJGRM')
+			</when>
+		</choose>
+		<![CDATA[
+		AND EDA.EDCT_CNT_ID = EDC.EDCT_CNT_ID AND EDC.USE_YN = 'Y'
+		AND EDC.EDCT_ID = EDM.EDCT_ID AND EDM.USE_YN = 'Y'
+		AND EDA.USER_ID = CMU.USER_ID AND CMU.USE_YN = 'Y'
+		AND CMU.DVCD = CMB.BRCD AND CMB.USE_YN ='Y'
+		ORDER BY EDA.APLC_TS DESC	
+		]]>			
+	</select>
+	
+	<select id="selectApprStatDetail" parameterType="Integer" resultType="ApprStatDetailVo">
+		<![CDATA[
+		WITH EDA AS
+		(
+			SELECT EDCT_APLC_ID, DVCD, USER_ID, APLC_TS
+					, DPM_ATHZ_ID, DPM_ATHZ_TS, GRM_ATHZ_ID, GRM_ATHZ_TS
+					, APLC_STG_CD, RTRE_CON
+			FROM TB_IEP_EDA001M
+			WHERE EDCT_APLC_ID = #{edctAplcId}
+		),
+		CMUB AS
+		(
+			SELECT CMU.USER_ID, CMU.USER_NM, CMB.BRCD, CMB.BRNM 
+		    FROM TB_IEP_CMU001M CMU, TB_IEP_CMB001M CMB
+		    WHERE CMU.DVCD = CMB.BRCD AND CMU.USE_YN = 'Y'
+		    AND CMB.USE_YN = 'Y'
+		)
+		SELECT EDA.EDCT_APLC_ID AS edctAplcId
+					 , CMUB.BRNM AS brnm
+					 , CMUB.USER_NM AS userNm
+					 , EDA.APLC_TS AS aplcTs
+				     , (SELECT BRNM FROM CMUB WHERE USER_ID = EDA.DPM_ATHZ_ID) AS dpmAThzDvcd
+				     , (SELECT USER_NM FROM CMUB WHERE USER_ID = EDA.DPM_ATHZ_ID) AS dpmAThzNm
+				     , EDA.DPM_ATHZ_TS AS dpmAthzTs
+				     , (SELECT BRNM FROM CMUB WHERE USER_ID = EDA.GRM_ATHZ_ID) AS grmAThzDvcd
+				     , (SELECT USER_NM FROM CMUB WHERE USER_ID = EDA.GRM_ATHZ_ID) AS grmAThzNm
+				     , EDA.GRM_ATHZ_TS AS grmAthzTs
+					 , EDA.APLC_STG_CD AS aplcStgCd
+				     , EDA.RTRE_CON AS rtreCon
+		FROM EDA, CMUB
+		WHERE EDA.USER_ID = CMUB.USER_ID;
+		]]>			
+	</select>
 </mapper>

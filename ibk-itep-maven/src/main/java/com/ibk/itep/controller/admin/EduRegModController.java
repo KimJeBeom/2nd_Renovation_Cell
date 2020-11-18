@@ -19,6 +19,7 @@ import com.ibk.itep.controller.HomeController;
 import com.ibk.itep.repository.CmmDao;
 import com.ibk.itep.repository.board.NoticeDao;
 import com.ibk.itep.service.admin.EduRegModService;
+import com.ibk.itep.service.cmm.CmmService;
 import com.ibk.itep.vo.admin.EduRegModVo;
 import com.ibk.itep.vo.board.NoticeVo;
 import com.ibk.itep.vo.cmm.CldVo;
@@ -33,6 +34,8 @@ public class EduRegModController{
 	
 	@Autowired
 	private EduRegModService eduRegModService;
+	@Autowired
+	private CmmService cmmService;
 	
 	
 	@RequestMapping(value = "/views/admin/eduRegMod", method = RequestMethod.POST)
@@ -44,10 +47,15 @@ public class EduRegModController{
 	@RequestMapping(value = "/views/admin/eduRegMod", method = RequestMethod.GET)
 	public String eduRegMod(Model model) {		
 		
-		EduRegModVo ermVo = new EduRegModVo();
+		CldVo cldVo = new CldVo();
+		cldVo.setUseYn("Y");
+		
+		List<CldVo> cldVoList = cmmService.selectCld(cldVo);
+		model.addAttribute("cldVoList", cldVoList);
+/*		EduRegModVo ermVo = new EduRegModVo();
 		
 		List<EduRegModVo> eduRegModVoList = eduRegModService.selectEduRegMod(ermVo);
-		model.addAttribute("eduRegModVoList", eduRegModVoList);
+		model.addAttribute("eduRegModVoList", eduRegModVoList);*/
 		return "/admin/eduRegMod";
 	}
 	

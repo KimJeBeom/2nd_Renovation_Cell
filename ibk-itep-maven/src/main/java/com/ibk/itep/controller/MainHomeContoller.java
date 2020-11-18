@@ -1,35 +1,47 @@
 package com.ibk.itep.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.ibk.itep.service.MainHomeService;
+import com.ibk.itep.vo.HomeBdnVo;
+import com.ibk.itep.vo.HomeEduNowVo;
+import com.ibk.itep.vo.SessionVo;
+
 @Controller
 public class MainHomeContoller{
 	
-	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	private static final Logger logger = LoggerFactory.getLogger(MainHomeContoller.class);
+
+	@Autowired
+	private MainHomeService mainHomeService;
 
 	@RequestMapping(value = "/views", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public String home(Authentication authentication, HttpServletRequest request, Model model) {
 
-		logger.info("Welcome home! The client locale is {}.", locale);
+		HttpSession session = request.getSession();
+		String id = (String) authentication.getPrincipal();
+		SessionVo ssnInfo = mainHomeService.selectSessionInfo(id); // 로그인한 id 기준으로 사용자 정보 조회
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		session.setAttribute("ssnInfo", ssnInfo); // 사용자 정보 세션에 담음
 		
-		String formattedDate = dateFormat.format(date);
+		List<HomeBdnVo> bdnList = mainHomeService.selectHomeBdnList(); // 공지사항
+		List<HomeEduNowVo> eduNowList = mainHomeService.selectHomeEduNow(id); // 수강중인 교육
 		
-		model.addAttribute("serverTime", formattedDate );
-		
+		model.addAttribute("bdnList", bdnList);
+		model.addAttribute("eduNowList", eduNowList);
+
 		return "home";
 	}
-
 }

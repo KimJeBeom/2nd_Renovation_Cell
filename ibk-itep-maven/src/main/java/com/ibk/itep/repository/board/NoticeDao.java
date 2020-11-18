@@ -54,7 +54,7 @@ public class NoticeDao {
 	}
 
 	public String getSysdate() {
-		String sysdate = sqlSession.selectOne("query.getsysdate");
+		String sysdate = sqlSession.selectOne("queryLogin.getsysdate");
 		return sysdate;
 	}
 }

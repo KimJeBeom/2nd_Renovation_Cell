@@ -34,12 +34,14 @@
 										<tbody>
 											<tr>
 												<td style="width: 150px"><b>교육분류</b></td>
-												<td style="width: 150px"><select class="form-control"
-													id="edctClsfCd" style="text-align: left;">
-														<option value="otedu">외부교육</option>
-														<option value="inedu">내부교육</option>
-														<option value="seminar">세미나</option>
-												</select></td>
+												<td style="width: 150px">
+													<select class="form-control" id="edctClsfCd" style="text-align: left;">
+															<option value="ALL">전체</option>
+															<c:forEach items="${cldVoList }" var="cldVo">
+																<option value=${cldVo.edctClsfCd }>${cldVo.edctClsfNm }</option>		
+															</c:forEach>
+													</select>
+												</td>
 												<td style="width: 150px"><b>과목명</b></td>
 												<td style="width: 300px"><input class="form-control"
 													type="text" style="text-align: left;" id="edctNm"></td>
@@ -70,25 +72,14 @@
 									<thead>
 										<tr>
 											<th style="width: 5px;">구분</th>
-											<th style="width: 15px;">교육ID</th>
-											<th style="width: 15px;">교육분류</th>
-											<th style="width: 15px;">교육명</th>
-											<th style="width: 15px;">교육기관</th>
+											<th style="width: 25px;">교육ID</th>
+											<th style="width: 30px;">교육분류</th>
+											<th>교육명</th>
+											<th style="width: 30px;">교육기관</th>
 											<th style="width: 15px;">차수관리</th>
 										</tr>
 									</thead>
 									<tbody  id="eduRegModVoListTbody">
-										<c:forEach items="${eduRegModVoList }" var="eduRegModVo">
-											<tr>
-												<td><input type="radio" name="chkEdctId" value=${eduRegModVo.edctId }></td>
-												<td>${eduRegModVo.edctId }</td>
-												<td>${eduRegModVo.edctClsfNm }</td>
-												<td style="text-align: left">${eduRegModVo.edctNm }</td>
-												<td>${eduRegModVo.edinNm }</td>
-												<td><button type="button" class="btn btn-primary bts-xs"
-													onclick="showPopup('admin','addEduRndPop');">차수추가</button></td>
-											</tr>
-										</c:forEach>
 									</tbody>
 								</table>
 							</div>
@@ -106,6 +97,8 @@
 		// 결재건 클릭 시 상세내역 동적변경을 위한 함수
 		
 		$(document).ready(function(){
+			selectEduRegMod();
+			
 			$("#btnReg").click(function(){
 				showPopup('admin','newEduRegPop');
 			})
@@ -145,7 +138,7 @@
 						str += '<td>'+responseData[i].edctClsfNm+'</td>'
 						str += '<td style=\"text-align: left\">'+responseData[i].edctNm+'</td>'
 						str += '<td>'+responseData[i].edinNm+'</td>'
-						str += '<td><button type=\"button\" class=\"btn btn-primary bts-xs\" onclick=\"showPopup(\'admin\',\'addEduRndPop\');\">차수추가</button></td>'
+						str += '<td><button type=\"button\" class=\"btn btn-primary bts-xs\" onclick=\"showPopup(\'admin\',\'addEduRndPop?edctId='+responseData[i].edctId+'\');\">차수추가</button></td>'
 						str += '</tr>'
 					});
 					str += '</tbody>'
