@@ -36,11 +36,10 @@
 	</update>
 	<!-- Popup - 신규교육등록 newEduRegPop -->
 		<!-- insert 교육메인 -->
-		<insert  id="insertNewEduRegPop" parameterType="EduRegModVo">
+		<insert  id="insertEduRegMod" parameterType="EduRegModVo">
 		<![CDATA[
 			/*신규교육 등록팝업*/
 			INSERT INTO TB_IEP_EDM001M(
-			EDCT_ID, 		-- 교육id
 			EDCT_NM, 		-- 교육명
 			EDIN_CD, 		-- 교육기관코드
 			EDCT_CLSF_CD, 	-- 교육분류
@@ -53,7 +52,6 @@
 			USE_YN, 		-- 사용여부
 			RGSN_TS) 		-- 등록일시
 			VALUES(
-			NULL, 
 			#{ edctNm },
 			#{ edinCd },
 			#{ edctClsfCd },
