@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ibk.itep.repository.MyClassDao;
 import com.ibk.itep.vo.SessionVo;
+import com.ibk.itep.vo.apprMng.ApprConfRejVo;
 import com.ibk.itep.vo.myClass.EduCompleteVO;
 import com.ibk.itep.vo.myClass.EduInfoPopVO;
 import com.ibk.itep.vo.myClass.EduMyHistoryVO;
@@ -57,14 +58,14 @@ public class MyClassService {
 		return myClassDao.selectNewEduInfoPop(aplcId);
 	}
 	
-	public void getUpdateEduReady(int edctAplcId){
-		
-		//return myClassDao.updateEduReady(edctAplcId);
+	public int updateEduReady(int edctAplcId){
+
+		return	myClassDao.updateEduReady(edctAplcId);
 	}
 	
-	public void getUpdateEduInfoPop(int edctAplcId){
+	public int updateEduInfoPop(int edctAplcId){
 		
-		//return myClassDao.updateEduInfoPop(edctAplcId);
+		return myClassDao.updateEduInfoPop(edctAplcId);
 	}
 }
 

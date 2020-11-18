@@ -58,11 +58,13 @@ public class MyClassDao {
 		return vo;
 	}
 	
-	public void updateEduReady(int edctAplcId){
-		sqlSession.update("queryMyClass.updateEduReady",edctAplcId);
+	public int updateEduReady(int edctAplcId){
+		int cnt = sqlSession.update("queryMyClass.updateEduReady",edctAplcId);
+		return cnt;
 	}
 	
-	public void updateEduInfoPop(int edctAplcId){
-		sqlSession.selectOne("queryMyClass.updateEduInfoPop",edctAplcId);
+	public int updateEduInfoPop(int edctAplcId){
+		int cnt = sqlSession.update("queryMyClass.updateEduInfoPop",edctAplcId);
+		return cnt;
 	}
 }

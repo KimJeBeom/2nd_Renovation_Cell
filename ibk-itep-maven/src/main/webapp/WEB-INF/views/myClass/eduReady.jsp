@@ -104,16 +104,16 @@
 									<c:forEach items="${eduReadyList}" var="eduReadyList">
 										<c:set var="cnt" value="${cnt+1}"/>
 										<tr>
-											<td>${cnt }</td>
-											<td>${eduReadyList.edctNm }</td>
-											<td>${eduReadyList.edinNm }</td>
-											<td>${eduReadyList.edctSttgYmd } ~ ${eduReadyList.edctFnshYmd }</td>
-											<td>${eduReadyList.aplcTs }</td>
+											<td id="cnt">${cnt }</td>
+											<td id="edctNm">${eduReadyList.edctNm }</td>
+											<td id="edinNm">${eduReadyList.edinNm }</td>
+											<td id="edctYmd">${eduReadyList.edctSttgYmd } ~ ${eduReadyList.edctFnshYmd }</td>
+											<td id="aplcTs">${eduReadyList.aplcTs }</td>
 											<td>
 												<button type="button" class="btn btn-primary btn-xs"
-													onclick="window.open('/itep/views/myClass/pop/eduInfoPop?edctAplcId='+${eduReadyList.edctAplcId},'eduInfoPop','_blank');">확인</button>
+													onclick="showPopup('myClass','eduInfoPop?edctAplcId='+${eduReadyList.edctAplcId});">확인</button>
 											</td>
-											<td>${eduReadyList.aplcStgNm }</td>
+											<td id="aplcStgNm">${eduReadyList.aplcStgNm }</td>
 											<td id="edctAplcId" style="display:none">${eduReadyList.edctAplcId}</td>
 											<td>
 												<button type="button" class="btn btn-default btn-xs" onclick="button_event(${eduReadyList.edctAplcId});">취소요청</button>
@@ -154,17 +154,23 @@
 		    	url:"/itep/views/myClass/eduReady/cancel", //데이터를  넘겨줄 링크 설정
 		        type:"POST", // post 방식
 				data: {"edctAplcId" : edctAplcId}, //넘겨줄 데이터
-				
-				success: function (responseData) {						
-					   $("#eduReadyListTbody").load("/itep/views/myClass/eduReady #eduReadyListTbody");
+				success: function (responseData) {
+					alert(responseData);
+					if(responseData == 1){
+						$('#edctNm').html(responseData.edctNm);
+						$('#edinNm').html(responseData.edinNm);
+						$('#edctYmd').html(responseData.edctSttgYmd);
+						$('#aplcTs').html(responseData.aplcTs);
+						$('#aplcStgNm').html(responseData.aplcStgNm);
+					}else{
+						confirm("취소요청이 실패하였습니다. 다시 시도해 주십시오");
+					}
 				},
-				error: function (xhr, status, error) {
-				}
+				error: function (xhr, status, error) {alert("에러임" + responseData);}
 			});
 		}else{   //취소
 	 		return;
 		}
-			}
-
+}
 
 </script>

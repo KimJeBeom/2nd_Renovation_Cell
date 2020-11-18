@@ -155,7 +155,8 @@
 	<select id="selectEduInfoPop" parameterType="Integer" resultType="EduInfoPopVO">
 	     <![CDATA[
 			/*교육신청 상세확인 팝업 -- 반려중인 경우만 결재요청버튼 활성화*/
-			SELECT 
+			SELECT
+				EDA.EDCT_APLC_ID AS edctAplcId, -- 신청id
 				EDM.EDCT_CLSF_CD AS edctClsfCd, -- 교육분류
 				CLD.EDCT_CLSF_NM AS edctClsfNm, -- 교육분류명
 				IF(EDM.SNCT_TGT_YN = "Y", "대상", "대상외" ) AS snctTgtYn, -- 결재대상
@@ -185,7 +186,7 @@
 			/*교육신청 상세확인 팝업 > 재결재요청*/
 			UPDATE TB_IEP_EDA001M
 			SET APLC_STG_CD = "APRDPM",
-				APND_DAT = #{apndDat}
+				APND_DAT = "첨부파일임니당"
 			WHERE APLC_STG_CD IN ("REJDPM","REJGRM")
 			AND EDCT_APLC_ID = #{edctAplcId};
 	     ]]>

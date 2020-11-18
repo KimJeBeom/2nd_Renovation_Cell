@@ -38,13 +38,13 @@ public class myClassEduInfoPopController{
 		
 		return "/myClass/pop/eduInfoPop";
 }
-	/*수강신청 목록 - 반려건 재결재요청*/
-	//@RequestMapping(value = "/views/myClass/pop/eduInfoPop/reApply", method = RequestMethod.POST)
-	//public @ResponseBody EduReadyVO reApply(@RequestParam(value="edctAplcId", defaultValue="693") int edctAplcId, @RequestParam(value="apndDat", defaultValue="신청서임둥.txt") String apndDat , Model model) {
-
-		//EduReadyVO eduReApply = myClassService.getUpdateEduInfoPop(edctAplcId);
-		
-	//return eduReApply;
-}
 	
-//}
+	/*수강신청 목록 - 반려건 재결재요청*/
+	@RequestMapping(value = "/views/myClass/pop/eduInfoPop/reApply", method = RequestMethod.POST)
+	public @ResponseBody int reApply(@RequestParam("edctAplcId") int edctAplcId, Model model) {
+
+		return myClassService.updateEduInfoPop(edctAplcId);
+
+	}
+
+}

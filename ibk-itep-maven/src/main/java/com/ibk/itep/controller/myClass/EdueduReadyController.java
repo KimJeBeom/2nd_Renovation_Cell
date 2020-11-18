@@ -48,34 +48,15 @@ public class EdueduReadyController {
 
 		return "/myClass/eduReady";
 	}
-
 	
 	  /*수강신청 목록 - 취소요청처리*/
+	  @RequestMapping(value = "/views/myClass/eduReady/cancel", method = RequestMethod.POST)
+	  public @ResponseBody int cancel(@RequestParam("edctAplcId") int edctAplcId, Model model) {
 	  
-	  //@RequestMapping(value = "/views/myClass/eduReady/cancel", method = RequestMethod.POST)
-	  //public @ResponseBody EduReadyVO cancel(@RequestParam("edctAplcId") int edctAplcId, Model model) {
-	  
-	  //EduReadyVO eduCancel = myClassService.getUpdateEduReady(edctAplcId);
-	  
-	  //return eduCancel; 
+	  return myClassService.updateEduReady(edctAplcId);
 	 
-	 //}
+	 }
 	 
-		/* 수강 신청한 교육 */
-		@RequestMapping(value = "/views/myClass/eduReady", method = RequestMethod.POST)
-		public @ResponseBody String eduReady(@RequestParam("edctAplcId") int edctAplcId, Model model) {
 
-			SessionVo ssnVo = new SessionVo();
-			ssnVo.setUserId("42374");
-			ssnVo.setBrcd("0710");
-			ssnVo.setAthrCd("ADM");
-
-			// 수강신청 목록
-			List<EduReadyVO> eduReadyList = myClassService.getReadyList(ssnVo);
-
-			model.addAttribute("eduReadyList", eduReadyList);
-
-			return "/myClass/eduReady";
-		}
 	 
 }

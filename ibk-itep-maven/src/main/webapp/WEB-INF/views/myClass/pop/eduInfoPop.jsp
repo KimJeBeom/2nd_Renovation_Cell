@@ -110,6 +110,7 @@
 <!-- FOOTER -->
 <jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 
 		function reApply(edctAplcId) {
@@ -119,11 +120,13 @@
 	        type:"POST", // post 방식
 			data: {"edctAplcId" : edctAplcId}, //넘겨줄 데이터
 			
-			success: function (responseData) {						
-
-				opener.parent.location.reload();
+			success: function (responseData) {
+				if(responseData == 1){
+				confirm("결재요청 되었습니다.");
 				window.close();
-
+				}else{
+					confirm("결재요청이 실패하였습니다. 다시 시도해 주십시오");
+				}
 			},
 			error: function (xhr, status, error) {
 			}
