@@ -72,5 +72,15 @@ public class EduRegModController{
 		return eduRegModVoList;		
 	}
 	
+	@RequestMapping(value = "/views/admin/deleteEduRegMod", method = RequestMethod.POST)
+	public @ResponseBody boolean deleteEduRegMod(@RequestParam("edctId") int edctId) {
+		logger.info("컨트롤러 진입완료");
+		EduRegModVo ermVo = new EduRegModVo();
+		ermVo.setEdctId(edctId);
+		
+		boolean result=eduRegModService.deleteEduRegMod(ermVo);
+		return result;		
+	}
+	
 
 }

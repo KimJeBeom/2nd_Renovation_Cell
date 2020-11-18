@@ -21,11 +21,22 @@ public class AdminDao {
 		return list;
 	}
 	
+	public boolean deleteEduRegMod(EduRegModVo vo) {
+		int count = sqlSession.delete("queryAdmin.deleteEduRegMod", vo);
+		return count == 1;
+	}
+
+	public boolean insertEduRegMod(EduRegModVo vo) {
+		int count = sqlSession.insert("queryAdmin.insertEduRegMod", vo);
+		return count == 1;
+	}
+	/*
 	public boolean updateAdmin(Integer userId) {
 		int count = sqlSession.update("queryAdmin.updateEudRegModUseN", userId);
 		return count == 1;
-	}
+	}*/
 	
+
 	/*
 	public List<AdminVo> selectAdmList(AdminVo vo) {
 		List<AdminVo> list = sqlSession.selectList("queryLes.selectAdmList", vo);
