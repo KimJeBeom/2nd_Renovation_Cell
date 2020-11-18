@@ -90,7 +90,7 @@
 							<td style="text-align:center">${cntList.aplcSttgYmd} ~ ${cntList.aplcFnshYmd}
 							<c:choose>
 								<c:when test="${cntList.aplcAbleYn eq 'Y'}">
-									<td style="text-align:center"><button type="button" class="btn btn-primary btn-toastr" onclick="showApplyPopup('eduApply','eduInfoPop','${cntList.edctCntId}','insert','${vo.eginAplyYn}');">교육신청</button></td>	 
+									<td style="text-align:center"><button type="button" class="btn btn-primary btn-toastr" onclick="showPopup('eduApply','eduInfoPop?edctCntId=${cntList.edctCntId}&&modType=insert&&eginAplyYn=${vo.eginAplyYn}');">교육신청</button></td>	 
 								</c:when>
 								<c:otherwise>
 									<td style="text-align:center"><button type="button" class="btn btn-default btn-toastr" disabled="disabled">신청마감</button></td>

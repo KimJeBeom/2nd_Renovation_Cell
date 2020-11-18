@@ -65,7 +65,7 @@
 											<th style="text-align:center; width:15%;" id="5">등록자</th>
 										</tr>
 										<c:forEach items="${list}" var="arch" varStatus="status">
-										<tr onclick="detailPopup('board','archModPop','${arch.rflbId}');">
+										<tr onclick="showPopup('board','archModPop?rflbId=${arch.rflbId}');">
 	 										<td style="text-align:center">${fn:length(list)-status.count+1}
 											<td style="text-align:center">${arch.edctClsfNm}</td>
 											<td style="text-align:  left">${arch.ttl}</td>

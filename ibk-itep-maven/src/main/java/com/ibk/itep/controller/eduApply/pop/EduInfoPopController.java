@@ -27,14 +27,13 @@ public class EduInfoPopController{
 		
 		logger.info("EduListContoll Start");
 
-		boolean modRst = false;
+		String modMsg = null;
 		if(modAct!=null) {// modType = update or insert
 			
 			//화면에서 입력 받은 정보(Vo) 및 변경정보를 Service로 던져 boolean(성공/실패)로 받아옴
-			modRst = service.modAction(vo,modType);
-			
+			modMsg = service.modAction(vo,modType);			
 			logger.info("Service Retrn OK");
-			logger.info("---Return modRst : "+modRst);
+			logger.info("---Return modMsg : "+modMsg);
 		}
 		
 		EduListVo outVo = service.getDetail(vo);
@@ -43,7 +42,7 @@ public class EduInfoPopController{
 		
 		//model을 통한 결과값 화면에 전달 
 		model.addAttribute("vo",outVo);
-		model.addAttribute("modRst",modRst);
+		model.addAttribute("modMsg",modMsg);
 		model.addAttribute("modType",modType);
 		
 		logger.info("EduListContoll End");

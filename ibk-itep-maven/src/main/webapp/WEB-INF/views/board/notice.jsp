@@ -65,7 +65,7 @@
 											<th style="text-align:center; width:15%;" id="5">등록자</th>
 										</tr>
 										<c:forEach items="${list}" var="noti" varStatus="status">
-										<tr onclick="detailPopup('board','noticeModPop','${noti.pbnsId}');">
+										<tr onclick="showPopup('board','noticeModPop?pbnsId=${noti.pbnsId}');">
 	 										<td style="text-align:center">${fn:length(list)-status.count+1}
 											<td style="text-align:center">${noti.edctClsfNm}</td>
 											<td style="text-align:  left">${noti.ttl}</td>

@@ -70,6 +70,17 @@ public class EduListDao {
 		return modRst == 1;
 	}
 	
+	public String selectEduApprAbleYn(EduListVo vo) {
+		
+		logger.info("[DAO]selectEduApprAbleYn Start");
+		System.out.println("%%%getUserId =" + vo.getUserId());
+		String modCode =  sqlSession.selectOne("queryLes.selectEduApprAbleYn", vo);
+		logger.info("[DAO] --- modCode : "+ modCode);
+		logger.info("[DAO]selectEduApprAbleYn End");
+		
+		return modCode;
+	}
+	
 
 	
 }

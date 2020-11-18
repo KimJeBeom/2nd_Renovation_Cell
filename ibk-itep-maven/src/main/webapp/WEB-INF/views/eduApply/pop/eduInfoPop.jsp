@@ -10,6 +10,17 @@
 -->
 
 <body>
+ <script>
+ //화면 재호출시(작업완료) 제어를 위한 sctipt
+ if("${modMsg}"=="sueccess"){
+	 alert("처리완료");
+ 	 window.close();
+ }else if("${modMsg}"=="fail"){
+	 alert("처리 실패");
+ }else if("${modMsg}"=="disable"){
+	 alert("실패 : 이미 등록된 교육이 있습니다.");
+ }
+ </script>
 	<!-- WRAPPER -->
 	<div id="wrapper">
 		<!-- MAIN -->
@@ -26,13 +37,14 @@
 								<table>
 									<tbody>
 										<tr>
+											<c:if test ="${eginAplyYn eq 'Y'}">
 											<td style="width: 80%; padding-left: 5px; text-align: left; padding-bottom: 10px;">
 												<b>* 결재요청시 부서 관리자(기획팀장/기획서무 책임자)에게 전달 됩니다.</b>
 											</td>
-											
+											</c:if>
 											<td style="width: 10%; padding-left: 5px; text-align: right; padding-bottom: 10px;">
 												<c:choose>
-													<c:when test="${modType eq 'insert'} or ${eginAplyYn eq 'Y'} ">
+													<c:when test="${modType eq 'insert'}">
 														<button style="text-align:right;" type="button" class="btn btn-primary btn-toastr">결재요청</button>	 
 													</c:when>
 													<c:when test="${modType eq 'update'}">
@@ -46,7 +58,6 @@
 													</c:otherwise>
 												</c:choose>											
 											</td>
-											
 										</tr>
 									</tbody>
 								</table>

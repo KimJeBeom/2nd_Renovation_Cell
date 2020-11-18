@@ -73,7 +73,7 @@ public class EduListVo {
 		this.edctId = edctId;
 	}
 	public String getEdctSttgYmd() {
-		//화면에 날짜 표기를 위한 출력(get) DATETYPE설정(String:"2020-01-01")
+		//화면에 날짜 표기를 위한 출력(get) DATETYPE설정(String:"2020.01.01")
 		SimpleDateFormat ymd = new SimpleDateFormat("yyyy.MM.dd");
 		return ymd.format(edctSttgYmd);
 	}
@@ -81,7 +81,7 @@ public class EduListVo {
 		this.edctSttgYmd = edctSttgYmd;
 	}
 	public String getEdctFnshYmd() {
-		//화면에 날짜 표기를 위한 출력(get) DATETYPE설정(String:"2020-01-01")
+		//화면에 날짜 표기를 위한 출력(get) DATETYPE설정(String:"2020.01.01")
 		SimpleDateFormat ymd = new SimpleDateFormat("yyyy.MM.dd");
 		return ymd.format(edctFnshYmd);
 	}
@@ -89,7 +89,7 @@ public class EduListVo {
 		this.edctFnshYmd = edctFnshYmd;
 	}
 	public String getAplcSttgYmd() {
-		//화면에 날짜 표기를 위한 출력(get) DATETYPE설정(String:"2020-01-01")
+		//화면에 날짜 표기를 위한 출력(get) DATETYPE설정(String:"2020.01.01")
 		SimpleDateFormat ymd = new SimpleDateFormat("yyyy.MM.dd");
 		return ymd.format(aplcSttgYmd);
 	}
@@ -97,7 +97,7 @@ public class EduListVo {
 		this.aplcSttgYmd = aplcSttgYmd;
 	}
 	public String getAplcFnshYmd() {
-		//화면에 날짜 표기를 위한 출력(get) DATETYPE설정(String:"2020-01-01")
+		//화면에 날짜 표기를 위한 출력(get) DATETYPE설정(String:"2020.01.01")
 		SimpleDateFormat ymd = new SimpleDateFormat("yyyy.MM.dd");
 		return ymd.format(aplcFnshYmd);
 	}
@@ -105,7 +105,7 @@ public class EduListVo {
 		this.aplcFnshYmd = aplcFnshYmd;
 	}
 	public String getCnclSttgYmd() {
-		//화면에 날짜 표기를 위한 출력(get) DATETYPE설정(String:"2020-01-01")
+		//화면에 날짜 표기를 위한 출력(get) DATETYPE설정(String:"2020.01.01")
 		SimpleDateFormat ymd = new SimpleDateFormat("yyyy.MM.dd");
 		return ymd.format(cnclSttgYmd);
 	}
@@ -113,7 +113,7 @@ public class EduListVo {
 		this.cnclSttgYmd = cnclSttgYmd;
 	}
 	public String getCnclFnshYmd() {
-		//화면에 날짜 표기를 위한 출력(get) DATETYPE설정(String:"2020-01-01")
+		//화면에 날짜 표기를 위한 출력(get) DATETYPE설정(String:"2020.01.01")
 		SimpleDateFormat ymd = new SimpleDateFormat("yyyy.MM.dd");
 		return ymd.format(cnclFnshYmd);
 	}

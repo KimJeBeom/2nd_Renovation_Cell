@@ -3,7 +3,7 @@
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
 
 <body>
-	<!-- WRAPPER -->
+ 	<!-- WRAPPER -->
 	<div id="wrapper">
 	
 		<!-- 사이드메뉴 -->
@@ -33,39 +33,34 @@
 								<table class="tbl-type5">
 									<tbody>
 									<tr>
-										<td class="info" width="150px"><b>교육분류</b></td>
-										<td width="500px">
-											<div>
-											<select class="form-control">
-												<option value="cheese">외부교육</option>
-												<option value="tomatoes">신전입교육</option>
-												<option value="mozarella">세미나</option>
-												<option value="mushrooms">기타</option>
-											</select>
-											</div>
+										<td class="info" width="150px"><b>과목명</b></td>
+										<td colspan="3">
+											<input id="edctNm" type="text" name="title" class="form-control" value="">                                    
 										</td>
-										<td class="info" width="150px"><b>교육구분</b></td>
+									</tr>
+									<tr>
+										<td class="info"><b>교육구분</b></td>
 										<td width="500px">
 											<label class="fancy-radio col-md-3">
-												<input name="eduType" value="inner" type="radio">
+												<input id="inbkEdctYn" name="inbkEdctYn" value="Y" type="radio">
 												<span><i></i>행내</span>
 											</label>
 											<label class="fancy-radio col-md-3">
-												<input name="eduType" value="outer" type="radio">
+												<input id="inbkEdctYn" name="inbkEdctYn" value="N" type="radio">
 												<span><i></i>행외</span>
 											</label>
-										</td>                        
+										</td>
+										<td class="info" width="150px"><b>교육기관</b></td>
+										<td colspan="3">
+											<input id="edinNm" type="text" name="academy" class="form-control" value="">
+										</td>                  
 									</tr>
 									<tr>
-										<td class="info"><b>과목명</b></td>
+										<td class="info"><b>교육내용 및<br>신청사유</b></td>
 										<td colspan="3">
-											<input type="title" name="title" class="form-control" value="">                                    
-										</td>
-									</tr>  
-									<tr>
-										<td class="info"><b>교육기관</b></td>
-										<td colspan="3">
-											<input type="academy" name="academy" class="form-control" value="">
+											<form>
+												<p><textarea id="edctCon" placeholder="" style="width:100%; height: 200px;"></textarea></p>
+											</form>
 										</td>
 									</tr>
 									<tr>
@@ -74,13 +69,7 @@
 											<div class="col-sm-12">
 												<div class='col-sm-4'>
 													<div class="form-group">
-														<input type='date' name='applyStDt' value='2020-09-22'/>
-														<!--<div class='input-group date dateTimePicker' id="datepicker1">
-															<input type='date' name='startdate' value='2020-09-22'/>
-															<span class="input-group-addon">
-																<span class="glyphicon glyphicon-calendar"></span>
-															</span>
-														</div>-->
+														<input id="aplcSttgYmd" type='date' name='applyStDt' value=''/>
 													</div>
 												</div>
 												<div class='col-sm-1'>
@@ -88,7 +77,7 @@
 												</div>
 												<div class='col-sm-4'>
 													<div class="form-group">
-														<input type='date' name='applyEdDt' value='2020-09-22'/>
+														<input id="aplcFnshYmd" type='date' name='applyEdDt' value=''/>
 													</div>
 												</div>
 											</div>
@@ -98,13 +87,7 @@
 											<div class="col-sm-12">
 												<div class='col-sm-4'>
 													<div class="form-group">
-														<input type='date' name='studyStDt' value='2020-09-22'/>
-														<!--<div class='input-group date dateTimePicker' id="datepicker1">
-															<input type='date' name='startdate' value='2020-09-22'/>
-															<span class="input-group-addon">
-																<span class="glyphicon glyphicon-calendar"></span>
-															</span>
-														</div>-->
+														<input id="edctSttgYmd" type='date' name='studyStDt' value=''/>
 													</div>
 												</div>
 												<div class='col-sm-1'>
@@ -112,7 +95,7 @@
 												</div>
 												<div class='col-sm-4'>
 													<div class="form-group">
-														<input type='date' name='studyEdDt' value='2020-09-22'/>
+														<input id="edctFnshYmd" type='date' name='studyEdDt' value=''/>
 													</div>
 												</div>
 											</div>
@@ -121,50 +104,39 @@
 									<tr>
 										<td class="info"><b>교육시간</b></td>
 										<td>
-											<div class="row">
-												<div class="col-lg-2">
-													<input type="text" id="studyStTm" name="studyStTm" class="form-control input-sm" value="09:00">
-												</div>
-												<label class="col-md-1 col-form-label form-control-label text-muted">~</label>
-												<div class="col-lg-2">
-													<input type="text" id="studyEdTm" name="studyEdTm" class="form-control input-sm" value="12:00" >
-												</div>
-											</div>
+											<input id="edctSttgTim" type='time' name='edctSttgTim'/>
+											&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp;&nbsp;
+											<input id="edctFnshTim" type='time' name='edctFnshTim'/>
 										<td class="info"><b>교육비용</b></td>
-										<td><input type="text" class="form-control" placeholder="350,000" style="width: 80%; float: left;">
+										<td><input id="edex" type="text" class="form-control" placeholder="" style="width: 80%; float: left;  value=""">
 												<span><i></i>(원)</span>
 										</td>
-										<!--<td>
-											 <div class="col-lg-3">
-												<input type="eduCost" name="fax" class="form-control" value="">
-												<span><i></i>원</span>
-										</td>
-										 -->
+
 									</tr>
 									<tr>
 										<td class="info"><b>교육방식</b></td>
 										<td>
 											<label class="fancy-radio col-md-3">
-												<input name="placetype" value="online" type="radio">
+												<input id="onlEdctYn" name="onlEdctYn" value="Y" type="radio">
 												<span><i></i>온라인</span>
 											</label>
 											<label class="fancy-radio col-md-3">
-												<input name="placetype" value="offline" type="radio">
+												<input id="onlEdctYn" name="onlEdctYn" value="N" type="radio">
 												<span><i></i>오프라인</span>
 											</label>
 										</td>
 										<td class="info"><b>교육수준</b></td>
 										<td>
 											<label class="fancy-radio col-md-2">
-												<input name="eduLvl" value="high" type="radio">
+												<input id="edctLevl" name="edctLevl" value="상" type="radio">
 												<span><i></i>상</span>
 											</label>
 											<label class="fancy-radio col-md-2">
-												<input name="eduLvl" value="middle" type="radio">
+												<input id="edctLevl" name="edctLevl" value="중" type="radio">
 												<span><i></i>중</span>
 											</label>
 											<label class="fancy-radio col-md-2">
-												<input name="eduLvl" value="low" type="radio">
+												<input id="edctLevl" name="edctLevl" value="하" type="radio">
 												<span><i></i>하</span>
 											</label>
 										</td>
@@ -173,7 +145,7 @@
 										<td class="info"><b>첨부파일</b></td>
 										<td colspan="3">
 											<div>
-												<input multiple="multiple" type="file" name="file" class="form-control" value="dd">
+												<input id="apndDat" multiple="multiple" type="file" name="file" class="form-control" value="">
 												<!--
 												<input class="form-control col-md-1" type="text" style="height: auto; width: 90%;">
 												<span class="input-group-btn"><button class="btn btn-info" type="button">파일첨부</button></span>
@@ -187,7 +159,7 @@
 							</br>
 							<div class="form-group row" style="text-align:center">
 								<div class="col-lg-12">
-									<input type="button" class="btn btn-primary btn-lg mr-2" value="신청">
+									<input id="apply" type="button" class="btn btn-primary btn-lg mr-2" value="신청" onclick="insertNewEdu();">
 								</div>
 							</div>							
 						</div>
@@ -210,5 +182,63 @@
 	<!-- END WRAPPER -->
 
 <!-- FOOTER -->
+<script>
+function insertNewEdu() {
+   	var conf = confirm('등록하시겠습니까?');
+   	if(conf==true){
+	    var	inbkEdctYn = $('input[name="inbkEdctYn"]:checked').val(); //행내교육여부
+		var	edctNm = $("#edctNm").val(); //교육명   
+		var	edctCon = $("#edctCon").val();//교육내용 및 신청사유    
+		var	edinNm = $("#edinNm").val(); //교육기관명  
+		var	edctSttgYmd = $("#edctSttgYmd").val(); //학습시작일  
+		var	edctFnshYmd = $("#edctFnshYmd").val(); //학습종료일  
+		var	aplcSttgYmd = $("#aplcSttgYmd").val(); //신청시작일  
+		var	aplcFnshYmd = $("#aplcFnshYmd").val(); //신청종료일  
+		var	edctSttgTim = $("#edctSttgTim").val(); //교육시작시간 
+		var	edctFnshTim = $("#edctFnshTim").val(); //교육종료시간
+		var	edex = $("#edex").val(); //교육비용
+		var	onlEdctYn = $('input[name="onlEdctYn"]:checked').val(); //온라인교육여부
+		var	edctLevl = $('input[name="edctLevl"]:checked').val(); //교육수준
+		var	apndDat = $("#apndDat").val(); //첨부파일
+		
+		if(inbkEdctYn==""||edctNm==""||edctCon==""||edinNm==""||edctSttgYmd==""||edctFnshYmd==""||aplcSttgYmd==""||aplcFnshYmd==""
+				||edctSttgTim==""||edctFnshTim==""||edex==""||onlEdctYn==""||edctLevl==""){
+	       	 alert("전체 내용을 입력해주세요");
+	       	 
+		}else{
+		     $.ajax({
+			        url:"/itep/views/eduApply/newEduApply", //데이터를  넘겨줄 링크 설정
+					type:"POST", // post 방식
+					data: 
+			    	    {"inbkEdctYn" : inbkEdctYn
+			    	    ,"edctNm" : edctNm
+			    	    ,"edctCon" : edctCon
+			    	    ,"edinNm" : edinNm
+			    	    ,"edctSttgYmd" : edctSttgYmd
+			    	    ,"edctFnshYmd" : edctFnshYmd
+			    	    ,"aplcSttgYmd" : aplcSttgYmd
+			    	    ,"aplcFnshYmd" : aplcFnshYmd
+			    	    ,"edctSttgTim" : edctSttgTim
+			    	    ,"edctFnshTim" : edctFnshTim
+			    	    ,"edex" : edex
+			    	    ,"onlEdctYn" : onlEdctYn
+			    	    ,"edctLevl" : edctLevl
+			    	    ,"apndDat" : apndDat
+			     		,"modAct" : "insert"},
+				
+			         success: function (responseData) {
+			        	 alert("정상등록 되었습니다.");
+			        	 location.href='/itep/views/eduApply/newEduApply';
+			          },
+			         error: function (xhr, status, error) {
+			             alert("등록실패 필수입력값을 확인해주세요");
+			          }
+				});
+		}
+
+   	}
+ }
+
+</script>
 <jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 

@@ -14,8 +14,8 @@
 			  ,M.EDCT_CLSF_CD AS EDCTCLSFCD #교육분류코드
 			  ,(SELECT EDCT_CLSF_NM FROM TB_IEP_CLD001C D WHERE D.EDCT_CLSF_CD = M.EDCT_CLSF_CD LIMIT 1) AS EDCTCLSFNM #교육뷴류명
 			  ,M.EDCT_LEVL AS EDCTLEVL #교육수준 
-              ,C.APLC_STTG_YMD
-              ,C.APLC_FNSH_YMD
+              ,C.APLC_STTG_YMD AS aplcSttgYmd #학습시작시간
+              ,C.APLC_FNSH_YMD AS aplcFnshYmd #학습종료시간
 		FROM  TB_IEP_EDM001M M,
 			  (SELECT EDCT_CNT_ID,EDCT_ID, EDCT_STTG_YMD ,EDCT_FNSH_YMD, APLC_STTG_YMD, APLC_FNSH_YMD, CNCL_STTG_YMD, CNCL_FNSH_YMD, EDCT_STTG_TIM, EDCT_FNSH_TIM
 			  FROM TB_IEP_EDC001M 
@@ -90,18 +90,33 @@
 		/*교육신청>교육목록팝업>교육차수정보(차수목록)*/
 		SELECT 
 			   EDCT_CNT_ID AS EDCTCNTID #교육차수ID
-			  ,EDCT_STTG_YMD AS EDCTSTTGYMD#학습시작일 
-			  ,EDCT_FNSH_YMD AS EDCTFNSHYMD#학습종료일
-			  ,APLC_STTG_YMD AS APLCSTTGYMD#신청시작일
+			  ,EDCT_STTG_YMD AS EDCTSTTGYMD #학습시작일 
+			  ,EDCT_FNSH_YMD AS EDCTFNSHYMD #학습종료일
+			  ,APLC_STTG_YMD AS APLCSTTGYMD #신청시작일
 			  ,APLC_FNSH_YMD AS APLCFNSHYMD  #신청종료일
-			  ,USE_YN AS USEYN#사용여부
-			  ,RGSN_TS AS RGSNTS#등록일시 
+			  ,USE_YN AS USEYN #사용여부
+			  ,RGSN_TS AS RGSNTS #등록일시 
 			  ,CASE WHEN NOW() BETWEEN APLC_STTG_YMD AND APLC_FNSH_YMD THEN 'Y'
 			  ELSE 'N' END AS aplcAbleYn
 		FROM  TB_IEP_EDC001M
 		WHERE 1=1
 		AND   EDCT_ID = (SELECT DISTINCT EDCT_ID FROM TB_IEP_EDC001M WHERE EDCT_CNT_ID = #{edctCntId} )
 		ORDER BY APLC_STTG_YMD DESC
+	    ]]>
+	</select>
+	
+	<select id="selectEduApprAbleYn" parameterType="EduListVo" resultType="String">
+	    <![CDATA[
+		/*교육신청>교육목록팝업>결재요청>결재가능여부 확인*/
+		SELECT 
+		CASE WHEN APLC_STG_CD='APRRJT' THEN 'update'
+		     WHEN APLC_STG_CD IS NOT NULL THEN 'disable'
+		     ELSE 'insert' END AS MODCODE
+		FROM TB_IEP_EDA001M
+		WHERE USER_ID = '41007'
+		AND   EDCT_CNT_ID = '27'
+		AND   USE_YN ='Y'
+		LIMIT 1
 	    ]]>
 	</select>
 	
@@ -204,8 +219,7 @@
 		/*교육신청>과정개설신청>과정개설신청정보등록*/
 		INSERT INTO 
 		TB_IEP_EDO001M(
-			 APLC_ID	#신청ID
-			,USER_ID	#사용자ID
+			 USER_ID	#사용자ID
 			,APLC_TS	#신청일시
 			,INBK_EDCT_YN	#행내교육여부
 			,EDCT_NM	#교육명 
@@ -225,8 +239,7 @@
 			,CNFM_ID	#확인자ID
 			,USE_YN	#사용여부
 		) VALUES(
-			 #{aplcId}
-			,#{userId}
+			 #{userId}
 			,NOW()
 			,#{inbkEdctYn}
 			,#{edctNm}
@@ -242,7 +255,7 @@
 			,#{onlEdctYn}
 			,#{edctLevl}
 			,#{apndDat}
-			,NULL
+			,'N'
 			,NULL
 			,'Y'
 		)

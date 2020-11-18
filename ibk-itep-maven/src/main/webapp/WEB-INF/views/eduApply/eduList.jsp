@@ -106,8 +106,8 @@
 				 										<td style="text-align:center">${eduList.edctCntId}
 														<td style="text-align:  left"><span class="badge badge-primary">${eduList.edctLevl}</span>&nbsp;${eduList.edctNm}</td>
 														<td style="text-align:center">${eduList.edinNm}</td>
-														<td style="text-align:center">11<%-- ${eduList.aplcSttgYmd} ~ ${eduList.aplcFnshYmd} --%></td>
-														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showApplyPop('eduApply','eduApplyPop','${eduList.edctCntId}');">안내 및 신청</button></td>
+														<td style="text-align:center">${eduList.aplcSttgYmd} ~ ${eduList.aplcFnshYmd}</td>
+														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup('eduApply','eduApplyPop?edctCntId=${eduList.edctCntId}');">안내 및 신청</button></td>
 													</tr>
 													</c:forEach>
 												</tbody>
@@ -194,7 +194,7 @@
 				 										<td style="text-align:center">${eduList.edctCntId}
 														<td style="text-align:  left"><span class="badge badge-primary">${eduList.edctLevl}</span>&nbsp;${eduList.edctNm}</td>
 														<td style="text-align:center">${eduList.edinNm}</td>
-														<td style="text-align:center">11<%-- ${eduList.aplcSttgYmd} --%></td>
+														<td style="text-align:center">${eduList.edctSttgYmd} ~ ${eduList.edctFnshYmd}</td>
 														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showApplyPop('eduApply','eduApplyPop','${eduList.edctCntId}');">안내 및 신청</button></td>
 													</tr>
 													</c:if>
@@ -239,7 +239,7 @@
 				 										<td style="text-align:center">${eduList.edctCntId}
 														<td style="text-align:  left"><span class="badge badge-primary">${eduList.edctLevl}</span>&nbsp;${eduList.edctNm}</td>
 														<td style="text-align:center">${eduList.edinNm}</td>
-														<td style="text-align:center">11<%-- ${eduList.aplcSttgYmd} --%></td>
+														<td style="text-align:center">${eduList.edctSttgYmd} ~ ${eduList.edctFnshYmd}</td>
 														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showApplyPop('eduApply','eduApplyPop','${eduList.edctCntId}');">안내 및 신청</button></td>
 													</tr>
 													</c:if>
