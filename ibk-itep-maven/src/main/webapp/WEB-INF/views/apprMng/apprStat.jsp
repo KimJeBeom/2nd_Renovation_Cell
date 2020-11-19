@@ -209,8 +209,10 @@
 		
 		if(sttgYmd == "" && fnshYmd != "") {
 			alert("시작 날짜를 입력해주세요.");
+			return;
 		} else if(sttgYmd != "" && fnshYmd == "") {
 			alert("종료 날짜를 입력해주세요.");
+			return;
 		} 
 		
 		$.ajax({
@@ -247,7 +249,6 @@
 				}
 			},
 			error: function (xhr, status, error) { alert("통신실패");
-				
 			}
 		});
 	}

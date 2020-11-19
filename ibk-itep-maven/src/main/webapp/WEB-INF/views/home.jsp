@@ -20,23 +20,8 @@
 					<div class="panel panel-headline">
 						<div class="panel-heading">
 							<div class="row">
-								<div class="col-md-9" style="text-align:center;">
+								<div class="col-md-12" style="vertical-align:center;">
 									<img src="/itep/assets/itep/img/itepintro.png" style="height:100%; max-width:100%; display:block;"/>
-								</div>
-								<div class="col-md-3" style="height:150px"></div>
-								<div class="col-md-3">
-									<div class="metric" style="width:90%;">
-										<p>
-											<img src="/itep/assets/itep/img/icon/dpttop.png" style="max-width:100%; max-height:100%;" />
-										</p>
-									</div>
-								</div>
-								<div class="col-md-3">
-									<div class="metric" style="width:90%;">
-										<p>
-											<img src="/itep/assets/itep/img/icon/curric.png" style="max-width:100%; max-height:100%;" />
-										</p>
-									</div>
 								</div>
 							</div>
 						</div>
@@ -88,11 +73,31 @@
 			<!-- END MAIN CONTENT -->
 		</div>
 		<!-- END MAIN -->
-		<div class="clearfix"></div>
+		
+		<!-- 오른쪽 아래 아이콘 -->
+		<div style="position:fixed; right:41px; top:70px;">
+			<a href="javascript:showImgWin('deptTopEdct')"><img src="/itep/assets/itep/img/icon/deptTop-icon.png" style="width:33px; height:43px;"/></a>
+		</div>
+		<div style="position:fixed; right:24px; top:123px;">
+			<a href="javascript:showImgWin('eduCurric')"><img src="/itep/assets/itep/img/icon/eduCurric-icon.png"/></a>
+		</div>
+			
 	</div>
 	<!-- END WRAPPER -->
 
-
-
 <!-- FOOTER -->
 <jsp:include page="./cmm/common-footer.jsp" />
+
+<script>
+	function showImgWin(imgName) {
+		var url = "/itep/assets/itep/img/" + imgName + ".png";
+			var imgObj = new Image();
+		imgObj.src = url;
+			var img_width = 1100;
+		var win_width = 1070;
+		var height = 900;
+		
+		var OpenWindow = window.open('','_blank','width='+img_width+', height='+height+', menubars=no, scrollbars=1, resizable=1');
+		OpenWindow.document.write("<img src='"+url+"' width='"+win_width+"'>");
+	}
+</script>	
