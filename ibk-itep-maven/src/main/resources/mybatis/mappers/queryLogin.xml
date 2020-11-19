@@ -12,7 +12,7 @@
 		resultType="com.ibk.itep.common.security.custom.CustomUserDetails">
         <![CDATA[
             SELECT
-                user_id, user_nm, use_yn, athr_cd, use_yn
+                user_id, user_nm, use_yn, athr_cd
             FROM
                 tb_iep_cmu001m
             WHERE

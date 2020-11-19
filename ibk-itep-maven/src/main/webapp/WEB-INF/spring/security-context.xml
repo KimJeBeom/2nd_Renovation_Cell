@@ -36,13 +36,12 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 <!-- 		<intercept-url pattern="/**" access="permitAll" /> -->
 
 		<form-login login-page="/login" username-parameter="user_id"
-			password-parameter="password" always-use-default-target="true"
 			login-processing-url="/j_spring_security_check"
 			authentication-success-handler-ref="customizeAuthenticationSuccessHandler"
 			authentication-failure-handler-ref="customizeAuthenticationFailureHandler" />
 
 		<access-denied-handler
-			error-page="/login/not_authority" />
+			error-page="/not_authority" />
 		<session-management invalid-session-url="/">
 			<concurrency-control max-sessions="1"
 				expired-url="/" />
@@ -55,23 +54,6 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 			delete-cookies="JSESSIONID,SPRING_SECURITY_REMEMBER_ME_COOKIE" />
 	</http>
 
-	<!-- <authentication-manager>
-		<authentication-provider
-			user-service-ref="customDataSource">
-			<password-encoder ref="bcEncoder" />
-		</authentication-provider>
-	</authentication-manager>  --> 
-	
-   <!-- <authentication-manager>
-        <authentication-provider>
-            <user-service>
-                <user name="user" password="{noop}password" authorities="ROLE_USER" />
-                <user name="member" password="{noop}password" authorities="ROLE_MEMBER" />
-                <user name="admin" password="{noop}password" authorities="ROLE_ADMIN" />
-            </user-service>
-        </authentication-provider>
-    </authentication-manager> -->
-
 	 <authentication-manager>
 		<authentication-provider ref="userAuthProvider">
 		</authentication-provider>
@@ -82,26 +64,4 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 	<beans:bean id="userService" class="com.ibk.itep.common.security.custom.CustomUserDetailsService"/>
 	<beans:bean id="userAuthProvider" class="com.ibk.itep.common.security.custom.CustomAuthenticationProvider"/>
 
-	<!-- <beans:bean id="customDataSource"
-		class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
-		<beans:property name="dataSource"
-			ref="dataSource-log4jdbc" />
-		<beans:property name="usersByUsernameQuery">
-			<beans:value>
-				SELECT user_id, user_nm, use_yn FROM tb_iep_cmu001m
-				WHERE
-				user_id=?
-			</beans:value>
-		</beans:property>
-		<beans:property name="authoritiesByUsernameQuery">
-			<beans:value>
-				SELECT user_id, user_nm, CASE WHEN athr_cd = 'USR' THEN
-				'ROLE_USER' when
-				athr_cd = 'ADM' then 'ROLE_ADMIN' END AS ROLE_ID
-				FROM
-				tb_iep_cmu001m WHERE
-				user_id=?
-			</beans:value>
-		</beans:property>
-	</beans:bean>  -->
 </beans:beans>
