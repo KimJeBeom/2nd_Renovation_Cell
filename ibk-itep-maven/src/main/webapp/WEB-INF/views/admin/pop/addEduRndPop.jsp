@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- HEADER -->
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
 
@@ -34,23 +35,7 @@
 												<th>교육기간</th>
 											</tr>
 										</thead>
-										<tbody>
-											<tr data-toggle="tab" data-target="#table1">
-												<td>1</td>
-												<td>20191101 ~ 20191130</td>
-												<td>30일</td>
-											</tr>
-											<tr data-toggle="tab" data-target="#table2">
-												<td>2</td>
-												<td>20191201 ~ 20191231</td>
-												<td>30일</td>
-											</tr>
-											<tr data-toggle="tab" data-target="#table3">
-												<td>3</td>
-												<td>20200101 ~ 20200131</td>
-												<td>30일</td>
-											</tr>
-										</tbody>
+										<tbody id="eduRndListTbody"></tbody>
 									</table>
 									<br>
 
@@ -127,4 +112,34 @@
 
 <!-- FOOTER -->
 <jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
-
+<script type="text/javascript">
+$(document).ready(function(){
+	selectEduRndRegMod();
+});
+function selectEduRndRegMod() {
+	var edctId = ${edctId };
+    $.ajax({
+    	url:"/itep/views/admin/selectEduRndRegMod", //데이터를  넘겨줄 링크 설정
+        type:"POST", // post 방식
+		data: {"edctId" : edctId}, //넘겨줄 데이터
+		
+		success: function (responseData) {
+			var str = '';
+			str += '<tbody  id=\"eduRndListTbody\">'
+			$.each(responseData, function (i){
+				str += '<tr data-toggle=\"tab\" data-target=\"#'+responseData[i].edctCntId+'\" >'
+				str += '<td>'+(i+1)+'</td>'
+				str += '<td>'+responseData[i].edctSttgYmd+' ~ '+responseData[i].edctFnshYmd+'</td>'
+				str += '<td>'+responseData[i].edctTrm+'일</td>'
+				str += '</tr>'
+			});
+			str += '</tbody>'
+			$("#eduRndListTbody").replaceWith(str);
+		},
+		error: function (xhr, status, error) {
+			alert("error");
+			
+		}
+	});
+}
+</script>

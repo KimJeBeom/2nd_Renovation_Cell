@@ -2,11 +2,12 @@ package com.ibk.itep.service.admin;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ibk.itep.repository.AdminDao;
-import com.ibk.itep.vo.admin.EduRegModVo;
 import com.ibk.itep.vo.admin.EduRndRegModVo;
 
 @Service
@@ -15,11 +16,15 @@ public class EduRndRegModService {
 	@Autowired
 	private AdminDao adminDao;
 	
+	private static final Logger logger = LoggerFactory.getLogger(EduRndRegModService.class);
+	
 	public List<EduRndRegModVo> selectEduRndRegMod(EduRndRegModVo vo){
-		if(vo.getEdctId() == null) {
-			return null;
+		logger.debug("selectEduRndRegMod Service 진입");
+		if(vo.getEdctId() != null) {
+			logger.debug("selectEduRndRegMod Service 리턴직전");
+			return adminDao.selectEduRndRegMod(vo);
 		}
-		return o;
+		return null;	
 	}
 	/*
 public List<EduRegModVo> selectEduRegMod(EduRegModVo vo){
