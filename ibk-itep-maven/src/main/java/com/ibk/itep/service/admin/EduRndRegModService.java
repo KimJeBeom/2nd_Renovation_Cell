@@ -21,7 +21,7 @@ public class EduRndRegModService {
 	public List<EduRndRegModVo> selectEduRndRegMod(EduRndRegModVo vo){
 		logger.debug("selectEduRndRegMod Service 진입");
 		if(vo.getEdctId() != null) {
-			logger.debug("selectEduRndRegMod Service 리턴직전");
+			logger.debug("selectEduRndRegMod Service 리턴1직전");
 			return adminDao.selectEduRndRegMod(vo);
 		}
 		return null;	
