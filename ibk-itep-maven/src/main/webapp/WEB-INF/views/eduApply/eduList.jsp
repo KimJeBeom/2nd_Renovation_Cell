@@ -58,27 +58,22 @@
 						
 							<br>
 							<div>	
-								 <ul class="nav nav-tabs" onclick="a();" id="tabValue">
-									<li class="active" id='tot' value='tot'>
+								 <ul class="nav nav-tabs" id="tabValue">
+									<li class="active" id='tot' value='TOTAL' onclick="a('TOTAL');">
 										<a class="nav-link" href="#tab1" data-toggle="tab">전체</a>
 									</li>
-									<li class="nav-item">
+									<li class="nav-item" id='ote' value='OTEDU'  onclick="a('OTEDU');">
 										<a class="nav-link" href="#tab2" data-toggle="tab">외부교육</a>
 									</li>
-									<li class="nav-item">
+									<li class="nav-item" id='tre' value='TREDU'  onclick="a('TREDU');">
 										<a class="nav-link" href="#tab3" data-toggle="tab">신전입교육</a>
 									</li>
-									<li class="nav-item">
+									<li class="nav-item" id='sem' value='SEMIN'  onclick="a('SEMIN');">
 										<a class="nav-link" href="#tab4" data-toggle="tab">세미나</a>
 									</li>
-									<li class="nav-item">
+									<li class="nav-item" id='ext' value='EXTRA'  onclick="a('EXTRA');">
 										<a class="nav-link" href="#tab5" data-toggle="tab">기타</a>
 									</li>
-									<!-- 
-									<li class="disabled">
-										<a class="nav-link" href="#tab6" data-toggle="tab">Disabled</a>
-									</li>
-									 -->
 								</ul>
 							</div>
 							<div class="tab-content px-1 pt-2">
@@ -95,7 +90,7 @@
 														<th style="text-align:center; width:15%;" id="th5">바로가기</th>
 													</tr>
 												</thead>
-												<tbody id="eduListBody">
+												<tbody id="TOTAL">
 													<c:forEach items="${list}" var="eduList" varStatus="status">
 													<tr>
 				 										<td style="text-align:center">${eduList.edctCntId}
@@ -132,7 +127,7 @@
 														<th style="text-align:center; width:15%;" id="th5">바로가기</th>
 													</tr>
 												</thead>
-												<tbody id="eduListBody">
+												<tbody id="OTEDU">
 													<c:forEach items="${list}" var="eduList" varStatus="status">
 													<c:if test="${eduList.edctClsfCd eq 'OTEDU'}">
 													<tr>
@@ -172,7 +167,7 @@
 														<th style="text-align:center; width:15%;" id="th5">바로가기</th>
 													</tr>
 												</thead>
-												<tbody id="eduListBody">
+												<tbody id="TREDU">
 													<c:forEach items="${list}" var="eduList" varStatus="status">
 													<c:if test="${eduList.edctClsfCd eq 'TREDU'}">
 													<tr>
@@ -212,7 +207,7 @@
 														<th style="text-align:center; width:15%;" id="th5">바로가기</th>
 													</tr>
 												</thead>
-												<tbody id="eduListBody">
+												<tbody id="SEMIN">
 													<c:forEach items="${list}" var="eduList" varStatus="status">
 													<c:if test="${eduList.edctClsfCd eq 'SEMIN'}">
 													<tr>
@@ -252,7 +247,7 @@
 														<th style="text-align:center; width:15%;" id="th5">바로가기</th>
 													</tr>
 												</thead>
-												<tbody id="eduListBody">
+												<tbody id="EXTRA">
 													<c:forEach items="${list}" var="eduList" varStatus="status">
 													<c:if test="${eduList.edctClsfCd eq 'EXTRA'}">
 													<tr>
@@ -289,27 +284,50 @@
 		<div class="clearfix"></div>
 		<footer>
 			<div class="container-fluid">
-				<p class="copyright">Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a>
-				</p>
+				<!-- <p class="copyright">Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a> </p>-->
 			</div>
 		</footer>
 	</div>
 	<!-- END WRAPPER -->
 <!-- FOOTER -->
-<script>
+<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
+<script type="text/javascript">
 
-function a(){
-	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-		$this = $(e.target);
-		if(!$this.data("load")) {
-			// tab-content의 id를 취득한다.
-			var id = $this.attr("href");
-			// 페이지 로드를 한다.
-			alert(id);
-			// data-load를 true로 변환하여 중복 로딩이 없게 한다.
-			$this.data("load", true);
-		}
-	});
+function a(tabValue){
+	
+	var	schType = $("#schType").val(); //검색기준
+	var	schValue = $("#schValue").val();//검색값
+
+    $.ajax({
+	        url:"/itep/views/eduApply/eduList", //데이터를  넘겨줄 링크 설정
+			type:"POST", // post 방식
+			async:false,
+			data: 
+	    	    {"schType" : schType
+	    	    ,"schValue" : schValue},
+	         success: function (responseData) {
+					var str = '';
+					str += '<tbody id=\"'+tabValue+'\">';
+					$.each(responseData, function(i) {
+						if(responseData[i].edctClsfCd == tabValue || tabValue=="TOTAL"){
+							str += '<tr>';
+							str += '<td style="text-align:center">'+responseData[i].edctCntId+'</td>';
+							str += '<td style="text-align:  left"><span class="badge badge-primary">'+responseData[i].edctLevl+'</span>'+responseData[i].edctNm+'</td>';
+							str += '<td style="text-align:center">'+responseData[i].edinNm+'</td>';
+							str += '<td style="text-align:center">'+responseData[i].aplcSttgYmd+'~'+responseData[i].aplcFnshYmd+'</td>';
+							str += '<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup("eduApply","eduApplyPop?edctCntId='+responseData[i].edctCntId+');">안내 및 신청</button></td>';
+							str += '</tr>';
+						}
+					});
+					str += '</tbody>';
+					$("#"+tabValue).replaceWith(str);	
+					
+	          },
+	         error: function (xhr, status, error) {
+	        	 	alert("조회실패");
+	          }
+		}); 
+	
 }
 
 function showApplyPop(menu, name, id) {
@@ -323,55 +341,36 @@ function showApplyPop(menu, name, id) {
 }	
 
 function search() {
-
-	    var lis = document.getElementsByClassName('active');
-	    for(var i=0; i < lis.length; i++){
-	    	if(lis[i].id!=""{
-	    		alert(lis[i].id);
-	        	lis[i].style.color='red';   
-	    	}
-
-	    }
 	
-}
-/* 	
 	var	schType = $("#schType").val(); //검색기준
 	var	schValue = $("#schValue").val();//검색값
-
+    var tabValue = $(".nav-tabs .active").attr('value');
 	if(schValue==""){
 		alert("검색값을 입력 하세요");
 	}else{
     $.ajax({
 	        url:"/itep/views/eduApply/eduList", //데이터를  넘겨줄 링크 설정
 			type:"POST", // post 방식
+			async:false,
 			data: 
 	    	    {"schType" : schType
 	    	    ,"schValue" : schValue},
-			
 	         success: function (responseData) {
-					// 결재현황 조회
 					var str = '';
-					str += '<tbody id=\"eduListBody\">';
+					str += '<tbody id=\"'+tabValue+'\">';
 					$.each(responseData, function(i) {
-						str += '<tr>';
-						str += '<td style="text-align:center">'+responseData[i].edctCntId+'</td>';
-						str += '<td style="text-align:  left"><span class="badge badge-primary">'+responseData[i].edctLevl+'</span>'+responseData[i].edctNm+'</td>';
-						str += '<td style="text-align:center">'+responseData[i].edinNm+'</td>';
-						str += '<td style="text-align:center">'+responseData[i].aplcSttgYmd+'~'+responseData[i].aplcFnshYmd+'</td>';
-						str += '<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup("eduApply","eduApplyPop?edctCntId='+responseData[i].edctCntId+');">안내 및 신청</button></td>';
-						str += '</tr>';
+						if(responseData[i].edctClsfCd == tabValue || tabValue=="TOTAL"){
+							str += '<tr>';
+							str += '<td style="text-align:center">'+responseData[i].edctCntId+'</td>';
+							str += '<td style="text-align:  left"><span class="badge badge-primary">'+responseData[i].edctLevl+'</span>'+responseData[i].edctNm+'</td>';
+							str += '<td style="text-align:center">'+responseData[i].edinNm+'</td>';
+							str += '<td style="text-align:center">'+responseData[i].aplcSttgYmd+'~'+responseData[i].aplcFnshYmd+'</td>';
+							str += '<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup("eduApply","eduApplyPop?edctCntId='+responseData[i].edctCntId+');">안내 및 신청</button></td>';
+							str += '</tr>';
+						}
 					});
 					str += '</tbody>';
-									
-					$('#eduListBody').replaceWith(str);
-					
-					if(responseData.length == 0) {
-						// $('#apprStatDetailDiv').hide(); // 결재현황 리스트가 없으면 하단 결재이력 테이블이 안보이게 
-					} else {
-						var tbody = document.getElementById('eduListBody');
-						var trs = tbody.getElementsByTagName('tr');
-						showDetail(trs[0], responseData[0].edctAplcId); // 결재이력 조회
-					}
+					$("#"+tabValue).replaceWith(str);	
 					
 	          },
 	         error: function (xhr, status, error) {
@@ -379,8 +378,7 @@ function search() {
 	          }
 		}); 
 	}
-    */
+}
 </script>
-<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 
 
