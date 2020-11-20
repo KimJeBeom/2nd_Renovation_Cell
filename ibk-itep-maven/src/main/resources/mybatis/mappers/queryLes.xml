@@ -3,7 +3,7 @@
 
 <mapper namespace="queryLes">
 
-	<select id="selectEduList" parameterType="EduListVo" resultType="EduListVo">
+	<select id="selectEduList" parameterType="HashMap" resultType="EduListVo">
 	    <![CDATA[
 		/*교육신청>교육목록>교육목록조회*/
 		SELECT 
@@ -24,32 +24,21 @@
 		WHERE 1=1
         AND   M.EDCT_ID = C.EDCT_ID
         AND   M.USE_YN !='N'
-		]]>
+        ]]>
 	<choose>
-		<when test="edctNm != null">
-		<![CDATA[
-		AND   M.EDCT_NM LIKE CONCAT('%',#{edctNm},'%')	 
-		]]>
+		<when test="schType == 'edctNm'">
+			AND   M.EDCT_NM LIKE CONCAT('%',#{schValue},'%')
 		</when>
-		<when test="edinCd != null">
-		<![CDATA[
-		AND   M.EDIN_CD LIKE CONCAT('%',#{edinCd},'%')	 
-		]]>
+		<when test="schType == 'edinCd'">
+			AND   M.EDIN_CD IN (SELECT I.EDIN_CD FROM TB_IEP_CLI001C I WHERE I.EDIN_NM  LIKE CONCAT('%',#{schValue},'%'))
 		</when>
-		<when test="edctCntId != null">
-		<![CDATA[
-		AND   C.EDCT_CNT_ID = #{edctCntId}	 
-		]]>
+		<when test="schType == 'edctId'">
+			AND   C.EDCT_CNT_ID = #{schValue}
 		</when>
 		<otherwise>
-		</otherwise>
+		</otherwise>		
 	</choose>
-	<if test="edctClsfCd != null">
 		<![CDATA[
-		AND   M.EDCT_CLSF_CD = #{edctClsfCd}
-	    ]]>
-	</if>
-	    <![CDATA[
 		ORDER BY C.APLC_STTG_YMD DESC
 		LIMIT 100
 		]]>

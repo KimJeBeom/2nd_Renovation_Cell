@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ibk.itep.repository.eduApply.NewEduApplyDao;
+import com.ibk.itep.vo.SessionVo;
 import com.ibk.itep.vo.eduApply.NewEduApplyVo;
 
 @Service
@@ -14,16 +15,19 @@ public class NewEduApplyService {
 	@Autowired private NewEduApplyDao newEduApplyDAO;
 	private static final Logger logger = LoggerFactory.getLogger(NewEduApplyService.class);
 	
-	public boolean addNewEdu(NewEduApplyVo vo){
+	public String addNewEdu(NewEduApplyVo vo,SessionVo ssnInfo){
 		
 		logger.info("addNewEdu Start");
 		//addNewEdu에 따른 DAO제어
-		vo.setUserId("40868");
+		vo.setUserId(ssnInfo.getUserId());
 		boolean addYn = newEduApplyDAO.InsertNewEdu(vo);
-		
+		String addRst = "fail";
+		if(addYn==true) {
+			addRst = "success";
+		}	
 		logger.info("addNewEdu End");
 
-		return addYn;
+		return addRst;
 	}
 
 }

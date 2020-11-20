@@ -1,5 +1,6 @@
 package com.ibk.itep.repository.eduApply;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -23,10 +24,10 @@ public class EduListDao {
 	private static final Logger logger = LoggerFactory.getLogger(EduListDao.class);
 	
 	//공지사항 목록 조회를 위한 DAO(query:selectNotice)
-	public List<EduListVo> selectEduList(EduListVo vo) {
+	public List<EduListVo> selectEduList(HashMap map) {
 
 		logger.info("[DAO]selectEduList Start");
-		List<EduListVo> list = sqlSession.selectList("queryLes.selectEduList",vo);
+		List<EduListVo> list = sqlSession.selectList("queryLes.selectEduList",map);
 		logger.info("[DAO]selectEduList End");
 
 		return list;

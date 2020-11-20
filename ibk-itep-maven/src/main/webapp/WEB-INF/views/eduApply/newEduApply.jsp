@@ -225,13 +225,19 @@ function insertNewEdu() {
 			    	    ,"edctLevl" : edctLevl
 			    	    ,"apndDat" : apndDat
 			     		,"modAct" : "insert"},
-				
+					
 			         success: function (responseData) {
-			        	 alert("정상등록 되었습니다.");
-			        	 location.href='/itep/views/eduApply/newEduApply';
+			        	 if(responseData=='success'){
+				        	 alert("정상등록 되었습니다.");
+				        	 location.href='/itep/views/eduApply/newEduApply';
+			        	 }else if(responseData=='fail'){
+			        		 alert("등록에 실패 하였습니다. 다시 시도하여 주세요");
+			        	 }else{
+			        		 alert("등록에 실패 하였습니다. 다시 시도하여 주세요");
+			        	 }
 			          },
 			         error: function (xhr, status, error) {
-			             alert("등록실패 필수입력값을 확인해주세요");
+			        	 alert("등록에 실패 하였습니다. 다시 시도하여 주세요");
 			          }
 				});
 		}

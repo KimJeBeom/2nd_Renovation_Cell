@@ -38,19 +38,19 @@
 											<td style="width: 80px; padding-left: 5px; text-align: center;"><b>■ 검 색 </b></td>
 											<td style="width: 100px; padding-right: 40px">
 												<div>
-													<select class="form-control">
-														<option value="title">과목명</option>
-														<option value="type">유형</option>
-														<option value="e-id">순번</option>
+													<select class="form-control" id="schType">
+														<option value="edctNm">과목명</option>
+														<option value="edinCd">유형</option>
+														<option value="edctId">순번</option>
 													</select>
 												</div>
 											</td>
 											<td style="width: 300px; padding-right: 40px">
 												<div>
-													<input class="form-control" type="text" value="">
+													<input class="form-control" type="text" id="schValue">
 												</div>
 											</td>
-											<td style="width: 10%; text-align: left;"><button type="button" class="btn btn-primary btn-toastr" style="float: right; margin-right: 20px;">조회</button></td>
+											<td style="width: 10%; text-align: left;"><button type="button" class="btn btn-primary" style="float: right; margin-right: 20px;" onclick="search();">조회</button></td>
 										</tr>
 									</tbody>
 								</table>
@@ -58,8 +58,8 @@
 						
 							<br>
 							<div>	
-								 <ul class="nav nav-tabs">
-									<li class="active">
+								 <ul class="nav nav-tabs" onclick="a();" id="tabValue">
+									<li class="active" id='tot' value='tot'>
 										<a class="nav-link" href="#tab1" data-toggle="tab">전체</a>
 									</li>
 									<li class="nav-item">
@@ -82,11 +82,11 @@
 								</ul>
 							</div>
 							<div class="tab-content px-1 pt-2">
-								<div class="tab-pane active" id="tab1">		
+								<div class="tab-pane active" id="tab1">
 									<div class="col-md-12">
 										<div class="table-responsive">
 											<table class="table table-hover table-sm first">
-												<tbody>
+												<thead>
 													<tr>
 														<th style="text-align:center; width:10%;" id="th1">순번</th>
 														<th style="text-align:center; width:40%;" id="th2">교육명</th>
@@ -94,13 +94,8 @@
 														<th style="text-align:center; width:20%;" id="th4">접수기간</th>
 														<th style="text-align:center; width:15%;" id="th5">바로가기</th>
 													</tr>
-													<tr>
-														<td style="text-align:center">1</td>
-														<td style="text-align:left"><span class="badge badge-primary">초</span> 업무에 바로쓰는 SQL활용실습</td>
-														<td style="text-align:center">멀티캠퍼스</td>
-														<td style="text-align:center">2020.09.16 ~ 2020.09.30</td>
-														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup('eduApply','eduApplyPop');">안내 및 신청</button></td>
-													</tr>
+												</thead>
+												<tbody id="eduListBody">
 													<c:forEach items="${list}" var="eduList" varStatus="status">
 													<tr>
 				 										<td style="text-align:center">${eduList.edctCntId}
@@ -128,7 +123,7 @@
 									<div class="col-md-12">
 										<div class="table-responsive">
 											<table class="table table-hover table-sm first">
-												<tbody>
+												<thead>
 													<tr>
 														<th style="text-align:center; width:10%;" id="th1">순번</th>
 														<th style="text-align:center; width:40%;" id="th2">교육명</th>
@@ -136,21 +131,16 @@
 														<th style="text-align:center; width:20%;" id="th4">접수기간</th>
 														<th style="text-align:center; width:15%;" id="th5">바로가기</th>
 													</tr>
-													<tr>
-														<td style="text-align:center">1</td>
-														<td style="text-align:left"><span class="badge badge-primary">초</span> 업무에 바로쓰는 SQL활용실습</td>
-														<td style="text-align:center">멀티캠퍼스</td>
-														<td style="text-align:center">2020.09.16 ~ 2020.09.30</td>
-														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup('eduApply','eduApplyPop');">안내 및 신청</button></td>
-													</tr>
+												</thead>
+												<tbody id="eduListBody">
 													<c:forEach items="${list}" var="eduList" varStatus="status">
-													<c:if test="${edctClsfCd eq 'OTEDU'}">
+													<c:if test="${eduList.edctClsfCd eq 'OTEDU'}">
 													<tr>
 				 										<td style="text-align:center">${eduList.edctCntId}
 														<td style="text-align:  left"><span class="badge badge-primary">${eduList.edctLevl}</span>&nbsp;${eduList.edctNm}</td>
 														<td style="text-align:center">${eduList.edinNm}</td>
-														<td style="text-align:center">${eduList.aplcSttgYmd}</td>
-														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showApplyPop('eduApply','eduApplyPop','${eduList.edctCntId}');">안내 및 신청</button></td>
+														<td style="text-align:center">${eduList.aplcSttgYmd} ~ ${eduList.aplcFnshYmd}</td>
+														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup('eduApply','eduApplyPop?edctCntId=${eduList.edctCntId}');">안내 및 신청</button></td>
 													</tr>
 													</c:if>
 													</c:forEach>
@@ -173,7 +163,7 @@
 									<div class="col-md-12">
 										<div class="table-responsive">
 											<table class="table table-hover table-sm first">
-												<tbody>
+												<thead>
 													<tr>
 														<th style="text-align:center; width:10%;" id="th1">순번</th>
 														<th style="text-align:center; width:40%;" id="th2">교육명</th>
@@ -181,21 +171,16 @@
 														<th style="text-align:center; width:20%;" id="th4">접수기간</th>
 														<th style="text-align:center; width:15%;" id="th5">바로가기</th>
 													</tr>
-													<tr>
-														<td style="text-align:center">1</td>
-														<td style="text-align:left"><span class="badge badge-primary">초</span> 업무에 바로쓰는 SQL활용실습</td>
-														<td style="text-align:center">멀티캠퍼스</td>
-														<td style="text-align:center">2020.09.16 ~ 2020.09.30</td>
-														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup('eduApply','eduApplyPop');">안내 및 신청</button></td>
-													</tr>
+												</thead>
+												<tbody id="eduListBody">
 													<c:forEach items="${list}" var="eduList" varStatus="status">
-													<c:if test="${edctClsfCd eq 'TREDU'}">
+													<c:if test="${eduList.edctClsfCd eq 'TREDU'}">
 													<tr>
 				 										<td style="text-align:center">${eduList.edctCntId}
 														<td style="text-align:  left"><span class="badge badge-primary">${eduList.edctLevl}</span>&nbsp;${eduList.edctNm}</td>
 														<td style="text-align:center">${eduList.edinNm}</td>
-														<td style="text-align:center">${eduList.edctSttgYmd} ~ ${eduList.edctFnshYmd}</td>
-														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showApplyPop('eduApply','eduApplyPop','${eduList.edctCntId}');">안내 및 신청</button></td>
+														<td style="text-align:center">${eduList.aplcSttgYmd} ~ ${eduList.aplcFnshYmd}</td>
+														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup('eduApply','eduApplyPop?edctCntId=${eduList.edctCntId}');">안내 및 신청</button></td>
 													</tr>
 													</c:if>
 													</c:forEach>
@@ -218,7 +203,7 @@
 									<div class="col-md-12">
 										<div class="table-responsive">
 											<table class="table table-hover table-sm first">
-												<tbody>
+												<thead>
 													<tr>
 														<th style="text-align:center; width:10%;" id="th1">순번</th>
 														<th style="text-align:center; width:40%;" id="th2">교육명</th>
@@ -226,21 +211,16 @@
 														<th style="text-align:center; width:20%;" id="th4">접수기간</th>
 														<th style="text-align:center; width:15%;" id="th5">바로가기</th>
 													</tr>
-													<tr>
-														<td style="text-align:center">1</td>
-														<td style="text-align:left"><span class="badge badge-primary">초</span> 업무에 바로쓰는 SQL활용실습</td>
-														<td style="text-align:center">멀티캠퍼스</td>
-														<td style="text-align:center">2020.09.16 ~ 2020.09.30</td>
-														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup('eduApply','eduApplyPop');">안내 및 신청</button></td>
-													</tr>
+												</thead>
+												<tbody id="eduListBody">
 													<c:forEach items="${list}" var="eduList" varStatus="status">
-													<c:if test="${edctClsfCd eq 'SEMIN'}">
+													<c:if test="${eduList.edctClsfCd eq 'SEMIN'}">
 													<tr>
 				 										<td style="text-align:center">${eduList.edctCntId}
 														<td style="text-align:  left"><span class="badge badge-primary">${eduList.edctLevl}</span>&nbsp;${eduList.edctNm}</td>
 														<td style="text-align:center">${eduList.edinNm}</td>
-														<td style="text-align:center">${eduList.edctSttgYmd} ~ ${eduList.edctFnshYmd}</td>
-														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showApplyPop('eduApply','eduApplyPop','${eduList.edctCntId}');">안내 및 신청</button></td>
+														<td style="text-align:center">${eduList.aplcSttgYmd} ~ ${eduList.aplcFnshYmd}</td>
+														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup('eduApply','eduApplyPop?edctCntId=${eduList.edctCntId}');">안내 및 신청</button></td>
 													</tr>
 													</c:if>
 													</c:forEach>
@@ -263,7 +243,7 @@
 									<div class="col-md-12">
 										<div class="table-responsive">
 											<table class="table table-hover table-sm first">
-												<tbody>
+												<thead>
 													<tr>
 														<th style="text-align:center; width:10%;" id="th1">순번</th>
 														<th style="text-align:center; width:40%;" id="th2">교육명</th>
@@ -271,21 +251,16 @@
 														<th style="text-align:center; width:20%;" id="th4">접수기간</th>
 														<th style="text-align:center; width:15%;" id="th5">바로가기</th>
 													</tr>
-													<tr>
-														<td style="text-align:center">1</td>
-														<td style="text-align:left"><span class="badge badge-primary">초</span> 업무에 바로쓰는 SQL활용실습</td>
-														<td style="text-align:center">멀티캠퍼스</td>
-														<td style="text-align:center">2020.09.16 ~ 2020.09.30</td>
-														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup('eduApply','eduApplyPop');">안내 및 신청</button></td>
-													</tr>
+												</thead>
+												<tbody id="eduListBody">
 													<c:forEach items="${list}" var="eduList" varStatus="status">
-													<c:if test="${edctClsfCd eq 'EXTRA'}">
+													<c:if test="${eduList.edctClsfCd eq 'EXTRA'}">
 													<tr>
 				 										<td style="text-align:center">${eduList.edctCntId}
 														<td style="text-align:  left"><span class="badge badge-primary">${eduList.edctLevl}</span>&nbsp;${eduList.edctNm}</td>
 														<td style="text-align:center">${eduList.edinNm}</td>
-														<td style="text-align:center">${eduList.aplcSttgYmd}</td>
-														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showApplyPop('eduApply','eduApplyPop','${eduList.edctCntId}');">안내 및 신청</button></td>
+														<td style="text-align:center">${eduList.aplcSttgYmd} ~ ${eduList.aplcFnshYmd}</td>
+														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup('eduApply','eduApplyPop?edctCntId=${eduList.edctCntId}');">안내 및 신청</button></td>
 													</tr>
 													</c:if>
 													</c:forEach>
@@ -322,6 +297,21 @@
 	<!-- END WRAPPER -->
 <!-- FOOTER -->
 <script>
+
+function a(){
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+		$this = $(e.target);
+		if(!$this.data("load")) {
+			// tab-content의 id를 취득한다.
+			var id = $this.attr("href");
+			// 페이지 로드를 한다.
+			alert(id);
+			// data-load를 true로 변환하여 중복 로딩이 없게 한다.
+			$this.data("load", true);
+		}
+	});
+}
+
 function showApplyPop(menu, name, id) {
  	var size = '';
 	
@@ -331,6 +321,65 @@ function showApplyPop(menu, name, id) {
 
 	window.open('/itep/views/'+menu+'/pop/'+name+'?edctCntId='+id, '_blank', size); 
 }	
+
+function search() {
+
+	    var lis = document.getElementsByClassName('active');
+	    for(var i=0; i < lis.length; i++){
+	    	if(lis[i].id!=""{
+	    		alert(lis[i].id);
+	        	lis[i].style.color='red';   
+	    	}
+
+	    }
+	
+}
+/* 	
+	var	schType = $("#schType").val(); //검색기준
+	var	schValue = $("#schValue").val();//검색값
+
+	if(schValue==""){
+		alert("검색값을 입력 하세요");
+	}else{
+    $.ajax({
+	        url:"/itep/views/eduApply/eduList", //데이터를  넘겨줄 링크 설정
+			type:"POST", // post 방식
+			data: 
+	    	    {"schType" : schType
+	    	    ,"schValue" : schValue},
+			
+	         success: function (responseData) {
+					// 결재현황 조회
+					var str = '';
+					str += '<tbody id=\"eduListBody\">';
+					$.each(responseData, function(i) {
+						str += '<tr>';
+						str += '<td style="text-align:center">'+responseData[i].edctCntId+'</td>';
+						str += '<td style="text-align:  left"><span class="badge badge-primary">'+responseData[i].edctLevl+'</span>'+responseData[i].edctNm+'</td>';
+						str += '<td style="text-align:center">'+responseData[i].edinNm+'</td>';
+						str += '<td style="text-align:center">'+responseData[i].aplcSttgYmd+'~'+responseData[i].aplcFnshYmd+'</td>';
+						str += '<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup("eduApply","eduApplyPop?edctCntId='+responseData[i].edctCntId+');">안내 및 신청</button></td>';
+						str += '</tr>';
+					});
+					str += '</tbody>';
+									
+					$('#eduListBody').replaceWith(str);
+					
+					if(responseData.length == 0) {
+						// $('#apprStatDetailDiv').hide(); // 결재현황 리스트가 없으면 하단 결재이력 테이블이 안보이게 
+					} else {
+						var tbody = document.getElementById('eduListBody');
+						var trs = tbody.getElementsByTagName('tr');
+						showDetail(trs[0], responseData[0].edctAplcId); // 결재이력 조회
+					}
+					
+	          },
+	         error: function (xhr, status, error) {
+	        	 	alert("조회실패");
+	          }
+		}); 
+	}
+    */
 </script>
 <jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 
