@@ -30,34 +30,48 @@
 				<div class="container-fluid">
 					<h3 class="page-title"><b>교육 신청</b></h3>
 					<div class="row">
+	 				<c:if test ="${vo.eginAplyYn eq 'Y' || modType eq 'insert'}">
+						<b>&nbsp;&nbsp;* 결재요청시 부서 관리자(기획팀장/기획서무 책임자)에게 전달 됩니다.</b><br>
+					</c:if>
 						<div class="col-md-9 col-popup">
 							<div class="panel panel-headline">
 							<div class="panel-body panel-popup">
 								<!--<div style="text-align:left; padding-bottom: 10px;">-->
 								<table>
 									<tbody>
-										<tr>
-											<c:if test ="${eginAplyYn eq 'Y'}">
-											<td style="width: 80%; padding-left: 5px; text-align: left; padding-bottom: 10px;">
+<!-- 										<tr>
+											<td style="width: 100%; padding-left: 5px; text-align: left; padding-bottom: 10px;"  colspan="4">
 												<b>* 결재요청시 부서 관리자(기획팀장/기획서무 책임자)에게 전달 됩니다.</b>
 											</td>
-											</c:if>
+										</tr> -->
+										<tr>
+											<td style="width: 5%; text-align: center; padding-bottom: 10px;"><b>■ 부서 결재자</b></td>
+											<td style="width: 5%; padding-bottom: 10px;">
+												<div>
+													<select class="form-control" id="dpmid">														
+													<c:forEach items="${dpmList}" var="dpmList">
+														<option value="${dpmList.userId}">${dpmList.userNm}</option>
+													</c:forEach>
+													</select>
+												</div>
+											</td>
 											<td style="width: 10%; padding-left: 5px; text-align: right; padding-bottom: 10px;">
 												<c:choose>
 													<c:when test="${modType eq 'insert'}">
-														<button style="text-align:right;" type="button" class="btn btn-primary btn-toastr">결재요청</button>	 
+														<button style="text-align:right;" type="button" class="btn btn-primary" onclick="fstApply();">결재요청</button>	 
 													</c:when>
 													<c:when test="${modType eq 'update'}">
-														<button style="text-align:right;" type="button" class="btn btn-primary btn-toastr">재요청</button>	 
+														<button style="text-align:right;" type="button" class="btn btn-primary">재요청</button>	 
 													</c:when>
 													<c:when test="${modType eq 'delete'}">
-														<button style="text-align:right;" type="button" class="btn btn-primary btn-toastr">삭제</button>	 
+														<button style="text-align:right;" type="button" class="btn btn-primary">삭제</button>	 
 													</c:when>
 													<c:otherwise>
 														<td></td>
 													</c:otherwise>
 												</c:choose>											
 											</td>
+
 										</tr>
 									</tbody>
 								</table>
@@ -96,7 +110,7 @@
 										<tr>
 										   <th>첨부파일</th>
 										   <td colspan="3">
-												<input multiple="multiple" type="file" name="file" class="form-control" value="">
+												<input multiple="multiple" type="file" id="file" class="form-control" value="">
 										   </td>
 										</tr>
 									</tbody>
@@ -115,5 +129,13 @@
 	<!-- END WRAPPER -->
 
 <!-- FOOTER -->
+<script>
+function fstApply(){
+	var	file = $("#file").val(); //첨부파일
+	
+	
+}
+</script>
+
 <jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 

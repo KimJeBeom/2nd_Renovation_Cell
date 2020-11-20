@@ -128,17 +128,6 @@
 													</tr>
 												</thead>
 												<tbody id="OTEDU">
-													<c:forEach items="${list}" var="eduList" varStatus="status">
-													<c:if test="${eduList.edctClsfCd eq 'OTEDU'}">
-													<tr>
-				 										<td style="text-align:center">${eduList.edctCntId}
-														<td style="text-align:  left"><span class="badge badge-primary">${eduList.edctLevl}</span>&nbsp;${eduList.edctNm}</td>
-														<td style="text-align:center">${eduList.edinNm}</td>
-														<td style="text-align:center">${eduList.aplcSttgYmd} ~ ${eduList.aplcFnshYmd}</td>
-														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup('eduApply','eduApplyPop?edctCntId=${eduList.edctCntId}');">안내 및 신청</button></td>
-													</tr>
-													</c:if>
-													</c:forEach>
 												</tbody>
 											</table>
 										</div>
@@ -168,17 +157,6 @@
 													</tr>
 												</thead>
 												<tbody id="TREDU">
-													<c:forEach items="${list}" var="eduList" varStatus="status">
-													<c:if test="${eduList.edctClsfCd eq 'TREDU'}">
-													<tr>
-				 										<td style="text-align:center">${eduList.edctCntId}
-														<td style="text-align:  left"><span class="badge badge-primary">${eduList.edctLevl}</span>&nbsp;${eduList.edctNm}</td>
-														<td style="text-align:center">${eduList.edinNm}</td>
-														<td style="text-align:center">${eduList.aplcSttgYmd} ~ ${eduList.aplcFnshYmd}</td>
-														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup('eduApply','eduApplyPop?edctCntId=${eduList.edctCntId}');">안내 및 신청</button></td>
-													</tr>
-													</c:if>
-													</c:forEach>
 												</tbody>
 											</table>
 										</div>
@@ -208,17 +186,6 @@
 													</tr>
 												</thead>
 												<tbody id="SEMIN">
-													<c:forEach items="${list}" var="eduList" varStatus="status">
-													<c:if test="${eduList.edctClsfCd eq 'SEMIN'}">
-													<tr>
-				 										<td style="text-align:center">${eduList.edctCntId}
-														<td style="text-align:  left"><span class="badge badge-primary">${eduList.edctLevl}</span>&nbsp;${eduList.edctNm}</td>
-														<td style="text-align:center">${eduList.edinNm}</td>
-														<td style="text-align:center">${eduList.aplcSttgYmd} ~ ${eduList.aplcFnshYmd}</td>
-														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup('eduApply','eduApplyPop?edctCntId=${eduList.edctCntId}');">안내 및 신청</button></td>
-													</tr>
-													</c:if>
-													</c:forEach>
 												</tbody>
 											</table>
 										</div>
@@ -248,17 +215,6 @@
 													</tr>
 												</thead>
 												<tbody id="EXTRA">
-													<c:forEach items="${list}" var="eduList" varStatus="status">
-													<c:if test="${eduList.edctClsfCd eq 'EXTRA'}">
-													<tr>
-				 										<td style="text-align:center">${eduList.edctCntId}
-														<td style="text-align:  left"><span class="badge badge-primary">${eduList.edctLevl}</span>&nbsp;${eduList.edctNm}</td>
-														<td style="text-align:center">${eduList.edinNm}</td>
-														<td style="text-align:center">${eduList.aplcSttgYmd} ~ ${eduList.aplcFnshYmd}</td>
-														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup('eduApply','eduApplyPop?edctCntId=${eduList.edctCntId}');">안내 및 신청</button></td>
-													</tr>
-													</c:if>
-													</c:forEach>
 												</tbody>
 											</table>
 										</div>
@@ -306,6 +262,10 @@ function a(tabValue){
 	    	    {"schType" : schType
 	    	    ,"schValue" : schValue},
 	         success: function (responseData) {
+	        	 
+					if(responseData.length == 0)
+						alert("조회결과가 없습니다");
+	        	 
 					var str = '';
 					str += '<tbody id=\"'+tabValue+'\">';
 					$.each(responseData, function(i) {
@@ -356,6 +316,10 @@ function search() {
 	    	    {"schType" : schType
 	    	    ,"schValue" : schValue},
 	         success: function (responseData) {
+	        	 
+					if(responseData.length == 0)
+						alert("조회결과가 없습니다");
+					
 					var str = '';
 					str += '<tbody id=\"'+tabValue+'\">';
 					$.each(responseData, function(i) {
@@ -371,7 +335,6 @@ function search() {
 					});
 					str += '</tbody>';
 					$("#"+tabValue).replaceWith(str);	
-					
 	          },
 	         error: function (xhr, status, error) {
 	        	 	alert("조회실패");

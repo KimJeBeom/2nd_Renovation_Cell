@@ -21,31 +21,9 @@ public class EduListService {
 	public List<EduListVo> getList(String schType, String schValue){
 		
 		logger.info("EduGetList Start");
-		
-		/*
-		 * String addDynQry = null; if(schType.equals("edctNm")) { //교육명
-		 * 
-		 * addDynQry = "AND   M.EDCT_NM LIKE CONCAT('%',\'" + schValue + "\','%')";
-		 * 
-		 * }else if(schType.equals("edinCd")) { //기관명
-		 * 
-		 * addDynQry = "AND   M.EDIN_CD IN " +
-		 * "(SELECT I.EDIN_CD FROM TB_IEP_CLI001C I " +
-		 * "WHERE I.EDIN_NM  LIKE CONCAT('%', \'" + schValue + "\','%'))";
-		 * 
-		 * }else if(schType.equals("edctId")) { //교육차수ID
-		 * 
-		 * addDynQry = "AND   C.EDCT_CNT_ID = \'"+ schValue + "\'";
-		 * 
-		 * }else{ addDynQry = "AND   1=1"; logger.info("###check schType :"+schType); }
-		 * logger.info("###ADD addDynQry :"+addDynQry);
-		 */
 		HashMap map = new HashMap<String, Object>();
 		map.put("schType", schType);
 		map.put("schValue", schValue);
-		
-
-		
 		List<EduListVo> list =  eduListDAO.selectEduList(map);
 		
 		logger.info("EduGetList End");
