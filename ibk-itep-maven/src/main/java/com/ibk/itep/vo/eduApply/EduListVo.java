@@ -45,8 +45,8 @@ public class EduListVo {
 	private String dpmAthzId;
 	private String aplcStgCd;
 	private String apndDat;
+	private String grmAthzId;
 	
-
 	public String getEdinNm() {
 		return edinNm;
 	}
@@ -295,5 +295,11 @@ public class EduListVo {
 		this.apndDat = apndDat;
 	}
 	
+	public String getGrmAthzId() {
+		return grmAthzId;
+	}
+	public void setGrmAthzId(String grmAthzId) {
+		this.grmAthzId = grmAthzId;
+	}
 	
 }

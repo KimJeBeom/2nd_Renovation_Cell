@@ -10,17 +10,6 @@
 -->
 
 <body>
- <script>
- //화면 재호출시(작업완료) 제어를 위한 sctipt
- if("${modMsg}"=="sueccess"){
-	 alert("처리완료");
- 	 window.close();
- }else if("${modMsg}"=="fail"){
-	 alert("처리 실패");
- }else if("${modMsg}"=="disable"){
-	 alert("실패 : 이미 등록된 교육이 있습니다.");
- }
- </script>
 	<!-- WRAPPER -->
 	<div id="wrapper">
 		<!-- MAIN -->
@@ -30,7 +19,7 @@
 				<div class="container-fluid">
 					<h3 class="page-title"><b>교육 신청</b></h3>
 					<div class="row">
-	 				<c:if test ="${vo.eginAplyYn eq 'Y' || modType eq 'insert'}">
+	 				<c:if test ="${vo.snctTgtYn eq 'Y' || modType eq 'insert'}">
 						<b>&nbsp;&nbsp;* 결재요청시 부서 관리자(기획팀장/기획서무 책임자)에게 전달 됩니다.</b><br>
 					</c:if>
 						<div class="col-md-9 col-popup">
@@ -83,7 +72,7 @@
 							   				<td>${vo.edctClsfNm}</td>
 											<th>결재대상</th>
 											<c:choose>
-												<c:when test="${vo.eginAplyYn eq 'Y'}">
+												<c:when test="${vo.snctTgtYn eq 'Y'}">
 													<td>결재대상</td>	 
 												</c:when>
 												<c:otherwise>
@@ -131,10 +120,49 @@
 <!-- FOOTER -->
 <script>
 function fstApply(){
-	var	file = $("#file").val(); //첨부파일
-	
-	
+   	var conf = confirm('등록하시겠습니까?');
+   	if(conf==true){
+   	   	var edctCntId = '${vo.edctCntId}'; //교육차수id
+		var grmAthzId = $("#dpmid").val(); //부서결제자
+		var	apndDat = $("#file").val(); //첨부파일
+		var	snctTgtYn = '${vo.snctTgtYn}'; //결제여부
+		
+		/* if(apndDat==""){
+       		alert("전체 내용을 입력해주세요");
+		} */
+		
+ 	     $.ajax({
+		        url:"/itep/views/eduApply/pop/eduInfoPop", //데이터를  넘겨줄 링크 설정
+				type:"POST", // post 방식
+				data: 
+		    	    {"edctCntId" : edctCntId
+		    	    ,"grmAthzId" : grmAthzId
+		    	    ,"apndDat" : apndDat
+		    	    ,"snctTgtYn" : snctTgtYn
+		    	    ,"modAct" : "insert"},
+				
+		         success: function (responseData) {
+		        	 //화면 재호출시(작업완료) 제어를 위한 sctipt
+		        	 if(responseData=='success'){
+		        		 alert("처리완료");
+		        	 	 window.close();
+		        	 }else if(responseData=='fail'){
+		        		 alert("등록에 실패 하였습니다. 다시 시도하여 주세요");
+		        	 }else if(responseData=="disable"){
+		        		 alert("실패 : 이미 등록된 교육이 있습니다.");
+		        	 }else{
+		        		 alert("등록에 실패 하였습니다. 다시 시도하여 주세요");
+		        	 }
+		          },
+		         error: function (xhr, status, error) {
+		        	 alert("등록에 실패 하였습니다. 다시 시도하여 주세요 \n"+ xhr +" // " + status +" // "+error);
+		          }
+			});
+		
+   	}
+   	
 }
+
 </script>
 
 <jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />

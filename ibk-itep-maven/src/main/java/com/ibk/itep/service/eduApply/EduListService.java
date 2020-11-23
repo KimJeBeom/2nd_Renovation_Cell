@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ibk.itep.repository.eduApply.EduListDao;
+import com.ibk.itep.vo.SessionVo;
 import com.ibk.itep.vo.eduApply.EduListVo;
 
 @Service
@@ -54,41 +55,35 @@ public class EduListService {
 		return list;
 	}
 	
-	public String modAction(EduListVo vo,String modType){
+	public String modAction(EduListVo vo,SessionVo ssnInfo){
 		
 		logger.info("modAction Start");
-		logger.info(" -- modType   : "+modType);
 		
 		boolean modRst = false;
-		String modMsg;
-		
-		//ModAction에 따른 DAO제어
-		vo.setUserId("40868");
-		vo.setTeamCd("8597");
-		vo.setDvcd("0710");
-		vo.setDpmAthzId("40868"); 
+		String modMsg = null;
+		vo.setUserId(ssnInfo.getUserId());
+		vo.setTeamCd(ssnInfo.getTeamCd());
+		vo.setDvcd(ssnInfo.getBrcd());
 		
 		String modCode =  eduListDAO.selectEduApprAbleYn(vo);
 		
 		if(modCode.equals("update")) {
 			//modRst =  eduListDAO.updateNotice(vo);
-		}else if(modType.equals("delete")){
-			//modRst =  eduListDAO.deleteNotice(vo);
 		}else if(modCode.equals("insert")){
-			if(vo.getEginAplyYn().equals("Y")){
+			if(vo.getSnctTgtYn().equals("Y")){
 				modRst =  eduListDAO.insertEduApplyPopApr(vo);
 			}else {
 				modRst =  eduListDAO.insertEduApplyPopNon(vo);
 			}
-		}else if(modCode.equals("disable")){
+		}
+		
+		if(modCode.equals("disable"))
 			modMsg = "disable";
-		}
-
-		if(modRst==true) {
+		else if(modRst==true) 
 			modMsg="success";
-		}else {
+		else 
 			modMsg="fail";
-		}
+		
 		logger.info("modAction End");
 		return modMsg;
 	}

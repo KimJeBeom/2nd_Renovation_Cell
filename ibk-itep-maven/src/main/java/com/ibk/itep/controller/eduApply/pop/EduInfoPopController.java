@@ -29,26 +29,38 @@ public class EduInfoPopController{
 	@Autowired	private CmmService CmService;
 	private static final Logger logger = LoggerFactory.getLogger(EduInfoPopController.class);
 
+	@RequestMapping(value = "/views/eduApply/pop/eduInfoPop", method = RequestMethod.POST)
+	public @ResponseBody String EduInfoPopPost(EduListVo vo,Model model,HttpServletRequest request,
+			@RequestParam(value="modAct", required = false) String modAct) {
+		
+		logger.info("EduInfoPopPost POST START");
+		/* 세션정보를 담은 SessionVo 가져옴 */
+		HttpSession session = request.getSession();
+		SessionVo ssnInfo = (SessionVo)session.getAttribute("ssnInfo");
+		
+		String modRst = null;
+		if(modAct!=null) {
+			//화면에서 입력 받은 정보(Vo) 및 변경정보를 Service로 던져 boolean(성공/실패)로 받아옴
+			modRst = service.modAction(vo,ssnInfo);			
+			logger.info("Service Retrn OK");
+			logger.info("---Return modMsg : "+modRst);
+		}
+
+		model.addAttribute("modRst", modRst);
+		logger.info("EduInfoPopPost POST End");
+		return modRst;
+	}
+	
 	@RequestMapping(value = "/views/eduApply/pop/eduInfoPop", method = RequestMethod.GET)
-	public String home(EduListVo vo, Model model,HttpServletRequest request,
-			@RequestParam(value="modType", required = false) String modType, 
-			@RequestParam(value="modAct", required = false) String modAct){
+	public String EduInfoPopGet(EduListVo vo, Model model,HttpServletRequest request,
+			@RequestParam(value="modType", required = false) String modType){
 		
 		/* 세션정보를 담은 SessionVo 가져옴 */
 		HttpSession session = request.getSession();
 		SessionVo ssnInfo = (SessionVo)session.getAttribute("ssnInfo");
 		
-		logger.info("EduListContoll Start");
+		logger.info("EduInfoPopGet Start");
 
-		String modMsg = null;
-		if(modAct!=null) {// modType = update or insert
-			
-			//화면에서 입력 받은 정보(Vo) 및 변경정보를 Service로 던져 boolean(성공/실패)로 받아옴
-			modMsg = service.modAction(vo,modType);			
-			logger.info("Service Retrn OK");
-			logger.info("---Return modMsg : "+modMsg);
-		}
-		
 		List<CluVo> dpmList = CmService.selectDpm(ssnInfo);
 		EduListVo outVo = service.getDetail(vo);
 		
@@ -56,11 +68,10 @@ public class EduInfoPopController{
 		
 		//model을 통한 결과값 화면에 전달 
 		model.addAttribute("vo",outVo);
-		model.addAttribute("modMsg",modMsg);
 		model.addAttribute("modType",modType);
 		model.addAttribute("dpmList",dpmList);
 		
-		logger.info("EduListContoll End");
+		logger.info("EduInfoPopGet End");
 
 		return "/eduApply/pop/eduInfoPop";
 	}
