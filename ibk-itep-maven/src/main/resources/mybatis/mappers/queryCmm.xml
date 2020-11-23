@@ -56,4 +56,20 @@
 	    	]]>
 	    </if>
 	</select>
+	<select id="selectDpm" parameterType="SessionVo" resultType="CluVo">
+		<![CDATA[
+			SELECT USER_ID AS userId,
+					CONCAT(USER_NM,'(',USER_JTM,')') AS userNm,
+					BRNM AS brnm
+			FROM TB_IEP_CMU001M CMU
+			LEFT JOIN TB_IEP_CMB001M CMB ON CMU.TEAM_CD = CMB.BRCD
+			WHERE  ATHR_CD ='DPM'
+		]]>
+    	<if test="userId != null">
+		<![CDATA[
+	 	   	AND    DVCD IN (SELECT DISTINCT DVCD FROM TB_IEP_CMU001M WHERE USER_ID =#{userId})
+	    ]]>
+	    
+	    </if>
+	</select>
 </mapper>

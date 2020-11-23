@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.ibk.itep.vo.SessionVo;
 import com.ibk.itep.vo.myClass.EduCompleteVO;
 import com.ibk.itep.vo.myClass.EduInfoPopVO;
+import com.ibk.itep.vo.myClass.EduListSrchVO;
 import com.ibk.itep.vo.myClass.EduMyHistoryVO;
 import com.ibk.itep.vo.myClass.EduNewReadyVO;
 import com.ibk.itep.vo.myClass.EduNowVO;
@@ -38,13 +39,13 @@ public class MyClassDao {
 		return list;
 	}
 	
-	public List<EduCompleteVO> selectEduComplete(SessionVo ssnVo){
-		List<EduCompleteVO> list = sqlSession.selectList("queryMyClass.selectEduComplete",ssnVo);
+	public List<EduCompleteVO> selectEduComplete(EduListSrchVO srchVo){
+		List<EduCompleteVO> list = sqlSession.selectList("queryMyClass.selectEduComplete",srchVo);
 		return list;
 	}
 	
-	public List<EduMyHistoryVO> selectEduMyHistory(SessionVo ssnVo){
-		List<EduMyHistoryVO> list = sqlSession.selectList("queryMyClass.selectEduMyHistory",ssnVo);
+	public List<EduMyHistoryVO> selectEduMyHistory(EduListSrchVO srchVo){
+		List<EduMyHistoryVO> list = sqlSession.selectList("queryMyClass.selectEduMyHistory",srchVo);
 		return list;
 	}
 	
@@ -63,8 +64,8 @@ public class MyClassDao {
 		return cnt;
 	}
 	
-	public int updateEduInfoPop(int edctAplcId){
-		int cnt = sqlSession.update("queryMyClass.updateEduInfoPop",edctAplcId);
+	public int updateEduInfoPop(EduInfoPopVO infoVo){
+		int cnt = sqlSession.update("queryMyClass.updateEduInfoPop",infoVo);
 		return cnt;
 	}
 }

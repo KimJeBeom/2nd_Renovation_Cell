@@ -15,6 +15,7 @@ public class EduInfoPopVO {
  private Integer edctAplcId;
  private String aplcStgCd;
  private String rtreCon;
+ private String dpmAthzId;
  
 	public String getEdctClsfCd() {
 		return edctClsfCd;
@@ -93,6 +94,12 @@ public class EduInfoPopVO {
 	}
 	public void setRtreCon(String rtreCon) {
 		this.rtreCon = rtreCon;
+	}
+	public String getDpmAthzId() {
+		return dpmAthzId;
+	}
+	public void setDpmAthzId(String dpmAthzId) {
+		this.dpmAthzId = dpmAthzId;
 	}
 
 

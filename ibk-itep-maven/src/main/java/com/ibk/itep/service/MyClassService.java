@@ -1,5 +1,6 @@
 package com.ibk.itep.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import com.ibk.itep.vo.SessionVo;
 import com.ibk.itep.vo.apprMng.ApprConfRejVo;
 import com.ibk.itep.vo.myClass.EduCompleteVO;
 import com.ibk.itep.vo.myClass.EduInfoPopVO;
+import com.ibk.itep.vo.myClass.EduListSrchVO;
 import com.ibk.itep.vo.myClass.EduMyHistoryVO;
 import com.ibk.itep.vo.myClass.EduNewReadyVO;
 import com.ibk.itep.vo.myClass.EduNowVO;
@@ -35,17 +37,34 @@ public class MyClassService {
 	
 	public List<EduReadyVO> getReadyList(SessionVo ssnVo){
 		
-		return myClassDao.selectEduReady(ssnVo);
+		List<EduReadyVO> list = myClassDao.selectEduReady(ssnVo);
+		return list;
 	}
 	
-	public List<EduCompleteVO> getCompleteList(SessionVo ssnVo){
+	public List<EduCompleteVO> selectEduComplete(String sttgYmd, String fnshYmd){
+		EduListSrchVO srchVo = new EduListSrchVO();
+		srchVo.setUserId("42374");
 		
-		return myClassDao.selectEduComplete(ssnVo);
+		if(sttgYmd != null && !sttgYmd.equals("")) {
+			srchVo.setSttgYmd(Date.valueOf(sttgYmd.replace("/", "-"))); // 검색 - 시작일자
+		}if(fnshYmd != null && !fnshYmd.equals(""))
+			srchVo.setFnshYmd(Date.valueOf(fnshYmd.replace("/", "-"))); // 검색 - 종료일자 
+		
+		List<EduCompleteVO> list = myClassDao.selectEduComplete(srchVo);
+		return list;
 	}
 	
-	public List<EduMyHistoryVO> getHistoryList(SessionVo ssnVo){
+	public List<EduMyHistoryVO> selectHistoryList(String sttgYmd, String fnshYmd){
+		EduListSrchVO srchVo = new EduListSrchVO();
+		srchVo.setUserId("42374");
 		
-		return myClassDao.selectEduMyHistory(ssnVo);
+		if(sttgYmd != null && !sttgYmd.equals("")) {
+			srchVo.setSttgYmd(Date.valueOf(sttgYmd.replace("/", "-"))); // 검색 - 시작일자
+		}if(fnshYmd != null && !fnshYmd.equals(""))
+			srchVo.setFnshYmd(Date.valueOf(fnshYmd.replace("/", "-"))); // 검색 - 종료일자 
+		
+		List<EduMyHistoryVO> list = myClassDao.selectEduMyHistory(srchVo);
+		return list;
 	}
 
 	public EduInfoPopVO getEduInfoPop(int edctAplcId){
@@ -63,9 +82,9 @@ public class MyClassService {
 		return	myClassDao.updateEduReady(edctAplcId);
 	}
 	
-	public int updateEduInfoPop(int edctAplcId){
+	public int updateEduInfoPop(EduInfoPopVO infoVo){
 		
-		return myClassDao.updateEduInfoPop(edctAplcId);
+		return myClassDao.updateEduInfoPop(infoVo);
 	}
 }
 

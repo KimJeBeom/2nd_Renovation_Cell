@@ -6,10 +6,12 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ibk.itep.vo.SessionVo;
 import com.ibk.itep.vo.cmm.ClaVo;
 import com.ibk.itep.vo.cmm.CldVo;
 import com.ibk.itep.vo.cmm.CliVo;
 import com.ibk.itep.vo.cmm.ClsVo;
+import com.ibk.itep.vo.cmm.CluVo;
 
 @Repository
 public class CmmDao {
@@ -33,6 +35,10 @@ public class CmmDao {
 	
 	public List<ClsVo> selectCls(ClsVo vo) {
 		List<ClsVo> list = sqlSession.selectList("queryCmm.selectCls", vo);
+		return list;
+	}
+	public List<CluVo> selectDpm(SessionVo ssnInfo) {
+		List<CluVo> list = sqlSession.selectList("queryCmm.selectDpm", ssnInfo);
 		return list;
 	}
 }

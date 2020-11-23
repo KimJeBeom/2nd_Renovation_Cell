@@ -24,11 +24,19 @@
 									<tbody>
 									<c:if test="${eduInfoPop.aplcStgCd == 'REJDPM' || eduInfoPop.aplcStgCd == 'REJGRM' }">
 										<tr>
-											<td style="width: 80%; padding-left: 5px; text-align: left; padding-bottom: 10px;">
-												<b>* 결재요청시 부서 관리자(기획팀장/기획서무 책임자)에게 전달 됩니다.</b>
+											<td style="width: 10%;">
+											<td style="width: 20%; padding-left: 30px; text-align: center; padding-bottom: 10px;"><b>▶부서 결재자</b></td>
+											<td style="width: 30%; padding-bottom: 10px;">
+												<div>
+													<select class="form-control" id="dpmid">
+													<c:forEach items="${dpmList}" var="dpmList">
+														<option value="${dpmList.userId}">${dpmList.brnm} ${dpmList.userNm}</option>
+													</c:forEach>
+													</select>
+												</div>
 											</td>
-											<td style="width: 10%; padding-left: 5px; text-align: right; padding-bottom: 10px;">	
-												<button style="text-align:right;" type="button" class="btn btn-primary btn-toastr" onclick ="reApply(${eduInfoPop.edctAplcId});">결재요청</button><br>
+											<td style="width: 10%; padding-left: 5px; padding-left: 20px; text-align: right; padding-bottom: 10px;">	
+												<button style="text-align:right;" type="button" class="btn btn-primary" onclick ="reApply(${eduInfoPop.edctAplcId});">결재요청</button><br>
 											</td>
 										</tr>
 									</c:if>
@@ -114,23 +122,34 @@
 <script type="text/javascript">
 
 		function reApply(edctAplcId) {
+
+			var dpmAthzId = $("#dpmid").val(); //신청서ID
 			
-	    $.ajax({
-	    	url:"/itep/views/myClass/pop/eduInfoPop/reApply", //데이터를  넘겨줄 링크 설정
-	        type:"POST", // post 방식
-			data: {"edctAplcId" : edctAplcId}, //넘겨줄 데이터
-			
-			success: function (responseData) {
-				if(responseData == 1){
-				confirm("결재요청 되었습니다.");
-				window.close();
-				}else{
-					confirm("결재요청이 실패하였습니다. 다시 시도해 주십시오");
-				}
-			},
-			error: function (xhr, status, error) {
-			}
-	    });
-	}
+				$.ajax({
+			    	url:"/itep/views/myClass/eduInfoPop/reApply", //데이터를  넘겨줄 링크 설정
+			        type:"POST", // post 방식
+					data: {"edctAplcId" : edctAplcId,
+						   "dpmAthzId" : dpmAthzId}, //넘겨줄 데이터
+
+			        success: function (responseData) {	
+			        	if(responseData == 1) {
+			        		alert("결재요청 되었습니다."); // 결과가 1이면 정상적으로 반려처리 완료
+			        		window.close();
+				     		window.opener.location.reload();
+
+			        	} else {
+			        		alert("실패하였습니다. 히융 다시 시도해주십시오."); // 1이 아니면 승인 실패
+			        		window.close();
+				     		window.opener.location.reload();
+			        	}
+					},
+					error: function (xhr, status, error) {
+						alert("실패하였습니다. 다시 시도해주십시오."); // 1이 아니면 승인 실패
+		        		window.close();
+			     		window.opener.location.reload();
+					}
+			 	});
+			}	
+
 
 </script>

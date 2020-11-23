@@ -5,6 +5,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ibk.itep.controller.HomeController;
 import com.ibk.itep.service.MyClassService;
 import com.ibk.itep.vo.SessionVo;
+import com.ibk.itep.vo.myClass.EduInfoPopVO;
 import com.ibk.itep.vo.myClass.EduNewReadyVO;
 import com.ibk.itep.vo.myClass.EduReadyVO;
 
@@ -31,17 +36,16 @@ public class EdueduReadyController {
 
 	/* 수강 신청한 교육 */
 	@RequestMapping(value = "/views/myClass/eduReady", method = RequestMethod.GET)
-	public String eduReady(Model model) {
+	public String eduReady(HttpServletRequest request,Model model) {
 
-		SessionVo ssnVo = new SessionVo();
-		ssnVo.setUserId("42374");
-		ssnVo.setBrcd("0710");
-		ssnVo.setAthrCd("ADM");
+		/* 세션정보를 담은 SessionVo 가져옴 */
+		HttpSession session = request.getSession();
+		SessionVo ssnInfo = (SessionVo)session.getAttribute("ssnInfo");
 
 		// 과정개설 신청목록
-		List<EduNewReadyVO> eduNewList = myClassService.getNewList(ssnVo);
+		List<EduNewReadyVO> eduNewList = myClassService.getNewList(ssnInfo);
 		// 수강신청 목록
-		List<EduReadyVO> eduReadyList = myClassService.getReadyList(ssnVo);
+		List<EduReadyVO> eduReadyList = myClassService.getReadyList(ssnInfo);
 
 		model.addAttribute("eduNewList", eduNewList);
 		model.addAttribute("eduReadyList", eduReadyList);
@@ -51,12 +55,28 @@ public class EdueduReadyController {
 	
 	  /*수강신청 목록 - 취소요청처리*/
 	  @RequestMapping(value = "/views/myClass/eduReady/cancel", method = RequestMethod.POST)
-	  public @ResponseBody int cancel(@RequestParam("edctAplcId") int edctAplcId, Model model) {
+	  public @ResponseBody List<EduReadyVO> eduReadyList(HttpServletRequest request, @RequestParam("edctAplcId") int edctAplcId, Model model) {
 	  
-	  return myClassService.updateEduReady(edctAplcId);
+		 myClassService.updateEduReady(edctAplcId);
+		  
+			/* 세션정보를 담은 SessionVo 가져옴 */
+			HttpSession session = request.getSession();
+			SessionVo ssnInfo = (SessionVo)session.getAttribute("ssnInfo");
+			
+		 List<EduReadyVO> eduReadyList = myClassService.getReadyList(ssnInfo);
+	   
+	   return eduReadyList;
 	 
 	 }
 	 
+		/*수강신청 목록 - 반려건 재결재요청*/
+		@RequestMapping(value = "/views/myClass/eduInfoPop/reApply", method = RequestMethod.POST)
+		public @ResponseBody int reApply(@RequestParam("edctAplcId") int edctAplcId, @RequestParam("dpmAthzId") String dpmAthzId, Model model, EduInfoPopVO infoVo) {
+
+			return myClassService.updateEduInfoPop(infoVo);
+
+
+	 }
 
 	 
 }

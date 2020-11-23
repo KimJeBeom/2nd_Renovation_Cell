@@ -1,5 +1,7 @@
 package com.ibk.itep.vo.myClass;
 
+import java.sql.Date;
+
 public class EduCompleteVO {
 
 	private Integer edctAplcId;
@@ -10,7 +12,7 @@ public class EduCompleteVO {
 	private String edinNm;
 	private String edctSttgYmd;
 	private String edctFnshYmd;
-	private String cnfaYn;
+	private String ctcrYn;
 	
 	public Integer getEdctAplcId() {
 		return edctAplcId;
@@ -60,11 +62,11 @@ public class EduCompleteVO {
 	public void setEdctFnshYmd(String edctFnshYmd) {
 		this.edctFnshYmd = edctFnshYmd;
 	}
-	public String getCnfaYn() {
-		return cnfaYn;
+	public String getCtcrYn() {
+		return ctcrYn;
 	}
-	public void setCnfaYn(String cnfaYn) {
-		this.cnfaYn = cnfaYn;
+	public void setCtcrYn(String ctcrYn) {
+		this.ctcrYn = ctcrYn;
 	}
 
 }

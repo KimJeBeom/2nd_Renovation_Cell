@@ -42,7 +42,7 @@
 															<div class="ui calendar" id="rangestart">
 															  <div class="ui input left icon">
 																<i class="calendar icon" style="font-size:14px;"></i>
-																<input type="text" placeholder="Start" style="height:35px; font-size:14px;">
+																<input id="sttgYmd" type="text" placeholder="Start" style="height:35px; font-size:14px;">
 															  </div>
 															</div>
 														</div>
@@ -51,7 +51,7 @@
 															<div class="ui calendar" id="rangeend">
 															  <div class="ui input left icon">
 																<i class="calendar icon" style="font-size:14px;"></i>
-																<input type="text" placeholder="End" style="height:35px; font-size:14px;">
+																<input id="fnshYmd" type="text" placeholder="End" style="height:35px; font-size:14px;">
 															  </div>
 															</div>
 														  </div>
@@ -64,7 +64,7 @@
 									</div>
 									<div style="display: table-cell"
 										style="text-align: center; padding-right:5px;">
-										<button type="button" class="btn btn-primary">조회</button>
+										<button type="button" class="btn btn-primary" onclick="search();">조회</button>
 									</div>
 								</div>
 								<!-- End 수강완료한 교육-조회바 -->
@@ -80,23 +80,23 @@
 											<th>상세확인</th>
 										</tr>
 									</thead>
-									<tbody>
+							<tbody id ="completeTbody">
 							<c:choose>
-								<c:when test="${not empty edueduCompleteList}">
-									<c:forEach items="${edueduCompleteList}" var="edueduCompleteList">
+								<c:when test="${not empty eduCompleteList}">
+									<c:forEach items="${eduCompleteList}" var="eduCompleteList" varStatus="status">
 										<c:set var="sum" value="${sum+1}"/>
 										<tr>
 											<td>${sum }</td>
 											<td>${eduCompleteList.edctNm }</td>
 											<td>${eduCompleteList.edinNm }</td>
 											<td>${eduCompleteList.edctSttgYmd } ~ ${eduCompleteList.edctFnshYmd }</td>
-											<td>${eduCompleteList.cnfaYn }</td>
+											<td>${eduCompleteList.ctcrYn }</td>
 											<td>
 												<button type="button" class="btn btn-primary btn-xs"
-													onclick="showPopup('myClass','eduInfoPop');">확인</button>
+													onclick="showPopup('myClass','eduInfoPop?edctAplcId='+${eduCompleteList.edctAplcId});">확인</button>
 											</td>
 										</tr>
-																			</c:forEach>
+								</c:forEach>
 								</c:when>
 							<c:otherwise>
 									<tr height="130">
@@ -118,3 +118,54 @@
 
 	<!-- FOOTER -->
 	<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
+		<script type="text/javascript">
+		
+		function search() {
+		var sttgYmd = $('#sttgYmd').val();
+		var fnshYmd = $('#fnshYmd').val();
+		
+		if(sttgYmd == "" && fnshYmd != "") {
+			alert("시작 날짜를 입력해주세요.");
+			return;
+		} else if(sttgYmd != "" && fnshYmd == "") {
+			alert("종료 날짜를 입력해주세요.");
+			return;
+		} 
+		
+		$.ajax({
+	    	url:"/itep/views/myClass/completeSearch", //데이터를  넘겨줄 링크 설정
+	        type:"POST", // post 방식
+			data: {"sttgYmd" : sttgYmd,
+				   "fnshYmd" : fnshYmd}, //넘겨줄 데이터
+			
+			success: function (responseData) {
+				// 결재현황 조회
+				var str = '';
+				str += '<tbody id=\"completeTbody\">';
+				if(responseData != 0){
+				$.each(responseData, function(i) {
+					str += '<tr>';
+					str += '<td>'+(i+1)+'</td>';
+					str += '<td>'+responseData[i].edctNm+'</td>';
+					str += '<td>'+responseData[i].edinNm+'</td>';
+					str += '<td>'+responseData[i].edctSttgYmd + '~' + responseData[i].edctFnshYmd+'</td>';
+					str += '<td>'+responseData[i].ctcrYn+'</td>';
+					str += '<td><button type=\"button\" class=\"btn btn-primary bts-xs\" onclick=\"showPopup(\'myClass\',\'eduInfoPop?edctAplcId='+responseData[i].edctAplcId+'\');\">확인</button></td>'
+					str += '</tr>';
+				});
+				str += '</tbody>';
+				$('#completeTbody').replaceWith(str);
+				}else{
+						str += '<tr height="130">';
+						str += '<td colspan="7" class="txt_center"><h4>선택 기간 내 수강 완료한 교육이 없습니다.</h4></td>';
+						str += '</tr>';
+					str += '</tbody>';
+					$('#completeTbody').replaceWith(str);
+				}
+			},
+			error: function (xhr, status, error) { alert("왜때문에그런거니~");
+				
+			}
+		});
+	}
+	</script>

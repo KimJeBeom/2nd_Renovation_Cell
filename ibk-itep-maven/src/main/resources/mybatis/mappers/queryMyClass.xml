@@ -92,7 +92,7 @@
 	</update>
 	
 <!-- myclass.xml > eduNow AND EDC.EDCT_STTG_YMD BETWEEN #{조회시작일자} AND #{조회종료일자} -->
-	<select id="selectEduComplete" parameterType="SessionVo" resultType="EduCompleteVO">
+	<select id="selectEduComplete" parameterType="EduListSrchVO" resultType="EduCompleteVO">
 	     <![CDATA[
 			/*수강완료교육 조회*/
 			SELECT 
@@ -113,13 +113,17 @@
 			AND EDA.USER_ID = #{userId} 
 			AND EDA.APLC_STG_CD = 'EDUFIN'
 			AND EDA.USE_YN = 'Y'
-			
+				     ]]>
+			<if test="!sttgYmd.equals('') and !fnshYmd.equals('')">
+				AND EDC.EDCT_STTG_YMD BETWEEN CONCAT(#{sttgYmd}, ' 00:00:00') AND CONCAT(#{fnshYmd}, ' 23:59:59')
+			</if>
+				<![CDATA[
 			ORDER BY EDC.EDCT_STTG_YMD DESC
 	     ]]>
 	</select>
 	
 <!-- myclass.xml > eduNow -->
-	<select id="selectEduMyHistory" parameterType="SessionVo" resultType="EduMyHistoryVO">
+	<select id="selectEduMyHistory" parameterType="EduListSrchVO" resultType="EduMyHistoryVO">
 	     <![CDATA[
 			/*수강신청이력 조회*/
 			SELECT 
@@ -141,13 +145,12 @@
 			AND EDA.APLC_STG_CD = CLS.APLC_STG_CD
 			AND EDA.USER_ID = #{userId} 
 		]]>
-	<!--  <if test="startDate != null">
-		<![CDATA[
-		AND EDC.EDCT_STTG_YMD BETWEEN #{startDate} AND #{endDate}
-		]]>
-	</if> -->
+			<if test="!sttgYmd.equals('') and !fnshYmd.equals('')">
+				AND EDC.EDCT_STTG_YMD BETWEEN CONCAT(#{sttgYmd}, ' 00:00:00') AND CONCAT(#{fnshYmd}, ' 23:59:59')
+			</if>
 		<![CDATA[
 			AND EDA.USE_YN='Y'
+			ORDER BY EDC.EDCT_STTG_YMD DESC
 	     ]]>
 	</select>
 	
@@ -181,12 +184,13 @@
 	</select>
 
 <!-- myclass.xml > eduInfoPop -->
-	<update id="updateEduInfoPop" parameterType="Integer">
+	<update id="updateEduInfoPop" parameterType="EduInfoPopVO">
 	     <![CDATA[
 			/*교육신청 상세확인 팝업 > 재결재요청*/
 			UPDATE TB_IEP_EDA001M
 			SET APLC_STG_CD = "APRDPM",
-				APND_DAT = "첨부파일임니당"
+			DPM_ATHZ_ID = #{dpmAthzId},
+			APLC_TS = SYSDATE()
 			WHERE APLC_STG_CD IN ("REJDPM","REJGRM")
 			AND EDCT_APLC_ID = #{edctAplcId};
 	     ]]>

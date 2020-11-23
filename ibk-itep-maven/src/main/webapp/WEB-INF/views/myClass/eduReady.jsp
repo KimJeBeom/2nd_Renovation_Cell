@@ -35,7 +35,7 @@
 							<!-- End 과정개설 신청목록-소제목 -->
 							<!-- Start 과정개설 신청목록-리스트 -->
 							<div class="panel-body" style="overflow-x:hidden; height:250px;">
-								<table class="table table-hover">
+								<table id="eduNewListTb" class="table table-hover">
 									<thead>
 										<tr>
 											<th>No</th>
@@ -83,7 +83,7 @@
 								</h4>
 							</div>
 							<!-- End 수강신청목록-소제목 -->
-							<div id="eduReadyListdiv" class="panel-body" style="height:250px;">
+							<div id="eduReadyListdiv" class="panel-body" style="overflow-x:hidden; height:350px;">
 								<!-- Start 수강신청목록-리스트 -->
 								<table class="table table-hover">
 									<thead>
@@ -116,7 +116,7 @@
 											<td id="aplcStgNm">${eduReadyList.aplcStgNm }</td>
 											<td id="edctAplcId" style="display:none">${eduReadyList.edctAplcId}</td>
 											<td>
-												<button type="button" class="btn btn-default btn-xs" onclick="button_event(${eduReadyList.edctAplcId});">취소요청</button>
+												<button type="button" class="btn btn-default btn-xs" onclick="cancel(${eduReadyList.edctAplcId});">취소요청</button>
 											</td>
 										</tr>	
 									</c:forEach>
@@ -146,31 +146,58 @@
 	<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 	
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-		<script type="text/javascript">
-		function button_event(edctAplcId) {
-			
-			if (confirm("해당 교육을 취소하시겠습니까?") == true){  
-		    $.ajax({
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/floatthead/2.2.1/jquery.floatThead.js"></script>
+	<script type="text/javascript">
+
+	$('#eduNewListTb').floatThead();
+
+	
+		$(document).ready(function() {
+			var tbody = document.getElementById('eduReadyListTbody');
+			var trs = tbody.getElementsByTagName('tr');	
+		});
+		
+		function cancel(edctAplcId) {
+		
+		if (confirm("해당 교육을 취소하시겠습니까?") == true){  
+			$.ajax({
 		    	url:"/itep/views/myClass/eduReady/cancel", //데이터를  넘겨줄 링크 설정
 		        type:"POST", // post 방식
 				data: {"edctAplcId" : edctAplcId}, //넘겨줄 데이터
+	
 				success: function (responseData) {
-					alert(responseData);
-					if(responseData == 1){
-						$('#edctNm').html(responseData.edctNm);
-						$('#edinNm').html(responseData.edinNm);
-						$('#edctYmd').html(responseData.edctSttgYmd);
-						$('#aplcTs').html(responseData.aplcTs);
-						$('#aplcStgNm').html(responseData.aplcStgNm);
-					}else{
-						confirm("취소요청이 실패하였습니다. 다시 시도해 주십시오");
+					var str = '';
+					str += '<tbody id=\"eduReadyListTbody\">';
+					$.each(responseData, function(i) {
+						str += '<tr>';
+						str += '<td>'+(i+1)+'</td>';
+						str += '<td>'+responseData[i].edctNm+'</td>';
+						str += '<td>'+responseData[i].edinNm+'</td>';
+						str += '<td>'+responseData[i].edctSttgYmd + '~' + responseData[i].edctFnshYmd+'</td>';
+						str += '<td>'+responseData[i].aplcTs+'</td>';
+						str += '<td><button type=\"button\" class=\"btn btn-primary bts-xs\" onclick=\"showPopup(\'myClass\',\'eduInfoPop?edctAplcId='+responseData[i].edctAplcId+'\');\">확인</button></td>'
+						str += '<td>'+responseData[i].aplcStgNm+'</td>';
+						str += '<td><button type=\"button\" class=\"btn btn-default btn-xs\" onclick=\"cancel('+responseData[i].edctAplcId+');\">취소요청</button></td>'
+						str += '</tr>';
+					});
+					str += '</tbody>';
+					$('#eduReadyListTbody').replaceWith(str);
+					
+					if(responseData.length == 0) {
+						 
+					} else {
+						var tbody = document.getElementById('eduReadyListTbody');
+						var trs = tbody.getElementsByTagName('tr');
 					}
 				},
-				error: function (xhr, status, error) {alert("에러임" + responseData);}
+				error: function (xhr, status, error) { alert("왜때문에그런거니~");
+					
+				}
 			});
-		}else{   //취소
-	 		return;
+	}else{
+			return;
 		}
-}
+	}
 
+		
 </script>
