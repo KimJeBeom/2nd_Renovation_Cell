@@ -26,6 +26,6 @@
 	
 	<!-- resource mapping -->
 	<!-- location : 물리적 주소 / mapping : 가상 주소 -->
-	<mvc:resources location="file:/dat/" mapping="/dat/*" />
+<!-- 	<mvc:resources location="file:/dat/" mapping="/dat/*" /> -->
 	
 </beans>
