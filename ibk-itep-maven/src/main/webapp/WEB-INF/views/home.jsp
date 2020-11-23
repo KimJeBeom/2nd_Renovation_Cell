@@ -76,7 +76,7 @@
 		
 		<!-- 오른쪽 아래 아이콘 -->
 		<div style="position:fixed; right:41px; top:70px;">
-			<a href="javascript:showImgWin('deptTopEdct')"><img src="/itep/assets/itep/img/icon/deptTop-icon.png" style="width:33px; height:43px;"/></a>
+			<a href="javascript:showImgWin('deptTop')"><img src="/itep/assets/itep/img/icon/deptTop-icon.png" style="width:33px; height:43px;"/></a>
 		</div>
 		<div style="position:fixed; right:24px; top:123px;">
 			<a href="javascript:showImgWin('eduCurric')"><img src="/itep/assets/itep/img/icon/eduCurric-icon.png"/></a>

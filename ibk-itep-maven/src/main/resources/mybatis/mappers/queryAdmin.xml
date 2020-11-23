@@ -484,41 +484,40 @@
 					,cmu.USER_NM as userNm		-- 직원명
     				,cmu.USER_JTM as userJtm	-- 직책
     				,cmu.USER_TPN as userTpn	-- 행내전화
+    				,cmb.BRCD as brcd			-- 부서코드
     				,cmb.BRNM as brnm			-- 부서명
-    				,cmu.TEAM_CD
+    				,cmu.TEAM_CD as teamCd-- 팀코드
     				,(select BRNM from itep.tb_iep_cmb001m where cmu.TEAM_CD = itep.tb_iep_cmb001m.BRCD) as teamNM	-- 팀명
     				,cmu.USE_YN as useYn	-- 퇴직여부
+    				,cla.ATHR_CD as athrCd	-- 권한코드
     				,cla.ATHR_NM as athrNm	-- 권한명
 			from 	itep.tb_iep_cmu001m cmu, itep.tb_iep_cmb001m cmb, itep.tb_iep_cla001c cla
 			where	cmu.DVCD = cmb.BRCD
     			and cmu.ATHR_CD = cla.ATHR_CD
+    			and cmb.use_yn = 'Y' and cla.use_yn = 'Y'
 		]]>
-    	<if test="userId != null">
+    	<if test="userId != null and !userId.equals('')">
 	    	<![CDATA[
-	 	   		and cmu.USER_ID = '#{userId}'
+	 	   		and cmu.USER_ID = #{userId}
 	    	]]>
 	    </if>
-    	<if test="userNm != null">
-	    	<![CDATA[#
-	 	   		and cmu.USER_NM = '#{userNm}'
+    	<if test="userNm != null and !userNm.equals('')">
+	    	<![CDATA[
+	 	   		and cmu.USER_NM = #{userNm}
 	    	]]>
 	    </if>
-    	<if test="brnm != null">
-	    	<![CDATA[#
-	 	   		and cmu.DVCD = '#{brnm}'
+    	<if test="brcd != null and !brcd.equals('')">
+	    	<![CDATA[
+	 	   		and cmu.DVCD = #{brcd}
 	    	]]>
 	    </if>
-    	<if test="teamCd != null">
-	    	<![CDATA[#
-	 	   		and cmu.TEAM_CD = '#{teamCd}'
-	    	]]>
-	    </if>
-    	<if test="athrCd != null">
-	    	<![CDATA[#
-	 	   		and cmu.ATHR_CD ='#{athrCd}';
+    	<if test="athrCd != null and !athrCd.equals('')">
+	    	<![CDATA[
+	 	   		and cmu.ATHR_CD =#{athrCd};
 	    	]]>
 	    </if>
 	</select>
+	
 	<!-- 사용자 권한 업데이트 -->
 	<update id="updateEmpAccMng" parameterType="EmpAccMngVo">
 		<![CDATA[
@@ -527,6 +526,7 @@
 			where 	cmu.USER_ID=#{userId}
 		]]>
 	</update>
+	
 <!-- Start - 코드관리		eduCdMng -->	
 <!-- End - 코드관리		eduCdMng -->
 

@@ -12,6 +12,7 @@ import com.ibk.itep.vo.cmm.ClaVo;
 import com.ibk.itep.vo.cmm.CldVo;
 import com.ibk.itep.vo.cmm.CliVo;
 import com.ibk.itep.vo.cmm.ClsVo;
+import com.ibk.itep.vo.cmm.CmbVo;
 
 @Service
 public class CmmService {
@@ -32,5 +33,8 @@ public class CmmService {
 	}
 	public List<ClsVo> selectCls(ClsVo vo){
 		return cmmDao.selectCls(vo);
+	}
+	public List<CmbVo> selectCmb(){
+		return cmmDao.selectCmb(); // 상위부점이 IT그룹인 부서 조회
 	}
 }

@@ -56,4 +56,14 @@
 	    	]]>
 	    </if>
 	</select>
+	<select id="selectCmb" resultType="CmbVo">
+		<![CDATA[
+			select	BRCD 	as brcd						
+				,	BRNM 	as brnm						
+				,	HGRN_BRCD 	as hgrnBrcd	
+			from	itep.TB_IEP_CMB001M
+			where USE_YN = 'Y'
+			and HGRN_BRCD = '0889'
+		]]>
+	</select>
 </mapper>

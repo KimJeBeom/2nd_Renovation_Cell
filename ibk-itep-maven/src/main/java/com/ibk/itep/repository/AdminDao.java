@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.ibk.itep.vo.admin.EduRegModVo;
+import com.ibk.itep.vo.admin.EmpAccMngVo;
 
 @Repository
 public class AdminDao {
@@ -57,5 +58,15 @@ public class AdminDao {
 		int count = sqlSession.delete("queryLes.deleteAdmin", rflbId);
 		return count == 1;	
 	}*/
+	
+	/* 사용자 계정관리 */
+	public List<EmpAccMngVo> selectEmpAccMng(EmpAccMngVo vo) {
+		List<EmpAccMngVo> list = sqlSession.selectList("queryAdmin.selectEmpAccMng", vo);
+		return list;
+	}
+	
+	public void updateEmpAccMng(EmpAccMngVo vo) {
+		sqlSession.update("queryAdmin.updateEmpAccMng", vo);
+	}
 
 }

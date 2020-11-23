@@ -10,6 +10,7 @@ import com.ibk.itep.vo.cmm.ClaVo;
 import com.ibk.itep.vo.cmm.CldVo;
 import com.ibk.itep.vo.cmm.CliVo;
 import com.ibk.itep.vo.cmm.ClsVo;
+import com.ibk.itep.vo.cmm.CmbVo;
 
 @Repository
 public class CmmDao {
@@ -33,6 +34,11 @@ public class CmmDao {
 	
 	public List<ClsVo> selectCls(ClsVo vo) {
 		List<ClsVo> list = sqlSession.selectList("queryCmm.selectCls", vo);
+		return list;
+	}
+	
+	public List<CmbVo> selectCmb() {
+		List<CmbVo> list = sqlSession.selectList("queryCmm.selectCmb");
 		return list;
 	}
 }

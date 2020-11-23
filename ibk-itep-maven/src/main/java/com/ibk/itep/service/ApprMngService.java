@@ -62,7 +62,7 @@ public class ApprMngService {
 		return check;
 	}
 	
-	public int updateApprRej(List<Integer> edctAplcIdArr, String rtreCon){		
+	public int updateApprRej(List<Integer> edctAplcIdArr, String rtreCon, SessionVo ssnInfo){		
 		int check = 0;
 		for(int id : edctAplcIdArr) {
 			// 해당 신청건의 현재 교육신청단계코드 조회
@@ -76,7 +76,7 @@ public class ApprMngService {
 				
 				// 파라미터 전달을 위한 vo 객체 생성
 				ApprConfRejVo apprConfRejVo = new ApprConfRejVo();
-				apprConfRejVo.setUserId("42664");
+				apprConfRejVo.setUserId(ssnInfo.getUserId());
 				apprConfRejVo.setEdctAplcId(id);
 				apprConfRejVo.setAplcStgCd(aplcStgCd);
 				apprConfRejVo.setRtreCon(rtreCon);

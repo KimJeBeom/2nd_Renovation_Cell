@@ -202,6 +202,10 @@
 		HighLightTableTr(trs[0]);	
 	});
 	
+	$("#sttgYmd").keyup(function(e){if(e.keyCode == 13)  search(); });
+	$("#fnshYmd").keyup(function(e){if(e.keyCode == 13)  search(); });
+	$("#aplcStg").keyup(function(e){if(e.keyCode == 13)  search(); });
+	
 	function search() {
 		var sttgYmd = $('#sttgYmd').val();
 		var fnshYmd = $('#fnshYmd').val();
