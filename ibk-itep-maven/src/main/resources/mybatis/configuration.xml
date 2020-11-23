@@ -51,5 +51,6 @@
 		<mapper resource="mybatis/mappers/queryMyClass.xml" />
 		<mapper resource="mybatis/mappers/queryBoard.xml" />
 		<mapper resource="mybatis/mappers/queryMainHome.xml" />
+		<mapper resource="mybatis/mappers/queryEduApply.xml" />
 	</mappers>
 </configuration>

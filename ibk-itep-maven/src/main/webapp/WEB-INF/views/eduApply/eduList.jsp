@@ -94,7 +94,7 @@
 													<c:forEach items="${list}" var="eduList" varStatus="status">
 													<tr>
 				 										<td style="text-align:center">${eduList.edctCntId}
-														<td style="text-align:  left"><span class="badge badge-primary">${eduList.edctLevl}</span>&nbsp;${eduList.edctNm}</td>
+														<td style="text-align:  left"><span class="badge badge-primary">${eduList.edctLevl}</span>${eduList.edctNm}</td>
 														<td style="text-align:center">${eduList.edinNm}</td>
 														<td style="text-align:center">${eduList.aplcSttgYmd} ~ ${eduList.aplcFnshYmd}</td>
 														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup('eduApply','eduApplyPop?edctCntId=${eduList.edctCntId}');">안내 및 신청</button></td>
@@ -200,7 +200,7 @@
 										</nav>
 									</div>
 								</div>
-								<div class="tab-pane" id="tab4">
+								<div class="tab-pane" id="tab5">
 
 									<div class="col-md-12">
 										<div class="table-responsive">
@@ -275,7 +275,7 @@ function a(tabValue){
 							str += '<td style="text-align:  left"><span class="badge badge-primary">'+responseData[i].edctLevl+'</span>'+responseData[i].edctNm+'</td>';
 							str += '<td style="text-align:center">'+responseData[i].edinNm+'</td>';
 							str += '<td style="text-align:center">'+responseData[i].aplcSttgYmd+'~'+responseData[i].aplcFnshYmd+'</td>';
-							str += '<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup("eduApply","eduApplyPop?edctCntId='+responseData[i].edctCntId+');">안내 및 신청</button></td>';
+							str += '<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup(\'eduApply\',\'eduApplyPop?edctCntId='+responseData[i].edctCntId+'\');">안내 및 신청</button></td>';
 							str += '</tr>';
 						}
 					});
@@ -329,7 +329,7 @@ function search() {
 							str += '<td style="text-align:  left"><span class="badge badge-primary">'+responseData[i].edctLevl+'</span>'+responseData[i].edctNm+'</td>';
 							str += '<td style="text-align:center">'+responseData[i].edinNm+'</td>';
 							str += '<td style="text-align:center">'+responseData[i].aplcSttgYmd+'~'+responseData[i].aplcFnshYmd+'</td>';
-							str += '<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup("eduApply","eduApplyPop?edctCntId='+responseData[i].edctCntId+');">안내 및 신청</button></td>';
+							str += '<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup(\'eduApply\',\'eduApplyPop?edctCntId='+responseData[i].edctCntId+'\');">안내 및 신청</button></td>';
 							str += '</tr>';
 						}
 					});

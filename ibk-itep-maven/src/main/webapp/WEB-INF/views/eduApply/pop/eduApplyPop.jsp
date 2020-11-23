@@ -26,7 +26,7 @@
 							   <td>${vo.edctClsfNm}</td>
 							   <th>결재대상</th>
 								<c:choose>
-									<c:when test="${vo.eginAplyYn eq 'Y'}">
+									<c:when test="${vo.snctTgtYn eq 'Y'}">
 										<td>결재대상</td>	 
 									</c:when>
 									<c:otherwise>
@@ -90,7 +90,7 @@
 							<td style="text-align:center">${cntList.aplcSttgYmd} ~ ${cntList.aplcFnshYmd}
 							<c:choose>
 								<c:when test="${cntList.aplcAbleYn eq 'Y'}">
-									<td style="text-align:center"><button type="button" class="btn btn-primary btn-toastr" onclick="showPopup('eduApply','eduInfoPop?edctCntId=${cntList.edctCntId}&&modType=insert&&eginAplyYn=${vo.eginAplyYn}');">교육신청</button></td>	 
+									<td style="text-align:center"><button type="button" class="btn btn-primary btn-toastr" onclick="showPopup('eduApply','eduInfoPop?edctCntId=${cntList.edctCntId}&&modType=insert&&snctTgtYn=${vo.snctTgtYn}');">교육신청</button></td>	 
 								</c:when>
 								<c:otherwise>
 									<td style="text-align:center"><button type="button" class="btn btn-default btn-toastr" disabled="disabled">신청마감</button></td>
@@ -116,14 +116,14 @@
 
 <!-- FOOTER -->
 <script>
-function showApplyPopup(menu, name, edctCntId, modType, eginAplyYn) {
+function showApplyPopup(menu, name, edctCntId, modType, snctTgtYn) {
 	var size = '';
 	
 	// 교육신청 결재 요청 팝업
 	if (name == 'eduInfoPop')
 		size = 'location=no, width=750, height=430, left=200, top=200';
 
-	window.open('/itep/views/'+menu+'/pop/'+name+'?edctCntId='+edctCntId+'&&modType='+modType+'&&eginAplyYn='+eginAplyYn, '_blank', size); 
+	window.open('/itep/views/'+menu+'/pop/'+name+'?edctCntId='+edctCntId+'&&modType='+modType+'&&snctTgtYn='+snctTgtYn, '_blank', size); 
 }	
 </script>
 <jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />

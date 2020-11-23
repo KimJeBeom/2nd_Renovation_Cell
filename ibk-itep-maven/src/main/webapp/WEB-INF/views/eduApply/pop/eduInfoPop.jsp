@@ -19,7 +19,7 @@
 				<div class="container-fluid">
 					<h3 class="page-title"><b>교육 신청</b></h3>
 					<div class="row">
-	 				<c:if test ="${vo.snctTgtYn eq 'Y' || modType eq 'insert'}">
+	 				<c:if test ="${vo.snctTgtYn eq 'Y' && modType eq 'insert'}">
 						<b>&nbsp;&nbsp;* 결재요청시 부서 관리자(기획팀장/기획서무 책임자)에게 전달 됩니다.</b><br>
 					</c:if>
 						<div class="col-md-9 col-popup">
@@ -28,12 +28,8 @@
 								<!--<div style="text-align:left; padding-bottom: 10px;">-->
 								<table>
 									<tbody>
-<!-- 										<tr>
-											<td style="width: 100%; padding-left: 5px; text-align: left; padding-bottom: 10px;"  colspan="4">
-												<b>* 결재요청시 부서 관리자(기획팀장/기획서무 책임자)에게 전달 됩니다.</b>
-											</td>
-										</tr> -->
 										<tr>
+											<c:if test ="${vo.snctTgtYn eq 'Y' && modType eq 'insert'}">
 											<td style="width: 5%; text-align: center; padding-bottom: 10px;"><b>■ 부서 결재자</b></td>
 											<td style="width: 5%; padding-bottom: 10px;">
 												<div>
@@ -44,6 +40,7 @@
 													</select>
 												</div>
 											</td>
+											</c:if>
 											<td style="width: 10%; padding-left: 5px; text-align: right; padding-bottom: 10px;">
 												<c:choose>
 													<c:when test="${modType eq 'insert'}">
@@ -60,7 +57,6 @@
 													</c:otherwise>
 												</c:choose>											
 											</td>
-
 										</tr>
 									</tbody>
 								</table>
@@ -123,7 +119,7 @@ function fstApply(){
    	var conf = confirm('등록하시겠습니까?');
    	if(conf==true){
    	   	var edctCntId = '${vo.edctCntId}'; //교육차수id
-		var grmAthzId = $("#dpmid").val(); //부서결제자
+		var dpmAthzId = $("#dpmid").val(); //부서결제자
 		var	apndDat = $("#file").val(); //첨부파일
 		var	snctTgtYn = '${vo.snctTgtYn}'; //결제여부
 		
@@ -136,7 +132,7 @@ function fstApply(){
 				type:"POST", // post 방식
 				data: 
 		    	    {"edctCntId" : edctCntId
-		    	    ,"grmAthzId" : grmAthzId
+		    	    ,"dpmAthzId" : dpmAthzId
 		    	    ,"apndDat" : apndDat
 		    	    ,"snctTgtYn" : snctTgtYn
 		    	    ,"modAct" : "insert"},

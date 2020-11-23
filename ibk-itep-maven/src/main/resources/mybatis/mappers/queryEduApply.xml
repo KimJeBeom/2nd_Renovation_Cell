@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="queryLes">
+<mapper namespace="queryEduApply">
 
 	<select id="selectEduList" parameterType="HashMap" resultType="EduListVo">
 	    <![CDATA[
@@ -101,7 +101,7 @@
 		SELECT 		
 				CASE WHEN A.APLC_STG_CD ='APRRJT' THEN 'update'
 				WHEN A.APLC_STG_CD = 'insert' THEN 'insert'
-				ELSE 'disaple' END AS MODCODE
+				ELSE 'disable' END AS MODCODE
 		FROM
 				(SELECT 
 						COALESCE(max(APLC_STG_CD), 'insert') as APLC_STG_CD
@@ -109,6 +109,7 @@
 				 WHERE  USER_ID = #{userId}
 				 AND    EDCT_CNT_ID = #{edctCntId}
 				 AND    USE_YN ='Y') A
+				 
 	    ]]>
 	</select>
 	
@@ -155,18 +156,18 @@
 	<insert id="insertEduApplyPopNon" parameterType="EduListVo">
 	    <![CDATA[
 		/*교육신청>교육목록팝업>교육신청등록(비결재)*/
-		INSERT INTO TB_IEP_CLS001C(
+		INSERT INTO TB_IEP_EDA001M(
 			 EDCT_CNT_ID	#교육차수ID
 			,TEAM_CD	#팀코드
 			,DVCD	#부서코드
 			,USER_ID	#신청자ID
 			,APLC_TS	#신청일시
 			,APND_DAT	#첨부파일
-			,DPT_ATHZ_ID	#부서승인ID 
-			,DPT_ATHZ_TS	#부서승인일시
-			,MNGR_ATHZ_ID	#관리자승인ID
-			,MNGR_ATHZ_TS	#관리자승인일시
-			,APL_CSTG_CD	#교육신청단계코드
+			,DPM_ATHZ_ID	#부서승인ID 
+			,DPM_ATHZ_TS	#부서승인일시
+			,GRM_ATHZ_ID	#관리자승인ID
+			,GRM_ATHZ_TS	#관리자승인일시
+			,APLC_STG_CD	#교육신청단계코드
 			,CTCR_YN	#수료여부
 			,RFRC_CON	#참고
 			,RTRE_CON	#반려사유
@@ -254,203 +255,6 @@
 		)
 	     ]]>
 	</insert>
-	
-	<select id="selectNotice" parameterType="NoticeVo" resultType="NoticeVo">
-	    <![CDATA[
-		/*게시판>공지사항>공지사항조회*/
-		SELECT  
-			   PBNS_ID AS PBNSID#공지사항ID
-			  ,EDCT_CLSF_CD AS EDCTCLSFCD #교육분류코드
-			  ,(SELECT EDCT_CLSF_NM FROM TB_IEP_CLD001C D WHERE D.EDCT_CLSF_CD = N.EDCT_CLSF_CD LIMIT 1 ) AS EDCTCLSFNM #교육기관명
-			  ,TTL AS TTL#제목 
-			  ,CON AS CON#내용
-			  ,RGSN_TS AS RGSNTS#등록일시 
-			  ,USER_ID AS USERID#사용자ID
-			  ,(SELECT USER_NM FROM TB_IEP_CMU001M U WHERE U.USER_ID = N.USER_ID LIMIT 1 ) AS USERNM #신청자명
-			  ,APND_DAT AS APNDDAT  #첨부파일
-			  ,USE_YN AS USEYN 	#사용여부
-		FROM  TB_IEP_BDN001M N
-		WHERE 1=1
-		]]>
-	<if test="ttl != null">
-		<![CDATA[
-		AND   TTL LIKE CONCAT('%',#{ttl},'%')
-		]]>
-	</if>
-		<![CDATA[
-		AND   USE_YN ='Y'
-	    ]]>
-	</select>
-	
-	<select id="selectNoticeDetail" parameterType="NoticeVo" resultType="NoticeVo">
-	    <![CDATA[
-		/*게시판>공지사항>공지사항조회*/
-		SELECT  
-			   PBNS_ID AS PBNSID #공지사항ID
-			  ,EDCT_CLSF_CD AS EDCTCLSFCD #교육분류코드
-			  ,(SELECT EDCT_CLSF_NM FROM TB_IEP_CLD001C D WHERE D.EDCT_CLSF_CD = N.EDCT_CLSF_CD LIMIT 1 ) AS EDCTCLSFNM #교육기관명
-			  ,TTL AS TTL #제목 
-			  ,CON AS CON #내용
-			  ,RGSN_TS AS RGSNTS #등록일시 
-			  ,USER_ID AS USERID #사용자ID
-			  ,(SELECT USER_NM FROM TB_IEP_CMU001M U WHERE U.USER_ID = N.USER_ID LIMIT 1 ) AS USERNM #신청자명
-			  ,APND_DAT AS APNDDAT #첨부파일
-			  ,USE_YN AS USEYN 	#사용여부
-		FROM  TB_IEP_BDN001M N
-		WHERE 1=1
-		AND   PBNS_ID = #{pbnsId}
-		LIMIT 1
-		]]>
-	</select>
-	
-	<select id="insertNotice" parameterType="NoticeVo" resultType="String">
-	     <![CDATA[
-		/*게시판>공지사항>공지사항등록*/
-		INSERT INTO TB_IEP_BDN001M(
-			 EDCT_CLSF_CD#교육분류코드
-			,TTL#제목 
-			,CON#내용
-			,RGSN_TS#등록일시 
-			,USER_ID#사용자ID
-			,APND_DAT #첨부파일
-			,USE_YN	#사용여부
-		) VALUES(
-			 #{edctClsfCd},
-			,#{ttl}
-			,#{con}'
-			,NOW()
-			,#{userId}
-			,#{apndDat}
-			,'Y' 
-		)
-	     ]]>
-	</select>
-	
-	<update id="updateNotice" parameterType="NoticeVo">
-	     <![CDATA[
-		/*게시판>공지사항>공지사항 수정*/
-		UPDATE TB_IEP_BDN001M
-		set 
-		    TTL = #{ttl} #제목 
-		   ,CON = #{con}#내용
-		   ,APND_DAT = #{apndDat} #첨부파일
-		WHERE PBNS_ID =#{pbnsId}
-	     ]]>
-	</update>
-	
-	<delete id="deleteNotice" parameterType="NoticeVo">
-	     <![CDATA[
-		/*게시판>공지사항>공지사항삭제*/
-		UPDATE TB_IEP_BDN001M
-		set USE_YN ='N'	#사용여부
-		WHERE PBNS_ID = #{pbnsId}
-	     ]]>
-	</delete>
-	
-	<select id="selectArchList" parameterType="ArchieveVo" resultType="ArchieveVo">
-	    <![CDATA[
-		/*게시판>자료실>자료실조회*/
-		SELECT 
-			   RFLB_ID AS RFLBID#공지사항ID
-			  ,EDCT_CLSF_CD AS EDCTCLSFCD#교육분류코드
-			  ,(SELECT EDCT_CLSF_NM FROM TB_IEP_CLD001C D WHERE D.EDCT_CLSF_CD = EDCT_CLSF_CD) AS EDCTCLSFNM #교육기관명
-			  ,TTL AS TTL#제목 
-			  ,CON AS CON#내용
-			  ,RGSN_TS AS RGSNTS#등록일시 
-			  ,USER_ID AS USERID#사용자ID
-			  ,(SELECT USER_NM FROM TB_IEP_CMU001M U WHERE U.USER_ID = USER_ID) AS USERNM #신청자명
-			  ,APND_DAT AS APNDDAT  #첨부파일
-			  ,USE_YN AS USEYN 	#사용여부
-		FROM  TB_IEP_BDR001M
-		WHERE 1=1
-		]]>
-	<if test="ttl != null">
-		<![CDATA[
-		AND   TTL LIKE CONCAT('%',#{ttl},'%')	 
-		]]>
-	</if>
-		<![CDATA[
-		AND   USE_YN ='Y'
-	    ]]>
-	</select>
-	
-	<select id="insertArchieve" parameterType="ArchieveVo" resultType="String">
-	     <![CDATA[
-		/*게시판>자료실>자료실등록*/
-		INSERT INTO TB_IEP_BDN001R(
-			 EDCT_CLSF_CD#교육분류코드
-			,TTL#제목 
-			,CON#내용
-			,RGSN_TS#등록일시 
-			,USER_ID#사용자ID
-			,APND_DAT #첨부파일
-			,USE_YN	#사용여부
-		) VALUES(
-			 #{edctClsfCd},
-			,#{ttl}
-			,#{con}'
-			,NOW()
-			,#{userId}
-			,#{apndDat}
-			,'Y' 
-		)
-	     ]]>
-	</select>
-	
-	<update id="updateArchieve" parameterType="ArchieveVo">
-	     <![CDATA[
-		/*게시판>자료실>자료실 수정*/
-		UPDATE TB_IEP_BDR001M
-		set 
-		    EDCT_CLSF_CD = #{edctClsfCd} #교육분류코드
-		   ,TTL = #{ttl} #제목 
-		   ,CON = #{con}#내용
-		   ,APND_DAT = #{apndDat} #첨부파일
-		WHERE RFLB_ID = #{rflbId}
-	     ]]>
-	</update>
-	
-	<delete id="deleteArchieve" parameterType="ArchieveVo">
-	     <![CDATA[
-		/*게시판>자료실>자료실삭제*/
-		UPDATE TB_IEP_BDR001M
-		set USE_YN ='N'	#사용여부
-		WHERE RFLB_ID = #{rflbId}
-	     ]]>
-	</delete>
-	
-	<select id="selectNewEduInfoPop" parameterType="EduInfoVo" resultType="EduInfoVo">
-	     <![CDATA[
-		/*관리자>교육신청현황>교육상세팝업*/
-		SELECT
-		 	   M.EDCT_NM AS EDCTNM#교육명 
-			  ,M.EDCT_CON AS EDCTCON	#교육내용 
-			  ,C.EDCT_STTG_TIM AS EDCTSTTGTIM	#교육시작시간
-			  ,C.EDCT_FNSH_TIM AS EDCTFNSHTIM	#교육종료시간
-		FROM
-			   TB_IEP_EDC001M C #교육차수
-			  ,TB_IEP_EDM001M M #교육메인
-		WHERE 1=1
-		AND   C.EDCT_ID	= M.EDCT_ID
-		AND   M.EDCT_NM = #{edctNm}
-	     ]]>
-	</select>
-	
-	<select id="selectNewEduInfoCntPop" parameterType="EduInfoVo" resultType="EduInfoVo">
-	     <![CDATA[
-		/*관리자>교육신청현황>교육상세팝업(차수)*/
-		SELECT 
-			   EDCT_APLC_ID AS EDCTAPLCID	#교육신청ID 
-			  ,TEAM_CD AS TEAMCD #팀코드
-			  ,DVCD AS DVCD #부서코드
-			  ,(SELECT BRNM FROM TB_IEP_CMB001M C WHERE C.BRCD = A.TEAM_CD) AS BRNM	#팀명
-			  ,(SELECT BRNM FROM TB_IEP_CMB001M C WHERE C.BRCD = A.DVCD) AS BRNM	#부서명
-			  ,USER_ID AS USERID	#신청자ID
-			  ,(SELECT USER_NM FROM TB_IEP_CMU001M U WHERE U.USER_ID = A.USER_ID)  AS USERNM#신청자명
-		FROM  TB_IEP_EDA001M A
-		WHERE 1=1
-		AND   EDCT_CNT_ID =#{edctCntId} 	#교육차수ID
-	     ]]>
-	</select>
+
 
 </mapper>

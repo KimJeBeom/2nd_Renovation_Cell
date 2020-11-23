@@ -27,7 +27,7 @@ public class EduListDao {
 	public List<EduListVo> selectEduList(HashMap map) {
 
 		logger.info("[DAO]selectEduList Start");
-		List<EduListVo> list = sqlSession.selectList("queryLes.selectEduList",map);
+		List<EduListVo> list = sqlSession.selectList("queryEduApply.selectEduList",map);
 		logger.info("[DAO]selectEduList End");
 
 		return list;
@@ -36,7 +36,7 @@ public class EduListDao {
 	public EduListVo selectEduDetail(EduListVo vo) {
 		
 		logger.info("[DAO]selectEduDetail Start");
-		EduListVo outVo = sqlSession.selectOne("queryLes.selectEduDetail",vo);
+		EduListVo outVo = sqlSession.selectOne("queryEduApply.selectEduDetail",vo);
 		logger.info("[DAO]selectEduDetail End");
 		
 		return outVo;
@@ -45,7 +45,7 @@ public class EduListDao {
 	public List<EduListVo> selectInfoCntPop(EduListVo vo) {
 
 		logger.info("[DAO]selectInfoCntPop Start");
-		List<EduListVo> list = sqlSession.selectList("queryLes.selectInfoCntPop",vo);
+		List<EduListVo> list = sqlSession.selectList("queryEduApply.selectInfoCntPop",vo);
 		logger.info("[DAO]selectInfoCntPop End");
 
 		return list;
@@ -55,7 +55,7 @@ public class EduListDao {
 		
 		logger.info("[DAO]insertEduApplyPopApr Start");
 		System.out.println("%%%getUserId =" + vo.getUserId());
-		int modRst = sqlSession.insert("queryLes.insertEduApplyPopApr", vo);
+		int modRst = sqlSession.insert("queryEduApply.insertEduApplyPopApr", vo);
 		logger.info("[DAO]insertEduApplyPopApr End");
 		
 		return modRst == 1;
@@ -65,7 +65,7 @@ public class EduListDao {
 		
 		logger.info("[DAO]insertEduApplyPopNon Start");
 		System.out.println("%%%getUserId =" + vo.getUserId());
-		int modRst = sqlSession.insert("queryLes.insertEduApplyPopNon", vo);
+		int modRst = sqlSession.insert("queryEduApply.insertEduApplyPopNon", vo);
 		logger.info("[DAO]insertEduApplyPopNon End");
 		
 		return modRst == 1;
@@ -75,7 +75,7 @@ public class EduListDao {
 		
 		logger.info("[DAO]selectEduApprAbleYn Start");
 		System.out.println("%%%getUserId =" + vo.getUserId());
-		String modCode =  sqlSession.selectOne("queryLes.selectEduApprAbleYn", vo);
+		String modCode =  sqlSession.selectOne("queryEduApply.selectEduApprAbleYn", vo);
 		logger.info("[DAO] --- modCode : "+ modCode);
 		logger.info("[DAO]selectEduApprAbleYn End");
 		
