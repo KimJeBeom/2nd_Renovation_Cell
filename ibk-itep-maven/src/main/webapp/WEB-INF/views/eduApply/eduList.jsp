@@ -80,7 +80,7 @@
 								<!-- 테이블 1 : 전체 -->
 								<div class="tab-pane active" id="tab1">
 									<div class="col-md-12">
-										<div class="table-responsive" style="overflow-x:hidden; height:470px;">
+										<div class="table-responsive" style="overflow-x:hidden; height:540px;">
 											<table class="table table-hover table-sm first">
 												<thead>
 													<tr>
@@ -118,7 +118,7 @@
 								<!-- 테이블 2 : 외부교육 -->
 								<div class="tab-pane" id="tab2">
 									<div class="col-md-12">
-										<div class="table-responsive" style="overflow-x:hidden; height:470px;">
+										<div class="table-responsive" style="overflow-x:hidden; height:540px;">
 											<table class="table table-hover table-sm first">
 												<thead>
 													<tr>
@@ -147,7 +147,7 @@
 								<!-- 테이블 3 : 신전입교육 -->
 								<div class="tab-pane" id="tab3">
 									<div class="col-md-12">
-										<div class="table-responsive" style="overflow-x:hidden; height:470px;">
+										<div class="table-responsive" style="overflow-x:hidden; height:540px;">
 											<table class="table table-hover table-sm first">
 												<thead>
 													<tr>
@@ -176,7 +176,7 @@
 								<!-- 테이블 4 : 세미나 -->
 								<div class="tab-pane" id="tab4">
 									<div class="col-md-12">
-										<div class="table-responsive" style="overflow-x:hidden; height:470px;">
+										<div class="table-responsive" style="overflow-x:hidden; height:540px;">
 											<table class="table table-hover table-sm first">
 												<thead>
 													<tr>
@@ -205,7 +205,7 @@
 								<!-- 테이블 5 : 기타 -->
 								<div class="tab-pane" id="tab5">
 									<div class="col-md-12">
-										<div class="table-responsive" style="overflow-x:hidden; height:470px;">
+										<div class="table-responsive" style="overflow-x:hidden; height:540px;">
 											<table class="table table-hover table-sm first">
 												<thead>
 													<tr>
