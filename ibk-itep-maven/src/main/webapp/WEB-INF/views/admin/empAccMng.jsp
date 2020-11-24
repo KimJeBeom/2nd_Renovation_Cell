@@ -58,20 +58,31 @@
 														</c:forEach>
 													</select>
 												</td>
+												<td>
+													<div class="form-group col-md-12" style="margin:10px 0px 10px 50px; width:100px;">
+														<button type="button" class="btn btn-primary" onclick="search()">조회</button>
+													</div>
+												</td>
+												<td>
+													<div class="form-group col-md-12" style="margin:10px 0px 10px 10px; width:100px;">
+														<button type="button" class="btn btn-primary">엑셀다운로드</button>
+													</div>
+												</td>
 											</tr>
 										</tbody>
 									</table>
 								</div>
-								<div style="display: table-cell; text-align: left; padding-top:2px; width:300px;">
-									<button type="button" class="btn btn-primary" style="float: right;" onclick="search()">조회</button>
+								<!-- <div class="form-group col-md-12" style="text-align: right; padding:10px 0px 0px 0px">
+									
 								</div>
+								<div class="form-group col-md-12" style="text-align: right; padding:10px 0px 0px 0px">
+									
+								</div> -->
 							</div>
 							<!--End-직원관련 inputline1 부분-->
 							
 							<!--Start-사용자 계정관리 button bar 부분-->
-							<div class="form-group col-md-12" style="text-align: right; padding:10px 0px 0px 0px">
-								<button class="btn btn-primary" type="button">엑셀다운로드</button>
-							</div>
+							
 							<!--End-사용자 계정관리 button bar 부분-->
 
 							<!-- Start-직원 조회 리스트 부분-->

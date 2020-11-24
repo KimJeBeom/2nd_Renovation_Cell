@@ -1,7 +1,6 @@
 package com.ibk.itep.vo.admin;
 
 import java.sql.Date;
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 
 public class EduOpenReadyStatVo {
@@ -17,11 +16,11 @@ public class EduOpenReadyStatVo {
 	private Date edctFnshYmd;
 	private Date aplcSttgYmd;
 	private Date aplcFnshYmd;
-	private Time edctSttgTim;
-	private Time edctFnshTim;
+	private Date edctSttgTim;
+	private Date edctFnshTim;
 	private String inbkEdctYn;
 	private String edex;
-	private String onlEdctYmd;
+	private String onlEdctYn;
 	private String edctLevl;
 	private String apndDat;
 	private String cnfaYn;
@@ -34,8 +33,11 @@ public class EduOpenReadyStatVo {
 		this.aplcId = aplcId;
 	}
 	public String getAplcTs() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss");
-		return sdf.format(aplcTs);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd hh:mm");
+		if(aplcTs != null)
+			return sdf.format(aplcTs);
+		else 
+			return "";
 	}
 	public void setAplcTs(Date aplcTs) {
 		this.aplcTs = aplcTs;
@@ -78,42 +80,62 @@ public class EduOpenReadyStatVo {
 	}
 	public String getEdctSttgYmd() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-		return sdf.format(edctSttgYmd);
+		if(edctSttgYmd != null)
+			return sdf.format(edctSttgYmd);
+		else 
+			return "";
 	}
 	public void setEdctSttgYmd(Date edctSttgYmd) {
 		this.edctSttgYmd = edctSttgYmd;
 	}
 	public String getEdctFnshYmd() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-		return sdf.format(edctFnshYmd);
+		if(edctFnshYmd != null)
+			return sdf.format(edctFnshYmd);
+		else 
+			return "";
 	}
 	public void setEdctFnshYmd(Date edctFnshYmd) {
 		this.edctFnshYmd = edctFnshYmd;
 	}
 	public String getAplcSttgYmd() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-		return sdf.format(aplcSttgYmd);
+		if(aplcSttgYmd != null)
+			return sdf.format(aplcSttgYmd);
+		else 
+			return "";
 	}
 	public void setAplcSttgYmd(Date aplcSttgYmd) {
 		this.aplcSttgYmd = aplcSttgYmd;
 	}
 	public String getAplcFnshYmd() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-		return sdf.format(aplcFnshYmd);
+		if(aplcFnshYmd != null)
+			return sdf.format(aplcFnshYmd);
+		else 
+			return "";
 	}
 	public void setAplcFnshYmd(Date aplcFnshYmd) {
 		this.aplcFnshYmd = aplcFnshYmd;
 	}
-	public Time getEdctSttgTim() {
-		return edctSttgTim;
+	public String getEdctSttgTim() {
+		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+		if(edctSttgTim != null)
+			return sdf.format(edctSttgTim);
+		else 
+			return "";
 	}
-	public void setEdctSttgTim(Time edctSttgTim) {
+	public void setEdctSttgTim(Date edctSttgTim) {
 		this.edctSttgTim = edctSttgTim;
 	}
-	public Time getEdctFnshTim() {
-		return edctFnshTim;
+	public String getEdctFnshTim() {
+		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+		if(edctSttgTim != null)
+			return sdf.format(edctFnshTim);
+		else 
+			return "";
 	}
-	public void setEdctFnshTim(Time edctFnshTim) {
+	public void setEdctFnshTim(Date edctFnshTim) {
 		this.edctFnshTim = edctFnshTim;
 	}
 	public String getInbkEdctYn() {
@@ -128,11 +150,11 @@ public class EduOpenReadyStatVo {
 	public void setEdex(String edex) {
 		this.edex = edex;
 	}
-	public String getOnlEdctYmd() {
-		return onlEdctYmd;
+	public String getOnlEdctYn() {
+		return onlEdctYn;
 	}
-	public void setOnlEdctYmd(String onlEdctYmd) {
-		this.onlEdctYmd = onlEdctYmd;
+	public void setOnlEdctYn(String onlEdctYn) {
+		this.onlEdctYn = onlEdctYn;
 	}
 	public String getEdctLevl() {
 		return edctLevl;

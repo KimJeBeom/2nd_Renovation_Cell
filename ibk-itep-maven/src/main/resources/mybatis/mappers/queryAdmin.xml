@@ -348,6 +348,7 @@
         			,edo.EDIN_NM as edinNm				# 교육기관명
         			,edo.EDCT_STTG_YMD as edctSttgYmd	# 교육시작일
         			,edo.EDCT_FNSH_YMD as edctFnshYmd	# 교육종료일
+        			,edo.CNFA_YN as cnfaYn				# 확인여부
 			from 	itep.tb_iep_edo001m edo				# 테이블 : 과정개설신청
 					,itep.tb_iep_cmu001m cmu			# 테이블 : 유저정보
 					,itep.tb_iep_cmb001m cmb			# 테이블 : 부서정보
@@ -366,6 +367,9 @@
 	    <if test="edctNm != null">
 	    		and edo.EDCT_NM LIKE CONCAT('%', #{edctNm}, '%')
 	    </if>
+	    <![CDATA[
+	    	order by edo.APLC_TS desc
+	    ]]>
 	</select>
 	
 	<!-- Start - Popup - 과정개설신청현황확인 newEduInfoPop -->
@@ -389,6 +393,7 @@
 					, EDO.ONL_EDCT_YN AS onlEdctYn 		-- 온라인교육여부
 					, EDO.EDCT_LEVL AS edctLevl 		-- 교육수준
 					, EDO.APND_DAT AS apndDat 			-- 첨부파일
+        			, EDO.CNFA_YN AS cnfaYn				-- 확인여부
 					FROM TB_IEP_EDO001M EDO, TB_IEP_CMB001M CMB, TB_IEP_CMU001M CMU
 					WHERE EDO.APLC_ID = #{aplcId} AND EDO.USE_YN = 'Y'
 					AND EDO.USER_ID = CMU.USER_ID AND CMU.USE_YN = 'Y'
@@ -404,7 +409,7 @@
 					WHERE APLC_ID = #{aplcId};
 				]]>
 			</update>	
-			<!-- End - Popup - 과정개설신청현황확인 newEduInfoPop -->		
+	<!-- End - Popup - 과정개설신청현황확인 newEduInfoPop -->		
 
 
 <!-- Start - 수강이력		eduHistory	 -->

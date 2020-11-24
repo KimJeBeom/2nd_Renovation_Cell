@@ -3,8 +3,6 @@ package com.ibk.itep.controller.admin;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ibk.itep.controller.MainHomeContoller;
 import com.ibk.itep.service.admin.EduReadyStatService;
 import com.ibk.itep.service.cmm.CmmService;
 import com.ibk.itep.vo.admin.EduOpenReadyStatVo;

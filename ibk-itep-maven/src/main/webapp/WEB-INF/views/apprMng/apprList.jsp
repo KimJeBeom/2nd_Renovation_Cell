@@ -53,23 +53,31 @@
 										</tr>
 									</thead>
 									<tbody id="apprListBody">
-										<!-- 컨트롤러에서 가져온 리스트에서 VO 하나씩 꺼내서 출력 -->
-										<c:forEach items="${apprList }" var="apprlist" varStatus="status">
-											<tr data-toggle="tab" data-target="#table" onclick="showDetail(this, ${apprlist.edctAplcId })">
-												<td>
-													<label class="fancy-checkbox" onclick="event.cancelBubble=true">
-														<input type="checkbox" name="checkbox"><span></span>
-													</label>
-												</td>
-												<td>${status.count }</td>
-												<td>${apprlist.brnm }</td>
-												<td>${apprlist.userNm }</td>
-												<td>${apprlist.edctNm }</td>
-												<td>${apprlist.aplcTs }</td>
-												<!-- 체크된 row의 교육신청ID를 넘겨주기 위한 숨겨진 요소 -->
-												<td style="display:none">${apprlist.edctAplcId }</td>
+										<c:choose>
+											<c:when test="${not empty apprList}">
+												<c:forEach items="${apprList }" var="apprlist" varStatus="status">
+													<tr data-toggle="tab" data-target="#table" onclick="showDetail(this, ${apprlist.edctAplcId });">
+														<td>
+															<label class="fancy-checkbox" onclick="event.cancelBubble=true">
+																<input type="checkbox" name="checkbox"><span></span>
+															</label>
+														</td>
+														<td>${status.count }</td>
+														<td>${apprlist.brnm }</td>
+														<td>${apprlist.userNm }</td>
+														<td>${apprlist.edctNm }</td>
+														<td>${apprlist.aplcTs }</td>
+														<!-- 체크된 row의 교육신청ID를 넘겨주기 위한 숨겨진 요소 -->
+														<td style="display:none">${apprlist.edctAplcId }</td>
+													</tr>
+											    </c:forEach>
+										    </c:when>
+											<c:otherwise>
+											<tr height="100">
+												<td colspan="7" class="txt_center"><h4>결재 할 문서가 없습니다.</h4></td>
 											</tr>
-									    </c:forEach>
+											</c:otherwise>
+										</c:choose>	
 									</tbody>
 								</table>
 								

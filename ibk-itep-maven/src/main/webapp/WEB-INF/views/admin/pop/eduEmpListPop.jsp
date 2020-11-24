@@ -14,8 +14,8 @@
 		<div class="main">
 			<!-- MAIN CONTENT -->
 			<div class="main-content">
-				<div class="container-fluid">
-					<div class="row">
+				<!-- <div class="container-fluid">
+					<div class="row"> -->
 						<div class="col-md-9 col-popup">
 							<div class="panel panel-headline">
 							<div class="panel-body panel-popup">
@@ -54,46 +54,60 @@
 											<th style="width:50px;">미수료</th>
 										</tr>
 									</thead>
-									<c:if test="${eduEmpList[0].edctAplcId ne ''}">
 									<tbody id="eduEmpListTBody" style="vertical-align: center;">
-										<c:forEach items="${eduEmpList }" var="eduemplist" varStatus="status">
-											<tr data-toggle="tab" data-target="#table">
-												<td>${status.count }</td>
-												<td>${eduemplist.brnm }</td>
-												<td>${eduemplist.userId }</td>
-												<td>${eduemplist.userNm }</td>
-												<td>
-													<label class="fancy-radio" style="margin-bottom:0px;">
-														<input name="ctcr${status.count }" value="y" type="radio" 
-															<c:if test="${eduemplist.ctcrYn eq 'Y'}">checked</c:if>/>
-														<span><i style="margin-right:0"></i></span>										
-													</label>
-												</td>
-												<td>
-													<label class="fancy-radio" style="margin-bottom:0px;">
-														<input name="ctcr${status.count }" value="n" type="radio" 
-															<c:if test="${eduemplist.ctcrYn eq 'N'}">checked</c:if>/>
-														<span><i style="margin-right:0"></i></span>	
-													</label>
-												</td>
-											</tr>
-										</c:forEach> 
+										<c:choose>
+											<c:when test="${eduEmpList[0].edctAplcId ne '' && eduEmpList[0].edctAplcId ne null}">
+												<c:forEach items="${eduEmpList }" var="eduemplist" varStatus="status">
+													<tr data-toggle="tab" data-target="#table">
+														<td>${status.count }</td>
+														<td>${eduemplist.brnm }</td>
+														<td>${eduemplist.userId }</td>
+														<td>${eduemplist.userNm }</td>
+														<td>
+															<label class="fancy-radio" style="margin-bottom:0px;">
+																<input name="ctcr${status.count }" value="y" type="radio" 
+																	<c:if test="${eduemplist.ctcrYn eq 'Y'}">checked</c:if>/>
+																<span><i style="margin-right:0"></i></span>										
+															</label>
+														</td>
+														<td>
+															<label class="fancy-radio" style="margin-bottom:0px;">
+																<input name="ctcr${status.count }" value="n" type="radio" 
+																	<c:if test="${eduemplist.ctcrYn eq 'N'}">checked</c:if>/>
+																<span><i style="margin-right:0"></i></span>	
+															</label>
+														</td>
+													</tr>
+												</c:forEach> 
+											</c:when>
+											<c:otherwise>
+												<tr height="100">
+													<td colspan="6" class="txt_center"><h4>신청한 직원이 없습니다.</h4></td>
+												</tr>
+											</c:otherwise>
+										</c:choose>	
 									</tbody>
-									</c:if>
 								</table>
 							</div>
 							</div>
 						</div>
-					</div>
-				</div>
+					<!-- </div>
+				</div> -->
 			</div>
 			<!-- END MAIN CONTENT -->
 		</div>
 		<!-- END MAIN -->
-		<div class="clearfix"></div>
 	</div>
 	<!-- END WRAPPER -->
 
 <!-- FOOTER -->
 <jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
+
+<script>
+	function resizeWindow(win) {
+		var wid = win.document.body.offsetWidth + 30;
+		var hei = win.document.body.offsetHeight + 40;        //30 과 40은 넉넉하게 하려는 임의의 값임
+		win.resizeTo(wid,hei);
+	}
+</script>
 

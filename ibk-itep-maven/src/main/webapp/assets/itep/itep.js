@@ -62,11 +62,22 @@ $(document).ready(function() {
 
 /* 팝업 : name에 팝업으로 띄울 jsp 이름 써서 호출 */
 function showPopup(menu, name) {
-	var size = '';
+	var size = 'location=no, left=100, top=100';
 	var nameArr = name.split("?");
 	var popName = nameArr[0];
 	
-	// 결재반려 팝업
+	if (popName =='apprRejectPop') 
+		size += ', width=500';
+		
+	else if (popName =='apprApplyPop' || popName == 'eduApplyPop' || popName == 'eduInfoPop') 
+		size += ', width=750';
+		
+	else if (popName == 'noticeRegPop' || popName == 'noticeModPop' || popName == 'archRegPop' || popName == 'archModPop')
+		size += ', width=850';
+		
+	else
+		size += ', width=650';
+	/*// 결재반려 팝업
 	if (popName =='apprRejectPop') 
 		size = 'location=no, width=500, height=250, left=100, top=100';
 
@@ -100,17 +111,26 @@ function showPopup(menu, name) {
 		
 	// 과정개설신청 상세확인 팝업
 	else if (popName == 'newEduInfoPop')
-		size = 'location=no, width=650, height=500, left=100, top=100';	
+		//size = 'location=no, width=650, height=auto, left=100, top=100';	
+		size = 'location=no, width=650, left=100, top=100';	
 			
 	// 관리자페이지 교육신청현황 팝업
 	else if (popName == 'eduEmpListPop')
-		size = 'location=no, width=650, height=540, left=100, top=100';
+		//size = 'location=no, width=650, height=auto, left=100, top=100';
+		size = 'location=no, width=650, left=100, top=100';
 	
 	else 
-		size = 'location=no, width=650, height=650, left=100, top=100';		
+		size = 'location=no, width=650, height=650, left=100, top=100';		*/
 
 	window.open('/itep/views/'+menu+'/pop/'+name, '_blank', size); 
 }	
+
+/* 팝업창 크기 재조절 */
+function resizeWindow(win) {
+	var wid = win.document.body.offsetWidth + 30;
+	var hei = win.document.body.offsetHeight + 40;        //30 과 40은 넉넉하게 하려는 임의의 값임
+	win.resizeTo(wid,hei);
+}
 
 /* 해당 페이지가 팝업인지 아닌지 체크 */
 function isPopup(){

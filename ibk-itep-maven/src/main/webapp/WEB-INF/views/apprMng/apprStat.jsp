@@ -108,18 +108,27 @@
 											</tr>
 										</thead>
 										<tbody id="apprStatBody">
-											<!-- 컨트롤러에서 가져온 리스트에서 VO 하나씩 꺼내서 출력 -->
-											<c:forEach items="${apprStat }" var="apprstat" varStatus="status">
-												<tr data-toggle="tab" data-target="#table" onclick="showDetail(this, ${apprstat.edctAplcId })">
-													<td>${status.count }</td>
-													<td>${apprstat.brnm }</td>
-													<td>${apprstat.userNm }</td>
-													<td>${apprstat.edctNm }</td>
-													<td>${apprstat.aplcTs }</td>
-													<td>${apprstat.aplcStg }</td>
-													<td>${apprstat.apprNm }</td>
-												</tr>
-											</c:forEach>
+											<c:choose>
+												<c:when test="${not empty apprStat}">
+													<!-- 컨트롤러에서 가져온 리스트에서 VO 하나씩 꺼내서 출력 -->
+													<c:forEach items="${apprStat }" var="apprstat" varStatus="status">
+														<tr data-toggle="tab" data-target="#table" onclick="showDetail(this, ${apprstat.edctAplcId })">
+															<td>${status.count }</td>
+															<td>${apprstat.brnm }</td>
+															<td>${apprstat.userNm }</td>
+															<td>${apprstat.edctNm }</td>
+															<td>${apprstat.aplcTs }</td>
+															<td>${apprstat.aplcStg }</td>
+															<td>${apprstat.apprNm }</td>
+														</tr>
+													</c:forEach>
+										    	</c:when>
+												<c:otherwise>
+													<tr height="100">
+														<td colspan="7" class="txt_center"><h4>결재 이력이 없습니다.</h4></td>
+													</tr>
+												</c:otherwise>
+											</c:choose>	
 										</tbody>
 									</table>
 								</div>
@@ -230,17 +239,23 @@
 					// 결재현황 조회
 					var str = '';
 					str += '<tbody id=\"apprStatBody\">';
-					$.each(responseData, function(i) {
-						str += '<tr data-toggle=\"tab\" data-target=\"#table\" onclick=\"showDetail(this, '+responseData[i].edctAplcId+')\">';
-						str += '<td>'+(i+1)+'</td>';
-						str += '<td>'+responseData[i].brnm+'</td>';
-						str += '<td>'+responseData[i].userNm+'</td>';
-						str += '<td>'+responseData[i].edctNm+'</td>';
-						str += '<td>'+responseData[i].aplcTs+'</td>';
-						str += '<td>'+responseData[i].aplcStg+'</td>';
-						str += '<td>'+responseData[i].apprNm+'</td>';
-						str += '</tr>';
-					});
+					if(responseData.length != 0) {
+						$.each(responseData, function(i) {
+							str += '<tr data-toggle=\"tab\" data-target=\"#table\" onclick=\"showDetail(this, '+responseData[i].edctAplcId+')\">';
+							str += '<td>'+(i+1)+'</td>';
+							str += '<td>'+responseData[i].brnm+'</td>';
+							str += '<td>'+responseData[i].userNm+'</td>';
+							str += '<td>'+responseData[i].edctNm+'</td>';
+							str += '<td>'+responseData[i].aplcTs+'</td>';
+							str += '<td>'+responseData[i].aplcStg+'</td>';
+							str += '<td>'+responseData[i].apprNm+'</td>';
+							str += '</tr>';
+						});
+					} else {
+							str += '<tr height="100">';
+							str += '<td colspan="7" class="txt_center"><h4>조회 결과가 없습니다.</h4></td>';
+							str += '</tr>';
+					}
 					str += '</tbody>';
 					$('#apprStatBody').replaceWith(str);
 					

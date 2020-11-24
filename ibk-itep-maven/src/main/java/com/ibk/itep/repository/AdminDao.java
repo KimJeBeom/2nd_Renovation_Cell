@@ -99,6 +99,11 @@ public class AdminDao {
 		return vo;
 	}
 	
+	/* 과정개설신청 확인 처리 */
+	public void updateNewEduInfoPop(EduOpenReadyStatVo vo) {
+		sqlSession.update("queryAdmin.updateNewEduInfoPop", vo);
+	}
+	
 	/************************************************************
 	 *                       사용자 계정관리
 	 ************************************************************/

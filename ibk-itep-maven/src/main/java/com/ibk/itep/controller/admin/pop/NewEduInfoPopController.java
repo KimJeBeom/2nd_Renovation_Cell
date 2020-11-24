@@ -1,5 +1,8 @@
 package com.ibk.itep.controller.admin.pop;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ibk.itep.controller.HomeController;
 import com.ibk.itep.service.admin.EduReadyStatService;
+import com.ibk.itep.vo.SessionVo;
 import com.ibk.itep.vo.admin.EduOpenReadyStatVo;
 
 @Controller
@@ -21,13 +26,27 @@ public class NewEduInfoPopController{
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
+	/* 과정개설신청현황 팝업 */
 	@RequestMapping(value = "/views/admin/pop/newEduInfoPop", method = RequestMethod.GET)
-	public String newEduInfoPop(Model model	, @RequestParam(value="aplcId", required=false) String aplcId) {
+	public String newEduInfoPop(Model model, @RequestParam(value="aplcId", required=false) String aplcId) {
 
 		EduOpenReadyStatVo edoVo = eduReadyStatService.selectNewEduInfoPop(Integer.parseInt(aplcId));
 
 		model.addAttribute("edoVo", edoVo );		
 		return "/admin/pop/newEduInfoPop";
+	}
+	
+	/* 과정개설신청 확인처리 */
+	@RequestMapping(value = "/views/admin/pop/newEduInfoPopUpdateCnfa", method = RequestMethod.POST)
+	public @ResponseBody int newEduInfoPopDoCnfa(HttpServletRequest request, Model model
+												, @RequestParam(value="aplcId", required=false) String aplcId) {
+
+		/* 세션정보를 담은 SessionVo 가져옴 */
+		HttpSession session = request.getSession();
+		SessionVo ssnInfo = (SessionVo)session.getAttribute("ssnInfo");
+		
+		eduReadyStatService.updateNewEduInfoPop(Integer.parseInt(aplcId), ssnInfo);
+		return 1;
 	}
 
 }
