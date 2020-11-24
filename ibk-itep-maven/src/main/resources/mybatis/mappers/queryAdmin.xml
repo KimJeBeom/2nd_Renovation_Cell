@@ -351,7 +351,7 @@
 	
 	<!-- Start - Popup - 과정개설신청현황확인 newEduInfoPop -->
 		<!-- 과정개설신청 현황 확인 상세-->
-			<select  id="selectNewEduInfoPop" parameterType="int" resultType="EduOpenReadyStatVo">
+			<select  id="selectNewEduInfoPop" parameterType="Integer" resultType="EduOpenReadyStatVo">
 				<![CDATA[
 					SELECT EDO.APLC_ID AS aplcId		-- 신청ID
 					, CMB.BRNM AS brnm					-- 부서명

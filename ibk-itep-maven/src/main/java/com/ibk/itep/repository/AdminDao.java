@@ -85,6 +85,12 @@ public class AdminDao {
 		return list;
 	}
 	
+	/* 과정개설신청현황 상세 팝업*/
+	public EduOpenReadyStatVo selectNewEduInfoPop(int aplcId) {
+		EduOpenReadyStatVo vo = sqlSession.selectOne("queryAdmin.selectNewEduInfoPop", aplcId);
+		return vo;
+	}
+	
 	/************************************************************
 	 *                       사용자 계정관리
 	 ************************************************************/

@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- HEADER -->
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
 
@@ -28,13 +29,13 @@
 									<tbody>
 										<tr>
 											<th>신청일시</th>
-											<td class="txt-long" colspan="3">2020-10-10 00:14:00</td>
+											<td class="txt-long" colspan="3">${edoVo.aplcTs }</td>
 										</tr>
 										<tr>
 											<th>부서명</th>
-											<td>IT금융개발부</td>
+											<td>${edoVo.brnm }</td>
 											<th>직원명</th>
-											<td>장기은</td>
+											<td>${edoVo.userNm }</td>
 										</tr>
 										<tr>
 											<th>교육구분</th>

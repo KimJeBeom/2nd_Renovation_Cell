@@ -37,7 +37,7 @@ public class EduReadyStatService {
 		return adminDao.selectEduReadyStat(vo);
 	}
 	
-	/* 교육신청현황 > 수강신청현황 > 교육신청직원목록*/	
+	/* 교육신청현황 > 수강신청현황 > 교육신청직원목록 팝업 */	
 	public List<EduEmpListVo> selectEduEmpListPop(String edctCntId){	
 		return adminDao.selectEduEmpListPop(edctCntId);
 	}
@@ -60,6 +60,11 @@ public class EduReadyStatService {
 			vo.setEdctNm(edctNm);
 		
 		return adminDao.selectEduOpenReadyStat(vo);
+	}
+	
+	/* 교육신청현황 > 과정개설신청현황 > 상세팝업*/	
+	public EduOpenReadyStatVo selectNewEduInfoPop(int aplcId){	
+		return adminDao.selectNewEduInfoPop(aplcId);
 	}
 }
 
