@@ -220,12 +220,6 @@ function insertNewEdu() {
 		var	edctNm = $("#edctNm").val(); //교육명   
 		var	edctCon = $("#edctCon").val();//교육내용 및 신청사유    
 		var	edinNm = $("#edinNm").val(); //교육기관명  
-/* 		var	aplcSttgYmd = $("#aplcSttgYmd").val().replaceAll(".","").substr(0,6); //신청시작일  
-		var	aplcFnshYmd = $("#aplcFnshYmd").val().replaceAll(".","").substr(0,6); //신청종료일
-		var	edctSttgYmd = $("#edctSttgYmd").val().replaceAll(".","").substr(0,6); //학습시작일  
-		var	edctFnshYmd = $("#edctFnshYmd").val().replaceAll(".","").substr(0,6); //학습종료일  
-		var	edctSttgTim = $("#edctSttgTim").val().replaceAll(":","").substr(0,6); //교육시작시간 
-		var	edctFnshTim = $("#edctFnshTim").val().replaceAll(":","").substr(0,6); //교육종료시간 */
 		var	aplcSttgYmd = $("#aplcSttgYmd").val().replaceAll(".","").substr(0,6); //신청시작일
 		
 		var	aplcFnshYmd = $("#aplcFnshYmd").val().replaceAll(".","-"); //신청종료일
