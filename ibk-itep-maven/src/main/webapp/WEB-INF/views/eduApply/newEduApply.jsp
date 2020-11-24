@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- HEADER -->
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
 
@@ -49,7 +50,7 @@
 											</label>
 										</td>
 										<td class="info" width="150px"><b>교육기관</b></td>
-										<td colspan="3">
+										<td width="500px">
 											<input id="edinNm" type="text" name="academy" class="form-control" value="">
 										</td>                  
 									</tr>
@@ -64,36 +65,52 @@
 									<tr>
 										<td class="info"><b>신청기간</b></td>
 										<td>
-											<div class="col-sm-12">
-												<div class='col-sm-4'>
-													<div class="form-group">
-														<input id="aplcSttgYmd" type='date' name='applyStDt' value=''/>
+											<div class="ui form">
+												<div class="two fields" style="margin-bottom: 0px">
+													<div class="field">
+														<div class="ui calendar" id="aplcRangeStart">
+															<div class="ui input left icon">
+																<i class="calendar icon" style="font-size: 14px;"></i>
+																<input id="aplcSttgYmd" type="text"
+																	style="height: 35px; font-size: 14px;">
+															</div>
+														</div>
 													</div>
-												</div>
-												<div class='col-sm-1'>
-													<h4><b>~</b></h4>
-												</div>
-												<div class='col-sm-4'>
-													<div class="form-group">
-														<input id="aplcFnshYmd" type='date' name='applyEdDt' value=''/>
+													<h5>~</h5>
+													<div class="field">
+														<div class="ui calendar" id="aplcRangeEnd">
+															<div class="ui input left icon">
+																<i class="calendar icon" style="font-size: 14px;"></i>
+																<input id="aplcFnshYmd" type="text"
+																	style="height: 35px; font-size: 14px;">
+															</div>
+														</div>
 													</div>
 												</div>
 											</div>
 										</td>
 										<td class="info"><b>학습기간</b></td>
 										<td>
-											<div class="col-sm-12">
-												<div class='col-sm-4'>
-													<div class="form-group">
-														<input id="edctSttgYmd" type='date' name='studyStDt' value=''/>
+											<div class="ui form">
+												<div class="two fields" style="margin-bottom: 0px">
+													<div class="field">
+														<div class="ui calendar" id="edctRangeStart">
+															<div class="ui input left icon">
+																<i class="calendar icon" style="font-size: 14px;"></i>
+																<input id="edctSttgYmd" type="text"
+																	style="height: 35px; font-size: 14px;">
+															</div>
+														</div>
 													</div>
-												</div>
-												<div class='col-sm-1'>
-													<h4><b>~</b></h4>
-												</div>
-												<div class='col-sm-4'>
-													<div class="form-group">
-														<input id="edctFnshYmd" type='date' name='studyEdDt' value=''/>
+													<h5>~</h5>
+													<div class="field">
+														<div class="ui calendar" id="edctRangeEnd">
+															<div class="ui input left icon">
+																<i class="calendar icon" style="font-size: 14px;"></i>
+																<input id="edctFnshYmd" type="text"
+																	style="height: 35px; font-size: 14px;">
+															</div>
+														</div>
 													</div>
 												</div>
 											</div>
@@ -102,14 +119,32 @@
 									<tr>
 										<td class="info"><b>교육시간</b></td>
 										<td>
-											<input id="edctSttgTim" type='time' name='edctSttgTim'/>
-											&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp;&nbsp;
-											<input id="edctFnshTim" type='time' name='edctFnshTim'/>
+											<div class="ui form">
+												<div class="two fields" style="margin-bottom: 0px">
+													<div class="field">
+														<div class="ui calendar" id="edctTimRangeStart">
+															<div class="ui input left icon">
+																<i class="time icon" style="font-size: 14px;"></i>
+																<input id="edctSttgTim" type="text" style="height: 35px; font-size: 14px;">
+															</div>
+														</div>
+													</div>
+													<h5> ~ </h5>
+													<div class="field">
+														<div class="ui calendar" id="edctTimRangeEnd">
+															<div class="ui input left icon">
+																<i class="time icon" style="font-size: 14px;"></i>
+																<input id="edctFnshTim"  type="text" style="height: 35px; font-size: 14px;">
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</td>
 										<td class="info"><b>교육비용</b></td>
-										<td><input id="edex" type="text" class="form-control" placeholder="" style="width: 80%; float: left;" value="">
+										<td><input id="edex" type="text" class="form-control" placeholder="" style="width: 80%; float: left;  value=""">
 												<span><i></i>(원)</span>
 										</td>
-
 									</tr>
 									<tr>
 										<td class="info"><b>교육방식</b></td>
@@ -176,6 +211,7 @@
 	<!-- END WRAPPER -->
 
 <!-- FOOTER -->
+<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 <script>
 function insertNewEdu() {
    	var conf = confirm('등록하시겠습니까?');
@@ -184,16 +220,28 @@ function insertNewEdu() {
 		var	edctNm = $("#edctNm").val(); //교육명   
 		var	edctCon = $("#edctCon").val();//교육내용 및 신청사유    
 		var	edinNm = $("#edinNm").val(); //교육기관명  
-		var	edctSttgYmd = $("#edctSttgYmd").val(); //학습시작일  
-		var	edctFnshYmd = $("#edctFnshYmd").val(); //학습종료일  
-		var	aplcSttgYmd = $("#aplcSttgYmd").val(); //신청시작일  
-		var	aplcFnshYmd = $("#aplcFnshYmd").val(); //신청종료일  
+/* 		var	aplcSttgYmd = $("#aplcSttgYmd").val().replaceAll(".","").substr(0,6); //신청시작일  
+		var	aplcFnshYmd = $("#aplcFnshYmd").val().replaceAll(".","").substr(0,6); //신청종료일
+		var	edctSttgYmd = $("#edctSttgYmd").val().replaceAll(".","").substr(0,6); //학습시작일  
+		var	edctFnshYmd = $("#edctFnshYmd").val().replaceAll(".","").substr(0,6); //학습종료일  
+		var	edctSttgTim = $("#edctSttgTim").val().replaceAll(":","").substr(0,6); //교육시작시간 
+		var	edctFnshTim = $("#edctFnshTim").val().replaceAll(":","").substr(0,6); //교육종료시간 */
+		var	aplcSttgYmd = $("#aplcSttgYmd").val().replaceAll(".","").substr(0,6); //신청시작일
+		
+		var	aplcFnshYmd = $("#aplcFnshYmd").val().replaceAll(".","-"); //신청종료일
+		var	edctSttgYmd = $("#edctSttgYmd").val().replaceAll(".","-"); //학습시작일  
+		var	edctFnshYmd = $("#edctFnshYmd").val().replaceAll(".","-"); //학습종료일  
 		var	edctSttgTim = $("#edctSttgTim").val(); //교육시작시간 
 		var	edctFnshTim = $("#edctFnshTim").val(); //교육종료시간
+		
 		var	edex = $("#edex").val(); //교육비용
 		var	onlEdctYn = $('input[name="onlEdctYn"]:checked').val(); //온라인교육여부
 		var	edctLevl = $('input[name="edctLevl"]:checked').val(); //교육수준
 		var	apndDat = $("#apndDat").val(); //첨부파일
+		
+		alert("신청 : " + aplcSttgYmd +"~"+aplcFnshYmd);
+		alert("학습 : " + edctSttgYmd +"~"+edctFnshYmd);
+		alert("시간 : " + edctSttgTim +"~"+edctSttgTim);
 		
 		if(inbkEdctYn==""||edctNm==""||edctCon==""||edinNm==""||edctSttgYmd==""||edctFnshYmd==""||aplcSttgYmd==""||aplcFnshYmd==""
 				||edctSttgTim==""||edctFnshTim==""||edex==""||onlEdctYn==""||edctLevl==""){
@@ -239,6 +287,94 @@ function insertNewEdu() {
    	}
  }
 
-</script>
-<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
+$(document).ready(function(){
+	$('#aplcRangeStart').calendar({
+		type: 'date',
+		endCalendar: $('#aplcRangeEnd'),
+		formatter: {
+			date: function (date, settings) {
+				if (!date) return '';
+				var day = date.getDate();
+				var month = date.getMonth() + 1;
+				var year = date.getFullYear();
+				return year + '.' + month + '.' + day;
+			}
+		},
+  	
+	});
+ 	$('#aplcRangeEnd').calendar({
+		type: 'date',
+		startCalendar: $('#aplcRangeStart'),
+		formatter: {
+			date: function (date, settings) {
+				if (!date) return '';
+				var day = date.getDate();
+				var month = date.getMonth() + 1;
+				var year = date.getFullYear();
+				return year + '.' + month + '.' + day;
+			}
+		}
+	});
 
+	$('#edctRangeStart').calendar({
+		type: 'date',
+		endCalendar: $('#edctRangeEnd'),
+		formatter: {
+			date: function (date, settings) {
+				if (!date) return '';
+				var day = date.getDate();
+				var month = date.getMonth() + 1;
+				var year = date.getFullYear();
+				return year + '.' + month + '.' + day;
+			}
+		},
+ 	    popupOptions: {
+	 	     position: 'bottom left',
+	 	     lastResort: 'bottom left',
+	 	     prefer: 'opposite',
+	 	     hideOnScroll: false
+	 	}
+	});
+ 	$('#edctRangeEnd').calendar({
+		type: 'date',
+		startCalendar: $('#edctRangeStart'),
+		formatter: {
+			date: function (date, settings) {
+				if (!date) return '';
+				var day = date.getDate();
+				var month = date.getMonth() + 1;
+				var year = date.getFullYear();
+				return year + '.' + month + '.' + day;
+			}
+		},
+ 	    popupOptions: {
+	 	     position: 'top left',
+	 	     lastResort: 'top left',
+	 	     prefer: 'opposite',
+	 	     hideOnScroll: false
+	 	}
+	});
+ 	$('#edctTimRangeStart').calendar({
+ 	    type: 'time',
+ 	   	ampm: false,
+ 	    endCalendar: $('#edctTimRangeEnd'),
+ 	    popupOptions: {
+ 	     position: 'top right',
+ 	     lastResort: 'top right',
+ 	     prefer: 'opposite',
+ 	     hideOnScroll: false
+ 	    }
+ 	});
+ 	$('#edctTimRangeEnd').calendar({
+ 	    type: 'time',
+ 	   	ampm: false,
+ 	    startCalendar: $('#edctTimRangeStart'),
+ 		popupOptions: {
+ 	     position: 'top right',
+ 	     lastResort: 'top right',
+ 	     prefer: 'opposite',
+ 	     hideOnScroll: false
+ 	   }	 	    
+ 	});
+});
+</script>
