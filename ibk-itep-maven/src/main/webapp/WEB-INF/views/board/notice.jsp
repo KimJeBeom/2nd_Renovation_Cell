@@ -122,15 +122,4 @@ function search() {
 		location.href='/itep/views/board/notice';
 	}
 }	
-	
-//(상세조회)공지사항id값을 받아 상세화면을 팝업
-function detailPopup(menu, name, id) {
-	var size = '';
-	
-	// 게시판 등록, 수정 팝업
-	if (name == 'noticeRegPop' || name == 'noticeModPop' || name == 'archRegPop' || name == 'archModPop')
-		size = 'location=no, width=850, height=600, left=100, top=100';
-
-	window.open('/itep/views/'+menu+'/pop/'+name+'?pbnsId='+id, '_blank', size); 
-}	
 </script>

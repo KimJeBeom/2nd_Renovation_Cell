@@ -119,16 +119,4 @@
  <!-- END WRAPPER -->
 
 <!-- FOOTER -->
-<script>
-/* //교육신청 클릭 팝업 function
-function showApplyPopup(menu, name, edctCntId, modType, snctTgtYn) {
-	var size = '';
-	
-	// 교육신청 결재 요청 팝업
-	if (name == 'eduInfoPop')
-		size = 'location=no, width=750, height=430, left=200, top=200';
-
-	window.open('/itep/views/'+menu+'/pop/'+name+'?edctCntId='+edctCntId+'&&modType='+modType+'&&snctTgtYn='+snctTgtYn, '_blank', size); 
-}	 */
-</script>
 <jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />

@@ -295,18 +295,6 @@ function a(tabValue){
 	
 }
 
-//안내 및 신청 버튼 클릭 팝업
-/* 
-function showApplyPop(menu, name, id) {
- 	var size = '';
-	
-	// 결재요청(결재자지정) 팝업
-	if (name == 'eduApplyPop') 
-		size = 'location=no, width=750, height=700, left=100, top=100';
-
-	window.open('/itep/views/'+menu+'/pop/'+name+'?edctCntId='+id, '_blank', size); 
-}	 */
-
 //조회버튼 클릭시 function
 function search() {
 	
