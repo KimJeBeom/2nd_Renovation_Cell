@@ -34,7 +34,7 @@ public class ApprMngService {
 		return apprMngDAO.selectApprListDetail(edctAplcId);
 	}
 	
-	public int updateApprConf(List<Integer> edctAplcIdArr){		
+	public int updateApprConf(List<Integer> edctAplcIdArr, SessionVo ssnInfo){		
 		int check = 0;
 		for(int id : edctAplcIdArr) {
 			// 해당 신청건의 현재 교육신청단계코드 조회
@@ -45,7 +45,7 @@ public class ApprMngService {
 				
 				// 파라미터 전달을 위한 vo 객체 생성
 				ApprConfRejVo apprConfRejVo = new ApprConfRejVo();
-				apprConfRejVo.setUserId("42664");
+				apprConfRejVo.setUserId(ssnInfo.getUserId());
 				apprConfRejVo.setEdctAplcId(id);
 				apprConfRejVo.setAplcStgCd(aplcStgCd);
 				
@@ -62,7 +62,7 @@ public class ApprMngService {
 		return check;
 	}
 	
-	public int updateApprRej(List<Integer> edctAplcIdArr, String rtreCon){		
+	public int updateApprRej(List<Integer> edctAplcIdArr, String rtreCon, SessionVo ssnInfo){		
 		int check = 0;
 		for(int id : edctAplcIdArr) {
 			// 해당 신청건의 현재 교육신청단계코드 조회
@@ -76,7 +76,7 @@ public class ApprMngService {
 				
 				// 파라미터 전달을 위한 vo 객체 생성
 				ApprConfRejVo apprConfRejVo = new ApprConfRejVo();
-				apprConfRejVo.setUserId("42664");
+				apprConfRejVo.setUserId(ssnInfo.getUserId());
 				apprConfRejVo.setEdctAplcId(id);
 				apprConfRejVo.setAplcStgCd(aplcStgCd);
 				apprConfRejVo.setRtreCon(rtreCon);
@@ -94,10 +94,10 @@ public class ApprMngService {
 		return check;
 	}
 	
-	public List<ApprStatVo> selectApprStat(String sttgYmd, String fnshYmd, String aplcStg){
+	public List<ApprStatVo> selectApprStat(String sttgYmd, String fnshYmd, String aplcStg, SessionVo ssnInfo){
 		ApprStatSrchVo srchVo = new ApprStatSrchVo();
-		srchVo.setDvcd("0710");
-		srchVo.setAthrCd("ADM");
+		srchVo.setDvcd(ssnInfo.getBrcd());
+		srchVo.setAthrCd(ssnInfo.getAthrCd());
 		
 		if(sttgYmd != null && !sttgYmd.equals("")) {
 			srchVo.setSttgYmd(Date.valueOf(sttgYmd.replace("/", "-"))); // 검색 - 시작일자

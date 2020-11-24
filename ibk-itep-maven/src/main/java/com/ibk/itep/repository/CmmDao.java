@@ -14,6 +14,7 @@ import com.ibk.itep.vo.cmm.CldVo;
 import com.ibk.itep.vo.cmm.CliVo;
 import com.ibk.itep.vo.cmm.ClsVo;
 import com.ibk.itep.vo.cmm.CluVo;
+import com.ibk.itep.vo.cmm.CmbVo;
 
 @Repository
 public class CmmDao {
@@ -51,5 +52,10 @@ public class CmmDao {
 	public String selectAuth(String userId) {
 		String athrCd = sqlSession.selectOne("queryCmm.selectAuth", userId);
 		return athrCd;
+	}
+	
+	public List<CmbVo> selectCmb() {
+		List<CmbVo> list = sqlSession.selectList("queryCmm.selectCmb");
+		return list;
 	}
 }

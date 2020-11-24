@@ -7,8 +7,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.ibk.itep.vo.admin.EduEmpListVo;
+import com.ibk.itep.vo.admin.EduOpenReadyStatVo;
+import com.ibk.itep.vo.admin.EduReadyStatVo;
 import com.ibk.itep.vo.admin.EduRegModVo;
 import com.ibk.itep.vo.admin.EduRndRegModVo;
+import com.ibk.itep.vo.admin.EmpAccMngVo;
 
 @Repository
 public class AdminDao {
@@ -65,5 +70,46 @@ public class AdminDao {
 		int count = sqlSession.delete("queryLes.deleteAdmin", rflbId);
 		return count == 1;	
 	}*/
+	
+	/************************************************************
+	 *                         교육신청현황
+	 ************************************************************/
+	
+	/* 수강신청현황 */
+	public List<EduReadyStatVo> selectEduReadyStat(EduReadyStatVo vo) {
+		List<EduReadyStatVo> list = sqlSession.selectList("queryAdmin.selectEduReadyStat", vo);
+		return list;
+	}
+	
+	/* 수강신청현황 > 교육신청직원목록 팝업 */
+	public List<EduEmpListVo> selectEduEmpListPop(String edctCntId) {
+		List<EduEmpListVo> list = sqlSession.selectList("queryAdmin.selectEduEmpListPop", edctCntId);
+		return list;
+	}
+	
+	/* 과정개설신청현황 */
+	public List<EduOpenReadyStatVo> selectEduOpenReadyStat(EduOpenReadyStatVo vo) {
+		List<EduOpenReadyStatVo> list = sqlSession.selectList("queryAdmin.selectEduOpenReadyStat", vo);
+		return list;
+	}
+	
+	/* 과정개설신청현황 상세 팝업*/
+	public EduOpenReadyStatVo selectNewEduInfoPop(int aplcId) {
+		EduOpenReadyStatVo vo = sqlSession.selectOne("queryAdmin.selectNewEduInfoPop", aplcId);
+		return vo;
+	}
+	
+	/************************************************************
+	 *                       사용자 계정관리
+	 ************************************************************/
+	public List<EmpAccMngVo> selectEmpAccMng(EmpAccMngVo vo) {
+		List<EmpAccMngVo> list = sqlSession.selectList("queryAdmin.selectEmpAccMng", vo);
+		return list;
+	}
+	
+	/* 사용자 권한변경 */
+	public void updateEmpAccMng(EmpAccMngVo vo) {
+		sqlSession.update("queryAdmin.updateEmpAccMng", vo);
+	}
 
 }

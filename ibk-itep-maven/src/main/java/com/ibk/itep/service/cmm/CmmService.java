@@ -14,6 +14,7 @@ import com.ibk.itep.vo.cmm.CldVo;
 import com.ibk.itep.vo.cmm.CliVo;
 import com.ibk.itep.vo.cmm.ClsVo;
 import com.ibk.itep.vo.cmm.CluVo;
+import com.ibk.itep.vo.cmm.CmbVo;
 
 @Service
 public class CmmService {
@@ -44,5 +45,8 @@ public class CmmService {
 	}
 	public String selectDpm(String userId){
 		return cmmDao.selectAuth(userId);
+	}
+	public List<CmbVo> selectCmb(){
+		return cmmDao.selectCmb(); // 상위부점이 IT그룹인 부서 조회
 	}
 }

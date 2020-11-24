@@ -25,10 +25,11 @@
 			
 		]]>
     	<if test="useYn != null">
-		    <![CDATA[
-	 	   		where	USE_YN=#{useYn}
-	    	]]>
+	 	   	where	USE_YN=#{useYn}
 	    </if>
+		<![CDATA[
+	   	 	order by field(EDCT_CLSF_CD,'EXTRA'), EDCT_CLSF_CD desc;
+	    ]]>
 	</select>
 	<select id="selectCli" parameterType="CliVo" resultType="CliVo">
 		<![CDATA[
@@ -80,6 +81,16 @@
 			FROM TB_IEP_CMU001M
 			WHERE USER_ID = #{userId}
 		]]>
+	</select>
 
+	<select id="selectCmb" resultType="CmbVo">
+		<![CDATA[
+			select	BRCD 	as brcd						
+				,	BRNM 	as brnm						
+				,	HGRN_BRCD 	as hgrnBrcd	
+			from	itep.TB_IEP_CMB001M
+			where USE_YN = 'Y'
+			and HGRN_BRCD = '0889'
+		]]>
 	</select>
 </mapper>

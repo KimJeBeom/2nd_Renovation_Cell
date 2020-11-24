@@ -195,88 +195,93 @@
 	<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 
 	<script type="text/javascript">
-	$(document).ready(function() {
-		var tbody = document.getElementById('apprStatBody');
-		var trs = tbody.getElementsByTagName('tr');
-	
-		HighLightTableTr(trs[0]);	
-	});
-	
-	function search() {
-		var sttgYmd = $('#sttgYmd').val();
-		var fnshYmd = $('#fnshYmd').val();
-		var aplcStg = $('#aplcStg').val();
+		$(document).ready(function() {
+			var tbody = document.getElementById('apprStatBody');
+			var trs = tbody.getElementsByTagName('tr');
 		
-		if(sttgYmd == "" && fnshYmd != "") {
-			alert("시작 날짜를 입력해주세요.");
-		} else if(sttgYmd != "" && fnshYmd == "") {
-			alert("종료 날짜를 입력해주세요.");
-		} 
+			HighLightTableTr(trs[0]);	
+		});
 		
-		$.ajax({
-	    	url:"/itep/views/apprMng/apprStatSearch", //데이터를  넘겨줄 링크 설정
-	        type:"POST", // post 방식
-			data: {"sttgYmd" : sttgYmd,
-					"fnshYmd" : fnshYmd,
-					"aplcStg" : aplcStg}, //넘겨줄 데이터
+		$("#sttgYmd").keyup(function(e){if(e.keyCode == 13)  search(); });
+		$("#fnshYmd").keyup(function(e){if(e.keyCode == 13)  search(); });
+		$("#aplcStg").keyup(function(e){if(e.keyCode == 13)  search(); });
+		
+		function search() {
+			var sttgYmd = $('#sttgYmd').val();
+			var fnshYmd = $('#fnshYmd').val();
+			var aplcStg = $('#aplcStg').val();
 			
-			success: function (responseData) {
-				// 결재현황 조회
-				var str = '';
-				str += '<tbody id=\"apprStatBody\">';
-				$.each(responseData, function(i) {
-					str += '<tr data-toggle=\"tab\" data-target=\"#table\" onclick=\"showDetail(this, '+responseData[i].edctAplcId+')\">';
-					str += '<td>'+(i+1)+'</td>';
-					str += '<td>'+responseData[i].brnm+'</td>';
-					str += '<td>'+responseData[i].userNm+'</td>';
-					str += '<td>'+responseData[i].edctNm+'</td>';
-					str += '<td>'+responseData[i].aplcTs+'</td>';
-					str += '<td>'+responseData[i].aplcStg+'</td>';
-					str += '<td>'+responseData[i].apprNm+'</td>';
-					str += '</tr>';
-				});
-				str += '</tbody>';
-				$('#apprStatBody').replaceWith(str);
+			if(sttgYmd == "" && fnshYmd != "") {
+				alert("시작 날짜를 입력해주세요.");
+				return;
+			} else if(sttgYmd != "" && fnshYmd == "") {
+				alert("종료 날짜를 입력해주세요.");
+				return;
+			} 
+			
+			$.ajax({
+		    	url:"/itep/views/apprMng/apprStatSearch", //데이터를  넘겨줄 링크 설정
+		        type:"POST", // post 방식
+				data: {"sttgYmd" : sttgYmd,
+						"fnshYmd" : fnshYmd,
+						"aplcStg" : aplcStg}, //넘겨줄 데이터
 				
-				if(responseData.length == 0) {
-					$('#apprStatDetailDiv').hide(); // 결재현황 리스트가 없으면 하단 결재이력 테이블이 안보이게
-				} else {
-					var tbody = document.getElementById('apprStatBody');
-					var trs = tbody.getElementsByTagName('tr');
-					showDetail(trs[0], responseData[0].edctAplcId); // 결재이력 조회
+				success: function (responseData) {
+					// 결재현황 조회
+					var str = '';
+					str += '<tbody id=\"apprStatBody\">';
+					$.each(responseData, function(i) {
+						str += '<tr data-toggle=\"tab\" data-target=\"#table\" onclick=\"showDetail(this, '+responseData[i].edctAplcId+')\">';
+						str += '<td>'+(i+1)+'</td>';
+						str += '<td>'+responseData[i].brnm+'</td>';
+						str += '<td>'+responseData[i].userNm+'</td>';
+						str += '<td>'+responseData[i].edctNm+'</td>';
+						str += '<td>'+responseData[i].aplcTs+'</td>';
+						str += '<td>'+responseData[i].aplcStg+'</td>';
+						str += '<td>'+responseData[i].apprNm+'</td>';
+						str += '</tr>';
+					});
+					str += '</tbody>';
+					$('#apprStatBody').replaceWith(str);
+					
+					if(responseData.length == 0) {
+						$('#apprStatDetailDiv').hide(); // 결재현황 리스트가 없으면 하단 결재이력 테이블이 안보이게
+					} else {
+						var tbody = document.getElementById('apprStatBody');
+						var trs = tbody.getElementsByTagName('tr');
+						showDetail(trs[0], responseData[0].edctAplcId); // 결재이력 조회
+					}
+				},
+				error: function (xhr, status, error) { alert("통신실패");
 				}
-			},
-			error: function (xhr, status, error) { alert("통신실패");
-				
-			}
-		});
-	}
-	
-	function showDetail(target, edctAplcId) {
-		HighLightTableTr(target);
+			});
+		}
 		
-		$.ajax({
-	    	url:"/itep/views/apprMng/apprStatDetail", //데이터를  넘겨줄 링크 설정
-	        type:"POST", // post 방식
-			data: {"edctAplcId" : edctAplcId}, //넘겨줄 데이터
+		function showDetail(target, edctAplcId) {
+			HighLightTableTr(target);
 			
-			success: function (responseData) {		
-				// apprDetail 결과값을 테이블에 동적으로 반영
-				$('#brnm').html(responseData.brnm);
-				$('#userNm').html(responseData.userNm);
-				$('#aplcTs').html(responseData.aplcTs);
-				$('#dpmAthzDvcd').html(responseData.dpmAthzDvcd);
-				$('#dpmAthzNm').html(responseData.dpmAthzNm);
-				$('#dpmAthzCon').html(responseData.dpmAthzCon);
-				$('#dpmAthzTs').html(responseData.dpmAthzTs);
-				$('#grmAthzDvcd').html(responseData.grmAthzDvcd);
-				$('#grmAthzNm').html(responseData.grmAthzNm);
-				$('#grmAthzCon').html(responseData.grmAthzCon);
-				$('#grmAthzTs').html(responseData.grmAthzTs);
-				$('#apprStatDetailDiv').show();
-			},
-			error: function (xhr, status, error) {
-			}
-		});
-	}		
-</script>
+			$.ajax({
+		    	url:"/itep/views/apprMng/apprStatDetail", //데이터를  넘겨줄 링크 설정
+		        type:"POST", // post 방식
+				data: {"edctAplcId" : edctAplcId}, //넘겨줄 데이터
+				
+				success: function (responseData) {		
+					// apprDetail 결과값을 테이블에 동적으로 반영
+					$('#brnm').html(responseData.brnm);
+					$('#userNm').html(responseData.userNm);
+					$('#aplcTs').html(responseData.aplcTs);
+					$('#dpmAthzDvcd').html(responseData.dpmAthzDvcd);
+					$('#dpmAthzNm').html(responseData.dpmAthzNm);
+					$('#dpmAthzCon').html(responseData.dpmAthzCon);
+					$('#dpmAthzTs').html(responseData.dpmAthzTs);
+					$('#grmAthzDvcd').html(responseData.grmAthzDvcd);
+					$('#grmAthzNm').html(responseData.grmAthzNm);
+					$('#grmAthzCon').html(responseData.grmAthzCon);
+					$('#grmAthzTs').html(responseData.grmAthzTs);
+					$('#apprStatDetailDiv').show();
+				},
+				error: function (xhr, status, error) {
+				}
+			});
+		}		
+	</script>

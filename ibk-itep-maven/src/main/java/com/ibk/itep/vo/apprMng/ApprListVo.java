@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.sql.Date;
 
 public class ApprListVo {
-	private Integer rowNum;
 	private Integer edctAplcId;
 	private Integer edctCntId;
 	private Integer edctId;
@@ -13,12 +12,6 @@ public class ApprListVo {
 	private String edctNm;
 	private Date aplcTs;
 	
-	public Integer getRowNum() {
-		return rowNum;
-	}
-	public void setRowNum(Integer rowNum) {
-		this.rowNum = rowNum;
-	}
 	public Integer getEdctAplcId() {
 		return edctAplcId;
 	}

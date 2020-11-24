@@ -94,7 +94,7 @@ function showPopup(menu, name) {
 	else if (popName == 'newEduRegPop' || popName == 'eduModPop')
 		size = 'location=no, width=650, height=560, left=100, top=100';	
    
-    // 관리자페이지 코드 등록
+ 	// 관리자페이지 코드 등록
 	else if (popName == 'addEduCdPop')
 		size = 'location=no, width=650, height=300, left=100, top=100';	
 		
@@ -102,9 +102,9 @@ function showPopup(menu, name) {
 	else if (popName == 'newEduInfoPop')
 		size = 'location=no, width=650, height=500, left=100, top=100';	
 			
-	//
+	// 관리자페이지 교육신청현황 팝업
 	else if (popName == 'eduEmpListPop')
-		size = 'location=no, width=650, height=560, left=100, top=100';
+		size = 'location=no, width=650, height=540, left=100, top=100';
 	
 	else 
 		size = 'location=no, width=650, height=650, left=100, top=100';		

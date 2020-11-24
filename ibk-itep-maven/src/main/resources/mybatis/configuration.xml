@@ -46,7 +46,8 @@
 		<typeAlias alias="CliVo" type="com.ibk.itep.vo.cmm.CliVo"></typeAlias>
 		<typeAlias alias="CldVo" type="com.ibk.itep.vo.cmm.CldVo"></typeAlias>
 		<typeAlias alias="ClsVo" type="com.ibk.itep.vo.cmm.ClsVo"></typeAlias>
-		<typeAlias alias="CluVo" type="com.ibk.itep.vo.cmm.CluVo"></typeAlias>				
+		<typeAlias alias="CluVo" type="com.ibk.itep.vo.cmm.CluVo"></typeAlias>		
+		<typeAlias alias="CmbVo" type="com.ibk.itep.vo.cmm.CmbVo"></typeAlias>	
 		<typeAlias alias="EduNowVo" type="com.ibk.itep.vo.myClass.EduNowVO"></typeAlias>
 		<typeAlias alias="EduNewReadyVo" type="com.ibk.itep.vo.myClass.EduNewReadyVO"></typeAlias>
 		<typeAlias alias="EduReadyVo" type="com.ibk.itep.vo.myClass.EduReadyVO"></typeAlias>

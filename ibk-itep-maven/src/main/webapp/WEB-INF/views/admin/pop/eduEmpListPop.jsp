@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- HEADER -->
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
 
@@ -18,21 +19,21 @@
 						<div class="col-md-9 col-popup">
 							<div class="panel panel-headline">
 							<div class="panel-body panel-popup">
-
+								<button type="button" class="btn btn-primary btn-toastr btn-top">차수완료</button>
 								<!-- 교육 내용 테이블 -->
 								<table class="table table-bordered tbl-type1">
 									<tbody>
 										<tr>
 											<th>과목명</th>
-											<td colspan="3">2020년 제1회 금융IT세미나</td>
+											<td colspan="3">${eduEmpList[0].edctNm }</td>
 										</tr>
 										<tr>
 											<th>교육내용</th>
-											<td class="txt-long" colspan="3">클라우드 개념의 이해 및 금융권 적용 사례</td>
+											<td class="txt-long" colspan="3" style="text-align: center;">${eduEmpList[0].edctCon }</td>
 										</tr>
 										<tr>
 											<th>교육기간</th>
-											<td colspan="3">20200908 ~ 20200908</td>
+											<td colspan="3">${eduEmpList[0].edctSttgYmd } ~ ${eduEmpList[0].edctFnshYmd }</td>
 										</tr>
 									</tbody>
 								</table>
@@ -43,98 +44,42 @@
 								<button type="button" class="btn btn-primary btn-toastr btn-top">엑셀 다운로드</button>
 
 								<table class="table table-bordered tbl-type2">
-								<thead>
-									<tr>
-										<th>No</th>
-										<th>부서</th>
-										<th>직원번호</th>
-										<th>직원명</th>
-										<th style="width:50px;">수료</th>
-										<th style="width:50px;">미수료</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>1</td>
-										<td>IT기획부</td>
-										<td>50000</td>
-										<td>김기은</td>
-										<td>
-											<label class="fancy-radio" style="margin-bottom:0px;">
-												<input name="ctcr_1" value="y" type="radio" checked/><span><i style="margin-right:0"></i></span>										
-											</label>
-										</td>
-										<td>
-											<label class="fancy-radio" style="margin-bottom:0px;">
-												<input name="ctcr_1" value="n" type="radio"/><span><i style="margin-right:0"></i></span>
-											</label>
-										</td>
-									</tr>
-									<tr>
-										<td>2</td>
-										<td>IT시스템운영팀</td>
-										<td>50001</td>
-										<td>박기은</td>
-										<td>
-											<label class="fancy-radio" style="margin-bottom:0px;">
-												<input name="ctcr_2" value="y" type="radio" checked/><span><i style="margin-right:0"></i></span>										
-											</label>
-										</td>
-										<td>
-											<label class="fancy-radio" style="margin-bottom:0px;">
-												<input name="ctcr_2" value="n" type="radio"/><span><i style="margin-right:0"></i></span>
-											</label>
-										</td>
-									</tr>
-									<tr>
-										<td>3</td>
-										<td>IT금융개발부</td>
-										<td>50002</td>
-										<td>이기은</td>
-										<td>
-											<label class="fancy-radio" style="margin-bottom:0px;">
-												<input name="ctcr_3" value="y" type="radio" checked/><span><i style="margin-right:0"></i></span>										
-											</label>
-										</td>
-										<td>
-											<label class="fancy-radio" style="margin-bottom:0px;">
-												<input name="ctcr_3" value="n" type="radio"/><span><i style="margin-right:0"></i></span>
-											</label>
-										</td>
-									</tr>
-									<tr>
-										<td>4</td>
-										<td>IT금융개발부</td>
-										<td>50003</td>
-										<td>정기은</td>
-										<td>
-											<label class="fancy-radio" style="margin-bottom:0px;">
-												<input name="ctcr_4" value="y" type="radio" checked/><span><i style="margin-right:0"></i></span>										
-											</label>
-										</td>
-										<td>
-											<label class="fancy-radio" style="margin-bottom:0px;">
-												<input name="ctcr_4" value="n" type="radio"/><span><i style="margin-right:0"></i></span>
-											</label>
-										</td>
-									</tr>
-									<tr>
-										<td>5</td>
-										<td>IT금융개발부</td>
-										<td>50004</td>
-										<td>강기은</td>
-										<td>
-											<label class="fancy-radio" style="margin-bottom:0px;">
-												<input name="ctcr_5" value="y" type="radio" checked/><span><i style="margin-right:0"></i></span>										
-											</label>
-										</td>
-										<td>
-											<label class="fancy-radio" style="margin-bottom:0px;">
-												<input name="ctcr_5" value="n" type="radio"/><span><i style="margin-right:0"></i></span>
-											</label>
-										</td>
-									</tr>
-								</tbody>
+									<thead>
+										<tr>
+											<th>No</th>
+											<th>부서</th>
+											<th>직원번호</th>
+											<th>직원명</th>
+											<th style="width:50px;">수료</th>
+											<th style="width:50px;">미수료</th>
+										</tr>
+									</thead>
+									<c:if test="${eduEmpList[0].edctAplcId ne ''}">
+									<tbody id="eduEmpListTBody" style="vertical-align: center;">
+										<c:forEach items="${eduEmpList }" var="eduemplist" varStatus="status">
+											<tr data-toggle="tab" data-target="#table">
+												<td>${status.count }</td>
+												<td>${eduemplist.brnm }</td>
+												<td>${eduemplist.userId }</td>
+												<td>${eduemplist.userNm }</td>
+												<td>
+													<label class="fancy-radio" style="margin-bottom:0px;">
+														<input name="ctcr${status.count }" value="y" type="radio" 
+															<c:if test="${eduemplist.ctcrYn eq 'Y'}">checked</c:if>/>
+														<span><i style="margin-right:0"></i></span>										
+													</label>
+												</td>
+												<td>
+													<label class="fancy-radio" style="margin-bottom:0px;">
+														<input name="ctcr${status.count }" value="n" type="radio" 
+															<c:if test="${eduemplist.ctcrYn eq 'N'}">checked</c:if>/>
+														<span><i style="margin-right:0"></i></span>	
+													</label>
+												</td>
+											</tr>
+										</c:forEach> 
+									</tbody>
+									</c:if>
 								</table>
 							</div>
 							</div>
