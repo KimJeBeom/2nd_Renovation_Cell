@@ -95,7 +95,7 @@
 												<td>${eduMyHistroy.aplcStgNm }</td>
 												<td>
 													<button type="button" class="btn btn-primary btn-xs"
-														onclick="showPopup('myClass','eduInfoPop?edctAplcId='+${eduMyHistroy.edctAplcId});">확인</button>
+														onclick="showPopup('myClass','eduInfoPop?edctAplcId='+${eduMyHistroy.edctAplcId}+'&&type=history');">확인</button>
 												</td>
 											</tr>
 								       </c:forEach>
