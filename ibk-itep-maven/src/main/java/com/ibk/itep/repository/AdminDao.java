@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.ibk.itep.vo.admin.EduRegModVo;
+import com.ibk.itep.vo.admin.EduRndRegModVo;
 
 @Repository
 public class AdminDao {
@@ -29,6 +30,13 @@ public class AdminDao {
 	public boolean insertEduRegMod(EduRegModVo vo) {
 		int count = sqlSession.insert("queryAdmin.insertEduRegMod", vo);
 		return count == 1;
+	}
+	
+	public List<EduRndRegModVo> selectEduRndRegMod(EduRndRegModVo vo){
+		logger.debug("selectEduRndRegMod dao 진입");
+		List<EduRndRegModVo> list = sqlSession.selectList("queryAdmin.selectEduRndRegMod", vo);
+		logger.debug("selectEduRndRegMod dao 종료 직전 {}", list.get(0).getEdctCntId());	
+		return list;
 	}
 	/*
 	public boolean updateAdmin(Integer userId) {

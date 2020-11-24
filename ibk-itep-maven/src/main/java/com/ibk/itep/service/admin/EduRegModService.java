@@ -33,5 +33,6 @@ public class EduRegModService {
 	public boolean insertEduRegMod(EduRegModVo vo) {
 			return adminDao.insertEduRegMod(vo);
 	}
+
 }
 
