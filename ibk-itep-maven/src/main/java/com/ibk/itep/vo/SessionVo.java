@@ -8,7 +8,14 @@ public class SessionVo {
 	private String brcd;
 	private String brnm;
 	private String athrCd;
+	private String teamCd;
 	
+	public String getTeamCd() {
+		return teamCd;
+	}
+	public void setTeamCd(String teamCd) {
+		this.teamCd = teamCd;
+	}
 	public String getUserId() {
 		return userId;
 	}

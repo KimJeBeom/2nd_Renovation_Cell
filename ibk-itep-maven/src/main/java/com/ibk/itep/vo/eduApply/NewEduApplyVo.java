@@ -1,6 +1,8 @@
 package com.ibk.itep.vo.eduApply;
 
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -20,8 +22,8 @@ public class NewEduApplyVo {
 	private Date edctFnshYmd;
 	private Date aplcSttgYmd;
 	private Date aplcFnshYmd;
-	private Time edctSttgTim;
-	private Time edctFnshTim;
+	private Date edctSttgTim;
+	private Date edctFnshTim;
 	private String edex;
 	private String onlEdctYn;
 	private String edctLevl;
@@ -73,38 +75,92 @@ public class NewEduApplyVo {
 	public Date getEdctSttgYmd() {
 		return edctSttgYmd;
 	}
-	public void setEdctSttgYmd(Date edctSttgYmd) {
-		this.edctSttgYmd = edctSttgYmd;
+	public void setEdctSttgYmd(String edctSttgYmd) {
+		edctSttgYmd = edctSttgYmd+" 00:00:00";
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date edctSttgYmdTo = null;
+		try {
+			edctSttgYmdTo = transFormat.parse(edctSttgYmd);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.edctSttgYmd = edctSttgYmdTo;
 	}
 	public Date getEdctFnshYmd() {
 		return edctFnshYmd;
 	}
-	public void setEdctFnshYmd(Date edctFnshYmd) {
-		this.edctFnshYmd = edctFnshYmd;
+	public void setEdctFnshYmd(String edctFnshYmd) {
+		edctFnshYmd = edctFnshYmd+" 00:00:00";
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date edctFnshYmdTo = null;
+		try {
+			edctFnshYmdTo = transFormat.parse(edctFnshYmd);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.edctFnshYmd = edctFnshYmdTo;
 	}
 	public Date getAplcSttgYmd() {
 		return aplcSttgYmd;
 	}
-	public void setAplcSttgYmd(Date aplcSttgYmd) {
-		this.aplcSttgYmd = aplcSttgYmd;
+	public void setAplcSttgYmd(String aplcSttgYmd) {
+		aplcSttgYmd = aplcSttgYmd+" 00:00:00";
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date aplcSttgYmdTo = null;
+		try {
+			aplcSttgYmdTo = transFormat.parse(aplcSttgYmd);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.aplcSttgYmd = aplcSttgYmdTo;
 	}
 	public Date getAplcFnshYmd() {
 		return aplcFnshYmd;
 	}
-	public void setAplcFnshYmd(Date aplcFnshYmd) {
-		this.aplcFnshYmd = aplcFnshYmd;
+	public void setAplcFnshYmd(String aplcFnshYmd) {
+		aplcFnshYmd = aplcFnshYmd+" 00:00:00";
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date aplcFnshYmdTo = null;
+		try {
+			aplcFnshYmdTo = transFormat.parse(aplcFnshYmd);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.aplcFnshYmd = aplcFnshYmdTo;
 	}
-	public Time getEdctSttgTim() {
+	public Date getEdctSttgTim() {
 		return edctSttgTim;
 	}
-	public void setEdctSttgTim(Time edctSttgTim) {
-		this.edctSttgTim = edctSttgTim;
+	public void setEdctSttgTim(String edctSttgTim) {
+		edctSttgTim = edctSttgTim+":00";
+		SimpleDateFormat transFormat = new SimpleDateFormat("hh:mm:ss");
+		Date edctSttgTimTo = null;
+		try {
+			edctSttgTimTo = transFormat.parse(edctSttgTim);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.edctSttgTim = edctSttgTimTo;
 	}
-	public Time getEdctFnshTim() {
+	public Date getEdctFnshTim() {
 		return edctFnshTim;
 	}
-	public void setEdctFnshTim(Time edctFnshTim) {
-		this.edctFnshTim = edctFnshTim;
+	public void setEdctFnshTim(String edctFnshTim) {
+		edctFnshTim = edctFnshTim+":00";
+		SimpleDateFormat transFormat = new SimpleDateFormat("hh:mm:ss");
+		Date edctFnshTimTo = null;
+		try {
+			edctFnshTimTo = transFormat.parse(edctFnshTim);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.edctFnshTim = edctFnshTimTo;
 	}
 	public String getEdex() {
 		return edex;
