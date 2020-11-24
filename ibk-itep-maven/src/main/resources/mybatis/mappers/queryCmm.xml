@@ -24,10 +24,11 @@
 			from	itep.TB_IEP_CLD001C
 		]]>
     	<if test="useYn != null">
-		    <![CDATA[
-	 	   		where	USE_YN=#{useYn}
-	    	]]>
+	 	   	where	USE_YN=#{useYn}
 	    </if>
+		<![CDATA[
+	   	 	order by field(EDCT_CLSF_CD,'EXTRA'), EDCT_CLSF_CD desc;
+	    ]]>
 	</select>
 	<select id="selectCli" parameterType="CliVo" resultType="CliVo">
 		<![CDATA[

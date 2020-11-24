@@ -30,7 +30,7 @@
 						
 							<!-- 결재 목록 -->
 							<div class="panel-body">
-								<h4 class="panel-title" style="float:left;"><b>▶ 결재 목록</b></h4>
+								<h4 class="panel-title" style="float:left;"><b>결재 목록</b></h4>
 								
 								<!-- 상단 버튼 -->
 								<button type="button" class="btn btn-primary btn-toastr btn-top" onclick="apprRej();">반려</button>

@@ -27,6 +27,10 @@
 								<table class="table table-bordered tbl-type1">
 									<tbody>
 										<tr>
+											<th>신청일시</th>
+											<td class="txt-long" colspan="3">2020-10-10 00:14:00</td>
+										</tr>
+										<tr>
 											<th>부서명</th>
 											<td>IT금융개발부</td>
 											<th>직원명</th>
@@ -39,7 +43,7 @@
 											<td colspan="3">Amazon</td>
 										</tr>
 										<tr>
-											<th>과목명</th>
+											<th>교육명</th>
 											<td colspan="3">AWS SUMMIT SEOUL</td>
 										</tr>
 										<tr>

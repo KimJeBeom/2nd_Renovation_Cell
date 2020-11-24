@@ -62,7 +62,7 @@
 										</tbody>
 									</table>
 								</div>
-								<div style="display: table-cell; text-align: center; padding-right: 5px; width: 100px">
+								<div style="display: table-cell; text-align: left; padding-top:2px; width:300px;">
 									<button type="button" class="btn btn-primary" style="float: right;" onclick="search()">조회</button>
 								</div>
 							</div>
