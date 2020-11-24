@@ -2,6 +2,9 @@ package com.ibk.itep.controller.apprMng;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ibk.itep.controller.HomeController;
 import com.ibk.itep.service.ApprMngService;
+import com.ibk.itep.vo.SessionVo;
 import com.ibk.itep.vo.apprMng.ApprStatDetailVo;
 import com.ibk.itep.vo.apprMng.ApprStatVo;
 
@@ -27,12 +31,17 @@ public class ApprStatController{
 	
 	/* 결재현황, 첫번째 결재건의 결재이력 조회 */
 	@RequestMapping(value = "/views/apprMng/apprStat", method = RequestMethod.GET)
-	public String apprStat(@RequestParam(value="sttgYmd", required=false) String sttgYmd
+	public String apprStat(HttpServletRequest request, Model model 
+						 , @RequestParam(value="sttgYmd", required=false) String sttgYmd
 						 , @RequestParam(value="fnshYmd", required=false) String fnshYmd
-						 , @RequestParam(value="aplcStg", required=false) String aplcStg, Model model) {
+						 , @RequestParam(value="aplcStg", required=false) String aplcStg) {
+		
+		/* 세션정보를 담은 SessionVo 가져옴 */
+		HttpSession session = request.getSession();
+		SessionVo ssnInfo = (SessionVo)session.getAttribute("ssnInfo");
 		
 		/* 결재현황 조회 */
-		List<ApprStatVo> apprStat = apprMngService.selectApprStat(sttgYmd, fnshYmd, aplcStg);
+		List<ApprStatVo> apprStat = apprMngService.selectApprStat(sttgYmd, fnshYmd, aplcStg, ssnInfo);
 		ApprStatDetailVo apprDetail = null; // 상세 내용을 담기위한 객체
 		
 		/* 결재 대상이 하나라도 있으면 첫번째 결재건에 대한 상세내용 조회 */
@@ -49,11 +58,16 @@ public class ApprStatController{
 	}
 
 	@RequestMapping(value = "/views/apprMng/apprStatSearch", method = RequestMethod.POST)
-	public @ResponseBody List<ApprStatVo> apprStatSearch(@RequestParam(value="sttgYmd", required=false) String sttgYmd
-						 , @RequestParam(value="fnshYmd", required=false) String fnshYmd
-						 , @RequestParam(value="aplcStg", required=false) String aplcStg, Model model) {
+	public @ResponseBody List<ApprStatVo> apprStatSearch(HttpServletRequest request, Model model 
+						 			 , @RequestParam(value="sttgYmd", required=false) String sttgYmd
+									 , @RequestParam(value="fnshYmd", required=false) String fnshYmd
+									 , @RequestParam(value="aplcStg", required=false) String aplcStg) {
+
+		/* 세션정보를 담은 SessionVo 가져옴 */
+		HttpSession session = request.getSession();
+		SessionVo ssnInfo = (SessionVo)session.getAttribute("ssnInfo");
 		
-		List<ApprStatVo> apprStat = apprMngService.selectApprStat(sttgYmd, fnshYmd, aplcStg);
+		List<ApprStatVo> apprStat = apprMngService.selectApprStat(sttgYmd, fnshYmd, aplcStg, ssnInfo);
 		return apprStat;
 	}
 	

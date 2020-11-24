@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- HEADER -->
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
 
@@ -16,75 +19,91 @@
 				   <!-- INPUTS -->
 				   <div class="panel panel-headline">
 				   <div class="panel-body panel-popup">
+				   	  <!-- 교육상세정보(eduDetail=vo) -->
 					  <table class="table table-bordered tbl-type1">
 						 <tbody>
 							<tr>
 							   <th>교육분류</th>
-							   <td>외부교육</td>
+							   <td>${vo.edctClsfNm}</td>
 							   <th>결재대상</th>
-							   <td>대상외</td>
+								<c:choose>
+									<c:when test="${vo.snctTgtYn eq 'Y'}">
+										<td>결재대상</td>	 
+									</c:when>
+									<c:otherwise>
+										<td>대상외</td>
+									</c:otherwise>
+								</c:choose>
 							</tr>
 							<tr>
 							   <th>과목명</th>
-							   <td colspan="3">Java Programming 핵심</td>
+							   <td colspan="3">${vo.edctNm}</td>
 							</tr>
 							<tr>
 							   <th>교육내용</th>
 							   <td class="txt-long" colspan="3">
-								  <br >
-								  - 다형성과 Loose Coupling 개념을 개발기간 뿐만 아니라 유지보수 및 확장시 개발자가 어떻게 적용할 수 있는지 학습합니다. <br >
-								  - 디자인 패턴 등 현장의 개발자에게 필요하지만 어려운 개념을 쉽고 구체적으로 접근합니다.
-								  <br ><br >
+								<form>
+									<textarea id="edctCon" placeholder="" style="width:100%; height:150px;" readonly>${vo.edctCon}</textarea>
+								</form>
 							   </td>
 							</tr>
 							<tr>
 							   <th>교육기관</th>
-							   <td>멀티캠퍼스</td>
+							   <td>${vo.edinNm}</td>
 							   <th>교육비용</th>
-							   <td>1,350,000</td>
+							   <td>${vo.edex}</td>
 							</tr>
 							<tr>
 							   <th>교육기간</th>
-							   <td>5일</td>
+							   <td>${vo.edctTrm}일</td>
 							   <th>이수시간</th>
-							   <td>35시간</td>
+							   <td>${vo.ctcrTim}시간</td>
 							</tr>
 							<tr>
 							   <th>교육방식</th>
-							   <td>오프라인</td>
+							   <c:choose>
+									<c:when test="${vo.onlEdctYn eq 'Y'}">
+										<td>온라인</td>	 
+									</c:when>
+									<c:otherwise>
+										<td>오프라인</td>
+									</c:otherwise>
+							   </c:choose>
 							   <th>교육수준</th>
-							   <td>중급</td>
+							   <td>${vo.edctLevl}</td>
 							</tr>
 						 </tbody>
 					  </table>
-					  <table class="table table-bordered tbl-type2">
-					  <thead>
-						 <tr>
-							<th>No</th>
-							<th>학습기간</th>
-							<th>신청기간</th>
-							<th style="width: 25%;">신청</th>
-						 </tr>
-					  </thead>
-					  <tbody>
-						 <tr>
-							<td>1</td>
-							<td>20200101 ~ 20200131</td>
-							<td>20191201 ~ 20191231</td>
-							<td>
-							   <button type="button" class="btn btn-default btn-toastr" disabled="disabled">신청마감</button>
-							</td>
-						 </tr>
+					  <!-- 교욱차수리스트(eduCntList=cntList) -->
+					  <div style="overflow-x:hidden; height:220px;">
+						  <table class="table table-bordered tbl-type2">
+						  <thead>
+							 <tr>
+								<th>No</th>
+								<th>학습기간</th>
+								<th>신청기간</th>
+								<th style="width: 25%;">신청</th>
+							 </tr>
+						  </thead>
+						  <tbody>
+							<c:forEach items="${list}" var="cntList" varStatus="status">
 							<tr>
-							<td>2</td>
-							<td>20200201 ~ 20200205</td>
-							<td>20200101 ~ 20200131</td>
-							<td>
-							   <button type="button" class="btn btn-primary btn-toastr" onclick="showPopup('eduApply','eduInfoPop');">교육신청</button>
-							</td>
-						 </tr>
-					  </tbody>
-					  </table>
+								<td style="text-align:center">${fn:length(list)-status.count+1}
+								<td style="text-align:center">${cntList.edctSttgYmd} ~ ${cntList.edctFnshYmd}
+								<td style="text-align:center">${cntList.aplcSttgYmd} ~ ${cntList.aplcFnshYmd}
+								<c:choose>
+									<c:when test="${cntList.aplcAbleYn eq 'Y'}">
+										<td style="text-align:center"><button type="button" class="btn btn-primary btn-toastr" onclick="showPopup('eduApply','eduInfoPop?edctCntId=${cntList.edctCntId}&&modType=insert&&snctTgtYn=${vo.snctTgtYn}');">교육신청</button></td>	 
+									</c:when>
+									<c:otherwise>
+										<td style="text-align:center"><button type="button" class="btn btn-default btn-toastr" disabled="disabled">신청마감</button></td>
+									</c:otherwise>
+								</c:choose>
+							</tr>						
+							</c:forEach>
+						  </tbody>
+						  </table>
+					  </div>
 				   </div>
 				   </div>
 				   <!-- END INPUTS -->

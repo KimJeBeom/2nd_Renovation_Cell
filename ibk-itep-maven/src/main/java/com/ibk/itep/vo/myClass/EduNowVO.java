@@ -2,7 +2,7 @@ package com.ibk.itep.vo.myClass;
 
 public class EduNowVO {
 	
-	private Integer edctAplcd;
+	private Integer edctAplcId;
 	private Integer edctId;
 	private Integer edctCntId;
 	private String userId;
@@ -16,11 +16,11 @@ public class EduNowVO {
 	private String fnshYn;
 
 
-	public Integer getEdctAplcd() {
-		return edctAplcd;
+	public Integer getEdctAplcId() {
+		return edctAplcId;
 	}
-	public void setEdctAplcd(Integer edctAplcd) {
-		this.edctAplcd = edctAplcd;
+	public void setEdctAplcId(Integer edctAplcId) {
+		this.edctAplcId = edctAplcId;
 	}
 	public Integer getEdctId() {
 		return edctId;

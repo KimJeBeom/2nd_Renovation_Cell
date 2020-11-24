@@ -8,10 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ibk.itep.repository.CmmDao;
+import com.ibk.itep.vo.SessionVo;
 import com.ibk.itep.vo.cmm.ClaVo;
 import com.ibk.itep.vo.cmm.CldVo;
 import com.ibk.itep.vo.cmm.CliVo;
 import com.ibk.itep.vo.cmm.ClsVo;
+import com.ibk.itep.vo.cmm.CluVo;
+import com.ibk.itep.vo.cmm.CmbVo;
 
 @Service
 public class CmmService {
@@ -36,5 +39,14 @@ public class CmmService {
 	public List<ClsVo> selectCls(ClsVo vo){
 		logger.debug("CmmDao selectCls 함수");
 		return cmmDao.selectCls(vo);
+	}
+	public List<CluVo> selectDpm(SessionVo ssnInfo){
+		return cmmDao.selectDpm(ssnInfo);
+	}
+	public String selectDpm(String userId){
+		return cmmDao.selectAuth(userId);
+	}
+	public List<CmbVo> selectCmb(){
+		return cmmDao.selectCmb(); // 상위부점이 IT그룹인 부서 조회
 	}
 }

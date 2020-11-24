@@ -22,12 +22,14 @@
 				,	EDCT_CLSF_NM 	as edctClsfNm						
 				,	USE_YN 			as useYn
 			from	itep.TB_IEP_CLD001C
+			
 		]]>
     	<if test="useYn != null">
-		    <![CDATA[
-	 	   		where	USE_YN=#{useYn}
-	    	]]>
+	 	   	where	USE_YN=#{useYn}
 	    </if>
+		<![CDATA[
+	   	 	order by field(EDCT_CLSF_CD,'EXTRA'), EDCT_CLSF_CD desc;
+	    ]]>
 	</select>
 	<select id="selectCli" parameterType="CliVo" resultType="CliVo">
 		<![CDATA[
@@ -55,5 +57,40 @@
 	 	   		where	USE_YN=#{useYn}
 	    	]]>
 	    </if>
+	</select>
+	
+	<select id="selectDpm" parameterType="SessionVo" resultType="CluVo">
+		<![CDATA[
+			SELECT USER_ID AS userId,
+					CONCAT(USER_NM,'(',USER_JTM,')') AS userNm,
+					BRNM AS brnm
+			FROM TB_IEP_CMU001M CMU
+			LEFT JOIN TB_IEP_CMB001M CMB ON CMU.TEAM_CD = CMB.BRCD
+			WHERE  ATHR_CD ='DPM'
+		]]>
+    	<if test="userId != null">
+		<![CDATA[
+	 	   	AND    DVCD IN (SELECT DISTINCT DVCD FROM TB_IEP_CMU001M WHERE USER_ID =#{userId})
+	    ]]>
+	    </if>
+	</select>
+	
+	<select id="selectAuth" parameterType="String" resultType="String">
+		<![CDATA[
+			SELECT ATHR_CD AS AthrCd 
+			FROM TB_IEP_CMU001M
+			WHERE USER_ID = #{userId}
+		]]>
+	</select>
+
+	<select id="selectCmb" resultType="CmbVo">
+		<![CDATA[
+			select	BRCD 	as brcd						
+				,	BRNM 	as brnm						
+				,	HGRN_BRCD 	as hgrnBrcd	
+			from	itep.TB_IEP_CMB001M
+			where USE_YN = 'Y'
+			and HGRN_BRCD = '0889'
+		]]>
 	</select>
 </mapper>

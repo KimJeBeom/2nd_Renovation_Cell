@@ -30,7 +30,7 @@
 						
 							<!-- 결재 목록 -->
 							<div class="panel-body">
-								<h4 class="panel-title" style="float:left;"><b>▶ 결재 목록</b></h4>
+								<h4 class="panel-title" style="float:left;"><b>결재 목록</b></h4>
 								
 								<!-- 상단 버튼 -->
 								<button type="button" class="btn btn-primary btn-toastr btn-top" onclick="apprRej();">반려</button>
@@ -54,14 +54,14 @@
 									</thead>
 									<tbody id="apprListBody">
 										<!-- 컨트롤러에서 가져온 리스트에서 VO 하나씩 꺼내서 출력 -->
-										<c:forEach items="${apprList }" var="apprlist">
+										<c:forEach items="${apprList }" var="apprlist" varStatus="status">
 											<tr data-toggle="tab" data-target="#table" onclick="showDetail(this, ${apprlist.edctAplcId })">
 												<td>
 													<label class="fancy-checkbox" onclick="event.cancelBubble=true">
 														<input type="checkbox" name="checkbox"><span></span>
 													</label>
 												</td>
-												<td>${apprlist.rowNum }</td>
+												<td>${status.count }</td>
 												<td>${apprlist.brnm }</td>
 												<td>${apprlist.userNm }</td>
 												<td>${apprlist.edctNm }</td>

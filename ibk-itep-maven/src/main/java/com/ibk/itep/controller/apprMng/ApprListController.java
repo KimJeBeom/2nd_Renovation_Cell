@@ -62,14 +62,24 @@ public class ApprListController{
 	
 	/* 결재 승인처리 */
 	@RequestMapping(value = "/views/apprMng/apprConf", method = RequestMethod.POST)
-	public @ResponseBody int apprConf(@RequestParam(value="aplcIdArr[]") List<Integer> aplcIdArr) {
-		return apprMngService.updateApprConf(aplcIdArr);
+	public @ResponseBody int apprConf(HttpServletRequest request, @RequestParam(value="aplcIdArr[]") List<Integer> aplcIdArr) {
+		/* 세션정보를 담은 SessionVo 가져옴 */
+		HttpSession session = request.getSession();
+		SessionVo ssnInfo = (SessionVo)session.getAttribute("ssnInfo");
+		
+		return apprMngService.updateApprConf(aplcIdArr, ssnInfo);
 	}
 	
 	/* 결재 반려처리 */
 	@RequestMapping(value = "/views/apprMng/apprRej", method = RequestMethod.POST)
-	public @ResponseBody int apprRej(@RequestParam(value="aplcIdArr[]") List<Integer> aplcIdArr, @RequestParam("rtreCon") String rtreCon) {
-		return apprMngService.updateApprRej(aplcIdArr, rtreCon);
+	public @ResponseBody int apprRej(@RequestParam(value="aplcIdArr[]") List<Integer> aplcIdArr, @RequestParam("rtreCon") String rtreCon
+										, HttpServletRequest request) {
+		
+		/* 세션정보를 담은 SessionVo 가져옴 */
+		HttpSession session = request.getSession();
+		SessionVo ssnInfo = (SessionVo)session.getAttribute("ssnInfo");
+		
+		return apprMngService.updateApprRej(aplcIdArr, rtreCon, ssnInfo);
 	}
 }
 

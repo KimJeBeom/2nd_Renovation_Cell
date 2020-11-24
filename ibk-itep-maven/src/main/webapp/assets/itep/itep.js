@@ -80,7 +80,7 @@ function showPopup(menu, name) {
 		
 	// 교육신청 결재 요청 팝업
 	else if (popName == 'eduInfoPop')
-		size = 'location=no, width=750, height=430, left=200, top=200';
+		size = 'location=no, width=750, height=500, left=200, top=200';
 	
 	// 차수추가 팝업
 	else if (popName =='addEduRndPop')
@@ -94,13 +94,17 @@ function showPopup(menu, name) {
 	else if (popName == 'newEduRegPop' || popName == 'eduModPop')
 		size = 'location=no, width=650, height=560, left=100, top=100';	
    
- // 관리자페이지 코드 등록
+ 	// 관리자페이지 코드 등록
 	else if (popName == 'addEduCdPop')
 		size = 'location=no, width=650, height=300, left=100, top=100';	
+		
+	// 과정개설신청 상세확인 팝업
+	else if (popName == 'newEduInfoPop')
+		size = 'location=no, width=650, height=500, left=100, top=100';	
 			
-	//
+	// 관리자페이지 교육신청현황 팝업
 	else if (popName == 'eduEmpListPop')
-		size = 'location=no, width=650, height=560, left=100, top=100';
+		size = 'location=no, width=650, height=540, left=100, top=100';
 	
 	else 
 		size = 'location=no, width=650, height=650, left=100, top=100';		

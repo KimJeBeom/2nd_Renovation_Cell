@@ -1,14 +1,22 @@
 package com.ibk.itep.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ibk.itep.repository.MyClassDao;
+import com.ibk.itep.vo.SessionVo;
+import com.ibk.itep.vo.apprMng.ApprConfRejVo;
+import com.ibk.itep.vo.myClass.EduCompleteVO;
+import com.ibk.itep.vo.myClass.EduInfoPopVO;
+import com.ibk.itep.vo.myClass.EduListSrchVO;
+import com.ibk.itep.vo.myClass.EduMyHistoryVO;
 import com.ibk.itep.vo.myClass.EduNewReadyVO;
 import com.ibk.itep.vo.myClass.EduNowVO;
 import com.ibk.itep.vo.myClass.EduReadyVO;
+import com.ibk.itep.vo.myClass.NewEduInfoPopVO;
 
 
 @Service
@@ -17,23 +25,66 @@ public class MyClassService {
 	@Autowired
 	private MyClassDao myClassDao;
 	
-	//¼ö°­ÁßÀÎ ±³À° Á¶È¸
-	public List<EduNowVO> getList(String userId){
+	public List<EduNowVO> getList(SessionVo ssnVo){
 		
-		return myClassDao.selectEduNow(userId);
+		return myClassDao.selectEduNow(ssnVo);
 	}
 	
-	//¼ö°­½ÅÃ»ÇÑ ±³À° > °úÁ¤°³¼³ ½ÅÃ»¸ñ·Ï Á¶È¸
-	public List<EduNewReadyVO> getNewList(String userId){
+	public List<EduNewReadyVO> getNewList(SessionVo ssnVo){
 		
-		return myClassDao.selectNewEduReady(userId);
+		return myClassDao.selectNewEduReady(ssnVo);
 	}
 	
-	//¼ö°­½ÅÃ»ÇÑ ±³À° > ¼ö°­½ÅÃ» ¸ñ·Ï Á¶È¸
-	public List<EduReadyVO> getReadyList(String userId){
+	public List<EduReadyVO> getReadyList(SessionVo ssnVo){
 		
-		return myClassDao.selectEduReady(userId);
+		List<EduReadyVO> list = myClassDao.selectEduReady(ssnVo);
+		return list;
+	}
+	
+	public List<EduCompleteVO> selectEduComplete(String sttgYmd, String fnshYmd){
+		EduListSrchVO srchVo = new EduListSrchVO();
+		srchVo.setUserId("42374");
+		
+		if(sttgYmd != null && !sttgYmd.equals("")) {
+			srchVo.setSttgYmd(Date.valueOf(sttgYmd.replace("/", "-"))); // ê²€ìƒ‰ - ì‹œì‘ì¼ì
+		}if(fnshYmd != null && !fnshYmd.equals(""))
+			srchVo.setFnshYmd(Date.valueOf(fnshYmd.replace("/", "-"))); // ê²€ìƒ‰ - ì¢…ë£Œì¼ì 
+		
+		List<EduCompleteVO> list = myClassDao.selectEduComplete(srchVo);
+		return list;
+	}
+	
+	public List<EduMyHistoryVO> selectHistoryList(String sttgYmd, String fnshYmd){
+		EduListSrchVO srchVo = new EduListSrchVO();
+		srchVo.setUserId("42374");
+		
+		if(sttgYmd != null && !sttgYmd.equals("")) {
+			srchVo.setSttgYmd(Date.valueOf(sttgYmd.replace("/", "-"))); // ê²€ìƒ‰ - ì‹œì‘ì¼ì
+		}if(fnshYmd != null && !fnshYmd.equals(""))
+			srchVo.setFnshYmd(Date.valueOf(fnshYmd.replace("/", "-"))); // ê²€ìƒ‰ - ì¢…ë£Œì¼ì 
+		
+		List<EduMyHistoryVO> list = myClassDao.selectEduMyHistory(srchVo);
+		return list;
 	}
 
+	public EduInfoPopVO getEduInfoPop(int edctAplcId){
+		
+		return myClassDao.selectEduInfoPop(edctAplcId);
+	}
+	
+	public NewEduInfoPopVO getNewEduInfoPop(int aplcId){
+		
+		return myClassDao.selectNewEduInfoPop(aplcId);
+	}
+	
+	public int updateEduReady(int edctAplcId){
+
+		return	myClassDao.updateEduReady(edctAplcId);
+	}
+	
+	public int updateEduInfoPop(EduInfoPopVO infoVo){
+		
+		return myClassDao.updateEduInfoPop(infoVo);
+	}
 }
 

@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ page import = "com.ibk.itep.vo.SessionVo" %>   
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <%
 	SessionVo ssnInfo = (SessionVo)session.getAttribute("ssnInfo");
 	String brnm = ssnInfo.getBrnm();
+	String userId = ssnInfo.getUserId();
 	String userNm = ssnInfo.getUserNm();
 	String userJtm = ssnInfo.getUserJtm();
 	String athrCd = ssnInfo.getAthrCd();
@@ -22,7 +22,7 @@
 				<div class="usr-info">
 					<img class="usr-icon" src="/itep/assets/itep/img/usr.png" />
 					<div class="usr-text">
-						<% if(athrCd.equals("ADM")) { %>
+						<% if(userId.equals("admin")) { %>
 							<li>admin</li>
 							<li><%=userNm %></li>
 						<% } else { %>
@@ -88,14 +88,6 @@
                     </div>
 				</li>
                 <% } %>
-				
-				<!-- 검색창 -->
-				<form class="navbar-form navbar-left">
-					<div class="input-group">
-						<input type="text" class="form-control approver-form">
-						<div class="nav-search-icon"><img src="/itep/assets/itep/img/icon/search-gray.png" /></div>
-					</div>
-				</form>
 			</ul>
 		</nav>
 	</div>

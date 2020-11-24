@@ -5,6 +5,7 @@
 <!-- HEADER -->
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
 
+<!-- 게시판>공지사항>상세조회팝업 -->
 <body>
    <!-- WRAPPER -->
    <div id="wrapper">
@@ -19,42 +20,50 @@
 				   <!-- INPUTS -->
 				   <div class="panel panel-headline">
 				   <div class="panel-body panel-popup">
+				   <!-- 작업수행을 위한 버튼 -->
 					<div style="text-align:right; padding-bottom: 10px;">
-						<button type="button" class="btn btn-success btn-toastr" onclick="actMod('update',${vo.pbnsId});">수정</button>
-						<button type="button" class="btn btn-danger btn-toastr">삭제</button>
+						<button type="button" class="btn btn-success btn-toastr" onclick="actMod('update','${vo.pbnsId}');">수정</button>
+						<button type="button" class="btn btn-danger btn-toastr" onclick="actMod('delete','${vo.pbnsId}');">삭제</button>
 					</div>
+					<!-- 상세조회결과 -->
 					  <table class="table table-bordered tbl-type1">
 						<tbody>
 						   <tr>
+							  <th>공지ID</th>
+							  <td>
+								  <input type="text" name="pbnsId" class="form-control" value="${vo.pbnsId}" disabled>
+							   </td>
+							  <th>교육구분</th>
+							  <td>
+								<div>
+								<!-- select박스 :최초조회 및 변경처리결과값 전달을 위한 설정 -->
+								<select id='edctClsfCd' class="form-control">
+									<c:forEach items="${edctClsfCdList}" var="list">
+										<option value="${list.edctClsfCd}"<c:if test="${vo.edctClsfCd eq list.edctClsfCd}">selected</c:if>>${list.edctClsfNm}</option>
+									</c:forEach>
+								</select>
+								</div>
+							   </td>
+						   </tr>
+						   <tr>
 							  <th>제목</th>
 							  <td>
-								  <input type="title" name="title" class="form-control" value="${vo.ttl}">
+								  <input type="title" name="ttl" class="form-control" value="${vo.ttl}">
 							   </td>
 							  <th>등록일</th>
 							  <td>
-								  <input type="reg" name="reg" class="form-control" value="${vo.rgsnTs}" disabled>
+								  <input type="reg" name="rgsnTs" class="form-control" value="${vo.rgsnTs}" disabled>
 							   </td>
 						   </tr>
 						   <tr>
 							  <th>첨부파일</th>
 							  <td colspan="3">
-								   <input multiple="multiple" type="file" name="file" class="form-control" value="${vo.apndDat}">
-								   <!--
-								  <span>
-									  <span class="input-group-btn"><button class="btn btn-default btn-xs" type="button">첨부</button></span>
-								  </span>
-								  -->
+								   <input multiple="multiple" type="file" name="apndDat" class="form-control" value="${vo.apndDat}">
 							   </td>
 						   </tr>
 							<tr>
 							   <td class="txt-long" colspan="4">
-								   <!--
-								<br >
-								- 다형성과 Loose Coupling 개념을 개발기간 뿐만 아니라 유지보수 및 확장시 개발자가 어떻게 적용할 수 있는지 학습합니다. <br >
-								- 디자인 패턴 등 현장의 개발자에게 필요하지만 어려운 개념을 쉽고 구체적으로 접근합니다.
-								<br ><br >
-								-->
-								<textarea readonly style="width:100%; height: 200px;">${vo.con}</textarea>
+								<textarea id ="con" style="width:100%; height: 200px;">${vo.con}</textarea>
 							   </td>
 							</tr>
 						 </tbody>
@@ -74,17 +83,46 @@
  <!-- END WRAPPER -->
  <!-- Javascript -->
  <script>
-	/* 팝업 */
-    function showEduApplyPop() {
-       window.open('eduApplyPop.jsp', 'eduApplyPop', 'location=no, width=750, height=600, left=100, top=100');
-    };
-    function actMod(modType,pbnsId) {
-    	if(modtype!=null){
-    		location.href='/itep/views/board/pop/noticeModPop?pbnsId='+pbnsId+'modType='+modType;
-    	}else{
-    		location.href='/itep/views/board/pop/noticeModPop?pbnsId='+pbnsId;
-    	} 
-    }	
+   //수정 및 삭제 버튼 클릭에 따른 결과 처리
+   function actMod(modType,pbnsId) {
+	var conf = confirm('수정하시겠습니까?');
+ 	if(conf){
+    	var ttl = $('input[name=ttl]').val();
+	    var apndDat = $('input[name=apndDat]').val();
+	    var con = $("#con").val();
+	   	var edctClsfCd = $("#edctClsfCd").val();
+        $.ajax({
+	        url:"/itep/views/board/pop/noticeModPop", //데이터를  넘겨줄 링크 설정
+			type:"POST", // post 방식
+			data: 
+	    	    {"pbnsId" : pbnsId //id
+				,"ttl" : ttl //제목
+				,"con" : con //내용
+	    	    ,"apndDat" : apndDat //첨부파일
+	    	    ,"edctClsfCd" : edctClsfCd //구분코드
+	    	    ,"modType" : modType}, //update or insert
+
+	         success: function (responseData) {
+	        	 //화면 재호출시(작업완료) 제어를 위한 sctipt
+	        	 if(responseData==true){
+	        		 if(modType=="update"){
+	        			 alert("수정완료");
+	        			 location.reload();
+	        		 }else if(modType=="delete"){
+	        			 alert("삭제완료");
+	        			 opener.parent.location.reload();
+		        	 	 window.close();	 
+	        		 } 
+	        	 }else{
+	        		 alert("작업에 실패 하였습니다. 다시 시도하여 주세요");
+	        	 }
+	          },
+	         error: function (xhr, status, error) {
+	        	 alert("작업에 실패 하였습니다. 다시 시도하여 주세요 \n"+ xhr +" // " + status +" // "+error);
+	          }
+		});
+ 	}
+ }
 </script>
 
 <!-- FOOTER -->

@@ -4,8 +4,7 @@
 <mapper namespace="queryApprMng">
 	<select id="selectApprList" parameterType="SessionVo" resultType="ApprListVo">
 		<![CDATA[
-		SELECT @ROWNUM := @ROWNUM + 1 AS rowNum
-			 , EDA.EDCT_APLC_ID AS edctAplcId 
+		SELECT EDA.EDCT_APLC_ID AS edctAplcId 
 			 , EDC.EDCT_CNT_ID AS edctCntId
 			 , EDM.EDCT_ID AS edctId
 			 , CMB.BRNM AS brNm
@@ -13,7 +12,7 @@
 			 , EDM.EDCT_NM AS edctNm
 			 , EDA.APLC_TS AS aplcTs
 		FROM TB_IEP_EDA001M EDA, TB_IEP_EDC001M EDC, TB_IEP_EDM001M EDM, TB_IEP_CMB001M CMB, TB_IEP_CMU001M CMU
-		WHERE (@ROWNUM:=0)=0 AND EDA.USE_YN = 'Y'
+		WHERE EDA.USE_YN = 'Y'
 		]]>
 			<choose>
 				<when test="athrCd == 'DPM'">
