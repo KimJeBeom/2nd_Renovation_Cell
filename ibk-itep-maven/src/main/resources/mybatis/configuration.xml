@@ -15,6 +15,14 @@
 		<typeAlias alias="HomeEduNowVo" type="com.ibk.itep.vo.HomeEduNowVo"></typeAlias>
 		<!-- home -->
 		<!-- Myclass -->
+		<typeAlias alias="EduNowVo" type="com.ibk.itep.vo.myClass.EduNowVO"></typeAlias>
+		<typeAlias alias="EduNewReadyVo" type="com.ibk.itep.vo.myClass.EduNewReadyVO"></typeAlias>
+		<typeAlias alias="EduReadyVo" type="com.ibk.itep.vo.myClass.EduReadyVO"></typeAlias>
+		<typeAlias alias="EduCompleteVo" type="com.ibk.itep.vo.myClass.EduCompleteVO"></typeAlias>
+		<typeAlias alias="EduMyHistoryVo" type="com.ibk.itep.vo.myClass.EduMyHistoryVO"></typeAlias>
+		<typeAlias alias="EduInfoPopVo" type="com.ibk.itep.vo.myClass.EduInfoPopVO"></typeAlias>
+		<typeAlias alias="NewEduInfoPopVo" type="com.ibk.itep.vo.myClass.NewEduInfoPopVO"></typeAlias>
+		<typeAlias alias="EduListSrchVo" type="com.ibk.itep.vo.myClass.EduListSrchVO"></typeAlias>
 		<!-- apprMng -->
 		<typeAlias alias="ApprListVo" type="com.ibk.itep.vo.apprMng.ApprListVo"></typeAlias>
 		<typeAlias alias="ApprListDetailVo" type="com.ibk.itep.vo.apprMng.ApprListDetailVo"></typeAlias>
@@ -37,10 +45,9 @@
 		<typeAlias alias="ClaVo" type="com.ibk.itep.vo.cmm.ClaVo"></typeAlias>
 		<typeAlias alias="CliVo" type="com.ibk.itep.vo.cmm.CliVo"></typeAlias>
 		<typeAlias alias="CldVo" type="com.ibk.itep.vo.cmm.CldVo"></typeAlias>
-		<typeAlias alias="ClsVo" type="com.ibk.itep.vo.cmm.ClsVo"></typeAlias>		
-		<typeAlias alias="EduNowVo" type="com.ibk.itep.vo.myClass.EduNowVO"></typeAlias>
-		<typeAlias alias="EduNewReadyVo" type="com.ibk.itep.vo.myClass.EduNewReadyVO"></typeAlias>
-		<typeAlias alias="EduReadyVo" type="com.ibk.itep.vo.myClass.EduReadyVO"></typeAlias>
+		<typeAlias alias="ClsVo" type="com.ibk.itep.vo.cmm.ClsVo"></typeAlias>	
+		<typeAlias alias="CluVo" type="com.ibk.itep.vo.cmm.CluVo"></typeAlias>	
+
     </typeAliases>	
 	
 	<mappers>
