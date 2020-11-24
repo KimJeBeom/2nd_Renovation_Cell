@@ -18,8 +18,7 @@
 								height="36px">
 						</div>
 						<div style="display: table-cell; vertical-align: middle">
-							<h1 class="page-title">
-								&nbsp;&nbsp;<b>교육 신청 현황</b>
+							<h1 class="page-title">&nbsp;&nbsp;<b>교육 신청 현황</b>
 							</h1>
 						</div>
 					</div>
@@ -47,14 +46,6 @@
 											<table>
 												<tbody>
 													<tr>
-														<td style="width: 130px;"><b>▶ 교육분류</b></td>
-														<td style="width: 200px"><select class="form-control" id="edctClsfCd" style="text-align: left;">
-															<option value="ALL">전체</option>
-															<c:forEach items="${cldVoList }" var="cldVo">
-																<option value=${cldVo.edctClsfCd }>${cldVo.edctClsfNm }</option>		
-															</c:forEach>
-													</select></td>
-													<td style="width: 50px;"></td>
 														<td style="width: 130px;"><b>교육기간</b></td>
 														<td style="width: 450px; padding-right: 20px">
 															<div class="ui form">

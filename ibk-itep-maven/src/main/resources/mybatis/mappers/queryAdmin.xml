@@ -281,7 +281,7 @@
     			AND edm.EDCT_CLSF_CD = #{edctClsfCd}
 	    </if>
 	    <if test="edctNm != null">
-    			AND edm.EDCT_NM = #{edctNm}
+	    		and edm.EDCT_NM LIKE CONCAT('%', #{edctNm}, '%')
 	    </if>
 	</select>	
 
@@ -363,7 +363,7 @@
 	    <if test="userId != null">
 	    		and cmu.USER_ID=#{userId}
 	    </if>
-	     <if test="edctNm != null">
+	    <if test="edctNm != null">
 	    		and edo.EDCT_NM LIKE CONCAT('%', #{edctNm}, '%')
 	    </if>
 	</select>
