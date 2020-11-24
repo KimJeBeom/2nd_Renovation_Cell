@@ -1,21 +1,15 @@
 package com.ibk.itep.vo.admin;
 
 import java.sql.Time;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.ibk.itep.controller.admin.pop.AddEduRndPopController;
-import com.ibk.itep.service.cmm.CmmService;
 
 public class EduRndRegModVo {
-	
-	@Autowired
-	CmmService cmmService;
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(EduRndRegModVo.class);
 	
 	private Integer edctCntId; // 교육차수ID
@@ -49,60 +43,40 @@ public class EduRndRegModVo {
 		this.edctId = edctId;
 	}
 	public String getEdctSttgYmd() {
-		return cmmService.dateToStringYmd(edctSttgYmd);
+		return dateToStringYmd(edctSttgYmd);
 	}
-	public void setEdctSttgYmd(Date edctSttgYmd) {
-		logger.info("setEdctSttgYmd 진입 Date형 {}",edctSttgYmd);
-		this.edctSttgYmd = edctSttgYmd;
+	public void setEdctSttgYmd(String edctSttgYmd) {
+		this.edctSttgYmd = stringToDateYmd(edctSttgYmd);
 	}
-	/*public void setEdctSttgYmd(String edctSttgYmd) {
-		logger.info("setEdctSttgYmd 진입 스트링형 {}",edctSttgYmd);
-		this.edctSttgYmd = cmmService.stringToDateYmd(edctSttgYmd);
-	}*/
 	public String getEdctFnshYmd() {
-			return cmmService.dateToStringYmd(edctFnshYmd);
-	}
-	public void setEdctFnshYmd(Date edctFnshYmd) {
-		this.edctFnshYmd = edctFnshYmd;
+			return dateToStringYmd(edctFnshYmd);
 	}
 	public void setEdctFnshYmd(String edctFnshYmd) {
-		this.edctFnshYmd = cmmService.stringToDateYmd(edctFnshYmd);
+		this.edctFnshYmd = stringToDateYmd(edctFnshYmd);
 	}
 	public String getAplcSttgYmd() {
-			return cmmService.dateToStringYmd(aplcSttgYmd);
-	}
-	public void setAplcSttgYmd(Date aplcSttgYmd) {
-		this.aplcSttgYmd = aplcSttgYmd;
+			return dateToStringYmd(aplcSttgYmd);
 	}
 	public void setAplcSttgYmd(String aplcSttgYmd) {
-		this.aplcSttgYmd = cmmService.stringToDateYmd(aplcSttgYmd);
+		this.aplcSttgYmd = stringToDateYmd(aplcSttgYmd);
 	}
 	public String getAplcFnshYmd() {
-			return cmmService.dateToStringYmd(aplcFnshYmd);
-	}
-	public void setAplcFnshYmd(Date aplcFnshYmd) {
-		this.aplcFnshYmd = aplcFnshYmd;
+			return dateToStringYmd(aplcFnshYmd);
 	}
 	public void setAplcFnshYmd(String aplcFnshYmd) {
-		this.aplcFnshYmd = cmmService.stringToDateYmd(aplcFnshYmd);
+		this.aplcFnshYmd = stringToDateYmd(aplcFnshYmd);
 	}
 	public String getCnclSttgYmd() {
-		return cmmService.dateToStringYmd(cnclSttgYmd);
-	}
-	public void setCnclSttgYmd(Date cnclSttgYmd) {
-		this.cnclSttgYmd = cnclSttgYmd;
+		return dateToStringYmd(cnclSttgYmd);
 	}
 	public void setCnclSttgYmd(String cnclSttgYmd) {
-		this.cnclSttgYmd = cmmService.stringToDateYmd(cnclSttgYmd);
+		this.cnclSttgYmd = stringToDateYmd(cnclSttgYmd);
 	}
 	public String getCnclFnshYmd() {
-		return cmmService.dateToStringYmd(cnclFnshYmd);
-	}
-	public void setCnclFnshYmd(Date cnclFnshYmd) {
-		this.cnclFnshYmd = cnclFnshYmd;
+		return dateToStringYmd(cnclFnshYmd);
 	}
 	public void setCnclFnshYmd(String cnclFnshYmd) {
-		this.cnclFnshYmd = cmmService.stringToDateYmd(cnclFnshYmd);
+		this.cnclFnshYmd = stringToDateYmd(cnclFnshYmd);
 	}
 	public Time getEdctSttgTim() {
 		return edctSttgTim;
@@ -159,7 +133,30 @@ public class EduRndRegModVo {
 		this.edctNm = edctNm;
 	}
 	
-
+	public String dateToStringYmd(Date date) {
+		//date 형식 -> String으로 변경 = 1989.12.10(yyyy.MM.dd 형식)
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+		if(date != null)
+		    return sdf.format(date);
+		else 
+			return "";
+	}
+	
+	public Date stringToDateYmd(String ymd) {
+		//String 형식 -> date 형식으로
+		logger.debug("stringToDate Ymd 입력 파라미터 {}", ymd);
+		ymd = ymd+" 00:00:00";
+	    logger.debug("stringToDate Ymd 변경후 파라미터 {}", ymd);
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	    Date date = null;
+	      try {
+	    	 date = sdf.parse(ymd);
+	      } catch (ParseException e) {
+	         // TODO Auto-generated catch block
+	         e.printStackTrace();
+	      }
+	      return date;
+	}
 
 
 }

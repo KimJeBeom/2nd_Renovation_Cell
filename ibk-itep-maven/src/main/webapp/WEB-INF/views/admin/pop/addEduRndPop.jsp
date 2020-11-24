@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- HEADER -->
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
-
 <!-- 
 	관리자 > 교육 등록 및 수정 > 교육 차수 추가 팝업
  -->
@@ -24,8 +23,9 @@
 									<h4 style="float: left;"><b>차수</b></h4>
 									
 									<!-- 상단 버튼 -->
-									<button type="button" class="btn btn-primary btn-toastr btn-top">삭제</button>
-
+									<button id="btnDelEduRnd" type="button" class="btn btn-primary btn-toastr btn-top">삭제</button>
+									<button id="btnAddEduRnd" type="button" class="btn btn-primary btn-toastr btn-top">신규</button>
+									
 									<!-- 교육별 차수안내 테이블 (TOGGLE) -->
 									<table class="table table-hover tbl-type2">
 										<thead>
@@ -40,62 +40,143 @@
 									<br>
 
 									<h4 style="float: left;"><b>차수 추가</b></h4>
-									<button type="button" class="btn btn-primary btn-toastr btn-top">등록/수정</button>
+									<button id="btnConfirm" type="button" class="btn btn-primary btn-toastr btn-top">등록/수정</button>
 									<br><br>
 
 									<!-- 차수추가 포맷 및 위의 차수별 상세내용(TOGGLE) -->
 									<div class="tab-content">
-										<!-- 테이블 1 -->
 										<div class="tab-pane fade in active" id="table1" style="padding: 5px 5px;">
-											<div class="table-responsive">
+											<div class="table-responsive" >
 												<!-- 교육 안내 테이블 -->
 												<table class="table table-bordered tbl-type1">
 													<tbody>	
 														<tr>
 															<th>과목명</th>
 															<td colspan="3">
-																<input type="text" class="form-control" placeholder="IT Governance 핵심 이해" readonly onfocus="this.blur();">
+																<input id="edctNm" type="text" class="form-control" readonly onfocus="this.blur();">
 															</td>
 														</tr>
 														<tr>
 															<th>신청기간</th>
 															<td>
-																<input type="text" class="form-control" placeholder="20191201">
-																<input type="text" class="form-control" placeholder="20191231">
+																<div class="ui form">
+																	<div class="two fields" style="margin-bottom: 0px">
+																		<div class="field">
+																			<div class="ui calendar" id="aplcRangeStart">
+																				<div class="ui input left icon">
+																					<i class="calendar icon" style="font-size: 14px;"></i>
+																					<input id="aplcSttgYmd" type="text"
+																						style="height: 35px; font-size: 14px;">
+																				</div>
+																			</div>
+																		</div>
+																		<br><br>
+																		<div class="field">
+																			<div class="ui calendar" id="aplcRangeEnd">
+																				<div class="ui input left icon">
+																					<i class="calendar icon" style="font-size: 14px;"></i>
+																					<input id="aplcFnshYmd" type="text"
+																						style="height: 35px; font-size: 14px;">
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
 															</td>
 															<th>취소기간</th>
 															<td>
-																<input type="text" class="form-control" placeholder="20191201">
-																<input type="text" class="form-control" placeholder="20191231">
+																<div class="ui form">
+																	<div class="two fields" style="margin-bottom: 0px">
+																		<div class="field">
+																			<div class="ui calendar" id="cnclRangeStart">
+																				<div class="ui input left icon">
+																					<i class="calendar icon" style="font-size: 14px;"></i>
+																					<input id="cnclSttgYmd" type="text"
+																						style="height: 35px; font-size: 14px;">
+																				</div>
+																			</div>
+																		</div>
+																		<br><br>
+																		<div class="field">
+																			<div class="ui calendar" id="cnclRangeEnd">
+																				<div class="ui input left icon">
+																					<i class="calendar icon" style="font-size: 14px;"></i>
+																					<input id="cnclFnshYmd" type="text"
+																						style="height: 35px; font-size: 14px;">
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
 															</td>
 														</tr>
 														<tr>
 															<th>학습기간</th>
 															<td>
-																<input type="text" class="form-control" placeholder="20200101">
-																<input type="text" class="form-control" placeholder="20200105">
+																<div class="ui form">
+																	<div class="two fields" style="margin-bottom: 0px">
+																		<div class="field">
+																			<div class="ui calendar" id="edctRangeStart">
+																				<div class="ui input left icon">
+																					<i class="calendar icon" style="font-size: 14px;"></i>
+																					<input id="edctSttgYmd" type="text"
+																						style="height: 35px; font-size: 14px;">
+																				</div>
+																			</div>
+																		</div>
+																		<br><br>
+																		<div class="field">
+																			<div class="ui calendar" id="edctRangeEnd">
+																				<div class="ui input left icon">
+																					<i class="calendar icon" style="font-size: 14px;"></i>
+																					<input id="edctFnshYmd" type="text"
+																						style="height: 35px; font-size: 14px;">
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
 															</td>
 															<th>학습시간</th>
 															<td>
-																<input type="text" class="form-control" placeholder="09:00">
-																<input type="text" class="form-control" placeholder="17:00">
+																<div class="ui form">
+																	<div class="two fields" style="margin-bottom: 0px">
+																		<div class="field">
+																			<div class="ui calendar" id="edctTimRangeStart">
+																				<div class="ui input left icon">
+																					<i class="time icon" style="font-size: 14px;"></i>
+																					<input id="edctSttgTim" type="text" style="height: 35px; font-size: 14px;">
+																				</div>
+																			</div>
+																		</div>
+																		<br>
+																		<div class="field">
+																			<div class="ui calendar" id="edctTimRangeEnd">
+																				<div class="ui input left icon">
+																					<i class="time icon" style="font-size: 14px;"></i>
+																					<input id="edctFnshTim"  type="text" style="height: 35px; font-size: 14px;">
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
 															</td>
 														</tr>
 														<tr>
-															<th>이수시간</th>
-															<td><input type="text" class="form-control" placeholder="35시간"></td>
-															<th>교육기간</th>
-															<td><input type="text" class="form-control" placeholder="5일"></td>
+															<th>이수시간(시간)</th>
+															<td><input id="ctcrTim" type="text" inputmode="numeric" class="form-control" placeholder="숫자만 입력 하세요"></td>
+															<th>교육기간(일)</th>
+															<td><input id="edctTrm" type="text" inputmode="numeric" class="form-control" placeholder="숫자만 입력 하세요"></td>
 														</tr>
 														<tr>
-															<th>교육비용</th>
-															<td><input type="text" class="form-control" placeholder="350,000원"></td>
+															<th>교육비용(원)</th>
+															<td><input id="edex" type="text" inputmode="numeric" class="form-control" placeholder="숫자만 입력 하세요"></td>
 														</tr>
 													</tbody>
 												</table>
-											</div>
+											 </div>
 										</div>
-									</div>	
+									</div> 	
 
 								</div>
 							</div>
@@ -115,6 +196,175 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	selectEduRndRegMod();
+ 	$(document).on("click","#eduRndListTbody tr",function(){
+ 		var target = $(this)
+ 		showEduRndRegModDetail(target); 	
+ 	}); 
+ 	$(document).on("keyup","#ctcrTim",function(event){
+ 		this.value = this.value.replace(/[^0-9.]/g,'');   // 소숫점 까지 입력 받기 위함 	
+ 	});
+ 	$(document).on("keyup","#edctTrm",function(event){
+ 		this.value = this.value.replace(/[^0-9.]/g,'');   // 소숫점 까지 입력 받기 위함 	
+ 	});
+ 	$(document).on("keyup","#edex",function(event){
+ 		this.value = this.value.replace(/[^0-9]/g,'');   // 입력값이 숫자가 아니면 공백
+ 		this.value = this.value.replace(/,/g,'');          // ,값 공백처리
+ 		this.value = this.value.replace(/\B(?=(\d{3})+(?!\d))/g, ","); // 정규식을 이용해서 3자리 마다 , 추가*/ 	
+ 	}); 
+	$("#btnAddEduRnd").click(function(){
+		var edctNm = $("#edctNm").val();
+		$("input").val(null);
+		$("#edctNm").val(edctNm);
+	});
+	$("#btnModEduRnd").click(function(){
+		var radioVal = $('input[name="chkEdctCntId"]:checked').val();
+		if(radioVal != null){
+			alert("수정버튼 클릭");
+			alert(radioVal);
+			//showPopup('admin','eduModPop?edctId='+radioVal);	
+		}else{
+			alert("수정할 차수를 선택해주세요");
+		} 		
+	});
+		$("#btnDelEduRnd").click(function(){
+			var radioVal = $('input[name="chkEdctCntId"]:checked').val();
+			if(radioVal != null){
+				alert("삭제버튼 클릭");
+				alert(radioVal);
+			}else{
+				alert("삭제할 차수를 선택해주세요");
+			} 				
+	});
+		$("#btnConfirm").click(function(){
+			/* var edctNm = $("#edctNm").val();
+			$("input").val(null);
+			$("#edctNm").val(edctNm); */
+		});
+	  	$('#aplcRangeStart').calendar({
+			type: 'date',
+			endCalendar: $('#aplcRangeEnd'),
+			formatter: {
+				date: function (date, settings) {
+					if (!date) return '';
+					var day = date.getDate();
+					var month = date.getMonth() + 1;
+					var year = date.getFullYear();
+					return year + '.' + month + '.' + day;
+				}
+			},
+	  	
+		});
+	 	$('#aplcRangeEnd').calendar({
+			type: 'date',
+			startCalendar: $('#aplcRangeStart'),
+			formatter: {
+				date: function (date, settings) {
+					if (!date) return '';
+					var day = date.getDate();
+					var month = date.getMonth() + 1;
+					var year = date.getFullYear();
+					return year + '.' + month + '.' + day;
+				}
+			}
+		});
+	  	$('#cnclRangeStart').calendar({
+			type: 'date',
+			endCalendar: $('#cnclRangeEnd'),
+			formatter: {
+				date: function (date, settings) {
+					if (!date) return '';
+					var day = date.getDate();
+					var month = date.getMonth() + 1;
+					var year = date.getFullYear();
+					return year + '.' + month + '.' + day;
+				}
+			},
+	 	    popupOptions: {
+		 	     position: 'bottom right',
+		 	     lastResort: 'bottom right',
+		 	     prefer: 'opposite',
+		 	     hideOnScroll: false
+		 	}
+		});
+	 	$('#cnclRangeEnd').calendar({
+			type: 'date',
+			startCalendar: $('#cnclRangeStart'),
+			formatter: {
+				date: function (date, settings) {
+					if (!date) return '';
+					var day = date.getDate();
+					var month = date.getMonth() + 1;
+					var year = date.getFullYear();
+					return year + '.' + month + '.' + day;
+				}
+			},
+	 	    popupOptions: {
+		 	     position: 'bottom right',
+		 	     lastResort: 'bottom right',
+		 	     prefer: 'opposite',
+		 	     hideOnScroll: false
+		 	}
+		});
+	  	$('#edctRangeStart').calendar({
+			type: 'date',
+			endCalendar: $('#edctRangeEnd'),
+			formatter: {
+				date: function (date, settings) {
+					if (!date) return '';
+					var day = date.getDate();
+					var month = date.getMonth() + 1;
+					var year = date.getFullYear();
+					return year + '.' + month + '.' + day;
+				}
+			},
+	 	    popupOptions: {
+		 	     position: 'bottom left',
+		 	     lastResort: 'bottom left',
+		 	     prefer: 'opposite',
+		 	     hideOnScroll: false
+		 	}
+		});
+	 	$('#edctRangeEnd').calendar({
+			type: 'date',
+			startCalendar: $('#edctRangeStart'),
+			formatter: {
+				date: function (date, settings) {
+					if (!date) return '';
+					var day = date.getDate();
+					var month = date.getMonth() + 1;
+					var year = date.getFullYear();
+					return year + '.' + month + '.' + day;
+				}
+			},
+	 	    popupOptions: {
+		 	     position: 'top left',
+		 	     lastResort: 'top left',
+		 	     prefer: 'opposite',
+		 	     hideOnScroll: false
+		 	}
+		});
+	 	$('#edctTimRangeStart').calendar({
+	 	    type: 'time',
+	 	   	ampm: false,
+	 	    endCalendar: $('#edctTimRangeEnd'),
+	 	    popupOptions: {
+	 	     position: 'top right',
+	 	     lastResort: 'top right',
+	 	     prefer: 'opposite',
+	 	     hideOnScroll: false
+	 	    }
+	 	});
+	 	$('#edctTimRangeEnd').calendar({
+	 	    type: 'time',
+	 	   	ampm: false,
+	 	    startCalendar: $('#edctTimRangeStart'),
+	 		popupOptions: {
+	 	     position: 'top right',
+	 	     lastResort: 'top right',
+	 	     prefer: 'opposite',
+	 	     hideOnScroll: false
+	 	   }	 	    
+	 	});
 });
 function selectEduRndRegMod() {
 	var edctId = ${edctId };
@@ -127,14 +377,46 @@ function selectEduRndRegMod() {
 			var str = '';
 			str += '<tbody  id=\"eduRndListTbody\">'
 			$.each(responseData, function (i){
-				str += '<tr data-toggle=\"tab\" data-target=\"#'+responseData[i].edctCntId+'\" >'
-				str += '<td>'+(i+1)+'</td>'
-				str += '<td>'+responseData[i].edctSttgYmd+' ~ '+responseData[i].edctFnshYmd+'</td>'
-				str += '<td>'+responseData[i].edctTrm+'일</td>'
-				str += '</tr>'
+				if(i==0){
+					$('#edctNm').val(responseData[i].edctNm);	
+				}				
+				str += '<tr class=\"trEdctCntInfo\" data-toggle=\"tab\" data-target=\"#'+responseData[i].edctCntId+'\" id=\"'+responseData[i].edctCntId+'\">';
+				str += '<td>'+(i+1)+'</td>';
+				str += '<td>'+responseData[i].edctSttgYmd+' ~ '+responseData[i].edctFnshYmd+'</td>';
+				str += '<td>'+responseData[i].edctTrm+'일</td>';
+				str += '</tr>';
 			});
 			str += '</tbody>'
 			$("#eduRndListTbody").replaceWith(str);
+		},
+		error: function (xhr, status, error) {
+			alert("error");
+			
+		}
+	});
+}
+function showEduRndRegModDetail(target){
+	var edctCntId = target.attr("id");
+    $.ajax({
+    	url:"/itep/views/admin/selectEduRndRegMod", //데이터를  넘겨줄 링크 설정
+        type:"POST", // post 방식
+		data: {"edctCntId" : edctCntId}, //넘겨줄 데이터
+		
+		success: function (responseData) {
+			$.each(responseData, function (i){
+				$('#edctNm').val(responseData[i].edctNm);
+				$('#aplcSttgYmd').val(responseData[i].aplcSttgYmd);
+				$('#aplcFnshYmd').val(responseData[i].aplcFnshYmd);
+				$('#cnclSttgYmd').val(responseData[i].cnclSttgYmd);
+				$('#cnclFnshYmd').val(responseData[i].cnclFnshYmd);
+				$('#edctSttgYmd').val(responseData[i].edctSttgYmd);
+				$('#edctFnshYmd').val(responseData[i].edctFnshYmd);
+				$('#edctSttgTim').val(responseData[i].edctSttgTim);
+				$('#edctFnshTim').val(responseData[i].edctFnshTim);
+				$('#ctcrTim').val(responseData[i].ctcrTim);
+				$('#edctTrm').val(responseData[i].edctTrm);
+				$('#edex').val(responseData[i].edex);
+			});
 		},
 		error: function (xhr, status, error) {
 			alert("error");

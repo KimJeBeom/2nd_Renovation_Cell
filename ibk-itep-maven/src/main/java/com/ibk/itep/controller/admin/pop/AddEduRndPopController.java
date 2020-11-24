@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ibk.itep.service.admin.EduRndRegModService;
 import com.ibk.itep.service.cmm.CmmService;
-import com.ibk.itep.vo.admin.EduRegModVo;
 import com.ibk.itep.vo.admin.EduRndRegModVo;
 
 
@@ -48,10 +47,21 @@ public class AddEduRndPopController{
 	public @ResponseBody List<EduRndRegModVo> selectEduRndRegMod(EduRndRegModVo errmVo) {
 		logger.info("selectEduRndRegMod 컨트롤러 진입완료");		
 		List<EduRndRegModVo> errmVoList = eduRndRegModService.selectEduRndRegMod(errmVo);
-		logger.debug("{}",errmVoList.get(1).getAplcFnshYmd());
-		logger.debug("selectEduRndRegMod 컨트롤러 종료 직전");
+		int id = errmVoList.get(0).getEdctCntId();
+		logger.debug("selectEduRndRegMod 컨트롤러 종료 직전 edct cnt id : {}", id);
 		
 		return errmVoList;		
 	}
+	
+	/*
+	 * @RequestMapping(value = "/views/admin/selectEduRndRegModDetail", method =
+	 * RequestMethod.POST) public @ResponseBody List<EduRndRegModVo>
+	 * selectEduRndRegModDetail(EduRndRegModVo errmVo) {
+	 * logger.info("selectEduRndRegModDetail 컨트롤러 진입완료"); List<EduRndRegModVo>
+	 * errmVoList = eduRndRegModService.selectEduRndRegMod(errmVo);
+	 * logger.debug("selectEduRndRegModDeatil 컨트롤러 종료 직전");
+	 * 
+	 * return errmVoList; }
+	 */
 
 }

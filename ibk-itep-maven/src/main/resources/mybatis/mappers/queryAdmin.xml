@@ -129,11 +129,20 @@
 						,	edm.EDCT_NM			as 	edctNm		-- 교육명
 					FROM 	TB_IEP_EDC001M EDC, TB_IEP_EDM001M EDM
 					WHERE 	edm.EDCT_ID = edc.EDCT_ID
-						AND	edc.EDCT_ID = #{edctId}
-						AND edc.USE_YN = 'Y' 
+				]]>
+			    <if test="edctId != null">
+	     		<![CDATA[
+	     			AND	edc.EDCT_ID = #{edctId}   		# 조회조건 : 교육 ID
+	     		]]></if>
+	     		<if test="edctCntId != null">
+	     		<![CDATA[
+	     			and edc.EDCT_CNT_ID = #{edctCntId}     		# 조회조건 : 교육 차수 ID
+	     		]]></if>
+	     		<![CDATA[
+					AND edc.USE_YN = 'Y' 
 					ORDER BY edc.EDCT_STTG_YMD DESC
-			     ]]>
-			</select>
+	     		]]>
+	     	</select>
 		<!-- 교육차수추가 -->
 			<insert  id="insertAddEduRndPop" parameterType="EduRndRegModVo">
 				<![CDATA[

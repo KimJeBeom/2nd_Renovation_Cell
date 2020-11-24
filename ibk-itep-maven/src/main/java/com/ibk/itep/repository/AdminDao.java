@@ -35,7 +35,7 @@ public class AdminDao {
 	public List<EduRndRegModVo> selectEduRndRegMod(EduRndRegModVo vo){
 		logger.debug("selectEduRndRegMod dao 진입");
 		List<EduRndRegModVo> list = sqlSession.selectList("queryAdmin.selectEduRndRegMod", vo);
-		logger.debug("selectEduRndRegMod dao 종료 직전");		
+		logger.debug("selectEduRndRegMod dao 종료 직전 {}", list.get(0).getEdctCntId());	
 		return list;
 	}
 	/*

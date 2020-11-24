@@ -19,12 +19,14 @@ public class EduRndRegModService {
 	private static final Logger logger = LoggerFactory.getLogger(EduRndRegModService.class);
 	
 	public List<EduRndRegModVo> selectEduRndRegMod(EduRndRegModVo vo){
-		logger.debug("selectEduRndRegMod Service 진입");
-		if(vo.getEdctId() != null) {
+		logger.debug("selectEduRndRegMod Service 진입 edct id : {} / edct Cnt Id : {}", vo.getEdctId(), vo.getEdctCntId());
+		
+		if(vo.getEdctId() != null || vo.getEdctCntId() != null) {
 			logger.debug("selectEduRndRegMod Service 리턴1직전");
 			return adminDao.selectEduRndRegMod(vo);
+		}else {
+			return null;
 		}
-		return null;	
 	}
 	/*
 public List<EduRegModVo> selectEduRegMod(EduRegModVo vo){
