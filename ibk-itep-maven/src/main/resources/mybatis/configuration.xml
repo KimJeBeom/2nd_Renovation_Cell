@@ -5,6 +5,8 @@
 		<!-- typeApliases 대분류후 배치-미분류 재배치 필요_201112 hws -->
 		<!-- 미분류 -->
 		<typeAlias alias="testvo" type="com.ibk.itep.vo.TestVO"></typeAlias>
+		<typeAlias alias="FileVo" type="com.ibk.itep.common.file.FileVo"></typeAlias>
+
 		<typeAlias alias="EduListVo" type="com.ibk.itep.vo.eduApply.EduListVo"></typeAlias>
 		<typeAlias alias="EduInfoVo" type="com.ibk.itep.vo.eduApply.EduInfoVo"></typeAlias>
 		<typeAlias alias="NewEduApplyVo" type="com.ibk.itep.vo.eduApply.NewEduApplyVo"></typeAlias>
@@ -43,7 +45,7 @@
 	
 	<mappers>
 		<mapper resource="mybatis/mappers/queryLogin.xml" />
-		<mapper resource="mybatis/mappers/queryLes.xml" />		
+		<mapper resource="mybatis/mappers/queryFile.xml" />
 		<mapper resource="mybatis/mappers/queryCmm.xml" />
 		<mapper resource="mybatis/mappers/queryAdmin.xml" />
 		<mapper resource="mybatis/mappers/queryApprMng.xml" />

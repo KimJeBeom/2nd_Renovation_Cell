@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="queryFile">
+	<insert id="insertFile" parameterType="java.util.List" >
+	<![CDATA[
+		INSERT INTO tb_iep_cmf001m(
+			pbns_id,
+			code_nm,
+			org_file_name,
+			stored_file_name,
+			file_size,
+			upload_path,
+			reg_date
+			)VALUES
+	]]>
+		<foreach item="fileVo" collection="list" separator=" , ">
+			(#{fileVo.pbns_id},#{fileVo.code_nm},#{fileVo.org_file_name},#{fileVo.stored_file_name},#{fileVo.file_size},#{fileVo.upload_path},now())
+		</foreach>
+    </insert>
+    
+    <select id="selectFileList" parameterType="FileVo" resultType="FileVo">
+	<![CDATA[		
+		SELECT file_no,
+			   org_file_name,
+			   del_yn,
+			   ROUND(file_size/1024,1) AS file_size
+		  FROM tb_iep_cmf001m
+		 WHERE pbns_id = #{pbns_id} AND
+		   code_nm = #{code_nm}
+		   AND del_yn = 'N'
+		 ORDER BY FILE_NO ASC
+	]]>
+	</select>
+	
+	<select id="selectFileInfo" parameterType="int" resultType="FileVo">
+	<![CDATA[			
+		SELECT 
+			stored_file_name,
+			org_file_name,
+			upload_path
+		FROM tb_iep_cmf001m
+		WHERE file_no = #{file_no}
+	]]>
+	</select>
+
+    <update id="updateFile" parameterType="int">
+   <![CDATA[	
+    	UPDATE tb_iep_cmf001m SET
+    	del_yn = 'Y'
+    	WHERE file_no = #{file_no}
+   ]]>
+    </update> 
+</mapper>

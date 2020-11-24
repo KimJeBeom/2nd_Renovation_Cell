@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class UserAuthDAO {
+public class UserAuthDao {
     
     @Autowired
     private SqlSessionTemplate sqlSession;
