@@ -73,33 +73,35 @@
 							</tr>
 						 </tbody>
 					  </table>
-					  <table class="table table-bordered tbl-type2">
-					  <thead>
-						 <tr>
-							<th>No</th>
-							<th>학습기간</th>
-							<th>신청기간</th>
-							<th style="width: 25%;">신청</th>
-						 </tr>
-					  </thead>
-					  <tbody>
-						<c:forEach items="${list}" var="cntList" varStatus="status">
-						<tr>
-							<td style="text-align:center">${fn:length(list)-status.count+1}
-							<td style="text-align:center">${cntList.edctSttgYmd} ~ ${cntList.edctFnshYmd}
-							<td style="text-align:center">${cntList.aplcSttgYmd} ~ ${cntList.aplcFnshYmd}
-							<c:choose>
-								<c:when test="${cntList.aplcAbleYn eq 'Y'}">
-									<td style="text-align:center"><button type="button" class="btn btn-primary btn-toastr" onclick="showPopup('eduApply','eduInfoPop?edctCntId=${cntList.edctCntId}&&modType=insert&&snctTgtYn=${vo.snctTgtYn}');">교육신청</button></td>	 
-								</c:when>
-								<c:otherwise>
-									<td style="text-align:center"><button type="button" class="btn btn-default btn-toastr" disabled="disabled">신청마감</button></td>
-								</c:otherwise>
-							</c:choose>
-						</tr>						
-						</c:forEach>
-					  </tbody>
-					  </table>
+					  <div style="overflow-x:hidden; height:250px;">
+						  <table class="table table-bordered tbl-type2">
+						  <thead>
+							 <tr>
+								<th>No</th>
+								<th>학습기간</th>
+								<th>신청기간</th>
+								<th style="width: 25%;">신청</th>
+							 </tr>
+						  </thead>
+						  <tbody>
+							<c:forEach items="${list}" var="cntList" varStatus="status">
+							<tr>
+								<td style="text-align:center">${fn:length(list)-status.count+1}
+								<td style="text-align:center">${cntList.edctSttgYmd} ~ ${cntList.edctFnshYmd}
+								<td style="text-align:center">${cntList.aplcSttgYmd} ~ ${cntList.aplcFnshYmd}
+								<c:choose>
+									<c:when test="${cntList.aplcAbleYn eq 'Y'}">
+										<td style="text-align:center"><button type="button" class="btn btn-primary btn-toastr" onclick="showPopup('eduApply','eduInfoPop?edctCntId=${cntList.edctCntId}&&modType=insert&&snctTgtYn=${vo.snctTgtYn}');">교육신청</button></td>	 
+									</c:when>
+									<c:otherwise>
+										<td style="text-align:center"><button type="button" class="btn btn-default btn-toastr" disabled="disabled">신청마감</button></td>
+									</c:otherwise>
+								</c:choose>
+							</tr>						
+							</c:forEach>
+						  </tbody>
+						  </table>
+					  </div>
 				   </div>
 				   </div>
 				   <!-- END INPUTS -->

@@ -1,17 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- HEADER -->
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
 
 <!-- 게시판>자료실>등록팝업 -->
-<body>
-<script>
- if(${modRst}==true){
-	 alert("등록완료");
-	 window.close();
- }else{
-	 alert("등록실패");
- }
- </script>
    <!-- WRAPPER -->
    <div id="wrapper">
 	<!-- MAIN -->
@@ -39,10 +33,9 @@
 								<td>
 									<div>
 									<select id='edctClsfCd' class="form-control">
-										<option value="OTEDU">외부교육</option>
-										<option value="TREDU">신전입교육</option>
-										<option value="SEMIN">세미나</option>
-										<option value="EXTRA">기타</option>
+										<c:forEach items="${edctClsfCdList}" var="list">
+											<option value="${list.edctClsfCd}">${list.edctClsfNm}</option>
+										</c:forEach>
 									</select>
 									</div>                                  
 								</td>
@@ -89,7 +82,31 @@
     	var apndDat = $("#apndDat").val();
     	var con = $("#con").val();
     	var edctClsfCd = $("#edctClsfCd").val();
-		location.href='/itep/views/board/pop/archRegPop?modType='+modType+'&&ttl='+ttl+'&&apndDat='+apndDat+'&&con='+con+"&&edctClsfCd="+edctClsfCd;
+		
+        $.ajax({
+	        url:"/itep/views/board/pop/archRegPop", //데이터를  넘겨줄 링크 설정
+			type:"POST", // post 방식
+			data: 
+	    	    {"ttl" : ttl
+	    	    ,"apndDat" : apndDat
+	    	    ,"con" : con
+	    	    ,"edctClsfCd" : edctClsfCd
+	    	    ,"modType" : modType},
+			
+	         success: function (responseData) {
+	        	 //화면 재호출시(작업완료) 제어를 위한 sctipt
+	        	 if(responseData==true){
+	        		 alert("등록완료");
+	        		 opener.parent.location.reload();
+	        	 	 window.close();
+	        	 }else{
+	        		 alert("등록에 실패 하였습니다. 다시 시도하여 주세요");
+	        	 }
+	          },
+	         error: function (xhr, status, error) {
+	        	 alert("등록에 실패 하였습니다. 다시 시도하여 주세요 \n"+ xhr +" // " + status +" // "+error);
+	          }
+		});
  	}
  }
 </script>

@@ -7,15 +7,6 @@
 
 <!-- 게시판>공지사항>상세조회팝업 -->
 <body>
- <script>
- //화면 재호출시(작업완료) 제어를 위한 sctipt
- if("${modType}"=="update"){
-	 alert("수정완료");
- }else if("${modType}"=="delete"){
-	 alert("삭제완료");
- 	 window.close();
- }
- </script>
    <!-- WRAPPER -->
    <div id="wrapper">
 	<!-- MAIN -->
@@ -47,10 +38,9 @@
 								<div>
 								<!-- select박스 :최초조회 및 변경처리결과값 전달을 위한 설정 -->
 								<select id='edctClsfCd' class="form-control">
-									<option value="OTEDU" <c:if test="${vo.edctClsfCd eq 'OTEDU'}">selected</c:if>>외부교육</option> 
-									<option value="TREDU" <c:if test="${vo.edctClsfCd eq 'TREDU'}">selected</c:if>>신전입교육</option>
-									<option value="SEMIN" <c:if test="${vo.edctClsfCd eq 'SEMIN'}">selected</c:if>>세미나</option>
-									<option value="EXTRA" <c:if test="${vo.edctClsfCd eq 'EXTRA'}">selected</c:if>>기타</option>
+									<c:forEach items="${edctClsfCdList}" var="list">
+										<option value="${list.edctClsfCd}"<c:if test="${vo.edctClsfCd eq list.edctClsfCd}">selected</c:if>>${list.edctClsfNm}</option>
+									</c:forEach>
 								</select>
 								</div>
 							   </td>
@@ -95,20 +85,44 @@
  <script>
    //수정 및 삭제 버튼 클릭에 따른 결과 처리
    function actMod(modType,pbnsId) {
-   	var conf = confirm('수정하시겠습니까?');
-   	if(conf){
-   		if(modType=="update"){
-   	    	var ttl = $('input[name=ttl]').val();
-   	    	var apndDat = $('input[name=apndDat]').val();
-   	    	var con = $("#con").val();
-   	    	var edctClsfCd = $("#edctClsfCd").val();
-   			location.href='/itep/views/board/pop/noticeModPop?pbnsId='+pbnsId+
-   					'&&modType='+modType+'&&ttl='+ttl+'&&apndDat='+apndDat+'&&con='+con+'&&edctClsfCd='+edctClsfCd;
-   		}else if(modType=="delete"){
-   			location.href='/itep/views/board/pop/noticeModPop?pbnsId='+pbnsId+'&&modType='+modType;
-   		}
-   	}
-   }
+	var conf = confirm('수정하시겠습니까?');
+ 	if(conf){
+    	var ttl = $('input[name=ttl]').val();
+	    var apndDat = $('input[name=apndDat]').val();
+	    var con = $("#con").val();
+	   	var edctClsfCd = $("#edctClsfCd").val();
+        $.ajax({
+	        url:"/itep/views/board/pop/noticeModPop", //데이터를  넘겨줄 링크 설정
+			type:"POST", // post 방식
+			data: 
+	    	    {"pbnsId" : pbnsId //id
+				,"ttl" : ttl //제목
+				,"con" : con //내용
+	    	    ,"apndDat" : apndDat //첨부파일
+	    	    ,"edctClsfCd" : edctClsfCd //구분코드
+	    	    ,"modType" : modType}, //update or insert
+
+	         success: function (responseData) {
+	        	 //화면 재호출시(작업완료) 제어를 위한 sctipt
+	        	 if(responseData==true){
+	        		 if(modType=="update"){
+	        			 alert("수정완료");
+	        			 location.reload();
+	        		 }else if(modType=="delete"){
+	        			 alert("삭제완료");
+	        			 opener.parent.location.reload();
+		        	 	 window.close();	 
+	        		 } 
+	        	 }else{
+	        		 alert("작업에 실패 하였습니다. 다시 시도하여 주세요");
+	        	 }
+	          },
+	         error: function (xhr, status, error) {
+	        	 alert("작업에 실패 하였습니다. 다시 시도하여 주세요 \n"+ xhr +" // " + status +" // "+error);
+	          }
+		});
+ 	}
+ }
 </script>
 
 <!-- FOOTER -->

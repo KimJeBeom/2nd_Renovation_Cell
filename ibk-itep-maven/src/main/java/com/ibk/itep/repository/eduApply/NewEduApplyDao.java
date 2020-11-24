@@ -12,7 +12,7 @@ public class NewEduApplyDao {
 	private SqlSession sqlSession;
 	
 	public boolean InsertNewEdu(NewEduApplyVo vo) {
-		int count = sqlSession.insert("queryLes.InsertNewEdu", vo);
+		int count = sqlSession.insert("queryEduApply.InsertNewEdu", vo);
 		return count == 1;
 	}
 

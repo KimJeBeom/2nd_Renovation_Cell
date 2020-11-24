@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ibk.itep.repository.board.NoticeDao;
+import com.ibk.itep.vo.SessionVo;
 import com.ibk.itep.vo.board.NoticeVo;
 
 @Service
@@ -43,13 +44,14 @@ public class NoticeService {
 	}
 	
 	//공지사항 변경 작업처리를 위한 Service(praram : 변경대상 Vo(NoticeVo) 및 ModAction 값))
-	public boolean modAction(NoticeVo vo,String modType){
+	public boolean modAction(NoticeVo vo,String modType, SessionVo ssnInfo){
 		
 		logger.info("NoticeGetDetail Start");
 		logger.info(" -- getPbnsId : "+vo.getPbnsId());
 		logger.info(" -- modType   : "+modType);
 		
 		boolean modRst = false;
+		vo.setUserId(ssnInfo.getUserId()); //현재사용자 세션ID입력
 		
 		//ModAction에 따른 DAO제어
 		if(modType.equals("update")) {
@@ -57,7 +59,6 @@ public class NoticeService {
 		}else if(modType.equals("delete")){
 			modRst =  noticeDAO.deleteNotice(vo);
 		}else if(modType.equals("insert")){
-			vo.setUserId("40868"); //등록자 정보 매핑(SSO연동기능 완료시 수정)
 			modRst =  noticeDAO.insertNotice(vo);
 		}
 		

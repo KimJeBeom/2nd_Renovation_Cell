@@ -22,6 +22,7 @@
 				,	EDCT_CLSF_NM 	as edctClsfNm						
 				,	USE_YN 			as useYn
 			from	itep.TB_IEP_CLD001C
+			
 		]]>
     	<if test="useYn != null">
 		    <![CDATA[

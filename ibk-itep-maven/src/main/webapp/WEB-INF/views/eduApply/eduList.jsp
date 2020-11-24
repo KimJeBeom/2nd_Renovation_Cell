@@ -55,8 +55,6 @@
 									</tbody>
 								</table>
 							</div>
-						
-							<br>
 							<div>	
 								 <ul class="nav nav-tabs" id="tabValue">
 									<li class="active" id='tot' value='TOTAL' onclick="a('TOTAL');">
@@ -79,7 +77,7 @@
 							<div class="tab-content px-1 pt-2">
 								<div class="tab-pane active" id="tab1">
 									<div class="col-md-12">
-										<div class="table-responsive">
+										<div class="table-responsive" style="overflow-x:hidden; height:470px;">
 											<table class="table table-hover table-sm first">
 												<thead>
 													<tr>
@@ -116,7 +114,7 @@
 								</div>
 								<div class="tab-pane" id="tab2">
 									<div class="col-md-12">
-										<div class="table-responsive">
+										<div class="table-responsive" style="overflow-x:hidden; height:470px;">
 											<table class="table table-hover table-sm first">
 												<thead>
 													<tr>
@@ -145,7 +143,7 @@
 								<div class="tab-pane" id="tab3">
 
 									<div class="col-md-12">
-										<div class="table-responsive">
+										<div class="table-responsive" style="overflow-x:hidden; height:470px;">
 											<table class="table table-hover table-sm first">
 												<thead>
 													<tr>
@@ -174,7 +172,7 @@
 								<div class="tab-pane" id="tab4">
 
 									<div class="col-md-12">
-										<div class="table-responsive">
+										<div class="table-responsive" style="overflow-x:hidden; height:470px;">
 											<table class="table table-hover table-sm first">
 												<thead>
 													<tr>
@@ -203,7 +201,7 @@
 								<div class="tab-pane" id="tab5">
 
 									<div class="col-md-12">
-										<div class="table-responsive">
+										<div class="table-responsive" style="overflow-x:hidden; height:470px;">
 											<table class="table table-hover table-sm first">
 												<thead>
 													<tr>
@@ -248,6 +246,7 @@
 <!-- FOOTER -->
 <jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 <script type="text/javascript">
+$("#schValue").keyup(function(e){if(e.keyCode==13) search(); });
 
 function a(tabValue){
 	

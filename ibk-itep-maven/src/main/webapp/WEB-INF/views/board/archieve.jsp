@@ -40,7 +40,7 @@
 												<td style="width: 80px; padding-left: 5px; text-align: center;"><b>■ 제 목</b></td>
 												<td style="width: 300px; padding-right: 40px">
 													<div>
-														<input class="form-control" type="text" name="ttl" value="${param.ttl}"/>
+														<input class="form-control" type="text" id="ttl" name="ttl" value="${param.ttl}"/>
 													</div>
 												</td>
 												<td style="width: 10%; text-align: left;">
@@ -54,7 +54,7 @@
 								<button class="btn btn-primary" type="button" onclick="showPopup('board','archRegPop');">등 록</button>
 							</div>
 							<!-- 조회 목록 -->
-							<div class="table-responsive">
+							<div class="table-responsive" style="overflow-x:hidden; height:480px;">
 								<table class="table table-hover">
 									<tbody>
 										<tr>
@@ -106,7 +106,11 @@
 	<!-- END WRAPPER -->
 	
 <!-- FOOTER -->
+<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 <script>
+
+$("#ttl").keyup(function(e){if(e.keyCode==13) search(); });
+
 //(조회)제목을 필드값을 가져와 URL에 세팅하여 화면을 재수행한다.
 function search() {
 	var ttl = $('input[name=ttl]').val();
@@ -129,5 +133,3 @@ function detailPopup(menu, name, id) {
 	window.open('/itep/views/'+menu+'/pop/'+name+'?rflbId='+id, '_blank', size); 
 }	
 </script>
-
-<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />

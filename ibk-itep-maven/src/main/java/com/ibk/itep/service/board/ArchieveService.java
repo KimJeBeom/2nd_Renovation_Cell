@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ibk.itep.repository.board.ArchieveDao;
+import com.ibk.itep.vo.SessionVo;
 import com.ibk.itep.vo.board.ArchieveVo;
 
 @Service
@@ -42,13 +43,14 @@ public class ArchieveService {
 	}
 	
 	//자료실 변경 작업처리를 위한 Service(praram : 변경대상 Vo(ArchieveVo) 및 ModAction 값))
-	public boolean modAction(ArchieveVo vo,String modType){
+	public boolean modAction(ArchieveVo vo,String modType, SessionVo ssnInfo){
 		
 		logger.info("ArchieveModAction Start");
 		logger.info(" -- getRflbId : "+vo.getRflbId());
 		logger.info(" -- modType   : "+modType);
 		
 		boolean modRst = false;
+		vo.setUserId(ssnInfo.getUserId()); //현재사용자 세션ID입력
 		
 		//ModAction에 따른 DAO제어
 		if(modType.equals("update")) {
@@ -56,7 +58,6 @@ public class ArchieveService {
 		}else if(modType.equals("delete")){
 			modRst =  ArchieveDao.deleteArchieve(vo);
 		}else if(modType.equals("insert")){
-			vo.setUserId("40868"); //등록자 정보 매핑(SSO연동기능 완료시 수정)
 			modRst =  ArchieveDao.insertArchieve(vo);
 		}
 		

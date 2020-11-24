@@ -128,7 +128,7 @@ function fstApply(){
 		} */
 		
  	     $.ajax({
-		        url:"/itep/views/eduApply/pop/eduInfoPop", //데이터를  넘겨줄 링크 설정
+		        url:"/itep/views/board/pop/noticeRegPop", //데이터를  넘겨줄 링크 설정
 				type:"POST", // post 방식
 				data: 
 		    	    {"edctCntId" : edctCntId
@@ -141,11 +141,10 @@ function fstApply(){
 		        	 //화면 재호출시(작업완료) 제어를 위한 sctipt
 		        	 if(responseData=='success'){
 		        		 alert("처리완료");
+		        		 opener.parent.location.reload();
 		        	 	 window.close();
 		        	 }else if(responseData=='fail'){
 		        		 alert("등록에 실패 하였습니다. 다시 시도하여 주세요");
-		        	 }else if(responseData=="disable"){
-		        		 alert("실패 : 이미 등록된 교육이 있습니다.");
 		        	 }else{
 		        		 alert("등록에 실패 하였습니다. 다시 시도하여 주세요");
 		        	 }
@@ -154,7 +153,6 @@ function fstApply(){
 		        	 alert("등록에 실패 하였습니다. 다시 시도하여 주세요 \n"+ xhr +" // " + status +" // "+error);
 		          }
 			});
-		
    	}
    	
 }
