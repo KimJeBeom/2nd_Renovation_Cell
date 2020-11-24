@@ -42,9 +42,9 @@
 							<tr>
 							   <th>교육내용</th>
 							   <td class="txt-long" colspan="3">
-								  <br >
-								  ${vo.edctCon}
-								  <br >
+								<form>
+									<textarea id="edctCon" placeholder="" style="width:100%; height:150px;" readonly>${vo.edctCon}</textarea>
+								</form>
 							   </td>
 							</tr>
 							<tr>
@@ -75,7 +75,7 @@
 						 </tbody>
 					  </table>
 					  <!-- 교욱차수리스트(eduCntList=cntList) -->
-					  <div style="overflow-x:hidden; height:300px;">
+					  <div style="overflow-x:hidden; height:220px;">
 						  <table class="table table-bordered tbl-type2">
 						  <thead>
 							 <tr>

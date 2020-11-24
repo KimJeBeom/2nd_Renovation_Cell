@@ -57,7 +57,7 @@
 										<td class="info"><b>교육내용 및<br>신청사유</b></td>
 										<td colspan="3">
 											<form>
-												<textarea id="edctCon" placeholder="" style="width:100%; height: 200px;"></textarea>
+												<textarea id="edctCon" placeholder="" style="width:100%; height:200px;"></textarea>
 											</form>
 										</td>
 									</tr>
