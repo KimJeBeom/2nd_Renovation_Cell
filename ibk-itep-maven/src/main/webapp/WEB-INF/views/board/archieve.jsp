@@ -54,7 +54,7 @@
 								<button class="btn btn-primary" type="button" onclick="showPopup('board','archRegPop');">등 록</button>
 							</div>
 							<!-- 조회 목록 -->
-							<div class="table-responsive" style="overflow-x:hidden; height:480px;">
+							<div class="table-responsive" style="overflow-x:hidden; height:560px;">
 								<table class="table table-hover">
 									<tbody>
 										<tr>
@@ -98,8 +98,7 @@
 		<div class="clearfix"></div>
 		<footer>
 			<div class="container-fluid">
-				<p class="copyright">Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a>
-</p>
+				<!-- <p class="copyright">Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a></p> -->
 			</div>
 		</footer>
 	</div>

@@ -42,4 +42,9 @@ public class CmmDao {
 		List<CluVo> list = sqlSession.selectList("queryCmm.selectDpm", ssnInfo);
 		return list;
 	}
+	
+	public String selectAuth(String userId) {
+		String athrCd = sqlSession.selectOne("queryCmm.selectAuth", userId);
+		return athrCd;
+	}
 }

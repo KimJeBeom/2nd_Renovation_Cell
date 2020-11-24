@@ -72,4 +72,12 @@
 	    
 	    </if>
 	</select>
+	
+	<select id="selectAuth" parameterType="String" resultType="String">
+		<![CDATA[
+			SELECT ATHR_CD AS AthrCd 
+			FROM TB_IEP_CMU001M
+			WHERE USER_ID = #{userId}
+		]]>
+	</select>
 </mapper>

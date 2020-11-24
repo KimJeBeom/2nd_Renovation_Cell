@@ -38,5 +38,8 @@ public class CmmService {
 	public List<CluVo> selectDpm(SessionVo ssnInfo){
 		return cmmDao.selectDpm(ssnInfo);
 	}
+	public String selectDpm(String userId){
+		return cmmDao.selectAuth(userId);
+	}
 	
 }

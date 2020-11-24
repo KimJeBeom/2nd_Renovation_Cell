@@ -50,11 +50,13 @@
 										</tbody>
 									</table>
 								</div>
+							<c:if test ="${athrCd eq 'DPM' || athrCd eq 'ADM' }">
 							<div class="form-group row" style="text-align: right; padding-right: 15px;">
 								<button class="btn btn-primary" type="button" onclick="showPopup('board','noticeRegPop');">등 록</button>
 							</div>
+							</c:if>
 							<!-- 조회 목록 -->
-							<div class="table-responsive" style="overflow-x:hidden; height:480px;">
+							<div class="table-responsive" style="overflow-x:hidden; height:570px;">
 								<table class="table table-hover">
 									<tbody>
 										<tr>
@@ -98,8 +100,7 @@
 		<div class="clearfix"></div>
 		<footer>
 			<div class="container-fluid">
-				<p class="copyright">Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a>
-</p>
+				<!-- <p class="copyright">Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a></p> -->
 			</div>
 		</footer>
 	</div>
