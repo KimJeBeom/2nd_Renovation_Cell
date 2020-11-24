@@ -5,6 +5,8 @@
 		<!-- typeApliases 대분류후 배치-미분류 재배치 필요_201112 hws -->
 		<!-- 미분류 -->
 		<typeAlias alias="testvo" type="com.ibk.itep.vo.TestVO"></typeAlias>
+		<typeAlias alias="FileVo" type="com.ibk.itep.common.file.FileVo"></typeAlias>
+
 		<typeAlias alias="EduListVo" type="com.ibk.itep.vo.eduApply.EduListVo"></typeAlias>
 		<typeAlias alias="EduInfoVo" type="com.ibk.itep.vo.eduApply.EduInfoVo"></typeAlias>
 		<typeAlias alias="NewEduApplyVo" type="com.ibk.itep.vo.eduApply.NewEduApplyVo"></typeAlias>
@@ -13,6 +15,14 @@
 		<typeAlias alias="HomeEduNowVo" type="com.ibk.itep.vo.HomeEduNowVo"></typeAlias>
 		<!-- home -->
 		<!-- Myclass -->
+		<typeAlias alias="EduNowVo" type="com.ibk.itep.vo.myClass.EduNowVO"></typeAlias>
+		<typeAlias alias="EduNewReadyVo" type="com.ibk.itep.vo.myClass.EduNewReadyVO"></typeAlias>
+		<typeAlias alias="EduReadyVo" type="com.ibk.itep.vo.myClass.EduReadyVO"></typeAlias>
+		<typeAlias alias="EduCompleteVo" type="com.ibk.itep.vo.myClass.EduCompleteVO"></typeAlias>
+		<typeAlias alias="EduMyHistoryVo" type="com.ibk.itep.vo.myClass.EduMyHistoryVO"></typeAlias>
+		<typeAlias alias="EduInfoPopVo" type="com.ibk.itep.vo.myClass.EduInfoPopVO"></typeAlias>
+		<typeAlias alias="NewEduInfoPopVo" type="com.ibk.itep.vo.myClass.NewEduInfoPopVO"></typeAlias>
+		<typeAlias alias="EduListSrchVo" type="com.ibk.itep.vo.myClass.EduListSrchVO"></typeAlias>
 		<!-- apprMng -->
 		<typeAlias alias="ApprListVo" type="com.ibk.itep.vo.apprMng.ApprListVo"></typeAlias>
 		<typeAlias alias="ApprListDetailVo" type="com.ibk.itep.vo.apprMng.ApprListDetailVo"></typeAlias>
@@ -44,7 +54,7 @@
 	
 	<mappers>
 		<mapper resource="mybatis/mappers/queryLogin.xml" />
-		<mapper resource="mybatis/mappers/queryLes.xml" />		
+		<mapper resource="mybatis/mappers/queryFile.xml" />
 		<mapper resource="mybatis/mappers/queryCmm.xml" />
 		<mapper resource="mybatis/mappers/queryAdmin.xml" />
 		<mapper resource="mybatis/mappers/queryApprMng.xml" />

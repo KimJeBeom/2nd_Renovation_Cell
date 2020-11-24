@@ -24,15 +24,19 @@ public class CmmService {
 	private CmmDao cmmDao;
 
 	public List<ClaVo> selectCla(ClaVo vo){
+		logger.debug("CmmDao selectCla 함수");
 		return cmmDao.selectCla(vo);
 	}
 	public List<CldVo> selectCld(CldVo vo){
+		logger.debug("CmmDao selectCld 함수");
 		return cmmDao.selectCld(vo);
 	}
 	public List<CliVo> selectCli(CliVo vo){
+		logger.debug("CmmDao selectCli 함수");
 		return cmmDao.selectCli(vo);
 	}
 	public List<ClsVo> selectCls(ClsVo vo){
+		logger.debug("CmmDao selectCls 함수");
 		return cmmDao.selectCls(vo);
 	}
 	public List<CluVo> selectDpm(SessionVo ssnInfo){
@@ -41,5 +45,4 @@ public class CmmService {
 	public String selectDpm(String userId){
 		return cmmDao.selectAuth(userId);
 	}
-	
 }

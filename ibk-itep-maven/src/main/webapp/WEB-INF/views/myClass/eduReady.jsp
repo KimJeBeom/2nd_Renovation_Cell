@@ -35,7 +35,7 @@
 							<!-- End 과정개설 신청목록-소제목 -->
 							<!-- Start 과정개설 신청목록-리스트 -->
 							<div class="panel-body" style="overflow-x:hidden; height:250px;">
-								<table class="table table-hover">
+								<table id="eduNewListTb" class="table table-hover">
 									<thead>
 										<tr>
 											<th>No</th>
@@ -48,21 +48,30 @@
 										</tr>
 									</thead>
 									<tbody>
-									<c:forEach items="${list}" var="newEdulist">
+							<c:choose>
+								<c:when test="${not empty eduNewList}">
+									<c:forEach items="${eduNewList}" var="eduNewList">
 										<c:set var="sum" value="${sum+1}"/>
 										<tr>
 											<td>${sum}</td>
-											<td>${newEdulist.edctNm }</td>
-											<td>${newEdulist.edinNm }</td>
-											<td>${newEdulist.edctSttgYmd } ~ ${newEdulist.edctFnshYmd }</td>
-											<td>${newEdulist.aplcTs }</td>
+											<td>${eduNewList.edctNm }</td>
+											<td>${eduNewList.edinNm }</td>
+											<td>${eduNewList.edctSttgYmd } ~ ${eduNewList.edctFnshYmd }</td>
+											<td>${eduNewList.aplcTs }</td>
 											<td>
 												<button type="button" class="btn btn-primary btn-xs"
-													onclick="showPopup('myClass','newEduInfoPop');">확인</button>
+													onclick="showPopup('myClass','newEduInfoPop?aplcId='+${eduNewList.aplcId});">확인</button>
 											</td>
-											<td>${newEdulist.cnfaYn }</td>
+											<td>${eduNewList.cnfaYn }</td>
 										</tr>
 									</c:forEach>
+								</c:when>
+								<c:otherwise>
+									<tr height="130">
+										<td colspan="7" class="txt_center"><h4>개설 신청한 과정이 없습니다.</h4></td>
+									</tr>
+								</c:otherwise>
+							</c:choose>
 									</tbody>
 								</table>
 							</div>
@@ -74,7 +83,7 @@
 								</h4>
 							</div>
 							<!-- End 수강신청목록-소제목 -->
-							<div class="panel-body">
+							<div id="eduReadyListdiv" class="panel-body" style="overflow-x:hidden; height:350px;">
 								<!-- Start 수강신청목록-리스트 -->
 								<table class="table table-hover">
 									<thead>
@@ -89,25 +98,35 @@
 											<th>취소</th>
 										</tr>
 									</thead>
-									<tbody>
-									<c:forEach items="${list1}" var="EduReadylist">
+									<tbody  id="eduReadyListTbody" >
+									<c:choose>
+								<c:when test="${not empty eduReadyList}">
+									<c:forEach items="${eduReadyList}" var="eduReadyList">
 										<c:set var="cnt" value="${cnt+1}"/>
 										<tr>
-											<td>${cnt }</td>
-											<td>${EduReadylist.edctNm }</td>
-											<td>${EduReadylist.edinNm }</td>
-											<td>${EduReadylist.edctSttgYmd } ~ ${EduReadylist.edctFnshYmd }</td>
-											<td>${EduReadylist.aplcTs }</td>
+											<td id="cnt">${cnt }</td>
+											<td id="edctNm">${eduReadyList.edctNm }</td>
+											<td id="edinNm">${eduReadyList.edinNm }</td>
+											<td id="edctYmd">${eduReadyList.edctSttgYmd } ~ ${eduReadyList.edctFnshYmd }</td>
+											<td id="aplcTs">${eduReadyList.aplcTs }</td>
 											<td>
 												<button type="button" class="btn btn-primary btn-xs"
-													onclick="showPopup('myClass','eduInfoPop');">확인</button>
+													onclick="showPopup('myClass','eduInfoPop?edctAplcId='+${eduReadyList.edctAplcId});">확인</button>
 											</td>
-											<td>${EduReadylist.aplcStgNm }</td>
+											<td id="aplcStgNm">${eduReadyList.aplcStgNm }</td>
+											<td id="edctAplcId" style="display:none">${eduReadyList.edctAplcId}</td>
 											<td>
-												<button type="button" class="btn btn-default btn-xs" onclick="button_event();">취소요청</button>
+												<button type="button" class="btn btn-default btn-xs" onclick="cancel(${eduReadyList.edctAplcId});">취소요청</button>
 											</td>
 										</tr>	
 									</c:forEach>
+									</c:when>
+								<c:otherwise>
+									<tr height="150">
+										<td colspan="8" class="txt_center"><h4>수강 신청한 과정이 없습니다.</h4></td>
+									</tr>
+								</c:otherwise>
+							</c:choose>
 									</tbody>
 								</table>
 								<!-- End 수강신청목록-리스트 -->
@@ -120,18 +139,65 @@
 		</div>
 	</div>
 	<!-- END WRAPPER -->
+	
 
-	<script type="text/javascript">
-
-	function button_event(){
-		if (confirm("해당 교육을 취소하시겠습니까?") == true){ 
-			document.form.submit();
-		}else{
-			 return;
-		}
-	  }
-
-</script>
 
 	<!-- FOOTER -->
 	<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
+	
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/floatthead/2.2.1/jquery.floatThead.js"></script>
+	<script type="text/javascript">
+
+	//$('#eduNewListTb').floatThead();
+
+	
+		$(document).ready(function() {
+			var tbody = document.getElementById('eduReadyListTbody');
+			var trs = tbody.getElementsByTagName('tr');	
+		});
+		
+		function cancel(edctAplcId) {
+		
+		if (confirm("해당 교육을 취소하시겠습니까?") == true){  
+			$.ajax({
+		    	url:"/itep/views/myClass/eduReady/cancel", //데이터를  넘겨줄 링크 설정
+		        type:"POST", // post 방식
+				data: {"edctAplcId" : edctAplcId}, //넘겨줄 데이터
+	
+				success: function (responseData) {
+					var str = '';
+					str += '<tbody id=\"eduReadyListTbody\">';
+					$.each(responseData, function(i) {
+						str += '<tr>';
+						str += '<td>'+(i+1)+'</td>';
+						str += '<td>'+responseData[i].edctNm+'</td>';
+						str += '<td>'+responseData[i].edinNm+'</td>';
+						str += '<td>'+responseData[i].edctSttgYmd + '~' + responseData[i].edctFnshYmd+'</td>';
+						str += '<td>'+responseData[i].aplcTs+'</td>';
+						str += '<td><button type=\"button\" class=\"btn btn-primary bts-xs\" onclick=\"showPopup(\'myClass\',\'eduInfoPop?edctAplcId='+responseData[i].edctAplcId+'\');\">확인</button></td>'
+						str += '<td>'+responseData[i].aplcStgNm+'</td>';
+						str += '<td><button type=\"button\" class=\"btn btn-default btn-xs\" onclick=\"cancel('+responseData[i].edctAplcId+');\">취소요청</button></td>'
+						str += '</tr>';
+					});
+					str += '</tbody>';
+					$('#eduReadyListTbody').replaceWith(str);
+					
+					if(responseData.length == 0) {
+						 
+					} else {
+						var tbody = document.getElementById('eduReadyListTbody');
+						var trs = tbody.getElementsByTagName('tr');
+					}
+				},
+				error: function (xhr, status, error) { alert("왜때문에그런거니~");
+					
+				}
+			});
+	}else{
+			return;
+		}
+	}
+
+		
+</script>

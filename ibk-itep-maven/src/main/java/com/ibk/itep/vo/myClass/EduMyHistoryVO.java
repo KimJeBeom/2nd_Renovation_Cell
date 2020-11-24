@@ -1,7 +1,7 @@
 package com.ibk.itep.vo.myClass;
 
-public class EduNowVO {
-	
+public class EduMyHistoryVO {
+
 	private Integer edctAplcId;
 	private Integer edctId;
 	private Integer edctCntId;
@@ -10,12 +10,11 @@ public class EduNowVO {
 	private String edinNm;
 	private String edctSttgYmd;
 	private String edctFnshYmd;
-	private String ctcrYn;
-	private String useYn;
-	private String aplcStgCd;
 	private String fnshYn;
-
-
+	private String aplcStgNm;
+	private String startDate;
+	private String endDate;
+	
 	public Integer getEdctAplcId() {
 		return edctAplcId;
 	}
@@ -64,31 +63,29 @@ public class EduNowVO {
 	public void setEdctFnshYmd(String edctFnshYmd) {
 		this.edctFnshYmd = edctFnshYmd;
 	}
-	public String getCtcrYn() {
-		return ctcrYn;
-	}
-	public void setCtcrYn(String ctcrYn) {
-		this.ctcrYn = ctcrYn;
-	}
-	public String getUseYn() {
-		return useYn;
-	}
-	public void setUseYn(String useYn) {
-		this.useYn = useYn;
-	}
-	public String getAplcStgCd() {
-		return aplcStgCd;
-	}
-	public void setAplcStgCd(String aplcStgCd) {
-		this.aplcStgCd = aplcStgCd;
-	}
 	public String getFnshYn() {
 		return fnshYn;
 	}
 	public void setFnshYn(String fnshYn) {
 		this.fnshYn = fnshYn;
 	}
+	public String getAplcStgNm() {
+		return aplcStgNm;
+	}
+	public void setAplcStgNm(String aplcStgNm) {
+		this.aplcStgNm = aplcStgNm;
+	}
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
 
-	
-	
 }

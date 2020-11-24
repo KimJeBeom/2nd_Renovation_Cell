@@ -27,20 +27,19 @@
 	     	]]>	     		     
 	     </if>
 	</select>
-	<update id="updateEudRegModUseN" parameterType="Integer">
+	<update id="deleteEduRegMod" parameterType="EduRegModVo">
 		<![CDATA[
 			update	itep.tb_iep_edm001m edm 
 			set 	edm.USE_YN='N'
-			where 	edm.USER_ID=#{userId}
+			where 	edm.EDCT_ID=#{edctId}
 		]]>
 	</update>
 	<!-- Popup - 신규교육등록 newEduRegPop -->
 		<!-- insert 교육메인 -->
-		<insert  id="insertNewEduRegPop" parameterType="EduRegModVo">
+		<insert  id="insertEduRegMod" parameterType="EduRegModVo">
 		<![CDATA[
 			/*신규교육 등록팝업*/
 			INSERT INTO TB_IEP_EDM001M(
-			EDCT_ID, 		-- 교육id
 			EDCT_NM, 		-- 교육명
 			EDIN_CD, 		-- 교육기관코드
 			EDCT_CLSF_CD, 	-- 교육분류
@@ -53,14 +52,13 @@
 			USE_YN, 		-- 사용여부
 			RGSN_TS) 		-- 등록일시
 			VALUES(
-			NULL, 
 			#{ edctNm },
 			#{ edinCd },
 			#{ edctClsfCd },
 			#{ snctTgtYn },
 			#{ edctCon },
 			#{ inbkEdctYn },
-			#{ egingAplyYn },
+			#{ eginAplyYn },
 			#{ onlEdctYn },
 			#{ edctLevl },
 			'Y',
@@ -109,23 +107,42 @@
 			</update>
 	<!-- Start - Popup - 교육차수추가 addEduRndPop -->
 		<!-- select 해당 교육 차수 -->
-			<select  id="selectAddEduRndPop"  parameterType="int" resultType="EduRndRegModVo">
+			<select  id="selectEduRndRegMod"  parameterType="EduRndRegModVo" resultType="EduRndRegModVo">
 				<![CDATA[
 					/*교육 차수정보 조회(팝업)*/
-					SELECT 
-					@ROWNUM := @ROWNUM + 1 AS rownum, -- 순번
-					EDCT_CNT_ID AS edctCntId, -- 차수id
-					EDCT_ID AS edctId, -- 교육id
-					date_format(EDC.EDCT_STTG_YMD,"%Y.%m.%d") AS edctSttgYmd, -- 학습시작일
-					date_format(EDC.EDCT_FNSH_YMD,"%Y.%m.%d") AS edctFnshYmd, -- 학숩종료일
-					concat(EDC.EDCT_TRM,'일') as edctTrm -- 교육기간
-					FROM TB_IEP_EDC001M EDC, (SELECT @ROWNUM := 0) R
-					WHERE 1=1 
-					AND EDCT_ID = #{edctId}
-					AND USE_YN = 'Y' 
-					ORDER BY EDCT_STTG_YMD DESC
-			     ]]>
-			</select>
+					SELECT	edc.EDCT_CNT_ID		as	edctCntId	--	교육차수ID
+						,	edc.EDCT_ID			as	edctId		--	교육ID
+						,	edc.EDCT_STTG_YMD	as	edctSttgYmd	--	학습시작일 
+						,	edc.EDCT_FNSH_YMD	as	edctFnshYmd	--	학습종료일
+						,	edc.APLC_STTG_YMD	as	aplcSttgYmd	--	신청시작일
+						,	edc.APLC_FNSH_YMD	as	aplcFnshYmd	--	신청종료일
+						,	edc.CNCL_STTG_YMD	as	cnclSttgYmd	--	취소시작일
+						,	edc.CNCL_FNSH_YMD	as	cnclFnshYmd	--	취소종료일
+						,	edc.EDCT_STTG_TIM	as	edctSttgTim	--	교육시작시간
+						,	edc.EDCT_FNSH_TIM	as	edctFnshTim	--	교육종료시간
+						,	edc.EDCT_TRM		as	edctTrm		--	교육기간 
+						,	edc.CTCR_TIM		as	ctcrTim		--	이수시간 
+						,	edc.EDEX			as	edex		--	교육비용 
+						,	edc.FNSH_YN			as	fnshYn		--	종료여부
+						,	edc.USE_YN			as	useYn		--	사용여부
+						,	edc.RGSN_TS			as	rgsnTs		--	등록일시
+						,	edm.EDCT_NM			as 	edctNm		-- 교육명
+					FROM 	TB_IEP_EDC001M EDC, TB_IEP_EDM001M EDM
+					WHERE 	edm.EDCT_ID = edc.EDCT_ID
+				]]>
+			    <if test="edctId != null">
+	     		<![CDATA[
+	     			AND	edc.EDCT_ID = #{edctId}   		# 조회조건 : 교육 ID
+	     		]]></if>
+	     		<if test="edctCntId != null">
+	     		<![CDATA[
+	     			and edc.EDCT_CNT_ID = #{edctCntId}     		# 조회조건 : 교육 차수 ID
+	     		]]></if>
+	     		<![CDATA[
+					AND edc.USE_YN = 'Y' 
+					ORDER BY edc.EDCT_STTG_YMD DESC
+	     		]]>
+	     	</select>
 		<!-- 교육차수추가 -->
 			<insert  id="insertAddEduRndPop" parameterType="EduRndRegModVo">
 				<![CDATA[
@@ -359,7 +376,7 @@
 	<!-- End - Popup - 과정개설신청현황확인 newEduInfoPop -->
 	<!-- Start - Popup - 교육신청직원목록 eduEmpListPop -->
 		<!-- select 해당 교육차수 신청직원 목록 -->
-			<!-- 다시짜보아라!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+			<!-- 다시짜보아라!!!!!!조금이상한듯함!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 			<select  id="selectEduEmpListPop" parameterType="int" resultType="EduEmpListVo">
 				<![CDATA[
 					SELECT CMB.BRNM AS brnm
@@ -382,7 +399,7 @@
 				]]>
 			</update>
 		<!-- update 교육차수 종료 -->
-			<update  id="updateEduEmpListPopFnshY" parameterType="Integer">
+			<update  id="updateEduEmpListPopFnshY" parameterType="EduEmpListVo">
 				<![CDATA[
 					UPDATE TB_IEP_EDC001M
 					SET FNSH_YN = 'Y'

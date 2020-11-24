@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!-- HEADER -->
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
 
@@ -26,14 +28,14 @@
 					<!-- End 교육 신청 현황-대제목 -->
 					<!-- Start 교육 신청 현황-본문 panel -->
 					<div class="panel">
-						<div class="panel-body"  style="padding-top:20px">
+						<div class="panel-body" style="padding-top: 20px">
 							<!-- Start 교육 신청 현황 - 탭 바 -->
 							<div>
 								<ul class="nav nav-tabs">
-									<li class="active"><a class="nav-link" href="#tab1"
-										data-toggle="tab">수강신청현황</a></li>
-									<li class="nav-item"><a class="nav-link" href="#tab2"
-										data-toggle="tab">개설신청현황</a>
+									<li class="nav-item active" value="크아아"><a
+										class="nav-link" href="#tab1" data-toggle="tab">수강신청현황</a></li>
+									<li class="nav-item" value="흐하하"><a class="nav-link"
+										href="#tab2" data-toggle="tab">개설신청현황</a>
 								</ul>
 							</div>
 							<!-- End 교육 신청 현황 - 탭 바 -->
@@ -48,20 +50,44 @@
 											<table>
 												<tbody>
 													<tr>
-														<td style="width: 130px;"><b>▶ 교육기간</b></td>
-														<td style="width: 130px; text-align: left"><input
-															type='date' name='startdate' value='2020-09-22' /></td>
-														<td style="width: 50px;"><b>~</b></td>
-														<td style="width: 130px; text-align: left"><input
-															type='date' name='enddate' value='2020-09-22' /></td>
-														<td style="width: 50px;"></td>
 														<td style="width: 130px;"><b>▶ 교육분류</b></td>
-														<td style="width: 200px"><select class="form-control"
-															style="text-align: left;">
-																<option value="outedu">외부교육</option>
-																<option value="inedu">내부교육</option>
-																<option value="seminar">세미나</option>
-														</select></td>
+														<td style="width: 200px"><select class="form-control" id="edctClsfCd" style="text-align: left;">
+															<option value="ALL">전체</option>
+															<c:forEach items="${cldVoList }" var="cldVo">
+																<option value=${cldVo.edctClsfCd }>${cldVo.edctClsfNm }</option>		
+															</c:forEach>
+													</select></td>
+													<td style="width: 50px;"></td>
+														<td style="width: 130px;"><b>▶ 교육기간</b></td>
+														<td style="width: 600px; padding-right: 20px">
+															<div class="ui form">
+																<div class="two fields" style="margin-bottom: 0px">
+																	<div class="field">
+																		<div class="ui calendar" id="rangestart">
+																			<div class="ui input left icon">
+																				<i class="calendar icon" style="font-size: 14px;"></i>
+																				<input id="sttgYmd" type="text"
+																					style="height: 35px; font-size: 14px;">
+																			</div>
+																		</div>
+																	</div>
+																	<label style="padding-top: 7px; height: 7px;">
+																		&nbsp; ~ &nbsp; </label>
+																	<div class="field">
+																		<div class="ui calendar" id="rangeend">
+																			<div class="ui input left icon">
+																				<i class="calendar icon" style="font-size: 14px;"></i>
+																				<input id="fnshYmd" type="text"
+																					style="height: 35px; font-size: 14px;">
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</td>
+														
+																									
+
 													</tr>
 												</tbody>
 											</table>
@@ -191,3 +217,12 @@
 
 	<!-- FOOTER -->
 	<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
+	<script type="text/javascript">
+		/* 	$(document).ready(function(){
+		 $(document).click(function(){
+		 var navv = $(".nav-tabs .active").attr('value');
+		 alert(navv);
+		 });
+
+		 }); */
+	</script>

@@ -1,7 +1,9 @@
 package com.ibk.itep.vo.myClass;
 
-public class EduNowVO {
-	
+import java.sql.Date;
+
+public class EduCompleteVO {
+
 	private Integer edctAplcId;
 	private Integer edctId;
 	private Integer edctCntId;
@@ -11,11 +13,7 @@ public class EduNowVO {
 	private String edctSttgYmd;
 	private String edctFnshYmd;
 	private String ctcrYn;
-	private String useYn;
-	private String aplcStgCd;
-	private String fnshYn;
-
-
+	
 	public Integer getEdctAplcId() {
 		return edctAplcId;
 	}
@@ -70,25 +68,5 @@ public class EduNowVO {
 	public void setCtcrYn(String ctcrYn) {
 		this.ctcrYn = ctcrYn;
 	}
-	public String getUseYn() {
-		return useYn;
-	}
-	public void setUseYn(String useYn) {
-		this.useYn = useYn;
-	}
-	public String getAplcStgCd() {
-		return aplcStgCd;
-	}
-	public void setAplcStgCd(String aplcStgCd) {
-		this.aplcStgCd = aplcStgCd;
-	}
-	public String getFnshYn() {
-		return fnshYn;
-	}
-	public void setFnshYn(String fnshYn) {
-		this.fnshYn = fnshYn;
-	}
 
-	
-	
 }

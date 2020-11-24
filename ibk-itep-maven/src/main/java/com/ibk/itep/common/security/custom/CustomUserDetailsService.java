@@ -14,7 +14,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 	private static final Logger logger = LoggerFactory.getLogger(CustomUserDetailsService.class);
 
 	@Autowired
-    private UserAuthDAO userAuthDAO;
+    private UserAuthDao userAuthDAO;
  
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
