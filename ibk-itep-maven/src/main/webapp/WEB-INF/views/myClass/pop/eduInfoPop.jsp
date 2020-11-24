@@ -22,9 +22,9 @@
 							<div class="panel-body panel-popup">
 								<table>
 									<tbody>
-									<c:if test="${eduInfoPop.aplcStgCd == 'REJDPM' || eduInfoPop.aplcStgCd == 'REJGRM' }">
+								<c:if test="${eduInfoPop.aplcStgCd == 'REJDPM' || eduInfoPop.aplcStgCd == 'REJGRM' }">
 										<tr>
-											<td style="width: 10%;">
+											<td style="width: 10%;"></td>
 											<td style="width: 20%; padding-left: 30px; text-align: center; padding-bottom: 10px;"><b>▶부서 결재자</b></td>
 											<td style="width: 30%; padding-bottom: 10px;">
 												<div>
