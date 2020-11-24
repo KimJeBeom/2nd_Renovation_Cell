@@ -5,10 +5,8 @@
 <body>
  	<!-- WRAPPER -->
 	<div id="wrapper">
-	
 		<!-- 사이드메뉴 -->
 		<jsp:include page="/WEB-INF/views/cmm/common-sidebar.jsp" />
-
 		<!-- MAIN -->
 		<div class="main">
 			<!-- MAIN CONTENT -->
@@ -59,7 +57,7 @@
 										<td class="info"><b>교육내용 및<br>신청사유</b></td>
 										<td colspan="3">
 											<form>
-												<p><textarea id="edctCon" placeholder="" style="width:100%; height: 200px;"></textarea></p>
+												<textarea id="edctCon" placeholder="" style="width:100%; height: 200px;"></textarea>
 											</form>
 										</td>
 									</tr>
@@ -73,7 +71,7 @@
 													</div>
 												</div>
 												<div class='col-sm-1'>
-													<h4 text-align="center"><b>~</b></h4>
+													<h4><b>~</b></h4>
 												</div>
 												<div class='col-sm-4'>
 													<div class="form-group">
@@ -91,7 +89,7 @@
 													</div>
 												</div>
 												<div class='col-sm-1'>
-													<h4 text-align="center"><b>~</b></h4>
+													<h4><b>~</b></h4>
 												</div>
 												<div class='col-sm-4'>
 													<div class="form-group">
@@ -108,7 +106,7 @@
 											&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp;&nbsp;
 											<input id="edctFnshTim" type='time' name='edctFnshTim'/>
 										<td class="info"><b>교육비용</b></td>
-										<td><input id="edex" type="text" class="form-control" placeholder="" style="width: 80%; float: left;  value=""">
+										<td><input id="edex" type="text" class="form-control" placeholder="" style="width: 80%; float: left;" value="">
 												<span><i></i>(원)</span>
 										</td>
 
@@ -146,17 +144,13 @@
 										<td colspan="3">
 											<div>
 												<input id="apndDat" multiple="multiple" type="file" name="file" class="form-control" value="">
-												<!--
-												<input class="form-control col-md-1" type="text" style="height: auto; width: 90%;">
-												<span class="input-group-btn"><button class="btn btn-info" type="button">파일첨부</button></span>
-												-->
 											</div>
 										</td>
 									</tr>
 									</tbody>
 								</table>
 							</div>
-							</br>
+							<br>
 							<div class="form-group row" style="text-align:center">
 								<div class="col-lg-12">
 									<input id="apply" type="button" class="btn btn-primary btn-lg mr-2" value="신청" onclick="insertNewEdu();">

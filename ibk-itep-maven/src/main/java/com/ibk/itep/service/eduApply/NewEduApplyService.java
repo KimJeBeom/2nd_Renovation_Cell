@@ -18,9 +18,10 @@ public class NewEduApplyService {
 	public String addNewEdu(NewEduApplyVo vo,SessionVo ssnInfo){
 		
 		logger.info("addNewEdu Start");
-		//addNewEdu에 따른 DAO제어
-		vo.setUserId(ssnInfo.getUserId());
+		vo.setUserId(ssnInfo.getUserId()); //사용자ID세팅
+		
 		boolean addYn = newEduApplyDAO.InsertNewEdu(vo);
+		
 		String addRst = "fail";
 		if(addYn==true) {
 			addRst = "success";

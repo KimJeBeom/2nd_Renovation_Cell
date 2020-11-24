@@ -1,9 +1,6 @@
 package com.ibk.itep.controller.eduApply;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ibk.itep.service.eduApply.EduListService;
-import com.ibk.itep.vo.apprMng.ApprStatVo;
 import com.ibk.itep.vo.eduApply.EduListVo;
 
 @Controller
@@ -32,15 +28,7 @@ public class EduListController{
 	public String EduListGET(Model model) {
 		logger.info("EduListGET Start");
 		
-		//List형태로 Vo값을 Return받아옴(Input Vo -> OutPut List)
-		//List<EduListVo> list = service.getList("","");
-				
-		//logger.info("Service Retrn OK");
-		//logger.info("-- List line : "+list.size());
-		
-		//model을 통한 결과값 화면(.jsp)에 전달
-		//model.addAttribute("list", list);
-		
+		//최초 화면 호출시 post메서드에 있는 List값 return
 		EduListPOST(model, null, "", "");
 		
 		logger.info("EduListGET End");

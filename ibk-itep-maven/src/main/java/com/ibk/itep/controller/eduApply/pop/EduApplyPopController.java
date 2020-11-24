@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.ibk.itep.controller.HomeController;
 import com.ibk.itep.service.eduApply.EduListService;
 import com.ibk.itep.vo.eduApply.EduListVo;
 
@@ -24,11 +23,10 @@ public class EduApplyPopController {
 	@RequestMapping(value = "/views/eduApply/pop/eduApplyPop", method = RequestMethod.GET)
 	public String EduApplyPop(EduListVo vo, Model model) {
 
-		logger.info("EduListContoll Start");
+		logger.info("EduApplyPop Start");
 
-		//List형태로 Vo값을 Return받아옴(Input Vo -> OutPut List) 
-		EduListVo outVo = service.getDetail(vo); 
-		List<EduListVo> list = service.getCntList(vo);
+		EduListVo outVo = service.getDetail(vo);      //교육상세정보 service호출
+		List<EduListVo> list = service.getCntList(vo);//교육 차수 목록 service호출
 		
 		logger.info("Service Retrn OK");
 		
@@ -36,7 +34,7 @@ public class EduApplyPopController {
 		model.addAttribute("list", list);
 		model.addAttribute("vo",outVo);
 		
-		logger.info("EduListContoll End");
+		logger.info("EduApplyPop End");
 		
 		return "/eduApply/pop/eduApplyPop";
 	}

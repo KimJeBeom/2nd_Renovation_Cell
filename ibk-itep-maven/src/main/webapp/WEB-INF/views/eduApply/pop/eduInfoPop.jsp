@@ -19,6 +19,7 @@
 				<div class="container-fluid">
 					<h3 class="page-title"><b>교육 신청</b></h3>
 					<div class="row">
+					<!-- 신청시 결재 대상인 교육일 경우 안내 매세지 및 부서결재자 정보 활성화 -->
 	 				<c:if test ="${vo.snctTgtYn eq 'Y' && modType eq 'insert'}">
 						<b>&nbsp;&nbsp;* 결재요청시 부서 관리자(기획팀장/기획서무 책임자)에게 전달 됩니다.</b><br>
 					</c:if>
@@ -29,6 +30,7 @@
 								<table>
 									<tbody>
 										<tr>
+											<!-- 신청시 결재 대상인 교육일 경우 안내 매세지 및 부서결재자 정보 활성화 -->
 											<c:if test ="${vo.snctTgtYn eq 'Y' && modType eq 'insert'}">
 											<td style="width: 5%; text-align: center; padding-bottom: 10px;"><b>■ 부서 결재자</b></td>
 											<td style="width: 5%; padding-bottom: 10px;">
@@ -41,6 +43,7 @@
 												</div>
 											</td>
 											</c:if>
+											<!-- 신청시 이전화면에서 불러온 ModType에 따라 버튼 구분 -->
 											<td style="width: 10%; padding-left: 5px; text-align: right; padding-bottom: 10px;">
 												<c:choose>
 													<c:when test="${modType eq 'insert'}">
@@ -115,6 +118,7 @@
 
 <!-- FOOTER -->
 <script>
+//최초교육 등록(insert)할 경우 수행되는 function
 function fstApply(){
    	var conf = confirm('등록하시겠습니까?');
    	if(conf==true){

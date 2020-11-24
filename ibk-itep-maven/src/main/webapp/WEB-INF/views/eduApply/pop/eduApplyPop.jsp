@@ -19,6 +19,7 @@
 				   <!-- INPUTS -->
 				   <div class="panel panel-headline">
 				   <div class="panel-body panel-popup">
+				   	  <!-- 교육상세정보(eduDetail=vo) -->
 					  <table class="table table-bordered tbl-type1">
 						 <tbody>
 							<tr>
@@ -73,7 +74,8 @@
 							</tr>
 						 </tbody>
 					  </table>
-					  <div style="overflow-x:hidden; height:250px;">
+					  <!-- 교욱차수리스트(eduCntList=cntList) -->
+					  <div style="overflow-x:hidden; height:300px;">
 						  <table class="table table-bordered tbl-type2">
 						  <thead>
 							 <tr>
@@ -118,6 +120,7 @@
 
 <!-- FOOTER -->
 <script>
+/* //교육신청 클릭 팝업 function
 function showApplyPopup(menu, name, edctCntId, modType, snctTgtYn) {
 	var size = '';
 	
@@ -126,6 +129,6 @@ function showApplyPopup(menu, name, edctCntId, modType, snctTgtYn) {
 		size = 'location=no, width=750, height=430, left=200, top=200';
 
 	window.open('/itep/views/'+menu+'/pop/'+name+'?edctCntId='+edctCntId+'&&modType='+modType+'&&snctTgtYn='+snctTgtYn, '_blank', size); 
-}	
+}	 */
 </script>
 <jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />

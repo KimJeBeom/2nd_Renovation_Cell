@@ -31,6 +31,7 @@
 					</div>
 					<div id="toastr-demo" class="panel">
 						<div class="panel-body">
+							<!-- 검색창 -->
 							<div class="well">
 								<table>
 									<tbody>
@@ -55,6 +56,7 @@
 									</tbody>
 								</table>
 							</div>
+							<!-- tabs -->
 							<div>	
 								 <ul class="nav nav-tabs" id="tabValue">
 									<li class="active" id='tot' value='TOTAL' onclick="a('TOTAL');">
@@ -75,6 +77,7 @@
 								</ul>
 							</div>
 							<div class="tab-content px-1 pt-2">
+								<!-- 테이블 1 : 전체 -->
 								<div class="tab-pane active" id="tab1">
 									<div class="col-md-12">
 										<div class="table-responsive" style="overflow-x:hidden; height:470px;">
@@ -112,6 +115,7 @@
 										</nav>
 									</div>
 								</div>
+								<!-- 테이블 2 : 외부교육 -->
 								<div class="tab-pane" id="tab2">
 									<div class="col-md-12">
 										<div class="table-responsive" style="overflow-x:hidden; height:470px;">
@@ -140,8 +144,8 @@
 										</nav>
 									</div>
 								</div>
+								<!-- 테이블 3 : 신전입교육 -->
 								<div class="tab-pane" id="tab3">
-
 									<div class="col-md-12">
 										<div class="table-responsive" style="overflow-x:hidden; height:470px;">
 											<table class="table table-hover table-sm first">
@@ -169,8 +173,8 @@
 										</nav>
 									</div>
 								</div>
+								<!-- 테이블 4 : 세미나 -->
 								<div class="tab-pane" id="tab4">
-
 									<div class="col-md-12">
 										<div class="table-responsive" style="overflow-x:hidden; height:470px;">
 											<table class="table table-hover table-sm first">
@@ -198,8 +202,8 @@
 										</nav>
 									</div>
 								</div>
+								<!-- 테이블 5 : 기타 -->
 								<div class="tab-pane" id="tab5">
-
 									<div class="col-md-12">
 										<div class="table-responsive" style="overflow-x:hidden; height:470px;">
 											<table class="table table-hover table-sm first">
@@ -246,10 +250,12 @@
 <!-- FOOTER -->
 <jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 <script type="text/javascript">
+
+//Enter클릭시 search(); 수행 스크립트
 $("#schValue").keyup(function(e){if(e.keyCode==13) search(); });
 
+//tab 선택시 테이블 조회 function
 function a(tabValue){
-	
 	var	schType = $("#schType").val(); //검색기준
 	var	schValue = $("#schValue").val();//검색값
 
@@ -289,6 +295,8 @@ function a(tabValue){
 	
 }
 
+//안내 및 신청 버튼 클릭 팝업
+/* 
 function showApplyPop(menu, name, id) {
  	var size = '';
 	
@@ -297,43 +305,49 @@ function showApplyPop(menu, name, id) {
 		size = 'location=no, width=750, height=700, left=100, top=100';
 
 	window.open('/itep/views/'+menu+'/pop/'+name+'?edctCntId='+id, '_blank', size); 
-}	
+}	 */
 
+//조회버튼 클릭시 function
 function search() {
 	
 	var	schType = $("#schType").val(); //검색기준
 	var	schValue = $("#schValue").val();//검색값
-    var tabValue = $(".nav-tabs .active").attr('value');
+    var tabValue = $(".nav-tabs .active").attr('value'); //탭선택값
+    
 	if(schValue==""){
-		alert("검색값을 입력 하세요");
+		alert("검색어를 입력 하세요");
 	}else{
+		
     $.ajax({
 	        url:"/itep/views/eduApply/eduList", //데이터를  넘겨줄 링크 설정
 			type:"POST", // post 방식
-			async:false,
 			data: 
 	    	    {"schType" : schType
 	    	    ,"schValue" : schValue},
+	    	    
 	         success: function (responseData) {
 	        	 
-					if(responseData.length == 0)
+					if(responseData.length == 0){
 						alert("조회결과가 없습니다");
-					
-					var str = '';
-					str += '<tbody id=\"'+tabValue+'\">';
-					$.each(responseData, function(i) {
-						if(responseData[i].edctClsfCd == tabValue || tabValue=="TOTAL"){
-							str += '<tr>';
-							str += '<td style="text-align:center">'+responseData[i].edctCntId+'</td>';
-							str += '<td style="text-align:  left"><span class="badge badge-primary">'+responseData[i].edctLevl+'</span>'+responseData[i].edctNm+'</td>';
-							str += '<td style="text-align:center">'+responseData[i].edinNm+'</td>';
-							str += '<td style="text-align:center">'+responseData[i].aplcSttgYmd+'~'+responseData[i].aplcFnshYmd+'</td>';
-							str += '<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup(\'eduApply\',\'eduApplyPop?edctCntId='+responseData[i].edctCntId+'\');">안내 및 신청</button></td>';
-							str += '</tr>';
-						}
-					});
-					str += '</tbody>';
-					$("#"+tabValue).replaceWith(str);	
+					}
+						
+					else{ //조회결과가 있을경우 테이블 replace 수행
+						var str = '';
+						str += '<tbody id=\"'+tabValue+'\">'; //탭 선택값에 맞는 테이블 id로 설정
+						$.each(responseData, function(i) {
+							if(responseData[i].edctClsfCd == tabValue || tabValue=="TOTAL"){
+								str += '<tr>';
+								str += '<td style="text-align:center">'+responseData[i].edctCntId+'</td>';
+								str += '<td style="text-align:  left"><span class="badge badge-primary">'+responseData[i].edctLevl+'</span>'+responseData[i].edctNm+'</td>';
+								str += '<td style="text-align:center">'+responseData[i].edinNm+'</td>';
+								str += '<td style="text-align:center">'+responseData[i].aplcSttgYmd+'~'+responseData[i].aplcFnshYmd+'</td>';
+								str += '<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup(\'eduApply\',\'eduApplyPop?edctCntId='+responseData[i].edctCntId+'\');">안내 및 신청</button></td>';
+								str += '</tr>';
+							}
+						});
+						str += '</tbody>';
+						$("#"+tabValue).replaceWith(str);	
+					}
 	          },
 	         error: function (xhr, status, error) {
 	        	 	alert("조회실패");

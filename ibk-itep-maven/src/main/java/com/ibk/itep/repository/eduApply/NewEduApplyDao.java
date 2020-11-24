@@ -11,6 +11,7 @@ public class NewEduApplyDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	//과정개설신청 등록
 	public boolean InsertNewEdu(NewEduApplyVo vo) {
 		int count = sqlSession.insert("queryEduApply.InsertNewEdu", vo);
 		return count == 1;
