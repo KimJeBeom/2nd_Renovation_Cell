@@ -20,8 +20,8 @@ public class EduRndRegModVo {
 	private Date aplcFnshYmd; // 신청종료일
 	private Date cnclSttgYmd; // 취소시작일
 	private Date cnclFnshYmd; // 취소종료일
-	private Time edctSttgTim; // 교육시작시간
-	private Time edctFnshTim; // 교육종료시간
+	private Date edctSttgTim; // 교육시작시간
+	private Date edctFnshTim; // 교육종료시간
 	private String edctTrm; // 교육기간
 	private String ctcrTim; // 이수시간
 	private String edex; // 교육비용
@@ -78,16 +78,17 @@ public class EduRndRegModVo {
 	public void setCnclFnshYmd(String cnclFnshYmd) {
 		this.cnclFnshYmd = stringToDateYmd(cnclFnshYmd);
 	}
-	public Time getEdctSttgTim() {
+	public Date getEdctSttgTim() {
 		return edctSttgTim;
 	}
-	public void setEdctSttgTim(Time edctSttgTim) {
+	public void setEdctSttgTim(Date edctSttgTim) {
 		this.edctSttgTim = edctSttgTim;
 	}
-	public Time getEdctFnshTim() {
+	public Date getEdctFnshTim() {
 		return edctFnshTim;
 	}
-	public void setEdctFnshTim(Time edctFnshTim) {
+	public void setEdctFnshTim(Date edctFnshTim) {
+		logger.debug("edct fnsh tim {}", edctFnshTim);
 		this.edctFnshTim = edctFnshTim;
 	}
 	public String getEdctTrm() {
@@ -144,9 +145,7 @@ public class EduRndRegModVo {
 	
 	public Date stringToDateYmd(String ymd) {
 		//String 형식 -> date 형식으로
-		logger.debug("stringToDate Ymd 입력 파라미터 {}", ymd);
 		ymd = ymd+" 00:00:00";
-	    logger.debug("stringToDate Ymd 변경후 파라미터 {}", ymd);
 	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	    Date date = null;
 	      try {
@@ -157,6 +156,29 @@ public class EduRndRegModVo {
 	      }
 	      return date;
 	}
-
+	
+	public Date stringToDateTime(String time) {
+		//String 형식 -> date 형식으로
+	    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+	    Date date = null;
+	      try {
+	    	 date = sdf.parse(time);
+	      } catch (ParseException e) {
+	         // TODO Auto-generated catch block
+	         e.printStackTrace();
+	      }
+	      return date;
+	}
+	
+	/*
+	 * public Time stringToTime(String strTime) { SimpleTim SimpleDateFormat sdf =
+	 * new SimpleDateFormat("HH:mm"); Time time = null; try { time =
+	 * sdf.parse(strTime); }catch(ParseException e) { // TODO Auto-generated catch
+	 * block e.printStackTrace(); } return time; }
+	 * 
+	 * public String timeToString() {
+	 * 
+	 * }
+	 */
 
 }

@@ -347,6 +347,15 @@ $(document).ready(function(){
 	 	    type: 'time',
 	 	   	ampm: false,
 	 	    endCalendar: $('#edctTimRangeEnd'),
+			formatter: {
+				time: function (time, settings) {
+					if (!time) return '';
+					var hour = time.getHours();
+					var minute = time.getMinutes();
+					//var second = time.getSeconds();
+					return hour + ':' + minute;
+				}
+			},
 	 	    popupOptions: {
 	 	     position: 'top right',
 	 	     lastResort: 'top right',
@@ -358,6 +367,15 @@ $(document).ready(function(){
 	 	    type: 'time',
 	 	   	ampm: false,
 	 	    startCalendar: $('#edctTimRangeStart'),
+			formatter: {
+				time: function (time, settings) {
+					if (!time) return '';
+					var hour = time.getHours();
+					var minute = time.getMinutes();
+					//var second = time.getSeconds();
+					return hour + ':' + minute;
+				}
+			},
 	 		popupOptions: {
 	 	     position: 'top right',
 	 	     lastResort: 'top right',
@@ -404,6 +422,7 @@ function showEduRndRegModDetail(target){
 		
 		success: function (responseData) {
 			$.each(responseData, function (i){
+				alert(responseData[i].edctSttgTim);
 				$('#edctNm').val(responseData[i].edctNm);
 				$('#aplcSttgYmd').val(responseData[i].aplcSttgYmd);
 				$('#aplcFnshYmd').val(responseData[i].aplcFnshYmd);
