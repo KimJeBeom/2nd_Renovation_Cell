@@ -31,13 +31,23 @@ public class FileUtil {
 	
 	public void fileUpdate(int[] fileNoDel, String code_nm, int pbns_id, MultipartHttpServletRequest mpRequest) {
 		
-		if(fileNoDel.length !=0 )
+		if(fileNoDel.length !=0 ) {
 			logger.debug("file update count : " + String.valueOf(fileNoDel.length));
 			fileDao.updateFile(fileNoDel);
+			for(int fileNoDel1 : fileNoDel) {
+				FileVo fileVo =fileDao.selectFileInfo(fileNoDel1);
+				String delfile = fileVo.getUpload_path() + fileVo.getStored_file_name();
+				File file = new File(delfile);
+				if(file.exists()) {
+					file.delete();
+					logger.debug(delfile + "삭제완료");
+				}else
+					logger.debug(delfile + "파일이 없어, 삭제 실패");
+			}
 			/*for(int fileNoDel1 : fileNoDel) {
 				fileDao.updateFile(fileNoDel1);
 			}*/
-		
+		}
 		if(mpRequest != null) {
 			Iterator<String> iterator = mpRequest.getFileNames();
 			MultipartFile multipartFile = mpRequest.getFile(iterator.next());

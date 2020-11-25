@@ -53,10 +53,10 @@
     </update> -->
     
     <update id="updateFile" parameterType="java.util.List">
-    	<foreach item="file_no" collection="array">
+    	<foreach item="file_no" collection="array" separator=";">
 	    	UPDATE tb_iep_cmf001m SET
 	    	del_yn = 'Y'
-	    	WHERE file_no = #{file_no};
+	    	WHERE file_no = #{file_no}
     	</foreach>
     </update>  
 </mapper>
