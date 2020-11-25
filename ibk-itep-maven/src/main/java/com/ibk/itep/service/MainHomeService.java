@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.ibk.itep.repository.MainHomeDao;
 import com.ibk.itep.vo.SessionVo;
-import com.ibk.itep.vo.HomeBdnVo;
-import com.ibk.itep.vo.HomeEduNowVo;
+import com.ibk.itep.vo.board.NoticeVo;
+import com.ibk.itep.vo.myClass.EduNowVO;
 
 @Service
 public class MainHomeService {
@@ -20,11 +20,11 @@ public class MainHomeService {
 		return mainHomeDAO.selectSessionInfo(userId);
 	}
 	
-	public List<HomeBdnVo> selectHomeBdnList(){
+	public List<NoticeVo> selectHomeBdnList(){
 		return mainHomeDAO.selectHomeBdnList();
 	}
 	
-	public List<HomeEduNowVo> selectHomeEduNow(String userId){
+	public List<EduNowVO> selectHomeEduNow(String userId){
 		return mainHomeDAO.selectHomeEduNow(userId);
 	}
 }

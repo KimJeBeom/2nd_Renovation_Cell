@@ -41,7 +41,7 @@
 									<table class="table table-hover">
 										<tbody>
 											<c:forEach items="${bdnList }" var="bdnlist">
-												<tr><td>${bdnlist.ttl }</td></tr>
+												<tr onclick="showPopup('board','noticeModPop?pbnsId=${bdnlist.pbnsId}');"><td>${bdnlist.ttl }</td></tr>
 											</c:forEach>
 										</tbody>
 									</table>
@@ -61,7 +61,7 @@
 								<div class="panel-body">
 									<ul class="list-unstyled activity-list">
 										<c:forEach items="${eduNowList }" var="edunowlist">
-											<li><a href="elements.html" class=""><p>${edunowlist.edctNm }<span class="timestamp">${edunowlist.edctSttgYmd } ~ ${edunowlist.edctFnshYmd }</span></p></a></li>
+											<li onclick="showPopup('myClass','eduInfoPop?edctAplcId=${edunowlist.edctAplcId}');"><a><p>${edunowlist.edctNm }<span class="timestamp">${edunowlist.edctSttgYmd } ~ ${edunowlist.edctFnshYmd }</span></p></a></li>
 										</c:forEach>
 									</ul>
 								</div>
@@ -99,5 +99,9 @@
 		
 		var OpenWindow = window.open('','_blank','width='+img_width+', height='+height+', menubars=no, scrollbars=1, resizable=1');
 		OpenWindow.document.write("<img src='"+url+"' width='"+win_width+"'>");
+	}
+	
+	function showNotice(pbnsId) {
+		
 	}
 </script>	

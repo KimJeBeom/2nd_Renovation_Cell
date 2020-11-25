@@ -1,6 +1,8 @@
 package com.ibk.itep.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -82,9 +84,20 @@ public class AdminDao {
 	}
 	
 	/* 수강신청현황 > 교육신청직원목록 팝업 */
-	public List<EduEmpListVo> selectEduEmpListPop(String edctCntId) {
+	public List<EduEmpListVo> selectEduEmpListPop(int edctCntId) {
 		List<EduEmpListVo> list = sqlSession.selectList("queryAdmin.selectEduEmpListPop", edctCntId);
 		return list;
+	}
+	
+	/* 수강신청현황 > 교육신청직원목록 > 수료/미수료 처리 */
+	public void updateEduEmpListPopCtcrYn(Map<String, String> map) {
+		
+		sqlSession.update("queryAdmin.updateEduEmpListPopCtcrYn", map);
+	}
+	
+	/* 수강신청현황 > 교육신청직원목록 > 차수완료 */
+	public void updateEduEmpListPopFnshY(int edctCntId) {
+		sqlSession.selectList("queryAdmin.updateEduEmpListPopFnshY", edctCntId);
 	}
 	
 	/* 과정개설신청현황 */

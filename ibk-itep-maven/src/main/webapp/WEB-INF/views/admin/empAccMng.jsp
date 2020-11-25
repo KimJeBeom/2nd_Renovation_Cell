@@ -45,11 +45,11 @@
 														</c:forEach>
 													</select>
 												</td>
-												<td style="width: 200px"><b>직원명/직원번호</b></td>
+												<td style="width: 200px; padding-left:20px;"><b>직원명/직원번호</b></td>
 												<td style="width: 200px">
 													<input id="userIdNm" class="form-control" type="text" style="text-align: left;">
 												</td>
-												<td style="width: 100px"><b>권한</b></td>
+												<td style="width: 110px; padding-left:10px;"><b>권한</b></td>
 												<td style="width: 150px">
 													<select id="athrCd" class="form-control" style="text-align: left;">
 														<option value="ALL">전체</option>
@@ -59,7 +59,7 @@
 													</select>
 												</td>
 												<td>
-													<div class="form-group col-md-12" style="margin:10px 0px 10px 50px; width:100px;">
+													<div class="form-group col-md-12" style="margin:10px 0px 10px 50px; width:80px;">
 														<button type="button" class="btn btn-primary" onclick="search()">조회</button>
 													</div>
 												</td>

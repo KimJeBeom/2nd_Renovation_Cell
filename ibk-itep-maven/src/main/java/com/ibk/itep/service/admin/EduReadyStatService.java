@@ -1,7 +1,9 @@
 package com.ibk.itep.service.admin;
 
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,8 +48,27 @@ public class EduReadyStatService {
 	}
 	
 	/* 수강신청현황 > 교육신청직원목록 팝업  */	
-	public List<EduEmpListVo> selectEduEmpListPop(String edctCntId){	
+	public List<EduEmpListVo> selectEduEmpListPop(int edctCntId){	
 		return adminDao.selectEduEmpListPop(edctCntId);
+	}
+	
+	/* 수강신청현황 > 교육신청직원목록 팝업 > 차수완료, 수료처리  */	
+	public void updateEduEmpListPop(Map<String, String> map){	
+		
+		// {edctCntId : 차수번호, 신청서번호 : 수료여부, 신청서번호 : 수료여부 ,...} 
+		// 형태로 데이터가 저장되어있음
+		
+		int edctCntId = Integer.parseInt(map.get("edctCntId"));
+		adminDao.updateEduEmpListPopFnshY(edctCntId); // 차수완료 처리
+		map.remove("edctCntId"); // Map에서 차수ID값 제거
+		
+		// DAO에게 신청서ID, 수료여부 한쌍씩 넘기기 위한 map
+		Map<String, String> paramMap = new HashMap<String,String>();
+		for(String key : map.keySet()) {
+			paramMap.put("edctAplcId", key);
+			paramMap.put("ctcrYn", map.get(key));
+			adminDao.updateEduEmpListPopCtcrYn(paramMap); // 수료처리
+		}
 	}
 	
 	/* 과정개설신청현황 */	

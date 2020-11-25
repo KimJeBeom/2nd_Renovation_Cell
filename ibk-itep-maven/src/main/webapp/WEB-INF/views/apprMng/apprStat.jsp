@@ -50,36 +50,34 @@
 																<div class="ui calendar" id="rangestart">
 																	<div class="ui input left icon">
 																		<i class="calendar icon" style="font-size: 14px;"></i>
-																		<input id="sttgYmd" type="text"
-																			style="height: 35px; font-size: 14px;">
+																		<input id="sttgYmd" type="text" style="height: 35px; font-size: 14px;">
 																	</div>
 																</div>
 															</div>
-															<label style="padding-top: 7px; height: 7px;">
-																&nbsp; ~ &nbsp; </label>
+															<label style="padding-top: 7px; height: 7px;"> &nbsp; ~ &nbsp; </label>
 															<div class="field">
 																<div class="ui calendar" id="rangeend">
 																	<div class="ui input left icon">
 																		<i class="calendar icon" style="font-size: 14px;"></i>
-																		<input id="fnshYmd" type="text"
-																			style="height: 35px; font-size: 14px;">
+																		<input id="fnshYmd" type="text" style="height: 35px; font-size: 14px;">
 																	</div>
 																</div>
 															</div>
 														</div>
 													</div>
 												</td>
-												<td style="width: 100px;"><b>결재상태</b></td>
-												<td style="width: 200px;"><select id="aplcStg"
-													class="form-control" style="width: 100%;">
+												<td style="width: 130px;"><b>결재상태</b></td>
+												<td style="width: 200px;">
+													<select id="aplcStg" class="form-control" style="width: 100%;">
 														<option value="all">전체</option>
 														<option value="fin">결재완료</option>
 														<option value="apr">결재중</option>
 														<option value="rej">반려</option>
-												</select></td>
-												<td style="width: 30%;"><button type="button"
-														class="btn btn-primary btn-toastr"
-														style="margin-right: 20px;" onclick="search()">조회</button></td>
+													</select>
+												</td>
+												<td style="width: 220px;">
+													<button type="button" class="btn btn-primary btn-toastr" style="margin-right: 20px;" onclick="search()">조회</button>
+												</td>
 											</tr>
 										</tbody>
 									</table>
@@ -147,8 +145,7 @@
 								<!-- 위의 결재항목별 교육상세설명 테이블 (TOGGLE 적용) -->
 								<div class="tab-content">
 									<!-- 테이블 1 -->
-									<div class="tab-pane fade in active" id="table"
-										style="padding-top: 10px;">
+									<div class="tab-pane fade in active" id="table" style="padding-top: 10px;">
 										<div class="table-responsive">
 											<table class="table table-hover tbl-type2">
 												<thead>
@@ -211,7 +208,7 @@
 			HighLightTableTr(trs[0]);	
 		});
 		
-		$("#sttgYmd").keyup(function(e){if(e.keyCode == 13)  search(); });
+		//$("#sttgYmd").keyup(function(e){if(e.keyCode == 13)  search(); });
 		$("#fnshYmd").keyup(function(e){if(e.keyCode == 13)  search(); });
 		$("#aplcStg").keyup(function(e){if(e.keyCode == 13)  search(); });
 		

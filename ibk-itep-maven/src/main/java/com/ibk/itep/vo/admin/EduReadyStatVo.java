@@ -14,6 +14,7 @@ public class EduReadyStatVo {
 	private int edctAplcIdCnt;
 	private Date sttgYmd; // 검색 시작일자
 	private Date fnshYmd; // 검색 종료일자
+	private String fnshYn;
 	
 	public int getEdctCntId() {
 		return edctCntId;
@@ -85,4 +86,11 @@ public class EduReadyStatVo {
 	public void setFnshYmd(Date fnshYmd) {
 		this.fnshYmd = fnshYmd;
 	}
+	public String getFnshYn() {
+		return fnshYn;
+	}
+	public void setFnshYn(String fnshYn) {
+		this.fnshYn = fnshYn;
+	}
+	
 }
