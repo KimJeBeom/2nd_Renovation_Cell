@@ -15,11 +15,14 @@ public class EduRegModService {
 	private AdminDao adminDao;
 	
 	public List<EduRegModVo> selectEduRegMod(EduRegModVo vo){
-		
-		if(vo.getEdctClsfCd().equalsIgnoreCase("ALL"))
-		{
-			vo.setEdctClsfCd(null);
+		if(vo.getEdctClsfCd() != null) {
+			if(vo.getEdctClsfCd().equalsIgnoreCase("ALL")) {
+				vo.setEdctClsfCd(null);
+			}
 		}
+		/*
+		 * if(vo.getEdctClsfCd().equalsIgnoreCase("ALL")) { vo.setEdctClsfCd(null); }
+		 */
 		return adminDao.selectEduRegMod(vo);
 	}
 	

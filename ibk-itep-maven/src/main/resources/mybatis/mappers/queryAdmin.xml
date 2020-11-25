@@ -26,6 +26,11 @@
 	     		and edm.EDCT_NM like concat('%',#{edctNm},'%')	# 조회조건 : 교육 명칭
 	     	]]>	     		     
 	     </if>
+	     <if test="edctId != null">
+	     	<![CDATA[
+	     		and edm.EDCT_ID = #{edctId}
+	     	]]>
+	     </if>
 	</select>
 	<update id="deleteEduRegMod" parameterType="EduRegModVo">
 		<![CDATA[
@@ -140,7 +145,7 @@
 	     		]]></if>
 	     		<![CDATA[
 					AND edc.USE_YN = 'Y' 
-					ORDER BY edc.EDCT_STTG_YMD DESC
+					ORDER BY edc.EDCT_STTG_YMD ASC
 	     		]]>
 	     	</select>
 		<!-- 교육차수추가 -->
