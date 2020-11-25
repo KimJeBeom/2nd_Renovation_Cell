@@ -12,13 +12,16 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Service
 public class FileUtil {
-	private static final String SAVE_PATH = "dat";
+	
+	@Value("${file.path}")
+	private String SAVE_PATH;
 	
 	private static final Logger logger = LoggerFactory.getLogger(FileUtil.class);
 	
