@@ -16,9 +16,13 @@ public class FileDao {
         return sqlSession.insert("queryFile.insertFile", fileVoList);
     }
 
-    public int updateFile(int file_no) {
+    public int updateFile(int[] file_no) {
     	return sqlSession.update("queryFile.updateFile", file_no);
     }
+    
+    /*public int updateFile(int file_no) {
+    	return sqlSession.update("queryFile.updateFile", file_no);
+    }*/
     
     public List<FileVo> selectFileList(FileVo fileVo) {
         return sqlSession.selectList("queryFile.selectFileList", fileVo);

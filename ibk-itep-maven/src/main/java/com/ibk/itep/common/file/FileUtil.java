@@ -33,9 +33,10 @@ public class FileUtil {
 		
 		if(fileNoDel.length !=0 )
 			logger.debug("file update count : " + String.valueOf(fileNoDel.length));
-			for(int fileNoDel1 : fileNoDel) {
+			fileDao.updateFile(fileNoDel);
+			/*for(int fileNoDel1 : fileNoDel) {
 				fileDao.updateFile(fileNoDel1);
-			}
+			}*/
 		
 		if(mpRequest != null) {
 			Iterator<String> iterator = mpRequest.getFileNames();
