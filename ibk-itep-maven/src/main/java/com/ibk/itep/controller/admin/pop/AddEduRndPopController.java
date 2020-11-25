@@ -64,13 +64,11 @@ public class AddEduRndPopController{
 	
 	@RequestMapping(value = "/views/admin/pop/insertEduRndRegMod", method = RequestMethod.POST)
 	public @ResponseBody boolean insertEduRndRegMod(EduRndRegModVo errmVo) {
-		logger.debug("컨트롤러 Start : insertEduRndRegMod : errmVo : {}",errmVo.toString());
+		logger.debug("컨트롤러 Start : insertEduRndRegMod");
 		cmmService.objFieldTest(errmVo);
-		//List<EduRndRegModVo> errmVoList = eduRndRegModService.selectEduRndRegMod(errmVo);
-		//int id = errmVoList.get(0).getEdctCntId();
-		logger.debug("컨트롤러 End : insertEduRndRegMod ");
-		
-		return true; 
+		boolean result = eduRndRegModService.insertEduRndRegMod(errmVo);
+		logger.debug("컨트롤러 End : insertEduRndRegMod : result : {}", result);
+		return result;
 	}
 	
 	/*

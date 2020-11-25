@@ -37,6 +37,10 @@ public class AdminDao {
 		return count == 1;
 	}
 	
+	public boolean insertEduRndRegMod(EduRndRegModVo vo) {
+		int count = sqlSession.insert("queryAdmin.insertEduRndRegMod", vo);
+		return count == 1;
+	}
 	public List<EduRndRegModVo> selectEduRndRegMod(EduRndRegModVo vo){
 		logger.debug("selectEduRndRegMod dao 진입");
 		List<EduRndRegModVo> list = sqlSession.selectList("queryAdmin.selectEduRndRegMod", vo);

@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ibk.itep.repository.AdminDao;
+import com.ibk.itep.service.cmm.CmmService;
+import com.ibk.itep.vo.admin.EduRegModVo;
 import com.ibk.itep.vo.admin.EduRndRegModVo;
 
 @Service
@@ -18,6 +20,8 @@ public class EduRndRegModService {
 	
 	@Autowired
 	private AdminDao adminDao;
+	@Autowired
+	private CmmService cmmService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(EduRndRegModService.class);
 	
@@ -33,12 +37,40 @@ public class EduRndRegModService {
 			return null;
 		}
 	}
+	public boolean insertEduRndRegMod(EduRndRegModVo vo) {
+		logger.debug("서비스 Start : insertEduRndRegMod");
+		logger.debug("데이터 setting 후");
+		cmmService.objFieldTest(vo);
+		boolean result = adminDao.insertEduRndRegMod(vo);
+		logger.debug("서비스 End : insertEduRndRegMod");
+		//return true;
+		return result;		
+	}
 	public List<EduRndRegModVo> listSecondsParser(List<EduRndRegModVo> list){
 		for(EduRndRegModVo vo: list) {
 			vo.setEdctSttgTim(secondsParser(vo.getEdctSttgTim()));
 			vo.setEdctFnshTim(secondsParser(vo.getEdctFnshTim()));
 		}
 		return list;
+	}
+	public String dateToViewType(String time) {
+		/*
+		 * SimpleDateFormat sdf = new SimpleDateFormat("HH:mm"); Date date = null; try {
+		 * date = sdf.parse(time); time = sdf.format(date); } catch (ParseException e) {
+		 * // TODO Auto-generated catch block e.printStackTrace(); }
+		 */
+		return time;
+	}
+	public String dateToModelType(String ymd) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = null; 
+		try {
+			date = sdf.parse(ymd);
+			ymd = sdf.format(date);
+		} catch (ParseException e) {
+		  e.printStackTrace();
+		}
+		return ymd;
 	}
 	public String secondsParser(String time) {
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
@@ -51,7 +83,6 @@ public class EduRndRegModService {
 			e.printStackTrace();
 		}
 		return time;
-
 	}
 	/*
 	public String dateToStringYmd(Date date) {

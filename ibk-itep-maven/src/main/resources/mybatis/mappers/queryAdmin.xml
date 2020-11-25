@@ -149,7 +149,7 @@
 	     		]]>
 	     	</select>
 		<!-- 교육차수추가 -->
-			<insert  id="insertAddEduRndPop" parameterType="EduRndRegModVo">
+			<insert  id="insertEduRndRegMod" parameterType="EduRndRegModVo">
 				<![CDATA[
 					/*교육 차수추가 팝업*/
 					INSERT TB_IEP_EDC001M(
@@ -176,14 +176,14 @@
 					#{edctFnshYmd}, 
 					#{aplcSttgYmd}, 
 					#{aplcFnshYmd}, 
-					#{cnclStttgYmd}, 
+					#{cnclSttgYmd}, 
 					#{cnclFnshYmd}, 
 					#{edctSttgTim}, 
 					#{edctFnshTim}, 
 					#{edctTrm}, 
 					#{ctcrTim}, 
 					#{edex}, 
-					NULL, 
+					'N', 
 					'Y', 
 					SYSDATE()) 
 			     ]]>

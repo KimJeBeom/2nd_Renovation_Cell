@@ -208,13 +208,13 @@ $(document).ready(function(){
 	});
  	$(document).on("click","#btnConfirm",function(){
 		if(verifyValue()){
-		
  			var edctCntId = $(".trEdctCntInfo.active").attr("id");
  			if(edctCntId == null || edctCntId == "undefined" || edctCntId ==""){
 	 			alert("insert해야됨");
  				insertEduRndRegMod();
  			}else{
  				alert("update해야됨")
+ 				updateEduRndRegMod(edctCntId);
  			}
 		}
 	});
@@ -506,7 +506,6 @@ function verifyValue(){
 }	
 function insertEduRndRegMod(){
 	var edctId = ${edctId };
-	//$('#aplcSttgYmd').val().replace(\/\/\/g, '-')
     $.ajax({
     	url:"/itep/views/admin/pop/insertEduRndRegMod", //데이터를  넘겨줄 링크 설정
         type:"POST", // post 방식
@@ -525,6 +524,33 @@ function insertEduRndRegMod(){
 		
 		success: function (responseData) {
 				alert("정상적으로 등록 되었습니다");
+				 //location.reload();
+		},
+		error: function (xhr, status, error) {
+			alert("error");
+			
+		}
+	});
+}
+function updateEduRndRegMod(edctCntId){
+    $.ajax({
+    	url:"/itep/views/admin/pop/updateEduRndRegMod", //데이터를  넘겨줄 링크 설정
+        type:"POST", // post 방식
+		data:{	"edctCntId"		: edctCntId,
+				"aplcSttgYmd" 	: $('#aplcSttgYmd').val(),
+				"aplcFnshYmd" 	: $('#aplcFnshYmd').val(),
+				"cnclSttgYmd" 	: $('#cnclSttgYmd').val(),
+				"cnclFnshYmd" 	: $('#cnclFnshYmd').val(),
+				"edctSttgYmd" 	: $('#edctSttgYmd').val(),
+				"edctFnshYmd" 	: $('#edctFnshYmd').val(),
+				"edctSttgTim" 	: $('#edctSttgTim').val(),
+				"edctFnshTim" 	: $('#edctFnshTim').val(),
+				"ctcrTim" 		: $('#ctcrTim').val(),
+				"edctTrm" 		: $('#edctTrm').val(),
+				"edex" 			: $('#edex').val()			}, //넘겨줄 데이터
+		
+		success: function (responseData) {
+				alert("정상적으로 변경 되었습니다");
 				 //location.reload();
 		},
 		error: function (xhr, status, error) {
