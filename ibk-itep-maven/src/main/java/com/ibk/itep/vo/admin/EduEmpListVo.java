@@ -1,15 +1,12 @@
 package com.ibk.itep.vo.admin;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-
 public class EduEmpListVo {
 	private int edctCntId;
 	private int edctAplcId;
 	private String edctNm;
 	private String edctCon;
-	private Date edctSttgYmd;
-	private Date edctFnshYmd;
+	private String edctSttgYmd;
+	private String edctFnshYmd;
 	private String brnm;
 	private String userId;
 	private String userNm;
@@ -40,17 +37,15 @@ public class EduEmpListVo {
 		this.edctCon = edctCon;
 	}
 	public String getEdctSttgYmd() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-		return sdf.format(edctSttgYmd);
+		return edctSttgYmd;
 	}
-	public void setEdctSttgYmd(Date edctSttgYmd) {
+	public void setEdctSttgYmd(String edctSttgYmd) {
 		this.edctSttgYmd = edctSttgYmd;
 	}
 	public String getEdctFnshYmd() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-		return sdf.format(edctFnshYmd);
+		return edctFnshYmd;
 	}
-	public void setEdctFnshYmd(Date edctFnshYmd) {
+	public void setEdctFnshYmd(String edctFnshYmd) {
 		this.edctFnshYmd = edctFnshYmd;
 	}
 	public String getBrnm() {

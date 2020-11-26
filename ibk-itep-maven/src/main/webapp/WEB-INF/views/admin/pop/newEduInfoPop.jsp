@@ -34,7 +34,7 @@
 									<tbody>
 										<tr>
 											<th>신청일시</th>
-											<td class="txt-long" colspan="3">${edoVo.aplcTs }</td>
+											<td colspan="3">${edoVo.aplcTs }</td>
 										</tr>
 										<tr>
 											<th>부서명</th>
@@ -46,8 +46,8 @@
 											<th>교육구분</th>
 											<td>
 												<c:choose>
-													<c:when test="${edoVo.inbkEdctYn } eq 'Y'">행내</c:when>
-													<c:when test="${edoVo.inbkEdctYn } eq 'N'">행외</c:when>
+													<c:when test="${edoVo.inbkEdctYn eq 'Y' }">행내</c:when>
+													<c:when test="${edoVo.inbkEdctYn eq 'N' }">행외</c:when>
 												</c:choose>
 											</td>
 											<th>교육기관</th>
@@ -77,8 +77,8 @@
 											<th>교육방식</th>
 											<td>
 												<c:choose>
-													<c:when test="${edoVo.onlEdctYn } eq 'Y'">온라인</c:when>
-													<c:when test="${edoVo.onlEdctYn } eq 'N'">오프라인</c:when>
+													<c:when test="${edoVo.onlEdctYn eq 'Y' }">온라인</c:when>
+													<c:when test="${edoVo.onlEdctYn eq 'N' }">오프라인</c:when>
 												</c:choose>
 											</td>
 											<th>교육수준</th>

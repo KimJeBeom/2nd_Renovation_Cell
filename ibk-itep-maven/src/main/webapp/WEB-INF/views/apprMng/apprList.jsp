@@ -49,7 +49,7 @@
 											<th>부서명</th>
 											<th>직원명</th>
 											<th style="width: 200px;">신청교육</th>
-											<th>신청일자</th>
+											<th>신청일시</th>
 										</tr>
 									</thead>
 									<tbody id="apprListBody">

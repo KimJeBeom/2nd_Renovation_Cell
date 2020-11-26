@@ -385,12 +385,13 @@
 	
 	<!-- Start - Popup - 과정개설신청현황확인 newEduInfoPop -->
 		<!-- 과정개설신청 현황 확인 상세-->
-			<select  id="selectNewEduInfoPop" parameterType="Integer" resultType="EduOpenReadyStatVo">
+			<select  id="selectNewEduInfoPop" parameterType="Integer" resultType="NewEduInfoVo">
 				<![CDATA[
 					SELECT EDO.APLC_ID AS aplcId		-- 신청ID
+					, EDO.APLC_TS AS aplcTs				-- 신청일시
 					, CMB.BRNM AS brnm					-- 부서명
 					, CMU.USER_NM AS userNm				-- 직원명
-					, EDO.INBK_EDCT_YN AS edctYn		-- 행내교육
+					, EDO.INBK_EDCT_YN AS inbkEdctYn	-- 행내교육여부
 					, EDO.EDIN_NM AS edinNm				-- 교육기관명
 					, EDO.EDCT_NM AS edctNm				-- 교육명
 					, EDO.EDCT_CON AS edctCon			-- 교육내용 
@@ -412,7 +413,7 @@
 				]]>
 			</select>	
 		<!-- 과정개설신청(읽음으로 update) -->
-			<update id="updateNewEduInfoPop" parameterType="EduOpenReadyStatVo" >
+			<update id="updateNewEduInfoPop" parameterType="NewEduInfoVo" >
 				<![CDATA[
 					UPDATE TB_IEP_EDO001M
 					SET CNFA_YN = 'Y'

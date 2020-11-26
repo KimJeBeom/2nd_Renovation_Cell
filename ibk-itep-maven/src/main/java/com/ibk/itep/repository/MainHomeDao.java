@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ibk.itep.vo.SessionVo;
-import com.ibk.itep.vo.board.NoticeVo;
-import com.ibk.itep.vo.myClass.EduNowVO;
+import com.ibk.itep.vo.HomeNoticeVo;
+import com.ibk.itep.vo.HomeEduNowVO;
 
 @Repository
 public class MainHomeDao {
@@ -22,13 +22,13 @@ public class MainHomeDao {
 		return vo;
 	}
 	
-	public List<NoticeVo> selectHomeBdnList() {
-		List<NoticeVo> list = sqlSession.selectList("queryMainHome.selectHomeBdnList");
+	public List<HomeNoticeVo> selectHomeBdnList() {
+		List<HomeNoticeVo> list = sqlSession.selectList("queryMainHome.selectHomeBdnList");
 		return list;
 	}
 	
-	public List<EduNowVO> selectHomeEduNow(String userId) {
-		List<EduNowVO> list = sqlSession.selectList("queryMainHome.selectHomeEduNow", userId);
+	public List<HomeEduNowVO> selectHomeEduNow(String userId) {
+		List<HomeEduNowVO> list = sqlSession.selectList("queryMainHome.selectHomeEduNow", userId);
 		return list;
 	}
 }

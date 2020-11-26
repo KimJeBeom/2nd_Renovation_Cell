@@ -1,14 +1,11 @@
 package com.ibk.itep.vo.apprMng;
 
-import java.text.SimpleDateFormat;
-import java.sql.Date;
-
 public class ApprStatSrchVo {
 	private String dvcd;
 	private String athrCd;
 	private int edctAplcId;
-	private Date sttgYmd;
-	private Date fnshYmd;
+	private String sttgYmd;
+	private String fnshYmd;
 	private String aplcStg;
 	
 	public String getDvcd() {
@@ -26,39 +23,24 @@ public class ApprStatSrchVo {
 	public int getEdctAplcId() {
 		return edctAplcId;
 	}
-
 	public void setEdctAplcId(int edctAplcId) {
 		this.edctAplcId = edctAplcId;
 	}
-
 	public String getSttgYmd() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-		if(sttgYmd != null)
-			return sdf.format(sttgYmd);
-		else 
-			return "";
+		return sttgYmd;
 	}
-
-	public void setSttgYmd(Date sttgYmd) {
+	public void setSttgYmd(String sttgYmd) {
 		this.sttgYmd = sttgYmd;
 	}
-
 	public String getFnshYmd() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-		if(fnshYmd != null)
-			return sdf.format(fnshYmd);
-		else
-			return "";
+		return fnshYmd;
 	}
-
-	public void setFnshYmd(Date fnshYmd) {
+	public void setFnshYmd(String fnshYmd) {
 		this.fnshYmd = fnshYmd;
 	}
-
 	public String getAplcStg() {
 		return aplcStg;
 	}
-
 	public void setAplcStg(String aplcStg) {
 		this.aplcStg = aplcStg;
 	}

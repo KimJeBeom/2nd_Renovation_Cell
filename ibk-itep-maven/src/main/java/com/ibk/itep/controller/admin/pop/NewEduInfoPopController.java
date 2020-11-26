@@ -17,6 +17,7 @@ import com.ibk.itep.controller.HomeController;
 import com.ibk.itep.service.admin.EduReadyStatService;
 import com.ibk.itep.vo.SessionVo;
 import com.ibk.itep.vo.admin.EduOpenReadyStatVo;
+import com.ibk.itep.vo.admin.NewEduInfoVo;
 
 @Controller
 public class NewEduInfoPopController{
@@ -30,7 +31,7 @@ public class NewEduInfoPopController{
 	@RequestMapping(value = "/views/admin/pop/newEduInfoPop", method = RequestMethod.GET)
 	public String newEduInfoPop(Model model, @RequestParam(value="aplcId", required=false) String aplcId) {
 
-		EduOpenReadyStatVo edoVo = eduReadyStatService.selectNewEduInfoPop(Integer.parseInt(aplcId));
+		NewEduInfoVo edoVo = eduReadyStatService.selectNewEduInfoPop(Integer.parseInt(aplcId));
 
 		model.addAttribute("edoVo", edoVo );		
 		return "/admin/pop/newEduInfoPop";

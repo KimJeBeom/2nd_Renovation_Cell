@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ibk.itep.service.MainHomeService;
 import com.ibk.itep.vo.SessionVo;
-import com.ibk.itep.vo.board.NoticeVo;
-import com.ibk.itep.vo.myClass.EduNowVO;
+import com.ibk.itep.vo.HomeNoticeVo;
+import com.ibk.itep.vo.HomeEduNowVO;
 
 @Controller
 public class MainHomeContoller{
@@ -36,8 +36,8 @@ public class MainHomeContoller{
 		
 		session.setAttribute("ssnInfo", ssnInfo); // 사용자 정보 세션에 담음
 		
-		List<NoticeVo> bdnList = mainHomeService.selectHomeBdnList(); // 공지사항
-		List<EduNowVO> eduNowList = mainHomeService.selectHomeEduNow(id); // 수강중인 교육
+		List<HomeNoticeVo> bdnList = mainHomeService.selectHomeBdnList(); // 공지사항
+		List<HomeEduNowVO> eduNowList = mainHomeService.selectHomeEduNow(id); // 수강중인 교육
 		
 		model.addAttribute("bdnList", bdnList);
 		model.addAttribute("eduNowList", eduNowList);

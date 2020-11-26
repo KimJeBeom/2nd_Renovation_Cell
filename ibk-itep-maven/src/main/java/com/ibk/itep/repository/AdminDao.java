@@ -16,6 +16,7 @@ import com.ibk.itep.vo.admin.EduReadyStatVo;
 import com.ibk.itep.vo.admin.EduRegModVo;
 import com.ibk.itep.vo.admin.EduRndRegModVo;
 import com.ibk.itep.vo.admin.EmpAccMngVo;
+import com.ibk.itep.vo.admin.NewEduInfoVo;
 
 @Repository
 public class AdminDao {
@@ -107,13 +108,13 @@ public class AdminDao {
 	}
 	
 	/* 과정개설신청현황 상세 팝업*/
-	public EduOpenReadyStatVo selectNewEduInfoPop(int aplcId) {
-		EduOpenReadyStatVo vo = sqlSession.selectOne("queryAdmin.selectNewEduInfoPop", aplcId);
+	public NewEduInfoVo selectNewEduInfoPop(int aplcId) {
+		NewEduInfoVo vo = sqlSession.selectOne("queryAdmin.selectNewEduInfoPop", aplcId);
 		return vo;
 	}
 	
 	/* 과정개설신청 확인 처리 */
-	public void updateNewEduInfoPop(EduOpenReadyStatVo vo) {
+	public void updateNewEduInfoPop(NewEduInfoVo vo) {
 		sqlSession.update("queryAdmin.updateNewEduInfoPop", vo);
 	}
 	
