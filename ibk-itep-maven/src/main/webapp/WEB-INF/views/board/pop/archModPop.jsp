@@ -117,19 +117,30 @@
 	var conf = confirm('수정하시겠습니까?');
  	if(conf){
     	var ttl = $('input[name=ttl]').val();
-	    var apndDat = $('input[name=apndDat]').val();
 	    var con = $("#con").val();
 	   	var edctClsfCd = $("#edctClsfCd").val();
+	   	var addFileCnt = $('.addFile').length;
+	   	
+   	    var form = $('#excelForm')[0];
+	    // FormData 객체 생성
+	    var formData = new FormData(form);
+	    
+	    formData.append("rflbId",rflbId);
+	    formData.append("ttl",ttl);
+	    formData.append("con",con);
+	    formData.append("edctClsfCd",edctClsfCd);
+	    formData.append("modType",modType);
+	    formData.append('fileNoArray[]',fileNoArry);
+	    formData.append("addFileCnt",addFileCnt);
+	    
         $.ajax({
-	        url:"/itep/views/board/pop/archModPop", //데이터를  넘겨줄 링크 설정
+	        url:"/itep/views/board/pop/noticeModPop", //데이터를  넘겨줄 링크 설정
 			type:"POST", // post 방식
-			data: 
-	    	    {"rflbId" : rflbId //id
-				,"ttl" : ttl //제목
-				,"con" : con //내용
-	    	    ,"apndDat" : apndDat //첨부파일
-	    	    ,"edctClsfCd" : edctClsfCd //구분코드
-	    	    ,"modType" : modType}, //update or insert
+	   	    enctype: 'multipart/form-data',
+		   	processData: false,
+		   	contentType: false,
+	   	 	dataType : 'json',
+			data:formData,
 
 	         success: function (responseData) {
 	        	 //화면 재호출시(작업완료) 제어를 위한 sctipt

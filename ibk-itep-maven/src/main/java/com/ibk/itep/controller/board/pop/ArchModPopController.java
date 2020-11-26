@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ibk.itep.common.file.FileUtil;
+import com.ibk.itep.common.file.FileVo;
 import com.ibk.itep.service.board.ArchieveService;
 import com.ibk.itep.service.cmm.CmmService;
 import com.ibk.itep.vo.SessionVo;
@@ -57,22 +58,19 @@ public class ArchModPopController{
 			modRst = service.modAction(vo,modType,ssnInfo);
 			logger.info("ArchModPopPost job End" + modRst);
 			
-			if(modRst==true && (Integer.parseInt(addFileCnt) > 0 || fileNoDel.length > 0)) {
-				logger.info("ArchModPopPost FILE" +modType+" Start");
+			int id = Integer.parseInt(pbns_id);
+			logger.info("ArchModPopPost FILE" +modType+" Start");
+			if(modRst==true && modType.equals("update") && (Integer.parseInt(addFileCnt) > 0 || fileNoDel.length > 0)) {
 				//파일 삭제+업로드 수행
-				int id = Integer.parseInt(pbns_id);
-				if(modType.equals("update")) {
-					logger.debug(String.valueOf(fileNoDel.length));
-					fileUtil.fileUpdate(fileNoDel,code_nm,id,mpRequest);
-				}else if(modType.equals("delete")) {
-					fileUtil.fileAllDelete(code_nm, id);
-				}
-				
-				logger.info("ArchModPopPost FILE" +modType+" End");
+				logger.debug(String.valueOf(fileNoDel.length));
+				fileUtil.fileUpdate(fileNoDel,code_nm,id,mpRequest);			
+			}else if(modType.equals("delete")) {
+				fileUtil.fileAllDelete(code_nm, id);
 			}else {
 				logger.info("ArchModPopPost FILE Upload Cancle");
 				logger.info(" --- modRst : "+ modRst + "/ fileCnt: " + addFileCnt + "/ fileNoDel: " + fileNoDel.length );
 			}
+			logger.info("ArchModPopPost FILE" +modType+" End");
 			
 		}
 		
@@ -102,6 +100,13 @@ public class ArchModPopController{
 		
 		logger.info("Service Retrn OK");
 		logger.info("---Return getRflbId : "+outVo.getRflbId());
+		
+		List<FileVo> fileVoList = fileUtil.selectFileList("BDR", outVo.getRflbId());
+		if(!fileVoList.isEmpty()) {
+			logger.debug(fileVoList.get(0).getOrg_file_name());
+			logger.debug(fileVoList.get(0).getFile_size().toString());
+			model.addAttribute("fileVoList",fileVoList);
+		}
 		
 		//결과값을 화면으로 전달(modtype을 같이 전달하여 삭제완료-> 창종료 / 변경완료 -> 변경후 정보 재조회
 		model.addAttribute("vo",outVo);
