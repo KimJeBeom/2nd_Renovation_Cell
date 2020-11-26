@@ -96,9 +96,13 @@
 							   				<td>${vo.edctLevl}</td>
 										</tr>
 										<tr>
-										   <th>첨부파일</th>
+										   <th>첨부파일<br><button class="fileAdd_btn" type="button">파일추가</button></th>
 										   <td colspan="3">
-												<input multiple="multiple" type="file" id="file" class="form-control" value="">
+												<form name="writeForm"  id="excelForm" method="post" action="upload" enctype="multipart/form-data">
+												<input type="text" name="code_nm" style="display:none" value="EDA">
+												<input type="text" name="pbns_id" style="display:none" value="">
+												<div id="fileIndex"></div>
+												</form>
 										   </td>
 										</tr>
 									</tbody>
@@ -117,6 +121,7 @@
 	<!-- END WRAPPER -->
 
 <!-- FOOTER -->
+<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 <script>
 //최초교육 등록(insert)할 경우 수행되는 function
 function fstApply(){
@@ -124,8 +129,14 @@ function fstApply(){
    	if(conf==true){
    	   	var edctCntId = '${vo.edctCntId}'; //교육차수id
 		var dpmAthzId = $("#dpmid").val(); //부서결제자
-		var	apndDat = $("#file").val(); //첨부파일
 		var	snctTgtYn = '${vo.snctTgtYn}'; //결제여부
+		
+   	    var form = $('#excelForm')[0];
+	    // FormData 객체 생성
+	    var formData = new FormData(form);
+	    formData.append("edctCntId",edctCntId);
+	    formData.append("dpmAthzId",dpmAthzId);
+	    formData.append("snctTgtYn",snctTgtYn);
 		
 		/* if(apndDat==""){
        		alert("전체 내용을 입력해주세요");
@@ -134,12 +145,11 @@ function fstApply(){
  	     $.ajax({
 		        url:"/itep/views/board/pop/noticeRegPop", //데이터를  넘겨줄 링크 설정
 				type:"POST", // post 방식
-				data: 
-		    	    {"edctCntId" : edctCntId
-		    	    ,"dpmAthzId" : dpmAthzId
-		    	    ,"apndDat" : apndDat
-		    	    ,"snctTgtYn" : snctTgtYn
-		    	    ,"modAct" : "insert"},
+		   	    enctype: 'multipart/form-data',
+			   	processData: false,
+			   	contentType: false,
+		   	 	//dataType : 'json',
+				data: formData,
 				
 		         success: function (responseData) {
 		        	 //화면 재호출시(작업완료) 제어를 위한 sctipt
@@ -161,7 +171,17 @@ function fstApply(){
    	
 }
 
+$(document).ready(function(){
+	fn_addFile();
+})
+function fn_addFile(){
+	var fileIndex = 1;
+	$(".fileAdd_btn").on("click", function(){
+		$("#fileIndex").append("<div><input type='file' style='float: left;width:50%;' name='file_"+(fileIndex++)+"'>"+"<button style='float: right' type='button' id='fileDelBtn'>"+"삭제"+"</button></div><br>");	});
+	$(document).on("click","#fileDelBtn", function(){
+		$(this).parent().remove();
+		
+	});
+}
 </script>
-
-<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 

@@ -49,4 +49,11 @@ public class CmmService {
 	public List<CmbVo> selectCmb(){
 		return cmmDao.selectCmb(); // 상위부점이 IT그룹인 부서 조회
 	}
+	public int getNextKey(String tableNm){
+		return cmmDao.selectNextKey(tableNm);
+	}
+	public int getPrstKey(String tableNm){
+		return cmmDao.selectPrstKey(tableNm);
+	}
+	
 }

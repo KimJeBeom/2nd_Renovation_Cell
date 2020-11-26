@@ -175,11 +175,13 @@
 										</td>
 									</tr>
 									<tr>
-										<td class="info"><b>첨부파일</b></td>
+										<td class="info"><b>첨부파일<br><button class="fileAdd_btn" type="button">파일추가</button></b></td>
 										<td colspan="3">
-											<div>
-												<input id="apndDat" multiple="multiple" type="file" name="file" class="form-control" value="">
-											</div>
+											<form name="writeForm"  id="excelForm" method="post" action="upload" enctype="multipart/form-data">
+											<input type="text" name="code_nm" style="display:none" value="EDO">
+											<input type="text" name="pbns_id" style="display:none" value="">
+											<div id="fileIndex"></div>
+											</form>	
 										</td>
 									</tr>
 									</tbody>
@@ -203,7 +205,7 @@
 		<div class="clearfix"></div>
 		<footer>
 			<div class="container-fluid">
-				<p class="copyright">Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a>
+				<!-- <p class="copyright">Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a> -->
 </p>
 			</div>
 		</footer>
@@ -220,22 +222,34 @@ function insertNewEdu() {
 		var	edctNm = $("#edctNm").val(); //교육명   
 		var	edctCon = $("#edctCon").val();//교육내용 및 신청사유    
 		var	edinNm = $("#edinNm").val(); //교육기관명  
-		var	aplcSttgYmd = $("#aplcSttgYmd").val().replaceAll(".","").substr(0,6); //신청시작일
-		
+		var	aplcSttgYmd = $("#aplcSttgYmd").val().replaceAll(".","-"); //신청시작일
 		var	aplcFnshYmd = $("#aplcFnshYmd").val().replaceAll(".","-"); //신청종료일
 		var	edctSttgYmd = $("#edctSttgYmd").val().replaceAll(".","-"); //학습시작일  
 		var	edctFnshYmd = $("#edctFnshYmd").val().replaceAll(".","-"); //학습종료일  
 		var	edctSttgTim = $("#edctSttgTim").val(); //교육시작시간 
 		var	edctFnshTim = $("#edctFnshTim").val(); //교육종료시간
-		
 		var	edex = $("#edex").val(); //교육비용
 		var	onlEdctYn = $('input[name="onlEdctYn"]:checked').val(); //온라인교육여부
 		var	edctLevl = $('input[name="edctLevl"]:checked').val(); //교육수준
-		var	apndDat = $("#apndDat").val(); //첨부파일
 		
-		alert("신청 : " + aplcSttgYmd +"~"+aplcFnshYmd);
-		alert("학습 : " + edctSttgYmd +"~"+edctFnshYmd);
-		alert("시간 : " + edctSttgTim +"~"+edctSttgTim);
+   	    var form = $('#excelForm')[0];
+	    // FormData 객체 생성
+	    var formData = new FormData(form);
+	    
+	    formData.append("inbkEdctYn",inbkEdctYn);
+	    formData.append("edctNm",edctNm);
+	    formData.append("edctCon",edctCon);
+	    formData.append("edinNm",edinNm);
+	    formData.append("aplcSttgYmd",aplcSttgYmd);
+	    formData.append("aplcFnshYmd",aplcFnshYmd);
+	    formData.append("edctSttgYmd",edctSttgYmd);
+	    formData.append("edctFnshYmd",edctFnshYmd);
+	    formData.append("edctSttgTim",edctSttgTim);
+	    formData.append("edctFnshTim",edctFnshTim);
+	    formData.append("edex",edex);
+	    formData.append("onlEdctYn",onlEdctYn);
+	    formData.append("edctLevl",edctLevl);
+	    formData.append("modAct","insert");
 		
 		if(inbkEdctYn==""||edctNm==""||edctCon==""||edinNm==""||edctSttgYmd==""||edctFnshYmd==""||aplcSttgYmd==""||aplcFnshYmd==""
 				||edctSttgTim==""||edctFnshTim==""||edex==""||onlEdctYn==""||edctLevl==""){
@@ -245,22 +259,11 @@ function insertNewEdu() {
 		     $.ajax({
 			        url:"/itep/views/eduApply/newEduApply", //데이터를  넘겨줄 링크 설정
 					type:"POST", // post 방식
-					data: 
-			    	    {"inbkEdctYn" : inbkEdctYn
-			    	    ,"edctNm" : edctNm
-			    	    ,"edctCon" : edctCon
-			    	    ,"edinNm" : edinNm
-			    	    ,"edctSttgYmd" : edctSttgYmd
-			    	    ,"edctFnshYmd" : edctFnshYmd
-			    	    ,"aplcSttgYmd" : aplcSttgYmd
-			    	    ,"aplcFnshYmd" : aplcFnshYmd
-			    	    ,"edctSttgTim" : edctSttgTim
-			    	    ,"edctFnshTim" : edctFnshTim
-			    	    ,"edex" : edex
-			    	    ,"onlEdctYn" : onlEdctYn
-			    	    ,"edctLevl" : edctLevl
-			    	    ,"apndDat" : apndDat
-			     		,"modAct" : "insert"},
+			   	    enctype: 'multipart/form-data',
+				   	processData: false,
+				   	contentType: false,
+			   	 	//dataType : 'json',
+					data: formData,
 					
 			         success: function (responseData) {
 			        	 if(responseData=='success'){
@@ -273,7 +276,7 @@ function insertNewEdu() {
 			        	 }
 			          },
 			         error: function (xhr, status, error) {
-			        	 alert("등록에 실패 하였습니다. 다시 시도하여 주세요");
+			        	 alert("등록에 실패 하였습니다. 다시 시도하여 주세요 : "+xhr+"//"+status);
 			          }
 				});
 		}
@@ -371,4 +374,17 @@ $(document).ready(function(){
  	   }	 	    
  	});
 });
+
+$(document).ready(function(){
+	fn_addFile();
+})
+function fn_addFile(){
+	var fileIndex = 1;
+	$(".fileAdd_btn").on("click", function(){
+		$("#fileIndex").append("<div><input type='file' style='float: left;width:50%;' name='file_"+(fileIndex++)+"'>"+"<button style='float: right' type='button' id='fileDelBtn'>"+"삭제"+"</button></div><br>");	});
+	$(document).on("click","#fileDelBtn", function(){
+		$(this).parent().remove();
+		
+	});
+}
 </script>

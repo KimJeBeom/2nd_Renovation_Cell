@@ -36,12 +36,14 @@ public class FileUtil {
 		
 		if(mpRequest != null) {
 			Iterator<String> iterator = mpRequest.getFileNames();
-			MultipartFile multipartFile = mpRequest.getFile(iterator.next());
-			if(!multipartFile.getOriginalFilename().isEmpty()) {
-				logger.debug("file update code_nm : " + code_nm);
-				logger.debug("file update pbns_id : " + pbns_id);
-				logger.debug("file update size : " + multipartFile.getOriginalFilename().isEmpty());
-				fileUpload(code_nm, pbns_id, mpRequest);
+			if(iterator.hasNext()) {
+				MultipartFile multipartFile = mpRequest.getFile(iterator.next());
+				if(!multipartFile.getOriginalFilename().isEmpty()) {
+					logger.debug("file update code_nm : " + code_nm);
+					logger.debug("file update pbns_id : " + pbns_id);
+					logger.debug("file update size : " + multipartFile.getOriginalFilename().isEmpty());
+					fileUpload(code_nm, pbns_id, mpRequest);
+				}
 			}
 		}
 	}
