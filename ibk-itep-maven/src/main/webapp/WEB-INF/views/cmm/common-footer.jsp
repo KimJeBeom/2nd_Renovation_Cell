@@ -23,7 +23,7 @@
 		} else {
 			// 팝업이면 창 크기 자동조절
 	        document.body.style.height = "auto";
-			resizeWindow(this);
+	        resizeWindow(this);
 		}
 	</script>	
 </body>

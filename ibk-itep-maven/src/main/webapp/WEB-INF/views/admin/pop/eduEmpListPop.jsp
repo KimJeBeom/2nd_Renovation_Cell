@@ -102,12 +102,6 @@
 	<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 
 	<script>
-	function resizeWindow(win) {
-		var wid = win.document.body.offsetWidth + 30;
-		var hei = win.document.body.offsetHeight + 40;        //30 과 40은 넉넉하게 하려는 임의의 값임
-		win.resizeTo(wid,hei);
-	}
-	
 	function finEduCnt(edctCntId) {
 		var radioLength = $('input[name^="ctcr"]').length / 2; // 총 라디오버튼 개수
 		var radioChecked = $('input[name^="ctcr"]:checked').length; // 선택된 라디오버튼 개수

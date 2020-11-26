@@ -20,8 +20,8 @@
 					<div class="panel panel-headline">
 						<div class="panel-heading">
 							<div class="row">
-								<div class="col-md-12" style="vertical-align:center;">
-									<img src="/itep/assets/itep/img/itepintro.png" style="height:100%; max-width:100%; display:block;"/>
+								<div class="col-md-12" style="vertical-align:center; text-align: center; ">
+									<img src="/itep/assets/itep/img/itepintro.png" style="height:70%; max-width:100%; margin: 0px auto; display:block;"/>
 								</div>
 							</div>
 						</div>

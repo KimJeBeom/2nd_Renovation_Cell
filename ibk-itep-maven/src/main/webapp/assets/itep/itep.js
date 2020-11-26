@@ -62,7 +62,7 @@ $(document).ready(function() {
 
 /* 팝업 : name에 팝업으로 띄울 jsp 이름 써서 호출 */
 function showPopup(menu, name) {
-	var size = 'location=no, left=100, top=100';
+	var size = 'location=no, left=100, top=100, resizable=1';
 	var nameArr = name.split("?");
 	var popName = nameArr[0];
 	
@@ -125,12 +125,28 @@ function showPopup(menu, name) {
 	window.open('/itep/views/'+menu+'/pop/'+name, '_blank', size); 
 }	
 
-/* 팝업창 크기 재조절 */
+/* 팝업창 크기 자동조절 */
 function resizeWindow(win) {
-	var wid = win.document.body.offsetWidth + 30;
-	var hei = win.document.body.offsetHeight + 40;        //30 과 40은 넉넉하게 하려는 임의의 값임
-	win.resizeTo(wid,hei);
+	//document.body.scroll = "yes";
+	var agent = navigator.userAgent.toLowerCase(); //고객 브라우져 정보
+	var wid, hei;
+
+	// 익스플로러
+	if((navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1)) {
+		wid = win.document.body.offsetWidth + 30;
+		hei = win.document.body.offsetHeight + 40
+	}
+	// 익스플로러 외
+	//else if(userBrowser.indexOf("Chrome") > -1) {
+	else {
+		wid = document.body.scrollWidth - 100;
+		hei = document.body.scrollHeight + 65;
+	}
+	
+	window.moveTo((window.screen.width - wid) / 2 , 0);
+	window.resizeTo(wid, hei);
 }
+
 
 /* 해당 페이지가 팝업인지 아닌지 체크 */
 function isPopup(){

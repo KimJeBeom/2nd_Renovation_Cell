@@ -14,12 +14,10 @@
 					<!-- Start 교육 신청 현황-대제목 -->
 					<div class="row" style="display: table; padding: 20px">
 						<div style="display: table-cell; vertical-align: middle">
-							<img src="/itep/assets/itep/img/icon/admin-icon-big.png"
-								height="36px">
+							<img src="/itep/assets/itep/img/icon/admin-icon-big.png" height="36px">
 						</div>
 						<div style="display: table-cell; vertical-align: middle">
-							<h1 class="page-title">&nbsp;&nbsp;<b>교육 신청 현황</b>
-							</h1>
+							<h1 class="page-title">&nbsp;&nbsp;<b>교육 신청 현황</b></h1>
 						</div>
 					</div>
 					<!-- End 교육 신청 현황-대제목 -->
@@ -40,8 +38,7 @@
 								<!-- Start 교육 신청 현황 - 탭1 내용 - 수강신청 현황 -->
 								<div class="tab-pane active" id="tab1">
 									<!-- Start 교육 신청 현황 - 탭1. 수강신청 현황 - 조회바 -->
-									<div class="well col-md-12"
-										style="display: table; padding: 10px">
+									<div class="well col-md-12" style="display: table; padding: 10px">
 										<div style="vertical-align: middle">
 											<table>
 												<tbody>
