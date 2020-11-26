@@ -65,7 +65,7 @@ public class ArchModPopController{
 					logger.debug(String.valueOf(fileNoDel.length));
 					fileUtil.fileUpdate(fileNoDel,code_nm,id,mpRequest);
 				}else if(modType.equals("delete")) {
-					//fileUtil.fileDelete(id,code_nm)
+					fileUtil.fileAllDelete(code_nm, id);
 				}
 				
 				logger.info("ArchModPopPost FILE" +modType+" End");
