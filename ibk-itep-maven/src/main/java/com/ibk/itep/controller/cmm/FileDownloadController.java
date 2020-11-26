@@ -36,23 +36,28 @@ public class FileDownloadController{
 			@RequestParam("fileNoDel[]") int[] fileNoDel,
 			MultipartHttpServletRequest mpRequest) {
 		logger.debug(String.valueOf(fileNoDel.length));
-		fileUtil.fileUpdate(fileNoDel,"board",1,mpRequest);
+		fileUtil.fileUpdate(fileNoDel,"공지사항",10,mpRequest);
 		return "selectFileList";
 	}
 	
 	@RequestMapping(value = "/selectFileList", method = RequestMethod.GET )
 	public String readView(Model model) {
 		List<FileVo> fileVoList = fileUtil.selectFileList("공지사항", 10);
-		logger.debug(fileVoList.get(0).getOrg_file_name());
-		logger.debug(fileVoList.get(0).getFile_size().toString());
-		model.addAttribute("fileVoList",fileVoList);
+		if(fileVoList != null) {
+			if(!fileVoList.isEmpty()) {
+				logger.debug(fileVoList.get(0).getOrg_file_name());
+				logger.debug(fileVoList.get(0).getFile_size().toString());
+				model.addAttribute("fileVoList",fileVoList);
+			}
+		}	
 		return "selectFileList";
 	}
 	
-	@RequestMapping(value = "/form", method = RequestMethod.GET )
-	public String form() {
-		return "form";
+	@RequestMapping(value = "/writeView", method = RequestMethod.GET )
+	public String writeView() {
+		return "writeView";
 	}
+	
 	@RequestMapping(value = "/form2", method = RequestMethod.GET )
 	public String form2() {
 		return "form2";
@@ -64,9 +69,10 @@ public class FileDownloadController{
 			@RequestParam("code_nm") String code_nm,
 			@RequestParam("pbns_id") int pbns_id,
 			MultipartHttpServletRequest mpRequest) {
-		int uploadcount = fileUtil.fileUpload(code_nm, pbns_id, mpRequest);
-		logger.debug("upload file count : " + String.valueOf(uploadcount));
-		return "form";
+
+		int uploadCounnt = fileUtil.fileUpload(code_nm, pbns_id, mpRequest);
+		logger.debug("upload file count : " + String.valueOf(uploadCounnt));
+		return "form2";
 	}
 	/*테스트용 추후 삭제 대상 끝*/
 	

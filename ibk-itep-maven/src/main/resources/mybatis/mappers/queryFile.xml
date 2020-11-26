@@ -44,12 +44,36 @@
 	]]>
 	</select>
 
-    <update id="updateFile" parameterType="int">
-   <![CDATA[	
+<!--     <update id="updateFile" parameterType="int">
+   	<![CDATA[	
     	UPDATE tb_iep_cmf001m SET
     	del_yn = 'Y'
     	WHERE file_no = #{file_no}
-   ]]>
-    </update> 
+   	]]>
+    </update> -->
     
+    <update id="updateFile" parameterType="java.util.List">
+    	<foreach item="file_no" collection="array" separator=";">
+	    	UPDATE tb_iep_cmf001m SET
+	    	del_yn = 'Y'
+	    	WHERE file_no = #{file_no}
+    	</foreach>
+    </update>
+    
+    <update id="deleteAllFileInfo" parameterType="FileVo">
+	    	UPDATE tb_iep_cmf001m SET
+	    	del_yn = 'Y'
+	    	WHERE file_no = #{code_nm} AND
+	    	pbns_id = #{pbns_id}
+    </update>  
+    
+     <select id="selectFileInfoList" parameterType="FileVo" resultType="FileVo">
+	<![CDATA[		
+		SELECT stored_file_name,
+			   upload_path
+		  FROM tb_iep_cmf001m
+		 WHERE pbns_id = #{pbns_id} AND
+		   code_nm = #{code_nm}
+	]]>
+	</select>    
 </mapper>
