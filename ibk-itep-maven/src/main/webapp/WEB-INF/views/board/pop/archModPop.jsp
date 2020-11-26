@@ -58,9 +58,35 @@
 						   <tr>
 							  <th>첨부파일</th>
 							  <td colspan="3">
-								   <input multiple="multiple" type="file" name="apndDat" class="form-control" value="${vo.apndDat}">
-							   </td>
+					   			<section id="container">
+									<form name="updateForm" role="form" method="post" action="/itep/updateFile" enctype="multipart/form-data">
+										<input type="hidden" id="fileNoDel" name="fileNoDel[]" value=""> 
+									</form>
+									<form name="readForm" role="form" method="post">
+										<input id="file_no" name="file_no" style="display:none" value="" > 
+									</form>
+										<c:forEach items="${fileVoList}" var="file">
+											<c:if test="${file.del_yn == 'N'}">
+												<div class="form-group" style="border: 1px solid #dbdbdb; text-align:Left;">
+													<a href="#" onclick="fn_fileDown('${file.file_no}'); return false;">${file.org_file_name}</a>(${file.file_size}kb)
+													<button id="fileDel" onclick="fn_del('${file.file_no}');" type="button">삭제</button><br>
+												</div>
+											</c:if>
+										</c:forEach>
+								</section>
+							  </td>
 						   </tr>
+							 <tr>
+								<th><button class="fileAdd_btn" type="button">파일추가</button></th>
+								<td colspan="3">
+									<form name="writeForm"  id="excelForm" method="post" action="upload" enctype="multipart/form-data">
+									<input type="text" name="code_nm" style="display:none" value="BDN">
+									<input type="text" name="pbns_id" style="display:none" value="${vo.rflbId}">
+									<div id="fileIndex"></div>
+									</form>	
+								</td>
+							 </tr>
+							<tr>
 							<tr>
 							   <td class="txt-long" colspan="4">
 								<textarea id ="con" style="width:100%; height: 200px;">${vo.con}</textarea>
@@ -82,6 +108,9 @@
  </div>
  <!-- END WRAPPER -->
  <!-- Javascript -->
+ 
+<!-- FOOTER -->
+<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
  <script>
    //수정 및 삭제 버튼 클릭에 따른 결과 처리
    function actMod(modType,rflbId) {
@@ -123,7 +152,44 @@
 		});
  	}
  }
+   
+   
+   var fileNoArry = new Array();
+
+	function fn_fileDown(fileNo){
+	var formObj = $("form[name='readForm']");
+	$("#file_no").attr("value", fileNo);
+	formObj.attr("action", "/itep/views/cmm/fileDownload");
+	formObj.submit();
+	}
+
+	function fn_del(file_no){
+		fileNoArry.push(file_no);
+		$("#fileNoDel").attr("value", fileNoArry);
+		$(document).on("click","#fileDel", function(){
+		$(this).parent().remove();
+	});
+		//alert(fileNoArry);
+	}
+	
+	function fn_fileUpdate(){
+		var formObj = $("form[name='updateForm']");
+		formObj.submit();
+	}
+	
+	$(document).ready(function(){
+		fn_addFile();
+	})
+	
+	function fn_addFile(){
+		var fileIndex = 1;
+		$(".fileAdd_btn").on("click", function(){
+			$("#fileIndex").append("<div class='addFile'><input type='file' style='float: left;width:50%;' name='file_"+(fileIndex++)+"'>"+"<button style='float: right' type='button' id='fileDelBtn'>"+"삭제"+"</button></div><br>");
+		});
+		$(document).on("click","#fileDelBtn", function(){
+			$(this).parent().remove();
+			
+		});
+	}
 </script>
 
-<!-- FOOTER -->
-<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />

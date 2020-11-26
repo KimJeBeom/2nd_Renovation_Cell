@@ -231,6 +231,7 @@ function insertNewEdu() {
 		var	edex = $("#edex").val(); //교육비용
 		var	onlEdctYn = $('input[name="onlEdctYn"]:checked').val(); //온라인교육여부
 		var	edctLevl = $('input[name="edctLevl"]:checked').val(); //교육수준
+		var addFileCnt = $('.addFile').length;
 		
    	    var form = $('#excelForm')[0];
 	    // FormData 객체 생성
@@ -250,6 +251,7 @@ function insertNewEdu() {
 	    formData.append("onlEdctYn",onlEdctYn);
 	    formData.append("edctLevl",edctLevl);
 	    formData.append("modAct","insert");
+	    formData.append("addFileCnt",addFileCnt);
 		
 		if(inbkEdctYn==""||edctNm==""||edctCon==""||edinNm==""||edctSttgYmd==""||edctFnshYmd==""||aplcSttgYmd==""||aplcFnshYmd==""
 				||edctSttgTim==""||edctFnshTim==""||edex==""||onlEdctYn==""||edctLevl==""){
@@ -276,7 +278,7 @@ function insertNewEdu() {
 			        	 }
 			          },
 			         error: function (xhr, status, error) {
-			        	 alert("등록에 실패 하였습니다. 다시 시도하여 주세요 : "+xhr+"//"+status);
+			        	 alert("등록에 실패 하였습니다. 다시 시도하여 주세요");
 			          }
 				});
 		}
@@ -381,7 +383,7 @@ $(document).ready(function(){
 function fn_addFile(){
 	var fileIndex = 1;
 	$(".fileAdd_btn").on("click", function(){
-		$("#fileIndex").append("<div><input type='file' style='float: left;width:50%;' name='file_"+(fileIndex++)+"'>"+"<button style='float: right' type='button' id='fileDelBtn'>"+"삭제"+"</button></div><br>");	});
+		$("#fileIndex").append("<div class='addFile'><input type='file' style='float: left;width:50%;' name='file_"+(fileIndex++)+"'>"+"<button style='float: right' type='button' id='fileDelBtn'>"+"삭제"+"</button></div><br>");	});
 	$(document).on("click","#fileDelBtn", function(){
 		$(this).parent().remove();
 		

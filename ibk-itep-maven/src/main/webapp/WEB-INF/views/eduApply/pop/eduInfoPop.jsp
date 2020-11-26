@@ -47,7 +47,7 @@
 											<td style="width: 10%; padding-left: 5px; text-align: right; padding-bottom: 10px;">
 												<c:choose>
 													<c:when test="${modType eq 'insert'}">
-														<button style="text-align:right;" type="button" class="btn btn-primary" onclick="fstApply();">결재요청</button>	 
+														<button style="text-align:right;" type="button" class="btn btn-primary" onclick="fstApply('insert');">결재요청</button>	 
 													</c:when>
 													<c:when test="${modType eq 'update'}">
 														<button style="text-align:right;" type="button" class="btn btn-primary">재요청</button>	 
@@ -124,12 +124,13 @@
 <jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 <script>
 //최초교육 등록(insert)할 경우 수행되는 function
-function fstApply(){
+function fstApply(modAct){
    	var conf = confirm('등록하시겠습니까?');
    	if(conf==true){
    	   	var edctCntId = '${vo.edctCntId}'; //교육차수id
 		var dpmAthzId = $("#dpmid").val(); //부서결제자
 		var	snctTgtYn = '${vo.snctTgtYn}'; //결제여부
+		var addFileCnt = $('.addFile').length; //파일개수
 		
    	    var form = $('#excelForm')[0];
 	    // FormData 객체 생성
@@ -137,13 +138,11 @@ function fstApply(){
 	    formData.append("edctCntId",edctCntId);
 	    formData.append("dpmAthzId",dpmAthzId);
 	    formData.append("snctTgtYn",snctTgtYn);
-		
-		/* if(apndDat==""){
-       		alert("전체 내용을 입력해주세요");
-		} */
-		
+	    formData.append("modAct",modAct);
+	    formData.append("addFileCnt",addFileCnt);
+				
  	     $.ajax({
-		        url:"/itep/views/board/pop/noticeRegPop", //데이터를  넘겨줄 링크 설정
+		        url:"/itep/views/eduApply/pop/eduInfoPop", //데이터를  넘겨줄 링크 설정
 				type:"POST", // post 방식
 		   	    enctype: 'multipart/form-data',
 			   	processData: false,
@@ -153,18 +152,19 @@ function fstApply(){
 				
 		         success: function (responseData) {
 		        	 //화면 재호출시(작업완료) 제어를 위한 sctipt
-		        	 if(responseData=='success'){
+ 		        	 if(responseData=='success'){
 		        		 alert("처리완료");
-		        		 opener.parent.location.reload();
 		        	 	 window.close();
 		        	 }else if(responseData=='fail'){
 		        		 alert("등록에 실패 하였습니다. 다시 시도하여 주세요");
+		        	 }else if(responseData=='disable'){
+		        		 alert("기 신청건이 있습니다. 확인바랍니다.");
 		        	 }else{
 		        		 alert("등록에 실패 하였습니다. 다시 시도하여 주세요");
 		        	 }
 		          },
 		         error: function (xhr, status, error) {
-		        	 alert("등록에 실패 하였습니다. 다시 시도하여 주세요 \n"+ xhr +" // " + status +" // "+error);
+		        	 alert("등록에 실패 하였습니다. 다시 시도하여 주세요");
 		          }
 			});
    	}
@@ -177,7 +177,7 @@ $(document).ready(function(){
 function fn_addFile(){
 	var fileIndex = 1;
 	$(".fileAdd_btn").on("click", function(){
-		$("#fileIndex").append("<div><input type='file' style='float: left;width:50%;' name='file_"+(fileIndex++)+"'>"+"<button style='float: right' type='button' id='fileDelBtn'>"+"삭제"+"</button></div><br>");	});
+		$("#fileIndex").append("<div class='addFile'><input type='file' style='float: left;width:50%;' name='file_"+(fileIndex++)+"'>"+"<button style='float: right' type='button' id='fileDelBtn'>"+"삭제"+"</button></div><br>");	});
 	$(document).on("click","#fileDelBtn", function(){
 		$(this).parent().remove();
 		

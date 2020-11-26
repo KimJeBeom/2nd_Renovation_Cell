@@ -40,6 +40,7 @@ public class NoticeModPopController{
 			,@RequestParam("code_nm") String code_nm
 			,@RequestParam("pbns_id") String pbns_id
 			,@RequestParam("fileNoArray[]") int[] fileNoDel
+			,@RequestParam("addFileCnt") String addFileCnt
 			,MultipartHttpServletRequest mpRequest) {
 		
 		logger.info("NoticeModPopPost Start");
@@ -55,15 +56,25 @@ public class NoticeModPopController{
 			SessionVo ssnInfo = (SessionVo)session.getAttribute("ssnInfo");
 			//화면에서 입력 받은 정보(Vo) 및 변경정보를 Service로 던져 boolean(성공/실패)로 받아옴
 			modRst = service.modAction(vo,modType,ssnInfo);
-			
-			//파일 삭제+업로드 수행
-			logger.info("NoticeRegControll FILE Delete Start");
-			int id = Integer.parseInt(pbns_id);
-			logger.debug(String.valueOf(fileNoDel.length));
-			fileUtil.fileUpdate(fileNoDel,code_nm,id,mpRequest);
-			logger.info("NoticeRegControll FILE Delete End");
-			
 			logger.info("NoticeModPopPost job End" + modRst);
+			
+			if(modRst==true && (Integer.parseInt(addFileCnt) > 0 || fileNoDel.length > 0)) {
+				logger.info("NoticeRegControll FILE" +modType+" Start");
+				//파일 삭제+업로드 수행
+				int id = Integer.parseInt(pbns_id);
+				if(modType.equals("update")) {
+					logger.debug(String.valueOf(fileNoDel.length));
+					fileUtil.fileUpdate(fileNoDel,code_nm,id,mpRequest);
+				}else if(modType.equals("delete")) {
+					//fileUtil.fileDelete(id,code_nm)
+				}
+				
+				logger.info("NoticeRegControll FILE" +modType+" End");
+			}else {
+				logger.info("NoticeRegControll FILE Upload Cancle");
+				logger.info(" --- modRst : "+ modRst + "/ fileCnt: " + addFileCnt + "/ fileNoDel: " + fileNoDel.length );
+			}
+			
 		}
 		
 		logger.info("NoticeModPopPost End");

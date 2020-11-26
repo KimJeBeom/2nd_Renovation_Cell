@@ -78,9 +78,10 @@
  function actMod(modType) {
  	var conf = confirm('등록하시겠습니까?');
  	if(conf){
-     	var ttl = $("#ttl").val();
-    	var con = $("#con").val();
-    	var edctClsfCd = $("#edctClsfCd").val();
+     	var ttl = $("#ttl").val(); //제목
+    	var con = $("#con").val(); //내용
+    	var edctClsfCd = $("#edctClsfCd").val(); //교육구분
+		var addFileCnt = $('.addFile').length; //파일개수
  	
    	    var form = $('#excelForm')[0];
 	    // FormData 객체 생성
@@ -89,7 +90,8 @@
 	    formData.append("ttl",ttl);
 	    formData.append("con",con);
 	    formData.append("edctClsfCd",edctClsfCd);
-	    formData.append("modType","insert");
+	    formData.append("modType",modType);
+	    formData.append("addFileCnt",addFileCnt);
 
        $.ajax({
 	        url:"/itep/views/board/pop/noticeRegPop", //데이터를  넘겨줄 링크 설정
@@ -111,7 +113,7 @@
 	        	 }
 	          },
 	         error: function (xhr, status, error) {
-	        	 alert("등록에 실패 하였습니다. 다시 시도하여 주세요 \n"+ xhr +" // " + status +" // "+error);
+	        	 alert("등록에 실패 하였습니다. 다시 시도하여 주세요");
 	          }
 		});
 
@@ -124,7 +126,7 @@
 	function fn_addFile(){
 		var fileIndex = 1;
 		$(".fileAdd_btn").on("click", function(){
-			$("#fileIndex").append("<div><input type='file' style='float:left;' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
+			$("#fileIndex").append("<div class='addFile'><input type='file' style='float: left;width:50%;' name='file_"+(fileIndex++)+"'>"+"<button style='float: right' type='button' id='fileDelBtn'>"+"삭제"+"</button></div><br>");
 		});
 		$(document).on("click","#fileDelBtn", function(){
 			$(this).parent().remove();

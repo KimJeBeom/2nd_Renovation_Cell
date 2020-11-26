@@ -38,21 +38,19 @@ public class NoticeRegPopController {
 			,@RequestParam(value = "modType", required = false) String modType
 			,@RequestParam("code_nm") String code_nm
 			,@RequestParam(value = "pbns_id", required = false) String pbns_id
+			,@RequestParam("addFileCnt") String addFileCnt
 			, MultipartHttpServletRequest mpRequest) {
 		// 화면에서 Vo + 수정모드(insert)를 파라미터로 받아온다.
 		// 수정모드(modType)은 String으로 받으며 필수값이 아님
 
 		logger.info("NoticeRegPopPost Start");
-
 		boolean modRst = false;
-
 		logger.info("NoticeRegPopPost Go : --"+ modType+"--");
 
 		if (modType != null) {// modType = insert
 
 			/* 세션정보를 담은 SessionVo 가져옴 */
 			HttpSession session = request.getSession();
-
 			SessionVo ssnInfo = (SessionVo) session.getAttribute("ssnInfo");
 
 			logger.info("NoticeRegControll Insert Start");
@@ -64,19 +62,18 @@ public class NoticeRegPopController {
 
 			logger.info("NoticeRegContoll Insert End" + modRst);
 
-			
-			//파일 업로드를 위한 공지사항ID를 받아온다.
-			logger.info("NoticeRegControll FILE Upload Start");
-			
-			//int id = Integer.parseInt(pbns_id); 
-			int pId = cmmService.getPrstKey("TB_IEP_BDN001M");
-			
-			logger.debug("increment file pbns_id : " + pbns_id);
-			
-			int uploadCounnt = fileUtil.fileUpload(code_nm, pId, mpRequest);
-			
-			logger.info("NoticeRegControll FILE Upload End");
-			logger.debug("upload file count : " + String.valueOf(uploadCounnt));
+			if(modRst==true && Integer.parseInt(addFileCnt) > 0) {
+				//파일 업로드를 위한 공지사항ID를 받아온다.
+				logger.info("NoticeRegControll FILE Upload Start");
+				//int id = Integer.parseInt(pbns_id); 
+				int pId = cmmService.getPrstKey("TB_IEP_BDN001M");	
+				int uploadcount = fileUtil.fileUpload(code_nm, pId, mpRequest);
+				logger.info("NoticeRegControll FILE Upload End");
+				logger.debug(" --- upload file count : " + String.valueOf(uploadcount));
+			}else {
+				logger.info("EduInfoPopPost FILE Upload Cancle");
+				logger.info(" --- modRst : "+ modRst + "/ fileCnt: " + addFileCnt);
+			}
 			
 		}
 

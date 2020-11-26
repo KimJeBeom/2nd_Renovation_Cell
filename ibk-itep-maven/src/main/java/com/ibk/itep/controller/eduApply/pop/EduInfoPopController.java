@@ -39,6 +39,7 @@ public class EduInfoPopController{
 			,@RequestParam(value="modAct", required = false) String modAct
 			,@RequestParam("code_nm") String code_nm
 			,@RequestParam(value = "pbns_id", required = false) String pbns_id
+			,@RequestParam("addFileCnt") String addFileCnt
 			,MultipartHttpServletRequest mpRequest) {
 		
 		logger.info("EduInfoPopPost POST START");
@@ -54,17 +55,23 @@ public class EduInfoPopController{
 			logger.info("Service Retrn OK");
 			logger.info("---Return modMsg : "+modRst);
 			
-			//파일 업로드를 위한 공지사항ID를 받아온다.
-			logger.info("NoticeRegControll FILE Upload Start");
-			int id;
-			if(modAct.equals("insert"))
-				id = cmmService.getPrstKey("TB_IEP_EDO001M");
-			else
-				id = Integer.parseInt(pbns_id);
 			
-			int uploadCounnt = fileUtil.fileUpload(code_nm, id, mpRequest);
-			logger.info("NoticeRegControll FILE Upload End");
-			logger.debug("upload file count : " + String.valueOf(uploadCounnt));
+			if(modRst.equals("success") && Integer.parseInt(addFileCnt) > 0) {
+				//파일 업로드를 위한 공지사항ID를 받아온다.
+				logger.info("EduInfoPopPost FILE Upload Start");
+				int id;
+				if(modAct.equals("insert"))
+					id = cmmService.getPrstKey("TB_IEP_EDO001M");
+				else
+					id = Integer.parseInt(pbns_id);
+				
+				int uploadcount = fileUtil.fileUpload(code_nm, id, mpRequest);
+				logger.info("EduInfoPopPost FILE Upload End");
+				logger.debug("upload file count : " + String.valueOf(uploadcount));
+			}else {
+				logger.info("EduInfoPopPost FILE Upload Cancle");
+				logger.info(" --- modRst : "+ modRst + "/ fileCnt: " + addFileCnt);
+			}
 		}
 
 		model.addAttribute("modRst", modRst);
