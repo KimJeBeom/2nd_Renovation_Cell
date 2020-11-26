@@ -30,7 +30,9 @@ public class EduRndRegModService {
 		List<EduRndRegModVo> errmVoList = null; 		
 		if(vo.getEdctId() != null || vo.getEdctCntId() != null) {
 			logger.debug("selectEduRndRegMod Service 리턴1직전");
-			errmVoList = listSecondsParser(adminDao.selectEduRndRegMod(vo)); 
+			errmVoList = adminDao.selectEduRndRegMod(vo);
+			errmVoList = listSecondsParser(errmVoList);
+			errmVoList = listReplaceToSlash(errmVoList);
 			return errmVoList;
 		
 		}else {
@@ -39,13 +41,19 @@ public class EduRndRegModService {
 	}
 	public boolean insertEduRndRegMod(EduRndRegModVo vo) {
 		logger.debug("서비스 Start : insertEduRndRegMod");
-		logger.debug("데이터 setting 후");
 		cmmService.objFieldTest(vo);
 		boolean result = adminDao.insertEduRndRegMod(vo);
 		logger.debug("서비스 End : insertEduRndRegMod");
-		//return true;
 		return result;		
 	}
+	public boolean updateEduRndRegMod(EduRndRegModVo vo) {
+		logger.debug("서비스 Start : updateEduRndRegMod");
+		cmmService.objFieldTest(vo);
+		boolean result = adminDao.updateEduRndRegMod(vo);
+		logger.debug("서비스 End : updateEduRndRegMod");
+		return result;		
+	}
+	
 	public List<EduRndRegModVo> listSecondsParser(List<EduRndRegModVo> list){
 		for(EduRndRegModVo vo: list) {
 			vo.setEdctSttgTim(secondsParser(vo.getEdctSttgTim()));
@@ -53,24 +61,16 @@ public class EduRndRegModService {
 		}
 		return list;
 	}
-	public String dateToViewType(String time) {
-		/*
-		 * SimpleDateFormat sdf = new SimpleDateFormat("HH:mm"); Date date = null; try {
-		 * date = sdf.parse(time); time = sdf.format(date); } catch (ParseException e) {
-		 * // TODO Auto-generated catch block e.printStackTrace(); }
-		 */
-		return time;
-	}
-	public String dateToModelType(String ymd) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = null; 
-		try {
-			date = sdf.parse(ymd);
-			ymd = sdf.format(date);
-		} catch (ParseException e) {
-		  e.printStackTrace();
+	public List<EduRndRegModVo> listReplaceToSlash(List<EduRndRegModVo> list){
+		for(EduRndRegModVo vo: list) {
+			vo.setAplcSttgYmd(replaceToSlash(vo.getAplcSttgYmd()));
+			vo.setAplcFnshYmd(replaceToSlash(vo.getAplcFnshYmd()));
+			vo.setCnclSttgYmd(replaceToSlash(vo.getCnclSttgYmd()));
+			vo.setCnclFnshYmd(replaceToSlash(vo.getCnclFnshYmd()));
+			vo.setEdctSttgYmd(replaceToSlash(vo.getEdctSttgYmd()));
+			vo.setEdctFnshYmd(replaceToSlash(vo.getEdctFnshYmd()));			
 		}
-		return ymd;
+		return list;
 	}
 	public String secondsParser(String time) {
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
@@ -84,63 +84,20 @@ public class EduRndRegModService {
 		}
 		return time;
 	}
-	/*
-	public String dateToStringYmd(Date date) {
-		//date 형식 -> String으로 변경 = 1989.12.10(yyyy.MM.dd 형식)
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-		if(date != null)
-		    return sdf.format(date);
-		else 
-			return "";
-	}
-	
-	public Date stringToDateYmd(String ymd) {
-		//String 형식 -> date 형식으로
-		ymd = ymd+" 00:00:00";
-	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	    Date date = null;
-	      try {
-	    	 date = sdf.parse(ymd);
-	      } catch (ParseException e) {
-	         // TODO Auto-generated catch block
-	         e.printStackTrace();
-	      }
-	      return date;
-	}
-	
-	public Date stringToDateTime(String time) {
-		//String 형식 -> date 형식으로
-	    SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
-	    Date date = null;
-	      try {
-	    	 date = sdf.parse(time);
-	 		logger.debug("string to Date Time 함수에서 date : {}" ,date);
-	      } catch (ParseException e) {
-	         // TODO Auto-generated catch block
-	         e.printStackTrace();
-	      }
-	      return date;
-	}
-	*/
-	/*
-public List<EduRegModVo> selectEduRegMod(EduRegModVo vo){
-		
-		if(vo.getEdctClsfCd().equalsIgnoreCase("ALL"))
-		{
-			vo.setEdctClsfCd(null);
+	public String replaceToSlash(String ymd) {
+		SimpleDateFormat asIsSdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat toBeSdf = new SimpleDateFormat("yyyy/MM/dd");
+		Date date = null;
+		//logger.debug("1 함수 진입 직후 ymd {}, date {}", ymd, date);
+		try {
+			date = asIsSdf.parse(ymd);
+			//logger.debug("2 date형 변경 이후 ymd {}, date {}", ymd, date);
+			ymd = toBeSdf.format(date);
+			//logger.debug("3 String형 변경 이후 ymd {}, date {}", ymd, date);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return adminDao.selectEduRegMod(vo);
+		return ymd;
 	}
-	
-	public boolean deleteEduRegMod(EduRegModVo vo) {
-		if(vo.getEdctId() != null) {
-			return adminDao.deleteEduRegMod(vo);
-		}
-		return false;		
-	}
-	
-	public boolean insertEduRegMod(EduRegModVo vo) {
-			return adminDao.insertEduRegMod(vo);
-	}
-*/
 }

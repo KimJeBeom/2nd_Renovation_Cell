@@ -188,6 +188,26 @@
 					SYSDATE()) 
 			     ]]>
 			</insert>
+		<!-- 차수 수정 -->
+			<update id="updateEduRndRegMod" parameterType="EduRndRegModVo" >
+				<![CDATA[
+					/*교육 차수수정 팝업*/
+					UPDATE TB_IEP_EDC001M
+					SET EDCT_STTG_YMD = #{edctSttgYmd}, -- 학습시작일
+					EDCT_FNSH_YMD = #{edctFnshYmd}, -- 학습종료일
+					APLC_STTG_YMD = #{aplcSttgYmd}, -- 신청시작일
+					APLC_FNSH_YMD = #{aplcFnshYmd}, -- 신청종료일
+					CNCL_STTG_YMD = #{cnclSttgYmd}, -- 취소시작일
+					CNCL_FNSH_YMD = #{cnclFnshYmd}, -- 취소종료일
+					EDCT_STTG_TIM = #{edctSttgTim}, -- 교육시작시간
+					EDCT_FNSH_TIM = #{edctFnshTim}, -- 교육종료시간
+					EDCT_TRM = #{edctTrm}, -- 교육기간
+					CTCR_TIM = #{ctcrTim}, -- 이수시간
+					EDEX = #{edex}, -- 교육비용
+					RGSN_TS = SYSDATE() -- 등록일시
+					WHERE EDCT_CNT_ID = #{edctCntId} -- 교육id, 차수id
+			     ]]>
+			</update>
 	<!-- End - Popup - 교육차수추가 addEduRndPop -->		
 	<!-- Start - Popup - 교육차수수정 modEduRndPop -->
 		<!-- select 해당 교육 차수 -->
@@ -208,26 +228,7 @@
 					ORDER BY EDCT_STTG_YMD DESC
 			     ]]>
 			</select>
-		<!-- 차수 수정 -->
-			<update id="updateModEduRndPop" parameterType="EduRndRegModVo" >
-				<![CDATA[
-					/*교육 차수수정 팝업*/
-					UPDATE TB_IEP_EDC001M
-					SET EDCT_STTG_YMD = #{edctSttgYmd}, -- 학습시작일
-					EDCT_FNSH_YMD = #{edctFnshYmd}, -- 학습종료일
-					APLC_STTG_YMD = #{aplcSttgYmd}, -- 신청시작일
-					APLC_FNSH_YMD = #{aplcFnshYmd}, -- 신청종료일
-					CNCL_STTG_YMD = #{cnclStttgYmd}, -- 취소시작일
-					CNCL_FNSH_YMD = #{cnclFnshYmd}, -- 취소종료일
-					EDCT_STTG_TIM = #{edctSttgTim}, -- 교육시작시간
-					EDCT_FNSH_TIM = #{edctFnshTim}, -- 교육종료시간
-					EDCT_TRM = #{edctTrm}, -- 교육기간
-					CTCR_TIM = #{ctcrTim}, -- 이수시간
-					EDEX = #{edex}, -- 교육비용
-					RGSN_TS = SYSDATE() -- 등록일시
-					WHERE EDCT_ID = #{edctId} AND EDCT_CNT_ID = #{edctCntId} -- 교육id, 차수id
-			     ]]>
-			</update>
+
 		<!-- 차수 삭제 -->
 			<update id="updateModEduRndPopUseN" parameterType="Integer" >
 				<![CDATA[

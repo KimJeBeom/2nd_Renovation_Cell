@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ibk.itep.service.cmm.CmmService;
 import com.ibk.itep.vo.admin.EduEmpListVo;
 import com.ibk.itep.vo.admin.EduOpenReadyStatVo;
 import com.ibk.itep.vo.admin.EduReadyStatVo;
@@ -20,32 +21,56 @@ public class AdminDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	@Autowired
+	private CmmService cmmService;
+	
 	private static final Logger logger = LoggerFactory.getLogger(AdminDao.class);
 	
 	public List<EduRegModVo> selectEduRegMod(EduRegModVo vo) {
+		logger.debug("DAO Start - selectEduRegMod");
 		List<EduRegModVo> list = sqlSession.selectList("queryAdmin.selectEduRegMod", vo);
+		logger.debug("DAO End - selectEduRegMod");
+
 		return list;
 	}
 	
 	public boolean deleteEduRegMod(EduRegModVo vo) {
+		logger.debug("DAO Start - deleteEduRegMod");
+		cmmService.objFieldTest(vo);
 		int count = sqlSession.delete("queryAdmin.deleteEduRegMod", vo);
+		logger.debug("DAO End - deleteEduRegMod");
 		return count == 1;
 	}
 
 	public boolean insertEduRegMod(EduRegModVo vo) {
+		logger.debug("DAO Start - insertEduRegMod");
+		cmmService.objFieldTest(vo);
 		int count = sqlSession.insert("queryAdmin.insertEduRegMod", vo);
+		logger.debug("DAO End - insertEduRegMod");
 		return count == 1;
 	}
 	
 	public boolean insertEduRndRegMod(EduRndRegModVo vo) {
+		logger.debug("DAO Start - insertEduRndRegMod");
+		cmmService.objFieldTest(vo);
 		int count = sqlSession.insert("queryAdmin.insertEduRndRegMod", vo);
+		logger.debug("DAO End - insertEduRndRegMod");
 		return count == 1;
 	}
 	public List<EduRndRegModVo> selectEduRndRegMod(EduRndRegModVo vo){
-		logger.debug("selectEduRndRegMod dao 진입");
+		logger.debug("DAO Start - selectEduRndRegMod");
+		cmmService.objFieldTest(vo);
 		List<EduRndRegModVo> list = sqlSession.selectList("queryAdmin.selectEduRndRegMod", vo);
-		logger.debug("selectEduRndRegMod dao 종료 직전 {}", list.get(0).getEdctCntId());	
+		logger.debug("DAO End - selectEduRndRegMod");
 		return list;
+	}
+	public boolean updateEduRndRegMod(EduRndRegModVo vo) {
+		logger.debug("DAO Start - updateEduRndRegMod");
+		cmmService.objFieldTest(vo);
+		int count = sqlSession.update("queryAdmin.updateEduRndRegMod", vo);
+		logger.debug("DAO End - updateEduRndRegMod");
+		//return true;
+		return count == 1;
 	}
 	/*
 	public boolean updateAdmin(Integer userId) {

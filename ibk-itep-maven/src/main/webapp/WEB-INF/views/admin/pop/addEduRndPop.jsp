@@ -213,7 +213,7 @@ $(document).ready(function(){
 	 			alert("insert해야됨");
  				insertEduRndRegMod();
  			}else{
- 				alert("update해야됨")
+ 				alert("update해야됨");
  				updateEduRndRegMod(edctCntId);
  			}
 		}
@@ -449,13 +449,13 @@ function selectEduRndRegModDetail(target){
 		error: function (xhr, status, error) {
 			alert("error");
 			
-		}
+		}	
 	});
 }
 function verifyValue(){
-	var dateRegExp = /^(19|20)\d{2}\/(0*[1-9]|1[012])\/(0*[1-9]|[12][0-9]|3[0-1])$/;
-	var timeRegExp = /^(0*[0-9]|1[0-9]|2[0-3]):(0*[0-9]|[1-5][0-9])$/;
-	var edexRegExp = /[^0-9,]/g;
+	var dateRegExp = /^(19|20)\d{2}\/(0*[1-9]|1[012])\/(0*[1-9]|[12][0-9]|3[0-1])$/; //yyyy/mm/dd 형태 허용 m과 d는 한자리어도 됨
+	var timeRegExp = /^(0*[0-9]|1[0-9]|2[0-3]):(0*[0-9]|[1-5][0-9])$/; //HH:mm 형태 H와m은 한자리어도 됨
+	var edexRegExp = /^([1-9][0-9,\s]*|[0])*$/; //금액 (따옴표 포함, 공백 가능, 0원 가능)
 	
 	if(!dateRegExp.test($('#aplcSttgYmd').val())){
 		alert("신청시작일자가 올바르지 않습니다");
@@ -497,7 +497,7 @@ function verifyValue(){
 		alert("교육기간이 올바르지 않습니다");
 		return false;
 	}
-	if(!$.isNumeric($('#edex').val().replace(/,/g,''))){
+	if(!edexRegExp.test($('#edex').val())){
 		alert("비용이 올바르지 않습니다");
 		return false;
 	}
