@@ -177,7 +177,8 @@ $(document).ready(function(){
 function fn_addFile(){
 	var fileIndex = 1;
 	$(".fileAdd_btn").on("click", function(){
-		$("#fileIndex").append("<div class='addFile'><input type='file' style='float: left;width:50%;' name='file_"+(fileIndex++)+"'>"+"<button style='float: right' type='button' id='fileDelBtn'>"+"삭제"+"</button></div><br>");	});
+		$("#fileIndex").append("<div class='addFile'><input type='file' style='float: left;width:95%;' name='file_"+(fileIndex++)+"'>"+"<img src='/itep/assets/itep/img/icon/delete-icon.png' style='width:22px; height:22px; float: left' id='fileDelBtn'></div>");	
+	});
 	$(document).on("click","#fileDelBtn", function(){
 		$(this).parent().remove();
 		

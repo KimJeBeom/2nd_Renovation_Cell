@@ -69,7 +69,7 @@
 											<c:if test="${file.del_yn == 'N'}">
 												<div class="form-group" style="border: 1px solid #dbdbdb; text-align:Left;">
 													<a href="#" onclick="fn_fileDown('${file.file_no}'); return false;">${file.org_file_name}</a>(${file.file_size}kb)
-													<button id="fileDel" onclick="fn_del('${file.file_no}');" type="button">삭제</button><br>
+													<img id='fileDel' src='/itep/assets/itep/img/icon/delete-icon.png' onclick="fn_del('${file.file_no}');" style='width:22px; height:22px; float: right'><br>
 												</div>
 											</c:if>
 										</c:forEach>
@@ -194,7 +194,7 @@
 	function fn_addFile(){
 		var fileIndex = 1;
 		$(".fileAdd_btn").on("click", function(){
-			$("#fileIndex").append("<div class='addFile'><input type='file' style='float: left;width:50%;' name='file_"+(fileIndex++)+"'>"+"<button style='float: right' type='button' id='fileDelBtn'>"+"삭제"+"</button></div><br>");
+			$("#fileIndex").append("<div class='addFile'><input type='file' style='float: left;width:95%;' name='file_"+(fileIndex++)+"'>"+"<img src='/itep/assets/itep/img/icon/delete-icon.png' style='width:22px; height:22px; float: left' id='fileDelBtn'></div>");
 		});
 		$(document).on("click","#fileDelBtn", function(){
 			$(this).parent().remove();
