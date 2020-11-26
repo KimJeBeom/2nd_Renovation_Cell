@@ -50,12 +50,14 @@ public class FileUtil {
 		}
 		if(mpRequest != null) {
 			Iterator<String> iterator = mpRequest.getFileNames();
-			MultipartFile multipartFile = mpRequest.getFile(iterator.next());
-			if(!multipartFile.getOriginalFilename().isEmpty()) {
-				logger.debug("file update code_nm : " + code_nm);
-				logger.debug("file update pbns_id : " + pbns_id);
-				logger.debug("file update size : " + multipartFile.getOriginalFilename().isEmpty());
-				fileUpload(code_nm, pbns_id, mpRequest);
+			if(iterator.hasNext()) {
+				MultipartFile multipartFile = mpRequest.getFile(iterator.next());
+				if(!multipartFile.getOriginalFilename().isEmpty()) {
+					logger.debug("file update code_nm : " + code_nm);
+					logger.debug("file update pbns_id : " + pbns_id);
+					logger.debug("file update size : " + multipartFile.getOriginalFilename().isEmpty());
+					fileUpload(code_nm, pbns_id, mpRequest);
+				}
 			}
 		}
 	}
@@ -63,6 +65,28 @@ public class FileUtil {
 	public FileVo fileDownload(int file_no) {
 		logger.debug(String.valueOf(file_no));
 		return fileDao.selectFileInfo(file_no);
+	}
+	
+	public int fileAllDelete(String code_nm, int pbns_id) {
+		logger.debug(String.valueOf("게시판 이름 : " + code_nm));
+		logger.debug(String.valueOf("게시글 번호 : " + pbns_id));
+		FileVo fileVo = new FileVo();
+		fileVo.setCode_nm(code_nm);
+		fileVo.setPbns_id(pbns_id);
+		int delCount = fileDao.deleteAllFileInfo(fileVo);
+		List<FileVo> fileVos = fileDao.selectFileInfoList(fileVo);
+		
+		for(FileVo fileVo2 : fileVos) {
+			String delfile = fileVo2.getUpload_path() + fileVo2.getStored_file_name();
+			File file = new File(delfile);
+			if(file.exists()) {
+				file.delete();
+				logger.debug(delfile + "삭제완료");
+			}else
+				logger.debug(delfile + "파일이 없어, 삭제 실패");
+		}
+		logger.debug("파일삭제 완료 :" + delCount );
+		return delCount;
 	}
 	
 	public List<FileVo> selectFileList(String code_nm, int pbns_id) {

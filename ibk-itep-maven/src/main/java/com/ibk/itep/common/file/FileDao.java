@@ -20,6 +20,10 @@ public class FileDao {
     	return sqlSession.update("queryFile.updateFile", file_no);
     }
     
+    public int deleteAllFileInfo(FileVo fileVo) {
+    	return sqlSession.update("queryFile.deleteAllFileInfo", fileVo);
+    }
+    
     /*public int updateFile(int file_no) {
     	return sqlSession.update("queryFile.updateFile", file_no);
     }*/
@@ -31,5 +35,8 @@ public class FileDao {
     public FileVo selectFileInfo(int file_no) {
         return sqlSession.selectOne("queryFile.selectFileInfo", file_no);
     }
- 
+
+    public List<FileVo> selectFileInfoList(FileVo fileVo) {
+    	return sqlSession.selectOne("queryFile.selectFileInfoList", fileVo);
+    }
 }

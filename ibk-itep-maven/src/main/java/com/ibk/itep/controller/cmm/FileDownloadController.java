@@ -53,6 +53,11 @@ public class FileDownloadController{
 		return "selectFileList";
 	}
 	
+	@RequestMapping(value = "/writeView", method = RequestMethod.GET )
+	public String writeView() {
+		return "writeView";
+	}
+	
 	@RequestMapping(value = "/form2", method = RequestMethod.GET )
 	public String form2() {
 		return "form2";
