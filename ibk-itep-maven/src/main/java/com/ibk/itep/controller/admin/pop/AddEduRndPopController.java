@@ -38,14 +38,6 @@ public class AddEduRndPopController{
 		List<EduRegModVo> ermVoList = eduRegModService.selectEduRegMod(ermVo);
 		int edctId = ermVoList.get(0).getEdctId();
 		String edctNm = ermVoList.get(0).getEdctNm();
-		/*
-		EduRndRegModVo errmVo = new EduRndRegModVo();
-		errmVo.setEdctId(edctId);
-		
-		List<EduRndRegModVo> errmVoList = eduRndRegModService.selectEduRndRegMod(errmVo);
-		
-		model.addAttribute("eduRndRegModVoList", errmVoList);
-		*/
 		model.addAttribute("edctId", edctId);
 		model.addAttribute("edctNm", edctNm);
 		logger.debug("컨트롤러 종료 직전");		
