@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- HEADER -->
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
 
@@ -17,7 +18,7 @@
 					<h3 class="page-title" style="float: left;"><b>교육 내용 수정</b></h3>
 
 					<!-- 상단 버튼 -->
-					<button type="button" class="btn btn-primary btn-toastr" style="float: right; vertical-align: bottom; ">수정</button><br><br>
+					<button id="btnConfirm" type="button" class="btn btn-primary btn-toastr" style="float: right; vertical-align: bottom; ">수정</button><br><br>
 
 					<div class="row">
 						<div class="col-md-9 col-popup">
@@ -30,21 +31,20 @@
 										<tr>
 											<th>교육분류</th>
 											<td>
-												<select id="eduType" class="form-control" onchange="showEduType();">
-													<option value="exedu">외부교육</option>
-													<option value="inedu">신전입교육</option>
-													<option value="seminar">세미나</option>
-													<option value="etc">기타</option>
+												<select class="form-control" id="edctClsfCd" style="text-align: left;">
+													<c:forEach items="${cldVoList }" var="cldVo">
+														<option value=${cldVo.edctClsfCd }>${cldVo.edctClsfNm }</option>		
+													</c:forEach>
 												</select>
 											</td>
 											<th>결재대상</th>
 											<td>
 												<label class="fancy-radio" style="width: 40%; float: left; margin-left: 20px;">
-													<input name="appr" value="apprY" type="radio" checked>
+													<input name="snctTgtYn" value="Y" type="radio">
 													<span><i></i>Y</span>
 												</label>
 												<label class="fancy-radio" style="width: 40%; float: left;">
-													<input name="appr" value="apprN" type="radio">
+													<input name="snctTgtYn" value="N" type="radio">
 													<span><i></i>N</span>
 												</label>
 											</td>
@@ -52,54 +52,45 @@
 										<tr>
 											<th>과목명</th>
 											<td colspan="3">
-												<input type="text" class="form-control" placeholder="IT Governance 핵심 이해">
+												<input id="edctNm" type="text" class="form-control" placeholder="과목명을 입력하세요">
 											</td>
 										</tr>
 										<tr>
 											<th>교육내용</th>
 											<td class="txt-long" colspan="3">
-												<textarea class="form-control" placeholder="IT Governance 핵심을 이해하고 비즈니스 전략을 수립" rows="4"></textarea>
+												<textarea id="edctCon" class="form-control" placeholder="과목내용을 입력하세요" rows="4"></textarea>
 											</td>
 										</tr>
 										<tr>
 											<th>교육기관</th>
 											<td colspan="3">
-												<select id="eduInst" class="form-control" onchange="showEduInstBox();" style="width: 60%; float: left;">
-													<option value="ibk" selected="selected">IBK</option>
-													<option value="multicampus">멀티캠퍼스</option>
-													<option value="fastcampus">패스트캠퍼스</option>
-													<option value="kosta">한국소프트웨어기술진흥협회</option>
-													<option value="fsec">금융보안원</option>
-													<option value="kpc">한국생산성본부</option>
-													<option value="oracle">Oracle</option>
-													<option value="webtime">웹타임</option>
-													<option value="hp">HP</option>
-													<option value="ibm">IBM</option>
-													<option value="etc">기타</option>
+												<select id="edinCd" class="form-control" style="width: 60%; float: left;">
+													<c:forEach items="${cliVoList }" var="cliVo">
+														<option value=${cliVo.edinCd }>${cliVo.edinNm }</option>		
+													</c:forEach>
 												</select> 
-												<input id="eduInstTextBox" type="text" class="form-control" placeholder="" style="display: none;">
 											</td>
 										</tr>
 										<tr>
 											<th>교육구분</th>
 											<td>
 												<label class="fancy-radio" style="width: 40%; float: left; margin-left: 15px;">
-													<input name="gender" value="in" type="radio">
+													<input name="inbkEdctYn" value="Y" type="radio">
 													<span><i></i>행내</span>
 												</label>
 												<label class="fancy-radio" style="width: 40%; float: left;">
-													<input name="gender" value="ex" type="radio">
+													<input name="inbkEdctYn" value="N" type="radio">
 													<span><i></i>행외</span>
 												</label>
 											</td>
 											<th>고용보험 적용</th>
 											<td>
 												<label class="fancy-radio" style="width: 40%; float: left; margin-left: 20px;">
-													<input name="gender1" value="y" type="radio">
+													<input name="eginAplyYn" value="Y" type="radio">
 													<span><i></i>Y</span>
 												</label>
 												<label class="fancy-radio" style="width: 40%; float: left;">
-													<input name="gender1" value="n" type="radio">
+													<input name="eginAplyYn" value="N" type="radio">
 													<span><i></i>N</span>
 												</label>
 											</td>
@@ -108,26 +99,26 @@
 											<th>교육방식</th>
 											<td>
 												<label class="fancy-radio" style="width: 40%; float: left; margin-left: 5px;">
-													<input name="gender2" value="online" type="radio">
+													<input name="onlEdctYn" value="Y" type="radio">
 													<span><i></i>온라인</span>
 												</label>
 												<label class="fancy-radio" style="width: 50%; float: left; margin-left: 10px;">
-													<input name="gender2" value="offline" type="radio">
+													<input name="onlEdctYn" value="N" type="radio">
 													<span><i></i>오프라인</span>
 												</label>
 											</td>
 											<th>교육수준</th>
 											<td>
 												<label class="fancy-radio" style="width: 30%; float: left; margin-left: 10px">
-													<input name="gender3" value="hard" type="radio">
+													<input name="edctLevl" value="상" type="radio">
 													<span><i></i>상</span>
 												</label>
 												<label class="fancy-radio" style="width: 30%; float: left;">
-													<input name="gender3" value="normal" type="radio">
+													<input name="edctLevl" value="중" type="radio">
 													<span><i></i>중</span>
 												</label>
 												<label class="fancy-radio" style="width: 30%; float: left;">
-													<input name="gender3" value="easy" type="radio">
+													<input name="edctLevl" value="하" type="radio">
 													<span><i></i>하</span>
 												</label>
 											</td>
@@ -146,53 +137,125 @@
 		<div class="clearfix"></div>
 	</div>
 	<!-- END WRAPPER -->
-
+<!-- FOOTER -->
+<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 <script>
-
-	/* 교육분류 값에 따른 결재대상, 과목코드 자동 입력 */
-	function showEduType() {
-		var state = document.getElementById("eduType").value; // 선택된 교육분류 select option
-		//var eduTypeCode = document.getElementById("eduTypeCode"); // 과목코드 text box
-		var appr = document.getElementsByName("appr"); // 결재대상 radio button
-
-		/* 
-			외부교육 - 과목코드 OTEDU, 결재대상 Y
-			신전입교육 - 과목코드 TREDU, 결재대상 N
-			세미나 - 과목코드 SEMIN, 결재대상 N
-			기타 - 과목코드 EXTRA, 결재대상 선택
-		 */
-		if(state == 'exedu') {
-			//eduTypeCode.value = 'OTEDU'; 교육id 채번방식 변경
-			appr[0].checked = true;
+$(document).ready(function(){
+	setEdmValue();	
+});
+$(document).on("click","#btnConfirm",function(){
+ 	var edctId = ${param.edctId };
+ 	var edctNm =  $("#edctNm").val();
+		if(verifyValue()){
+			if(confirm("\""+edctNm+"\"\n교육을 수정하시겠습니까?")){
+				updateEduRegMod();	
+			} 			
 		}
-		else if(state == 'inedu') {
-			//eduTypeCode.value = 'TREDU';
-			appr[1].checked = true;
-		}
-		else if(state == 'seminar') {
-			//eduTypeCode.value = 'SEMIN';
-			appr[1].checked = true;
-		}
-		else if(state == 'etc') {
-			//eduTypeCode.value = 'EXTRA';
-			appr[0].checked = false;
-			appr[1].checked = false;
-		}
+});
+function verifyValue(){
+	var edctClsfCd = $("#edctClsfCd").val();
+	var edctNm = $("#edctNm").val();
+	var edctCon = $("#edctCon").val();
+	var edinCd = $("#edinCd").val();
+	var inbkEdctYn = $('input[name="inbkEdctYn"]:checked').val();
+	var eginAplyYn = $('input[name="eginAplyYn"]:checked').val();
+	var onlEdctYn = $('input[name="onlEdctYn"]:checked').val();
+	var edctLevl = $('input[name="edctLevl"]:checked').val();
+	var snctTgtYn = $('input[name="snctTgtYn"]:checked').val();
+	if(edctClsfCd == "" || edctClsfCd == null|| edctClsfCd == "undefined"){
+		alert("교육 분류 코드를 선택해주세요");return false;
 	}
-
-	/* 교육기관 '기타' 선택에 따른 textbox 활성화 */
-	function showEduInstBox() {
-		var state = document.getElementById("eduInst").value;
-		var eduInstTextBox = document.getElementById("eduInstTextBox");
-
-		if(state == 'etc') 
-			eduInstTextBox.style.display = 'block'; // textbox 보여줌
-		else 
-			eduInstTextBox.style.display = 'none'; // textbox 숨김
+	if(edctNm == "" || edctNm == null || edctNm == "undefined" ){
+		alert("교육명을 입력해주세요");return false;				
 	}
+	if(edctCon == "" || edctCon == null || edctCon == "undefined"){
+		alert("교육내용을 입력해주세요");return false;				
+	}
+	if(edinCd == "" || edinCd == null || edinCd == "undefined"){
+		alert("교육기관 코드를 선택해주세요");return false;				
+	}
+	if(!(inbkEdctYn == "Y" || inbkEdctYn == "N")){
+		alert("행내교육여부를 선택해주세요");return false;				
+	}
+	if(!(eginAplyYn == "Y" || eginAplyYn == "N")){
+		alert("고용보험적용 여부를 선택해주세요");return false;				
+	}
+	if(!(onlEdctYn == "Y" || onlEdctYn == "N")){
+		alert("온라인 교육여부를 선택해주세요");return false;				
+	}
+	if(!(edctLevl == "상" || edctLevl == "중" || edctLevl == "하")){
+		alert("교육 레벨을 선택해주세요");return false;				
+	}
+	if(!(snctTgtYn != "Y" || snctTgtYn != "N")){
+		alert("결재 대상 여부를 선택해주세요");return false;				
+	}
+	return true;
+}
+function setEdmValue(){
+	$("#edctClsfCd").val("${eduRegModVo.edctClsfCd }");
+	$("#eginAplyYn").val("${eduRegModVo.eginAplyYn }");
+	$("#edctNm").val("${eduRegModVo.edctNm }");
+	$("#edctCon").val("${eduRegModVo.edctCon }");
+	$("#edinCd").val("${eduRegModVo.edinCd }");
+	$('input[name="inbkEdctYn"]').each(function() {
+		if($(this).val() == "${eduRegModVo.inbkEdctYn }"){
+			$(this).prop('checked', true);	
+		}else
+		$(this).prop('checked', false);
+	});
+	$('input[name="snctTgtYn"]').each(function() {
+		if($(this).val() == "${eduRegModVo.snctTgtYn }"){
+			$(this).prop('checked', true);	
+		}else
+		$(this).prop('checked', false);
+	});
+	$('input[name="eginAplyYn"]').each(function() {
+		if($(this).val() == "${eduRegModVo.eginAplyYn }"){
+			$(this).prop('checked', true);	
+		}else
+		$(this).prop('checked', false);
+	});
+	$('input[name="onlEdctYn"]').each(function() {
+		if($(this).val() == "${eduRegModVo.onlEdctYn }"){
+			$(this).prop('checked', true);	
+		}else
+		$(this).prop('checked', false);
+	});
+	$('input[name="edctLevl"]').each(function() {
+		if($(this).val() == "${eduRegModVo.edctLevl }"){
+			$(this).prop('checked', true);	
+		}else
+		$(this).prop('checked', false);
+	});
+};
+
+function updateEduRegMod(){
+    $.ajax({
+		url : "/itep/views/admin/pop/updateEduRegMod", //데이터를  넘겨줄 링크 설정
+		type : "POST", // post 방식
+		data : {
+			"edctId" 		: ${param.edctId },
+			"edctClsfCd" 	: $("#edctClsfCd").val(),
+			"edctNm" 		: $("#edctNm").val(),
+			"edctCon" 		: $("#edctCon").val(),
+			"edinCd" 		: $("#edinCd").val(),
+			"snctTgtYn" 	: $('input[name="snctTgtYn"]:checked').val(),
+			"inbkEdctYn" 	: $('input[name="inbkEdctYn"]:checked').val(),
+			"eginAplyYn" 	: $('input[name="eginAplyYn"]:checked').val(),
+			"onlEdctYn" 	: $('input[name="onlEdctYn"]:checked').val(),
+			"edctLevl" 		: $('input[name="edctLevl"]:checked').val()			
+		}, //넘겨줄 데이터
+		success: function (responseData) {
+			alert("정상 수정 되었습니다.");
+			window.open("about:blank", "_self").close();
+		},
+		error: function (xhr, status, error) {
+			alert("수정 error");					
+		}
+	});
+}
+
 
 </script>
 
-<!-- FOOTER -->
-<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 
