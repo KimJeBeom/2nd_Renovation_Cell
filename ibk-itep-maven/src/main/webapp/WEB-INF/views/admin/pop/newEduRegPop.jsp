@@ -65,35 +65,9 @@
 													<c:forEach items="${cliVoList }" var="cliVo">
 														<option value=${cliVo.edinCd }>${cliVo.edinNm }</option>		
 													</c:forEach>
-													<!-- <option value="etc">기타</option> -->
 												</select> 
 											</td>
 										</tr>
-<!-- 										<tr id="etcInputForm"  style="display: none;">
-											<th>교육기관코드</th>
-											<td><input id="edinCdInput" type="text" class="form-control" placeholder=""></td>
-											<th>교육기관명</th>
-											<td><input id="edinNmInput" type="text" class="form-control" placeholder=""></td>										
-										</tr>
-										<tr>
-											<th>교육기관코드</th>
-											<td><input type="text" class="form-control" placeholder=""></td>
-											<th>교육기관명</th>
-											<td><input type="text" class="form-control" placeholder=""></td>										
-										</tr> -->
-										<!-- 										
-										<tr>
-											<th>교육기간</th>
-											<td><input type="text" class="form-control" placeholder="1일"></td>
-											<th>이수시간</th>
-											<td><input type="text" class="form-control" placeholder="2시간"></td>
-										</tr> 
-										-->
-										<!-- 
-										<th>교육비용</th>
-											<td><input type="text" class="form-control" placeholder="350,000" style="width: 80%; float: left;">
-												<span><i></i>(원)</span></td>										 
-										-->
 										<tr>
 											<th>교육구분</th>
 											<td>
@@ -165,13 +139,16 @@
 <script type="text/javascript">
 $(document).ready(function(){
 });
+//교육 등록 버튼 클릭
 $(document).on("click","#btnRegEdu",function(){
 	var edctNm = $("#edctNm").val();
 	if(verifyValue()){
-		confirm("\""+edctNm+"\"\n교육을 등록하시겠습니까?");
-		insertNewEduRegPop();
+		if(confirm("\""+edctNm+"\"\n교육을 등록하시겠습니까?")){
+			insertNewEduRegPop();			
+		}
 	}
 });
+//입력값 검증 
 function verifyValue(){
 	var edctClsfCd = $("#edctClsfCd").val();
 	var edctNm = $("#edctNm").val();
@@ -211,6 +188,7 @@ function verifyValue(){
 	}
 	return true;
 }
+//교육 등록 함수
 function insertNewEduRegPop(){
     $.ajax({
 		url : "/itep/views/admin/pop/insertNewEduRegPop", //데이터를  넘겨줄 링크 설정

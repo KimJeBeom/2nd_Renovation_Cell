@@ -147,8 +147,9 @@ $(document).on("click","#btnConfirm",function(){
  	var edctId = ${param.edctId };
  	var edctNm =  $("#edctNm").val();
 		if(verifyValue()){
-			confirm("\""+edctNm+"\"\n교육을 수정하시겠습니까?");
- 			updateEduRegMod();
+			if(confirm("\""+edctNm+"\"\n교육을 수정하시겠습니까?")){
+				updateEduRegMod();	
+			} 			
 		}
 });
 function verifyValue(){
