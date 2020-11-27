@@ -554,6 +554,42 @@
 	    </if>
 	</select>
 	
+	<!-- 사용자 조회, 사용자 조회 엑셀 다운로드용 -->
+	<select id="selectEmpAccMngExel" parameterType="EmpAccMngVo" resultType="EmpAccMngExcelVo">
+		<![CDATA[
+			select	cmu.USER_ID as userId		-- 직원번호
+					,cmu.USER_NM as userNm		-- 직원명
+    				,cmu.USER_JTM as userJtm	-- 직책
+    				,cmu.USER_TPN as userTpn	-- 행내전화
+    				,cmb.BRNM as brnm			-- 부서명
+    				,cla.ATHR_NM as athrNm	-- 권한명
+			from 	itep.tb_iep_cmu001m cmu, itep.tb_iep_cmb001m cmb, itep.tb_iep_cla001c cla
+			where	cmu.DVCD = cmb.BRCD
+    			and cmu.ATHR_CD = cla.ATHR_CD
+    			and cmb.use_yn = 'Y' and cla.use_yn = 'Y'
+		]]>
+    	<if test="userId != null and !userId.equals('')">
+	    	<![CDATA[
+	 	   		and cmu.USER_ID = #{userId}
+	    	]]>
+	    </if>
+    	<if test="userNm != null and !userNm.equals('')">
+	    	<![CDATA[
+	 	   		and cmu.USER_NM = #{userNm}
+	    	]]>
+	    </if>
+    	<if test="brcd != null and !brcd.equals('')">
+	    	<![CDATA[
+	 	   		and cmu.DVCD = #{brcd}
+	    	]]>
+	    </if>
+    	<if test="athrCd != null and !athrCd.equals('')">
+	    	<![CDATA[
+	 	   		and cmu.ATHR_CD =#{athrCd};
+	    	]]>
+	    </if>
+	</select>
+	
 	<!-- 사용자 권한 업데이트 -->
 	<update id="updateEmpAccMng" parameterType="EmpAccMngVo">
 		<![CDATA[

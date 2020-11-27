@@ -41,6 +41,7 @@
 		<typeAlias alias="EduRegModVo" type="com.ibk.itep.vo.admin.EduRegModVo"></typeAlias>
 		<typeAlias alias="EduRndRegModVo" type="com.ibk.itep.vo.admin.EduRndRegModVo"></typeAlias>
 		<typeAlias alias="EmpAccMngVo" type="com.ibk.itep.vo.admin.EmpAccMngVo"></typeAlias>
+		<typeAlias alias="EmpAccMngExcelVo" type="com.ibk.itep.vo.admin.EmpAccMngExcelVo"></typeAlias>
 		<typeAlias alias="NewEduInfoVo" type="com.ibk.itep.vo.admin.NewEduInfoVo"></typeAlias>
 		<!-- cmm -->
 		<typeAlias alias="ClaVo" type="com.ibk.itep.vo.cmm.ClaVo"></typeAlias>

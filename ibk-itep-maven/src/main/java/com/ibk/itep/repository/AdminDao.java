@@ -15,6 +15,7 @@ import com.ibk.itep.vo.admin.EduOpenReadyStatVo;
 import com.ibk.itep.vo.admin.EduReadyStatVo;
 import com.ibk.itep.vo.admin.EduRegModVo;
 import com.ibk.itep.vo.admin.EduRndRegModVo;
+import com.ibk.itep.vo.admin.EmpAccMngExcelVo;
 import com.ibk.itep.vo.admin.EmpAccMngVo;
 import com.ibk.itep.vo.admin.NewEduInfoVo;
 
@@ -123,6 +124,12 @@ public class AdminDao {
 	 ************************************************************/
 	public List<EmpAccMngVo> selectEmpAccMng(EmpAccMngVo vo) {
 		List<EmpAccMngVo> list = sqlSession.selectList("queryAdmin.selectEmpAccMng", vo);
+		return list;
+	}
+	
+	/* 엑셀 다운로드 */
+	public List<EmpAccMngExcelVo> selectEmpAccMngExel(EmpAccMngVo vo) {
+		List<EmpAccMngExcelVo> list = sqlSession.selectList("queryAdmin.selectEmpAccMngExel", vo);
 		return list;
 	}
 	
