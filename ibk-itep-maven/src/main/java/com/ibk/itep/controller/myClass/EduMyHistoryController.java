@@ -2,6 +2,9 @@ package com.ibk.itep.controller.myClass;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +33,13 @@ public class EduMyHistoryController{
 	/*수강신청 이력조회*/
 	@RequestMapping(value = "/views/myClass/eduMyHistory", method = RequestMethod.GET)
 	public String eduMyHistory(@RequestParam(value="sttgYmd", required=false) String sttgYmd
-							 , @RequestParam(value="fnshYmd", required=false) String fnshYmd, Model model) {
+							 , @RequestParam(value="fnshYmd", required=false) String fnshYmd, HttpServletRequest request, Model model) {
+		
+		/* 세션정보를 담은 SessionVo 가져옴 */
+		HttpSession session = request.getSession();
+		SessionVo ssnInfo = (SessionVo)session.getAttribute("ssnInfo");
 			
-		List<EduMyHistoryVO> eduMyHistroy = myClassService.selectHistoryList(sttgYmd, fnshYmd);
+		List<EduMyHistoryVO> eduMyHistroy = myClassService.selectHistoryList(sttgYmd, fnshYmd, ssnInfo);
 		
 		
 		model.addAttribute("eduMyHistroy", eduMyHistroy);
@@ -43,9 +50,13 @@ public class EduMyHistoryController{
 	/*수강신청이력 > 기간 조회*/
 	@RequestMapping(value = "/views/myClass/eduHistorySearch", method = RequestMethod.POST)
 	public @ResponseBody List<EduMyHistoryVO> completeSearch(@RequestParam(value="sttgYmd", required=false) String sttgYmd
-						 , @RequestParam(value="fnshYmd", required=false) String fnshYmd, Model model) {
+						 , @RequestParam(value="fnshYmd", required=false) String fnshYmd, HttpServletRequest request, Model model) {
 		
-		List<EduMyHistoryVO> eduMyHistroy = myClassService.selectHistoryList(sttgYmd, fnshYmd);
+		/* 세션정보를 담은 SessionVo 가져옴 */
+		HttpSession session = request.getSession();
+		SessionVo ssnInfo = (SessionVo)session.getAttribute("ssnInfo");
+		
+		List<EduMyHistoryVO> eduMyHistroy = myClassService.selectHistoryList(sttgYmd, fnshYmd, ssnInfo);
 		
 		return eduMyHistroy;
 	}

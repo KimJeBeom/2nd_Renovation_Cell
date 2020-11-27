@@ -39,7 +39,7 @@ public class EduCompleteController{
 		HttpSession session = request.getSession();
 		SessionVo ssnInfo = (SessionVo)session.getAttribute("ssnInfo");
 
-		List<EduCompleteVO> eduCompleteList = myClassService.selectEduComplete(sttgYmd, fnshYmd);
+		List<EduCompleteVO> eduCompleteList = myClassService.selectEduComplete(sttgYmd, fnshYmd, ssnInfo);
 		
 		model.addAttribute("eduCompleteList", eduCompleteList);
 
@@ -51,7 +51,11 @@ public class EduCompleteController{
 	public @ResponseBody List<EduCompleteVO> completeSearch(@RequestParam(value="sttgYmd", required=false) String sttgYmd
 						 , @RequestParam(value="fnshYmd", required=false) String fnshYmd, HttpServletRequest request, Model model) {
 		
-		List<EduCompleteVO> eduCompleteList = myClassService.selectEduComplete(sttgYmd, fnshYmd);
+		/* 세션정보를 담은 SessionVo 가져옴 */
+		HttpSession session = request.getSession();
+		SessionVo ssnInfo = (SessionVo)session.getAttribute("ssnInfo");
+		
+		List<EduCompleteVO> eduCompleteList = myClassService.selectEduComplete(sttgYmd, fnshYmd, ssnInfo);
 		
 		return eduCompleteList;
 	}

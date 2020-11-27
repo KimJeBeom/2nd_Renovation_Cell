@@ -22,13 +22,13 @@
 							<div class="panel-body panel-popup">
 								<table>
 									<tbody>
-								<c:if test="${eduInfoPop.aplcStgCd == 'REJDPM' || eduInfoPop.aplcStgCd == 'REJGRM' }">
+									<c:if test="${modType != 'history' && (eduInfoPop.aplcStgCd == 'REJDPM' || eduInfoPop.aplcStgCd == 'REJGRM') }">
 										<tr>
 											<td style="width: 10%;"></td>
 											<td style="width: 20%; padding-left: 30px; text-align: center; padding-bottom: 10px;"><b>▶부서 결재자</b></td>
 											<td style="width: 30%; padding-bottom: 10px;">
 												<div>
-													<select class="form-control" id="dpmid">
+													<select class="form-control" id="dpmAthzId">
 													<c:forEach items="${dpmList}" var="dpmList">
 														<option value="${dpmList.userId}">${dpmList.brnm} ${dpmList.userNm}</option>
 													</c:forEach>
@@ -67,22 +67,43 @@
 											<th>교육수준</th>
 											<td>${eduInfoPop.edctLevl }</td>
 										</tr>
-										<tr>
-										   <th>첨부파일</th>
 									<c:choose>
-									<c:when test="${eduInfoPop.aplcStgCd == 'REJDPM' || eduInfoPop.aplcStgCd == 'REJGRM' }">
+									<c:when test="${modType != 'history' && (eduInfoPop.aplcStgCd == 'REJDPM' || eduInfoPop.aplcStgCd == 'REJGRM') }">
+																		<tr>
+										   <th>첨부파일<br><button class="fileAdd_btn" type="button">파일추가</button></th>
 										   <td colspan="3">
-												<input multiple="multiple" type="file" name="file" class="form-control" value="">
+												<form name="writeForm"  id="applyForm" method="post" action="upload" enctype="multipart/form-data">
+												<input type="text" name="code_nm" style="display:none" value="EDA">
+												<input id="edctAplcId" type="text" name="pbns_id" style="display:none" value="${eduInfoPop.edctAplcId}">
+												<c:forEach items="${fileVoList}" var="file">
+													<c:if test="${file.del_yn == 'N'}">
+														<div class="form-group" style="border: 1px solid #dbdbdb;">
+															<a href="#" onclick="fn_fileDown('${file.file_no}'); return false;">${file.org_file_name}</a>(${file.file_size}kb)
+															<button id="fileDel" onclick="fn_del('${file.file_no}');" type="button">삭제</button><br>
+														</div>
+													</c:if>
+												</c:forEach>
+												<div id="fileIndex"></div>
+												</form>
 										   </td>
+										</tr>
 								    </c:when>
 								    <c:otherwise>
-								    		<td colspan="3">${eduInfoPop.apndDat } </td>
+								   		   <th>첨부파일</th>
+								   		   <td colspan="3">
+								    	<c:forEach items="${fileVoList}" var="file">
+											<c:if test="${file.del_yn == 'N'}">
+												<div class="form-group" style="border: 1px solid #dbdbdb;">
+													<a href="#" onclick="fn_fileDown('${file.file_no}'); return false;">${file.org_file_name}</a>(${file.file_size}kb)
+												</div>
+											</c:if>
+										</c:forEach>
+										</td>
 								    </c:otherwise>
 									</c:choose>
-										</tr>
 									</tbody>
 								</table>
-								<c:if test="${eduInfoPop.aplcStgCd == 'REJDPM' || eduInfoPop.aplcStgCd == 'REJGRM' }">
+								<c:if test="${modType != 'history' && (eduInfoPop.aplcStgCd == 'REJDPM' || eduInfoPop.aplcStgCd == 'REJGRM') }">
 									<table>
 										<tbody>
 											<tr>
@@ -122,15 +143,23 @@
 <script type="text/javascript">
 
 		function reApply(edctAplcId) {
+			
+			var dpmAthzId = $("#dpmAthzId").val(); //부서결재자
+			var edctAplcId = $("#edctAplcId").val();//결재번호
 
-			var dpmAthzId = $("#dpmid").val(); //신청서ID
+			var form = $('#applyForm')[0];
+			var formData = new FormData(form);
+			formData.append("dpmAthzId",dpmAthzId);
+			formData.append("edctAplcId",edctAplcId);
 			
 				$.ajax({
 			    	url:"/itep/views/myClass/eduInfoPop/reApply", //데이터를  넘겨줄 링크 설정
 			        type:"POST", // post 방식
-					data: {"edctAplcId" : edctAplcId,
-						   "dpmAthzId" : dpmAthzId}, //넘겨줄 데이터
-
+			        enctype: 'multipart/form-data',
+			        processData: false,
+					contentType: false,
+					data: formData,
+	
 			        success: function (responseData) {	
 			        	if(responseData == 1) {
 			        		alert("결재요청 되었습니다."); // 결과가 1이면 정상적으로 반려처리 완료
@@ -152,4 +181,16 @@
 			}	
 
 
+		$(document).ready(function(){
+			fn_addFile();
+		})
+		function fn_addFile(){
+			var fileIndex = 1;
+			$(".fileAdd_btn").on("click", function(){
+				$("#fileIndex").append("<div><input type='file' style='float: left;width:90%;' name='file_"+(fileIndex++)+"'>"+"<button style='float: left' type='button' id='fileDelBtn'>"+"삭제"+"</button></div>");	});
+			$(document).on("click","#fileDelBtn", function(){
+				$(this).parent().remove();
+				
+			});
+		}
 </script>

@@ -80,7 +80,7 @@ function showPopup(menu, name) {
 		
 	// 교육신청 결재 요청 팝업
 	else if (popName == 'eduInfoPop')
-		size = 'location=no, width=750, height=500, left=200, top=200';
+		size = 'location=no, width=750, height=600, left=200, top=200';
 	
 	// 차수추가 팝업
 	else if (popName =='addEduRndPop')

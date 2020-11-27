@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.ibk.itep.common.file.FileUtil;
+import com.ibk.itep.common.file.FileVo;
 import com.ibk.itep.controller.HomeController;
 import com.ibk.itep.service.MyClassService;
 import com.ibk.itep.service.cmm.CmmService;
@@ -32,26 +35,40 @@ public class myClassEduInfoPopController{
 	private MyClassService myClassService;
 	@Autowired
 	private CmmService CmService;
+	@Autowired FileUtil fileUtil;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	/*교육 신청내용 상세조회*/
 	@RequestMapping(value = "/views/myClass/pop/eduInfoPop", method = RequestMethod.GET)
-	public String EduInfo(@RequestParam(value = "edctAplcId") int edctAplcId, HttpServletRequest request, Model model) {
-		
-		//교육내용 상세조회
-		EduInfoPopVO eduInfoPop = myClassService.getEduInfoPop(edctAplcId);
-		model.addAttribute("eduInfoPop", eduInfoPop);
+	public String EduInfo(@RequestParam(value = "edctAplcId") int edctAplcId, 
+						  @RequestParam(value = "modType") String modType, HttpServletRequest request, Model model) {
 		
 		/* 세션정보를 담은 SessionVo 가져옴 */
 		HttpSession session = request.getSession();
 		SessionVo ssnInfo = (SessionVo)session.getAttribute("ssnInfo");
 		
+		//교육내용 상세조회
+		EduInfoPopVO eduInfoPop = myClassService.getEduInfoPop(edctAplcId);
+		model.addAttribute("eduInfoPop", eduInfoPop);
+		
 		//부서결재자 조회
 		List<CluVo> dpmList = CmService.selectDpm(ssnInfo);
 		model.addAttribute("dpmList", dpmList);
 		
+		//수강신청이력 내 상세확인 시 재결재요청 불가
+		model.addAttribute("modType",modType);
+		
+		//첨부파일 리스트 조회
+		List<FileVo> fileVoList = fileUtil.selectFileList("EDA", edctAplcId);
+		if(!fileVoList.isEmpty()) {
+			logger.debug(fileVoList.get(0).getOrg_file_name());
+			logger.debug(fileVoList.get(0).getFile_size().toString());
+			model.addAttribute("fileVoList",fileVoList);
+		}
+
 		return "/myClass/pop/eduInfoPop";
 
 	}
+
 }

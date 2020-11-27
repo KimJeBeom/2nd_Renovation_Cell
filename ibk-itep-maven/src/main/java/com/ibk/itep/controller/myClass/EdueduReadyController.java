@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ibk.itep.common.file.FileUtil;
 import com.ibk.itep.controller.HomeController;
 import com.ibk.itep.service.MyClassService;
 import com.ibk.itep.vo.SessionVo;
@@ -31,8 +33,8 @@ public class EdueduReadyController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
-	@Autowired
-	private MyClassService myClassService;
+	@Autowired private MyClassService myClassService;
+	@Autowired FileUtil fileUtil;
 
 	/* 수강 신청한 교육 */
 	@RequestMapping(value = "/views/myClass/eduReady", method = RequestMethod.GET)
@@ -71,11 +73,25 @@ public class EdueduReadyController {
 	 
 		/*수강신청 목록 - 반려건 재결재요청*/
 		@RequestMapping(value = "/views/myClass/eduInfoPop/reApply", method = RequestMethod.POST)
-		public @ResponseBody int reApply(@RequestParam("edctAplcId") int edctAplcId, @RequestParam("dpmAthzId") String dpmAthzId, Model model, EduInfoPopVO infoVo) {
+		public @ResponseBody int reApply(@RequestParam("code_nm") String code_nm,  @RequestParam("pbns_id") String pbns_id,
+										 MultipartHttpServletRequest mpRequest, HttpServletRequest request, Model model, EduInfoPopVO infoVo) {
+			
+			/* 세션정보를 담은 SessionVo 가져옴 */
+			HttpSession session = request.getSession();
+			SessionVo ssnInfo = (SessionVo)session.getAttribute("ssnInfo");
+			
+			//첨부파일 업로드
+			logger.info("FILE Upload Start");
+			
+			int id;
+			id = Integer.parseInt(pbns_id);
+			logger.info(pbns_id, code_nm);
 
-			return myClassService.updateEduInfoPop(infoVo);
-
-
+			int uploadCount = fileUtil.fileUpload(code_nm, id, mpRequest);
+			logger.info("FILE Upload End");
+			logger.debug("upload file count : " + String.valueOf(uploadCount));
+			
+			return myClassService.updateEduInfoPop(infoVo, ssnInfo);
 	 }
 
 	 

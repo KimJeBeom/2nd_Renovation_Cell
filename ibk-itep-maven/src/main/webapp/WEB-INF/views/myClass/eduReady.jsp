@@ -111,7 +111,7 @@
 											<td id="aplcTs">${eduReadyList.aplcTs }</td>
 											<td>
 												<button type="button" class="btn btn-primary btn-xs"
-													onclick="showPopup('myClass','eduInfoPop?edctAplcId='+${eduReadyList.edctAplcId});">확인</button>
+													onclick="showPopup('myClass','eduInfoPop?edctAplcId='+${eduReadyList.edctAplcId}+'&&modType=detail');">확인</button>
 											</td>
 											<td id="aplcStgNm">${eduReadyList.aplcStgNm }</td>
 											<td id="edctAplcId" style="display:none">${eduReadyList.edctAplcId}</td>

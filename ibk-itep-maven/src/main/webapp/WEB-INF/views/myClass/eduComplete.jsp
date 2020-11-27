@@ -93,7 +93,7 @@
 											<td>${eduCompleteList.ctcrYn }</td>
 											<td>
 												<button type="button" class="btn btn-primary btn-xs"
-													onclick="showPopup('myClass','eduInfoPop?edctAplcId='+${eduCompleteList.edctAplcId});">확인</button>
+													onclick="showPopup('myClass','eduInfoPop?edctAplcId='+${eduCompleteList.edctAplcId}+'&&modType=detail');">확인</button>
 											</td>
 										</tr>
 								</c:forEach>
@@ -120,7 +120,11 @@
 	<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 		<script type="text/javascript">
 		
+		$("#sttgYmd").keyup(function(e){if(e.keyCode == 13)  search(); });
+		$("#fnshYmd").keyup(function(e){if(e.keyCode == 13)  search(); });
+		
 		function search() {
+			var datePattern = /^(19|20)\d{2}\/([1-9]|1[012])\/([1-9]|[12][0-9]|3[0-1])$/; //날짜 유효성 검증
 		var sttgYmd = $('#sttgYmd').val();
 		var fnshYmd = $('#fnshYmd').val();
 		
@@ -129,6 +133,12 @@
 			return;
 		} else if(sttgYmd != "" && fnshYmd == "") {
 			alert("종료 날짜를 입력해주세요.");
+			return;
+		} else if(sttgYmd != "" && !datePattern.test(sttgYmd)){
+			alert("시작 날짜가 유효하지 않습니다.");
+			return;
+		} else if(fnshYmd != "" && !datePattern.test(fnshYmd)){
+			alert("종료 날짜가 유효하지 않습니다.");
 			return;
 		} 
 		
@@ -163,7 +173,7 @@
 					$('#completeTbody').replaceWith(str);
 				}
 			},
-			error: function (xhr, status, error) { alert("왜때문에그런거니~");
+			error: function (xhr, status, error) { alert("조회가 불가합니다. 다시 시도해주세요.");
 				
 			}
 		});

@@ -16,6 +16,8 @@ public class EduInfoPopVO {
  private String aplcStgCd;
  private String rtreCon;
  private String dpmAthzId;
+ private String dvcd;
+ private String teamCd;
  
 	public String getEdctClsfCd() {
 		return edctClsfCd;
@@ -97,6 +99,19 @@ public class EduInfoPopVO {
 	}
 	public String getDpmAthzId() {
 		return dpmAthzId;
+	}
+
+	public String getDvcd() {
+		return dvcd;
+	}
+	public void setDvcd(String dvcd) {
+		this.dvcd = dvcd;
+	}
+	public String getTeamCd() {
+		return teamCd;
+	}
+	public void setTeamCd(String teamCd) {
+		this.teamCd = teamCd;
 	}
 	public void setDpmAthzId(String dpmAthzId) {
 		this.dpmAthzId = dpmAthzId;
