@@ -80,7 +80,7 @@
 								<th><button class="fileAdd_btn" type="button">파일추가</button></th>
 								<td colspan="3">
 									<form name="writeForm"  id="excelForm" method="post" action="upload" enctype="multipart/form-data">
-									<input type="text" name="code_nm" style="display:none" value="BDN">
+									<input type="text" name="code_nm" style="display:none" value="BDR">
 									<input type="text" name="pbns_id" style="display:none" value="${vo.rflbId}">
 									<div id="fileIndex"></div>
 									</form>	

@@ -44,7 +44,7 @@
 													</div>
 												</td>
 												<td style="width: 10%; text-align: left;">
-													<button class="btn btn-primary" type="button"  onclick="search();">조회</button>
+													<button class="btn btn-primary" type="button"  onclick="searchTtl();">조회</button>
 												</td>
 											</tr>
 										</tbody>
@@ -58,7 +58,7 @@
 							<!-- 조회 목록 -->
 							<div class="table-responsive" style="overflow-x:hidden; height:570px;">
 								<table class="table table-hover">
-									<tbody>
+									<thead>
 										<tr>
 											<th style="text-align:center; width:10%;" id="1">No.</th>
 											<th style="text-align:center; width:15%;" id="2">구분</th>
@@ -66,9 +66,11 @@
 											<th style="text-align:center; width:15%;" id="4">등록일</th>
 											<th style="text-align:center; width:15%;" id="5">등록자</th>
 										</tr>
+									</thead>
+									<tbody id="noticeList">
 										<c:forEach items="${list}" var="noti" varStatus="status">
 										<tr onclick="showPopup('board','noticeModPop?pbnsId=${noti.pbnsId}');">
-	 										<td style="text-align:center">${fn:length(list)-status.count+1}
+	 										<td style="text-align:center">${noti.pbnsId}</td>
 											<td style="text-align:center">${noti.edctClsfNm}</td>
 											<td style="text-align:  left">${noti.ttl}</td>
 											<td style="text-align:center">${noti.rgsnTs}</td>
@@ -79,15 +81,14 @@
 								</table>
 							</div>
 							<!-- nextPage설정 -->
-							<nav aria-label="Page navigation" style="text-align: right;">
-								<ul class="pagination">
-									<li class="page-item"><a class="page-link" href="#">◀◀</a></li>
-									<li class="page-item"><a class="page-link" href="#">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#">▶</a></li>
-								</ul>
-							</nav>	
+							<div style="text-align:center">
+								<button class="btn btn-primary btn-xs" id='prvsPage' onclick="search('prvs');">◀</button>
+								&nbsp;
+								<input type="text" id="pageNum" value=1 style="width:30px; text-align:center">/ ${listSize}
+								&nbsp;
+								<!-- <button class="btn btn-default btn-xs" id='movePage' onclick="search('move');">이동</button> --> 
+								<button class="btn btn-primary btn-xs" id='nextPage' onclick="search('next');">▶</button>
+							</div> 
 						</div>
 					</div>
 				</div>
@@ -111,16 +112,77 @@
 
 <script>
 
-$("#ttl").keyup(function(e){if(e.keyCode==13) search(); });
+$("#ttl").keyup(function(e){if(e.keyCode==13) searchTtl(); });
+$("#pageNum").keyup(function(e){if(e.keyCode==13) search('move'); });
+
 
 //(조회)제목을 필드값을 가져와 URL에 세팅하여 화면을 재수행한다.
-function search() {
+function searchTtl() {
 	var ttl = $('input[name=ttl]').val();
 	
-	if(ttl!=null){
+	if(ttl!=""){
 		location.href='/itep/views/board/notice?ttl='+ttl;
 	}else{
 		location.href='/itep/views/board/notice';
 	}
-}	
+}		
+
+//조회버튼 클릭시 function
+function search(ctrlPage) {
+	
+	var pageNum = parseInt($('#pageNum').val());
+	var listSize = parseInt('${listSize}');
+  	if(ctrlPage=="prvs"){
+  		pageNum = pageNum-1;
+		if(pageNum <= 0){
+			alert("이전페이지가 없습니다.");
+			return;
+		}
+	}else if(ctrlPage=="next"){
+		pageNum = pageNum+1;
+		if(pageNum > listSize){
+			alert("다음페이지가 없습니다.");
+			return;
+		}
+	}else if(ctrlPage=="move"){
+		if(pageNum > listSize){
+			alert("이동값이 전체 페이지보다 클수 없습니다.");
+			return;
+		}
+	}
+  	var ttl = $('input[name=ttl]').val();
+	
+    $.ajax({
+	        url:"/itep/views/board/notice", //데이터를  넘겨줄 링크 설정
+			type:"POST", // post 방식
+			data: {ttl : ttl, pageNum : pageNum},
+	    	    
+	         success: function (responseData) {
+	        	 
+					if(responseData.length == 0){
+						alert("조회결과가 없습니다");
+					}
+						
+					else{ //조회결과가 있을경우 테이블 replace 수행
+						var str = '';
+						str += '<tbody id="noticeList">'; //탭 선택값에 맞는 테이블 id로 설정
+						$.each(responseData, function(i) {
+							str += '<tr onclick="showPopup(\'board\',\'noticeModPop?pbnsId=\''+responseData[i].pbnsId+'\');">';
+							str += '<td style="text-align:center">'+responseData[i].pbnsId+'</td>';
+							str += '<td style="text-align:center">'+responseData[i].edctClsfNm+'</td>';
+							str += '<td style="text-align:  left">'+responseData[i].ttl+'</td>';
+							str += '<td style="text-align:center">'+responseData[i].rgsnTs+'</td>';
+							str += '<td style="text-align:center">'+responseData[i].userNm+'</td>';
+							str += '</tr>';
+						});
+						str += '</tbody>';
+						$("#noticeList").replaceWith(str);	
+						$('#pageNum').val(pageNum);
+					}
+	          },
+	         error: function (xhr, status, error) {
+	        	 	alert("조회실패");
+	          }
+		}); 
+}
 </script>

@@ -32,12 +32,12 @@
 										<tr>
 											<!-- 신청시 결재 대상인 교육일 경우 안내 매세지 및 부서결재자 정보 활성화 -->
 											<c:if test ="${vo.snctTgtYn eq 'Y' && modType eq 'insert'}">
-											<td style="width: 5%; text-align: center; padding-bottom: 10px;"><b>■ 부서 결재자</b></td>
-											<td style="width: 5%; padding-bottom: 10px;">
+											<td style="width: 8%; text-align: center; padding-bottom: 10px;"><b>■ 부서 결재자</b></td>
+											<td style="width: 7%; padding-bottom: 10px;">
 												<div>
-													<select class="form-control" id="dpmid">														
+													<select class="form-control" id="dpmid"  style="width:230px;">														
 													<c:forEach items="${dpmList}" var="dpmList">
-														<option value="${dpmList.userId}">${dpmList.userNm}</option>
+														<option value="${dpmList.userId}">${dpmList.brnm} ${dpmList.userNm}</option>
 													</c:forEach>
 													</select>
 												</div>

@@ -15,6 +15,7 @@ import com.ibk.itep.vo.cmm.CliVo;
 import com.ibk.itep.vo.cmm.ClsVo;
 import com.ibk.itep.vo.cmm.CluVo;
 import com.ibk.itep.vo.cmm.CmbVo;
+import com.ibk.itep.vo.cmm.PagingVo;
 
 @Service
 public class CmmService {
@@ -55,5 +56,13 @@ public class CmmService {
 	public int getPrstKey(String tableNm){
 		return cmmDao.selectPrstKey(tableNm);
 	}
+//	public PagingVo calPage(int listSize, int prevPage){
+		//리스트사이즈를 받아와 전체 페이지 개수를 계산
+		//현재페이지를 받아와 offset을 계산
+		//현재페이지를 받아와 보여줄 페이지 개수를 계산
+		//현재 페이지를 받아와 ◀ 를 보여줄지 계산
+		//현재 페이지를 받아와 ◀ ◀ 를 보여줄지 계산	
+//		return null
+//	}
 	
 }

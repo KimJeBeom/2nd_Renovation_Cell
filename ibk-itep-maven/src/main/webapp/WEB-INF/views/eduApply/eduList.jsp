@@ -41,7 +41,7 @@
 												<div>
 													<select class="form-control" id="schType">
 														<option value="edctNm">과목명</option>
-														<option value="edinCd">유형</option>
+														<option value="edinCd">기관명</option>
 														<option value="edctId">순번</option>
 													</select>
 												</div>
@@ -104,13 +104,15 @@
 												</tbody>
 											</table>
 										</div>
-										<nav aria-label="Page navigation example" style="text-align: right;">
+										<nav aria-label="Page navigation example" style="text-align: center;">
 											<ul class="pagination">
 												<li class="page-item"><a class="page-link" href="#">◀◀</a></li>
+												<li class="page-item"><a class="page-link" href="#">◀</a></li>
 												<li class="page-item"><a class="page-link" href="#">1</a></li>
 												<li class="page-item"><a class="page-link" href="#">2</a></li>
 												<li class="page-item"><a class="page-link" href="#">3</a></li>
 												<li class="page-item"><a class="page-link" href="#">▶</a></li>
+												<li class="page-item"><a class="page-link" href="#">▶▶</a></li>
 											</ul>
 										</nav>
 									</div>
@@ -133,13 +135,15 @@
 												</tbody>
 											</table>
 										</div>
-										<nav aria-label="Page navigation example" style="text-align: right;">
+										<nav aria-label="Page navigation example" style="text-align: center;">
 											<ul class="pagination">
 												<li class="page-item"><a class="page-link" href="#">◀◀</a></li>
+												<li class="page-item"><a class="page-link" href="#">◀</a></li>
 												<li class="page-item"><a class="page-link" href="#">1</a></li>
 												<li class="page-item"><a class="page-link" href="#">2</a></li>
 												<li class="page-item"><a class="page-link" href="#">3</a></li>
 												<li class="page-item"><a class="page-link" href="#">▶</a></li>
+												<li class="page-item"><a class="page-link" href="#">▶▶</a></li>
 											</ul>
 										</nav>
 									</div>
@@ -162,13 +166,15 @@
 												</tbody>
 											</table>
 										</div>
-										<nav aria-label="Page navigation example" style="text-align: right;">
+										<nav aria-label="Page navigation example" style="text-align: center;">
 											<ul class="pagination">
 												<li class="page-item"><a class="page-link" href="#">◀◀</a></li>
+												<li class="page-item"><a class="page-link" href="#">◀</a></li>
 												<li class="page-item"><a class="page-link" href="#">1</a></li>
 												<li class="page-item"><a class="page-link" href="#">2</a></li>
 												<li class="page-item"><a class="page-link" href="#">3</a></li>
 												<li class="page-item"><a class="page-link" href="#">▶</a></li>
+												<li class="page-item"><a class="page-link" href="#">▶▶</a></li>
 											</ul>
 										</nav>
 									</div>
@@ -191,13 +197,15 @@
 												</tbody>
 											</table>
 										</div>
-										<nav aria-label="Page navigation example" style="text-align: right;">
+										<nav aria-label="Page navigation example" style="text-align: center;">
 											<ul class="pagination">
 												<li class="page-item"><a class="page-link" href="#">◀◀</a></li>
+												<li class="page-item"><a class="page-link" href="#">◀</a></li>
 												<li class="page-item"><a class="page-link" href="#">1</a></li>
 												<li class="page-item"><a class="page-link" href="#">2</a></li>
 												<li class="page-item"><a class="page-link" href="#">3</a></li>
 												<li class="page-item"><a class="page-link" href="#">▶</a></li>
+												<li class="page-item"><a class="page-link" href="#">▶▶</a></li>
 											</ul>
 										</nav>
 									</div>
@@ -220,13 +228,15 @@
 												</tbody>
 											</table>
 										</div>
-										<nav aria-label="Page navigation example" style="text-align: right;">
+										<nav aria-label="Page navigation example" style="text-align: center;">
 											<ul class="pagination">
 												<li class="page-item"><a class="page-link" href="#">◀◀</a></li>
+												<li class="page-item"><a class="page-link" href="#">◀</a></li>
 												<li class="page-item"><a class="page-link" href="#">1</a></li>
 												<li class="page-item"><a class="page-link" href="#">2</a></li>
 												<li class="page-item"><a class="page-link" href="#">3</a></li>
 												<li class="page-item"><a class="page-link" href="#">▶</a></li>
+												<li class="page-item"><a class="page-link" href="#">▶▶</a></li>
 											</ul>
 										</nav>
 									</div>
@@ -302,10 +312,6 @@ function search() {
 	var	schValue = $("#schValue").val();//검색값
     var tabValue = $(".nav-tabs .active").attr('value'); //탭선택값
     
-	if(schValue==""){
-		alert("검색어를 입력 하세요");
-	}else{
-		
     $.ajax({
 	        url:"/itep/views/eduApply/eduList", //데이터를  넘겨줄 링크 설정
 			type:"POST", // post 방식
@@ -341,7 +347,6 @@ function search() {
 	        	 	alert("조회실패");
 	          }
 		}); 
-	}
 }
 </script>
 

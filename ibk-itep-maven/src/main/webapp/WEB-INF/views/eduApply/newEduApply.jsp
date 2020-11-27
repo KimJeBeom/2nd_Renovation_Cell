@@ -222,17 +222,17 @@ function insertNewEdu() {
 		var	edctNm = $("#edctNm").val(); //교육명   
 		var	edctCon = $("#edctCon").val();//교육내용 및 신청사유    
 		var	edinNm = $("#edinNm").val(); //교육기관명  
-		var	aplcSttgYmd = $("#aplcSttgYmd").val().replaceAll(".","-"); //신청시작일
-		var	aplcFnshYmd = $("#aplcFnshYmd").val().replaceAll(".","-"); //신청종료일
-		var	edctSttgYmd = $("#edctSttgYmd").val().replaceAll(".","-"); //학습시작일  
-		var	edctFnshYmd = $("#edctFnshYmd").val().replaceAll(".","-"); //학습종료일  
+		var	aplcSttgYmd = $("#aplcSttgYmd").val().split(".").join("-");
+		var	aplcFnshYmd = $("#aplcFnshYmd").val().split(".").join("-");
+		var	edctSttgYmd = $("#edctSttgYmd").val().split(".").join("-");
+		var	edctSttgTim = $("#edctSttgTim").val().split(".").join("-");
 		var	edctSttgTim = $("#edctSttgTim").val(); //교육시작시간 
 		var	edctFnshTim = $("#edctFnshTim").val(); //교육종료시간
 		var	edex = $("#edex").val(); //교육비용
 		var	onlEdctYn = $('input[name="onlEdctYn"]:checked').val(); //온라인교육여부
 		var	edctLevl = $('input[name="edctLevl"]:checked').val(); //교육수준
 		var addFileCnt = $('.addFile').length;
-		
+
    	    var form = $('#excelForm')[0];
 	    // FormData 객체 생성
 	    var formData = new FormData(form);
