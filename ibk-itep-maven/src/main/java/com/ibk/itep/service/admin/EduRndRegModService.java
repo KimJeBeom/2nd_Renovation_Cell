@@ -53,6 +53,13 @@ public class EduRndRegModService {
 		logger.debug("서비스 End : updateEduRndRegMod");
 		return result;		
 	}
+	public boolean deleteEduRndRegMod(EduRndRegModVo vo) {
+		logger.debug("서비스 Start : deleteEduRndRegMod");
+		cmmService.objFieldTest(vo);
+		boolean result = adminDao.deleteEduRndRegMod(vo);
+		logger.debug("서비스 End : deleteEduRndRegMod");
+		return result;		
+	}
 	
 	public List<EduRndRegModVo> listSecondsParser(List<EduRndRegModVo> list){
 		for(EduRndRegModVo vo: list) {

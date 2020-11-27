@@ -80,4 +80,13 @@ public class AddEduRndPopController{
 		return result;
 	}
 
+	@RequestMapping(value = "/views/admin/pop/deleteEduRndRegMod", method = RequestMethod.POST)
+	public @ResponseBody boolean deleteEduRndRegMod(EduRndRegModVo errmVo) {
+		logger.debug("컨트롤러 Start : deleteEduRndRegMod");
+		cmmService.objFieldTest(errmVo);
+		boolean result = eduRndRegModService.deleteEduRndRegMod(errmVo);
+		logger.debug("컨트롤러 End : deleteEduRndRegMod, 결과값 {}", result);
+		return result;
+	}
+
 }

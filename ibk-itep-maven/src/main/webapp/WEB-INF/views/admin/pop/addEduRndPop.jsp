@@ -201,10 +201,7 @@ $(document).ready(function(){
  		selectEduRndRegModDetail(target); 
  	});
  	$(document).on("click","#btnAddEduRnd",function(){
-		var edctNm = $("#edctNm").val();
-		$("input").val(null);
-		$("#edctNm").val(edctNm);
-		$(".trEdctCntInfo.active").removeClass("active");
+ 		initInputValue();
 	});
  	$(document).on("click","#btnConfirm",function(){
 		if(verifyValue()){
@@ -216,6 +213,15 @@ $(document).ready(function(){
  				alert("update해야됨");
  				updateEduRndRegMod(edctCntId);
  			}
+		}
+	});
+ 	$(document).on("click","#btnDelEduRnd",function(){
+		var edctCntId = $(".trEdctCntInfo.active").attr("id");
+		if(edctCntId == null || edctCntId == "undefined" || edctCntId ==""){
+			alert("삭제할 차수를 선택해 주세요");
+		}else{
+			alert("delete 진행합니다");
+			deleteEduRndRegMod(edctCntId);
 		}
 	});
  	$(document).on("keyup","#ctcrTim",function(event){
@@ -230,25 +236,6 @@ $(document).ready(function(){
  		this.value = this.value.replace(/\B(?=(\d{3})+(?!\d))/g, ","); // 정규식을 이용해서 3자리 마다 , 추가*/ 	
  	}); 
 
-	$("#btnModEduRnd").click(function(){
-		var radioVal = $('input[name="chkEdctCntId"]:checked').val();
-		if(radioVal != null){
-			alert("수정버튼 클릭");
-			alert(radioVal);
-			//showPopup('admin','eduModPop?edctId='+radioVal);	
-		}else{
-			alert("수정할 차수를 선택해주세요");
-		} 		
-	});
-		$("#btnDelEduRnd").click(function(){
-			var radioVal = $('input[name="chkEdctCntId"]:checked').val();
-			if(radioVal != null){
-				alert("삭제버튼 클릭");
-				alert(radioVal);
-			}else{
-				alert("삭제할 차수를 선택해주세요");
-			} 				
-	});
 /* 		$("#btnConfirm").click(function(){
 			//verifyValue();
 			insertEduRndRegMod(target);
@@ -452,6 +439,82 @@ function selectEduRndRegModDetail(target){
 		}	
 	});
 }
+function insertEduRndRegMod(){
+	var edctId = ${edctId };
+    $.ajax({
+    	url:"/itep/views/admin/pop/insertEduRndRegMod", //데이터를  넘겨줄 링크 설정
+        type:"POST", // post 방식
+		data:{	"edctId" : 		edctId,
+				"aplcSttgYmd" :	$('#aplcSttgYmd').val(),
+				"aplcFnshYmd" : $('#aplcFnshYmd').val(),
+				"cnclSttgYmd" : $('#cnclSttgYmd').val(),
+				"cnclFnshYmd" :	$('#cnclFnshYmd').val(),
+				"edctSttgYmd" :	$('#edctSttgYmd').val(),
+				"edctFnshYmd" :	$('#edctFnshYmd').val(),
+				"edctSttgTim" :	$('#edctSttgTim').val(),
+				"edctFnshTim" :	$('#edctFnshTim').val(),
+				"ctcrTim" :		$('#ctcrTim').val(),
+				"edctTrm" :		$('#edctTrm').val(),
+				"edex" :		$('#edex').val()			}, //넘겨줄 데이터
+		
+		success: function (responseData) {
+				alert("정상적으로 등록 되었습니다");
+				selectEduRndRegMod();
+				initInputValue();
+				 //location.reload();
+		},
+		error: function (xhr, status, error) {
+			alert("error");
+			
+		}
+	});
+}
+function updateEduRndRegMod(edctCntId){
+    $.ajax({
+    	url:"/itep/views/admin/pop/updateEduRndRegMod", //데이터를  넘겨줄 링크 설정
+        type:"POST", // post 방식
+		data:{	"edctCntId"		: edctCntId,
+				"aplcSttgYmd" 	: $('#aplcSttgYmd').val(),
+				"aplcFnshYmd" 	: $('#aplcFnshYmd').val(),
+				"cnclSttgYmd" 	: $('#cnclSttgYmd').val(),
+				"cnclFnshYmd" 	: $('#cnclFnshYmd').val(),
+				"edctSttgYmd" 	: $('#edctSttgYmd').val(),
+				"edctFnshYmd" 	: $('#edctFnshYmd').val(),
+				"edctSttgTim" 	: $('#edctSttgTim').val(),
+				"edctFnshTim" 	: $('#edctFnshTim').val(),
+				"ctcrTim" 		: $('#ctcrTim').val(),
+				"edctTrm" 		: $('#edctTrm').val(),
+				"edex" 			: $('#edex').val()			}, //넘겨줄 데이터
+		
+		success: function (responseData) {
+				alert("정상적으로 변경 되었습니다");
+				selectEduRndRegMod();
+				initInputValue();
+				 //location.reload();
+		},
+		error: function (xhr, status, error) {
+			alert("error");
+			
+		}
+	});
+}
+function deleteEduRndRegMod(edctCntId){
+    $.ajax({
+    	url:"/itep/views/admin/pop/deleteEduRndRegMod", //데이터를  넘겨줄 링크 설정
+        type:"POST", // post 방식
+		data:{	"edctCntId"	: edctCntId}, //넘겨줄 데이터		
+		success: function (responseData) {
+				alert("정상적으로 삭제 되었습니다");
+				selectEduRndRegMod();
+				initInputValue();
+				 //location.reload();
+		},
+		error: function (xhr, status, error) {
+			alert("error");
+			
+		}
+	});
+}
 function verifyValue(){
 	var dateRegExp = /^(19|20)\d{2}\/(0*[1-9]|1[012])\/(0*[1-9]|[12][0-9]|3[0-1])$/; //yyyy/mm/dd 형태 허용 m과 d는 한자리어도 됨
 	var timeRegExp = /^(0*[0-9]|1[0-9]|2[0-3]):(0*[0-9]|[1-5][0-9])$/; //HH:mm 형태 H와m은 한자리어도 됨
@@ -504,59 +567,10 @@ function verifyValue(){
 	alert("정상 수행한다?")
 	return true;
 }	
-function insertEduRndRegMod(){
-	var edctId = ${edctId };
-    $.ajax({
-    	url:"/itep/views/admin/pop/insertEduRndRegMod", //데이터를  넘겨줄 링크 설정
-        type:"POST", // post 방식
-		data:{	"edctId" : 		edctId,
-				"aplcSttgYmd" :	$('#aplcSttgYmd').val(),
-				"aplcFnshYmd" : $('#aplcFnshYmd').val(),
-				"cnclSttgYmd" : $('#cnclSttgYmd').val(),
-				"cnclFnshYmd" :	$('#cnclFnshYmd').val(),
-				"edctSttgYmd" :	$('#edctSttgYmd').val(),
-				"edctFnshYmd" :	$('#edctFnshYmd').val(),
-				"edctSttgTim" :	$('#edctSttgTim').val(),
-				"edctFnshTim" :	$('#edctFnshTim').val(),
-				"ctcrTim" :		$('#ctcrTim').val(),
-				"edctTrm" :		$('#edctTrm').val(),
-				"edex" :		$('#edex').val()			}, //넘겨줄 데이터
-		
-		success: function (responseData) {
-				alert("정상적으로 등록 되었습니다");
-				 //location.reload();
-		},
-		error: function (xhr, status, error) {
-			alert("error");
-			
-		}
-	});
-}
-function updateEduRndRegMod(edctCntId){
-    $.ajax({
-    	url:"/itep/views/admin/pop/updateEduRndRegMod", //데이터를  넘겨줄 링크 설정
-        type:"POST", // post 방식
-		data:{	"edctCntId"		: edctCntId,
-				"aplcSttgYmd" 	: $('#aplcSttgYmd').val(),
-				"aplcFnshYmd" 	: $('#aplcFnshYmd').val(),
-				"cnclSttgYmd" 	: $('#cnclSttgYmd').val(),
-				"cnclFnshYmd" 	: $('#cnclFnshYmd').val(),
-				"edctSttgYmd" 	: $('#edctSttgYmd').val(),
-				"edctFnshYmd" 	: $('#edctFnshYmd').val(),
-				"edctSttgTim" 	: $('#edctSttgTim').val(),
-				"edctFnshTim" 	: $('#edctFnshTim').val(),
-				"ctcrTim" 		: $('#ctcrTim').val(),
-				"edctTrm" 		: $('#edctTrm').val(),
-				"edex" 			: $('#edex').val()			}, //넘겨줄 데이터
-		
-		success: function (responseData) {
-				alert("정상적으로 변경 되었습니다");
-				 //location.reload();
-		},
-		error: function (xhr, status, error) {
-			alert("error");
-			
-		}
-	});
+function initInputValue(){
+	var edctNm = $("#edctNm").val();
+	$("input").val(null);
+	$("#edctNm").val(edctNm);
+	$(".trEdctCntInfo.active").removeClass("active");
 }
 </script>

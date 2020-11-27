@@ -98,27 +98,28 @@
 		
 		$(document).ready(function(){
 			selectEduRegMod();
-			
-			$("#btnReg").click(function(){
-				showPopup('admin','newEduRegPop');
-			})
- 			$("#btnMod").click(function(){
- 				var radioVal = $('input[name="chkEdctId"]:checked').val();
- 				if(radioVal != null){
- 					showPopup('admin','eduModPop?edctId='+radioVal);	
- 				}else{
- 					alert("수정할 교육을 선택해주세요");
- 				} 				
-			})
-			$("#btnDel").click(function(){
-				var radioVal = $('input[name="chkEdctId"]:checked').val();
- 				if(radioVal != null){
- 					deleteEduRegMod();	
- 				}else{
- 					alert("삭제할 교육을 선택해주세요");
- 				}				
-			})
 		});
+		$(document).on("click","#btnReg",function(){
+			showPopup('admin','newEduRegPop');
+		})
+		$(document).on("click","#btnMod",function(){
+				var radioVal = $('input[name="chkEdctId"]:checked').val();
+				if(radioVal != null){
+					showPopup('admin','eduModPop?edctId='+radioVal);	
+				}else{
+					alert("수정할 교육을 선택해주세요");
+				} 				
+		})
+		$(document).on("click","#btnDel",function(){
+			var radioVal = $('input[name="chkEdctId"]:checked').val();
+			var radioValNm = $('input[name="chkEdctId"]:checked').parent().next().next().next().text();
+				if(radioVal != null){
+					confirm("\""+radioValNm+"\"\n교육을 삭제하시겠습니까?");
+					deleteEduRegMod();	
+				}else{
+					alert("삭제할 교육을 선택해주세요");
+				}				
+		})
 		function selectEduRegMod() {
 			var edctClsfCd = $("#edctClsfCd").val();
 			var edctNm = $("#edctNm").val();
@@ -135,17 +136,16 @@
 						str += '<td><input type="radio" name="chkEdctId" value='+responseData[i].edctId+'></td>'
 						str += '<td>'+responseData[i].edctId+'</td>'
 						str += '<td>'+responseData[i].edctClsfNm+'</td>'
-						str += '<td style=\"text-align: left\">'+responseData[i].edctNm+'</td>'
+						str += '<td style=\"text-align: left\" class=\"edctNmTxt\">'+responseData[i].edctNm+'</td>'
 						str += '<td>'+responseData[i].edinNm+'</td>'
-						str += '<td><button type=\"button\" class=\"btn btn-primary bts-xs\" onclick=\"showPopup(\'admin\',\'addEduRndPop?edctId='+responseData[i].edctId+'\');\">차수추가</button></td>'
+						str += '<td><button type=\"button\" class=\"btn btn-primary bts-xs\" onclick=\"showPopup(\'admin\',\'addEduRndPop?edctId='+responseData[i].edctId+'\');\">차수관리</button></td>'
 						str += '</tr>'
 					});
 					str += '</tbody>'
 					$("#eduRegModVoListTbody").replaceWith(str);
 				},
 				error: function (xhr, status, error) {
-					alert("error");
-					
+					alert("error");					
 				}
 			});
 		}
@@ -156,7 +156,7 @@
 		        type:"POST", // post 방식
 				data: {"edctId" : chkEdctId}, //넘겨줄 데이터
 				success: function (responseData) {
-					alert("삭제success");
+					alert("삭제가 완료 되었습니다.");
 					selectEduRegMod();
 				},
 				error: function (xhr, status, error) {		

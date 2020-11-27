@@ -33,7 +33,6 @@ public class AdminDao {
 
 		return list;
 	}
-	
 	public boolean deleteEduRegMod(EduRegModVo vo) {
 		logger.debug("DAO Start - deleteEduRegMod");
 		cmmService.objFieldTest(vo);
@@ -41,7 +40,17 @@ public class AdminDao {
 		logger.debug("DAO End - deleteEduRegMod");
 		return count == 1;
 	}
-
+	
+	public boolean updateEduRegMod(EduRegModVo vo) {
+		logger.debug("DAO Start - updateEduRegMod");
+		cmmService.objFieldTest(vo);
+		//int count =1;
+		int count = sqlSession.update("queryAdmin.updateEduRegMod", vo);
+		logger.debug("DAO End - updateEduRegMod : result {}", count);
+		//return true;
+		return count == 1;
+	}
+	
 	public boolean insertEduRegMod(EduRegModVo vo) {
 		logger.debug("DAO Start - insertEduRegMod");
 		cmmService.objFieldTest(vo);
@@ -68,38 +77,18 @@ public class AdminDao {
 		logger.debug("DAO Start - updateEduRndRegMod");
 		cmmService.objFieldTest(vo);
 		int count = sqlSession.update("queryAdmin.updateEduRndRegMod", vo);
-		logger.debug("DAO End - updateEduRndRegMod");
+		logger.debug("DAO End - updateEduRndRegMod : result {}", count);
 		//return true;
 		return count == 1;
 	}
-	/*
-	public boolean updateAdmin(Integer userId) {
-		int count = sqlSession.update("queryAdmin.updateEudRegModUseN", userId);
-		return count == 1;
-	}*/
-	
-
-	/*
-	public List<AdminVo> selectAdmList(AdminVo vo) {
-		List<AdminVo> list = sqlSession.selectList("queryLes.selectAdmList", vo);
-		return list;
-	}
-	
-	public boolean insertAdmin(AdminVo vo) {
-		int count = sqlSession.insert("queryLes.insertAdmin", vo);
+	public boolean deleteEduRndRegMod(EduRndRegModVo vo) {
+		logger.debug("DAO Start - deleteEduRndRegMod");
+		cmmService.objFieldTest(vo);
+		int count = sqlSession.update("queryAdmin.deleteEduRndRegMod", vo);
+		logger.debug("DAO End - deleteEduRndRegMod : result {}");
+		//return true;
 		return count == 1;
 	}
-	
-	public boolean updateAdmin(AdminVo vo) {
-		int count = sqlSession.delete("queryLes.updateAdmin", vo);
-		return count == 1;
-	}
-	
-	public boolean deleteAdmin(AdminVo rflbId) {
-		int count = sqlSession.delete("queryLes.deleteAdmin", rflbId);
-		return count == 1;	
-	}*/
-	
 	/************************************************************
 	 *                         교육신청현황
 	 ************************************************************/
