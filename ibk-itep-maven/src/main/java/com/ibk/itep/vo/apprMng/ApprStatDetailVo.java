@@ -1,21 +1,18 @@
 package com.ibk.itep.vo.apprMng;
 
-import java.text.SimpleDateFormat;
-import java.sql.Date;
-
 public class ApprStatDetailVo {
 	private Integer edctAplcId;
 	private String brnm;
 	private String userNm;
-	private Date aplcTs;	
+	private String aplcTs;	
 	private String dpmAthzDvcd;
 	private String dpmAthzNm;
 	private String dpmAthzCon;
-	private Date dpmAthzTs;
+	private String dpmAthzTs;
 	private String grmAthzDvcd;
 	private String grmAthzNm;
 	private String grmAthzCon;
-	private Date grmAthzTs;
+	private String grmAthzTs;
 	private String aplcStgCd;
 	private String rtreCon;
 	
@@ -38,13 +35,9 @@ public class ApprStatDetailVo {
 		this.userNm = userNm;
 	}
 	public String getAplcTs() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-		if(aplcTs != null)
-			return sdf.format(aplcTs);
-		else 
-			return "";
+		return aplcTs;
 	}
-	public void setAplcTs(Date aplcTs) {
+	public void setAplcTs(String aplcTs) {
 		this.aplcTs = aplcTs;
 	}
 	public String getDpmAthzDvcd() {
@@ -66,13 +59,9 @@ public class ApprStatDetailVo {
 		this.dpmAthzCon = dpmAthzCon;
 	}
 	public String getDpmAthzTs() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-		if(dpmAthzTs != null)
-			return sdf.format(dpmAthzTs);
-		else 
-			return "";
+		return dpmAthzTs;
 	}
-	public void setDpmAthzTs(Date dpmAthzTs) {
+	public void setDpmAthzTs(String dpmAthzTs) {
 		this.dpmAthzTs = dpmAthzTs;
 	}
 	public String getGrmAthzDvcd() {
@@ -94,13 +83,9 @@ public class ApprStatDetailVo {
 		this.grmAthzCon = grmAthzCon;
 	}
 	public String getGrmAthzTs() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-		if(grmAthzTs != null)
-			return sdf.format(grmAthzTs);
-		else 
-			return "";
+		return grmAthzTs;
 	}
-	public void setGrmAthzTs(Date grmAthzTs) {
+	public void setGrmAthzTs(String grmAthzTs) {
 		this.grmAthzTs = grmAthzTs;
 	}
 	public String getAplcStgCd() {

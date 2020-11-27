@@ -15,11 +15,15 @@
 	
 	<script>
 		// 팝업인지 아닌지 체크
-		// 팝업이 아닌 경우만 메뉴폴딩 아이콘 보며줌
 		if(!isPopup()) {
+			// 팝업이 아닌 경우만 메뉴폴딩 아이콘 보며줌
 			document.write('<div class="navbar-btn" style="position:fixed; right:35px; top:5px;">');
 			document.write('<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>');
 			document.write('</div>');
+		} else {
+			// 팝업이면 창 크기 자동조절
+	        document.body.style.height = "auto";
+	        resizeWindow(this);
 		}
 	</script>	
 </body>

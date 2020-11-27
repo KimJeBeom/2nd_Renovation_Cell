@@ -1,8 +1,5 @@
 package com.ibk.itep.vo.apprMng;
 
-import java.text.SimpleDateFormat;
-import java.sql.Date;
-
 public class ApprListVo {
 	private Integer edctAplcId;
 	private Integer edctCntId;
@@ -10,7 +7,7 @@ public class ApprListVo {
 	private String brnm;
 	private String userNm;
 	private String edctNm;
-	private Date aplcTs;
+	private String aplcTs;
 	
 	public Integer getEdctAplcId() {
 		return edctAplcId;
@@ -48,13 +45,10 @@ public class ApprListVo {
 	public void setEdctNm(String edctNm) {
 		this.edctNm = edctNm;
 	}
-	// Date 타입 데이터를 포맷변경하여 String 타입으로 반환
 	public String getAplcTs() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-		return sdf.format(aplcTs);
+		return aplcTs;
 	}
-	// String으로 받은 데이터를 Service에서 Date로 변환 후 DAO에게 넘겨야 함
-	public void setAplcTs(Date aplcTs) {
+	public void setAplcTs(String aplcTs) {
 		this.aplcTs = aplcTs;
 	}
 	 

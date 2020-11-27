@@ -37,7 +37,8 @@
 	<context:component-scan
 		base-package="com.ibk.itep.repository,
 						com.ibk.itep.service,
-						com.ibk.itep.common.file">
+						com.ibk.itep.common.file,
+						com.ibk.itep.common.excel">
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Repository" />
 		<context:include-filter type="annotation"

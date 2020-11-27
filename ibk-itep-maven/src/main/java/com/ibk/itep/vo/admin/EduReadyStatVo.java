@@ -1,19 +1,17 @@
 package com.ibk.itep.vo.admin;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-
 public class EduReadyStatVo {
 	private int edctCntId;
 	private String edctClsfCd;
 	private String edctClsfNm;
-	private Date edctSttgYmd;
-	private Date edctFnshYmd;
+	private String edctSttgYmd;
+	private String edctFnshYmd;
 	private String edctNm;
 	private String edinNm;
 	private int edctAplcIdCnt;
-	private Date sttgYmd; // 검색 시작일자
-	private Date fnshYmd; // 검색 종료일자
+	private String sttgYmd; // 검색 시작일자
+	private String fnshYmd; // 검색 종료일자
+	private String fnshYn;
 	
 	public int getEdctCntId() {
 		return edctCntId;
@@ -34,17 +32,15 @@ public class EduReadyStatVo {
 		this.edctClsfNm = edctClsfNm;
 	}
 	public String getEdctSttgYmd() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-		return sdf.format(edctSttgYmd);
+		return edctSttgYmd;
 	}
-	public void setEdctSttgYmd(Date edctSttgYmd) {
+	public void setEdctSttgYmd(String edctSttgYmd) {
 		this.edctSttgYmd = edctSttgYmd;
 	}
 	public String getEdctFnshYmd() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-		return sdf.format(edctFnshYmd);
+		return edctFnshYmd;
 	}
-	public void setEdctFnshYmd(Date edctFnshYmd) {
+	public void setEdctFnshYmd(String edctFnshYmd) {
 		this.edctFnshYmd = edctFnshYmd;
 	}
 	public String getEdctNm() {
@@ -66,23 +62,22 @@ public class EduReadyStatVo {
 		this.edctAplcIdCnt = edctAplcIdCnt;
 	}
 	public String getSttgYmd() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-		if(sttgYmd != null)
-			return sdf.format(sttgYmd);
-		else 
-			return "";
+		return sttgYmd;
 	}
-	public void setSttgYmd(Date sttgYmd) {
+	public void setSttgYmd(String sttgYmd) {
 		this.sttgYmd = sttgYmd;
 	}
 	public String getFnshYmd() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-		if(fnshYmd != null)
-			return sdf.format(fnshYmd);
-		else 
-			return "";
+		return fnshYmd;
 	}
-	public void setFnshYmd(Date fnshYmd) {
+	public void setFnshYmd(String fnshYmd) {
 		this.fnshYmd = fnshYmd;
 	}
+	public String getFnshYn() {
+		return fnshYn;
+	}
+	public void setFnshYn(String fnshYn) {
+		this.fnshYn = fnshYn;
+	}
+	
 }

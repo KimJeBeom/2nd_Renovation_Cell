@@ -17,7 +17,7 @@
 		]]>
 	</select>
 	
-	<select id="selectHomeBdnList" resultType="HomeBdnVo">
+	<select id="selectHomeBdnList" resultType="HomeNoticeVo">
 		<![CDATA[
 		SELECT PBNS_ID AS pbnsId
 			 , TTL AS ttl
@@ -29,7 +29,7 @@
 		]]>
 	</select>
 	
-	<select id="selectHomeEduNow" parameterType="String" resultType="HomeEduNowVo">
+	<select id="selectHomeEduNow" parameterType="String" resultType="HomeEduNowVO">
 		<![CDATA[
 		SELECT EDA.EDCT_APLC_ID AS edctAplcId
 			 , EDM.EDCT_NM AS edctNm

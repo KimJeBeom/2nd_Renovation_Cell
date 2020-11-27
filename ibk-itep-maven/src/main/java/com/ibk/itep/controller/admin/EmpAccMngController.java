@@ -3,8 +3,8 @@ package com.ibk.itep.controller.admin;
 import java.util.HashMap;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.ibk.itep.controller.HomeController;
 import com.ibk.itep.service.admin.EmpAccMngService;
 import com.ibk.itep.service.cmm.CmmService;
 import com.ibk.itep.vo.admin.EmpAccMngVo;
@@ -28,8 +28,6 @@ public class EmpAccMngController{
 	
 	@Autowired
 	private CmmService cmmService;
-
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	@RequestMapping(value = "/views/admin/empAccMng", method = RequestMethod.GET)
 	public String empAccList(Model model) {
@@ -47,6 +45,8 @@ public class EmpAccMngController{
 		return "/admin/empAccMng";
 	}
 	
+	
+	/* 사용자 계정 검색 */
 	@RequestMapping(value = "/views/admin/empAccMngSearch", method = RequestMethod.POST)
 	public @ResponseBody HashMap<String, Object> empAccMngSearch(Model model 
 						 			 , @RequestParam(value="brcd", required=false) String brcd
@@ -67,6 +67,8 @@ public class EmpAccMngController{
 		return result;
 	}
 	
+	
+	/* 사용자 계정권한 변경 */
 	@RequestMapping(value = "/views/admin/updateEmpAccMng", method = RequestMethod.POST)
 	public String updateEmpAccMng(Model model 
 						 			 , @RequestParam(value="brcd", required=false) String brcd
@@ -79,4 +81,26 @@ public class EmpAccMngController{
 		
 		return "forward:/views/admin/empAccMngSearch";
 	}
+	
+	
+	/* 엑셀 다운로드 */
+	@RequestMapping(value = "/views/admin/EmpAccMngExcelDown", method = RequestMethod.POST)
+	public void EmpAccMngExcelDown(MultipartHttpServletRequest req, HttpServletResponse res) {
+
+        eduAccMngService.EmpAccMngExcelDown(req, res);  
+	}
+
+	/* 엑셀 업로드 - 현재 미사용 */ 
+	/*
+	 * @RequestMapping(value = "/views/admin/EmpAccMngExcelUp", method =
+	 * RequestMethod.POST) public String excelUpload(@RequestParam("file")
+	 * MultipartFile file, Model model) throws java.io.IOException {
+	 * 
+	 * List<EmpAccMngExcelVo> excelList = eduAccMngService.EmpAccMngExcelUp(file);
+	 * model.addAttribute("excelList", excelList); // 5
+	 * 
+	 * return "/admin/pop/excelResultPop";
+	 * 
+	 * }
+	 */
 }

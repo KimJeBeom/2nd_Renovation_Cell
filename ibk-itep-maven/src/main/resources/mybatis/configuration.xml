@@ -11,8 +11,8 @@
 		<typeAlias alias="EduInfoVo" type="com.ibk.itep.vo.eduApply.EduInfoVo"></typeAlias>
 		<typeAlias alias="NewEduApplyVo" type="com.ibk.itep.vo.eduApply.NewEduApplyVo"></typeAlias>
 		<typeAlias alias="SessionVo" type="com.ibk.itep.vo.SessionVo"></typeAlias>
-		<typeAlias alias="HomeBdnVo" type="com.ibk.itep.vo.HomeBdnVo"></typeAlias>
-		<typeAlias alias="HomeEduNowVo" type="com.ibk.itep.vo.HomeEduNowVo"></typeAlias>
+		<typeAlias alias="HomeNoticeVo" type="com.ibk.itep.vo.HomeNoticeVo"></typeAlias>
+		<typeAlias alias="HomeEduNowVO" type="com.ibk.itep.vo.HomeEduNowVO"></typeAlias>
 		<!-- home -->
 		<!-- Myclass -->
 		<typeAlias alias="EduNowVo" type="com.ibk.itep.vo.myClass.EduNowVO"></typeAlias>
@@ -35,12 +35,15 @@
 		<typeAlias alias="ArchieveVo" type="com.ibk.itep.vo.board.ArchieveVo"></typeAlias>
 		<!-- admin -->
 		<typeAlias alias="EduEmpListVo" type="com.ibk.itep.vo.admin.EduEmpListVo"></typeAlias>
+		<typeAlias alias="EduEmpListExcelVo" type="com.ibk.itep.vo.admin.EduEmpListExcelVo"></typeAlias>
 		<typeAlias alias="EduHistoryVo" type="com.ibk.itep.vo.admin.EduHistoryVo"></typeAlias>
 		<typeAlias alias="EduOpenReadyStatVo" type="com.ibk.itep.vo.admin.EduOpenReadyStatVo"></typeAlias>
 		<typeAlias alias="EduReadyStatVo" type="com.ibk.itep.vo.admin.EduReadyStatVo"></typeAlias>
 		<typeAlias alias="EduRegModVo" type="com.ibk.itep.vo.admin.EduRegModVo"></typeAlias>
 		<typeAlias alias="EduRndRegModVo" type="com.ibk.itep.vo.admin.EduRndRegModVo"></typeAlias>
 		<typeAlias alias="EmpAccMngVo" type="com.ibk.itep.vo.admin.EmpAccMngVo"></typeAlias>
+		<typeAlias alias="EmpAccMngExcelVo" type="com.ibk.itep.vo.admin.EmpAccMngExcelVo"></typeAlias>
+		<typeAlias alias="NewEduInfoVo" type="com.ibk.itep.vo.admin.NewEduInfoVo"></typeAlias>
 		<!-- cmm -->
 		<typeAlias alias="ClaVo" type="com.ibk.itep.vo.cmm.ClaVo"></typeAlias>
 		<typeAlias alias="CliVo" type="com.ibk.itep.vo.cmm.CliVo"></typeAlias>

@@ -1,8 +1,6 @@
 package com.ibk.itep.vo.apprMng;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class ApprListDetailVo {
 	private Integer edctAplcId;
@@ -13,10 +11,10 @@ public class ApprListDetailVo {
 	private String edinNm;
 	private String edctLevl;
 	private String onlEdctYn;
-	private Date edctSttgYmd;
-	private Date edctFnshYmd;
-	private Date aplcSttgYmd;
-	private Date aplcFnshYmd;
+	private String edctSttgYmd;
+	private String edctFnshYmd;
+	private String aplcSttgYmd;
+	private String aplcFnshYmd;
 	private File apndDat;
 	
 	public Integer getEdctAplcId() {
@@ -68,37 +66,27 @@ public class ApprListDetailVo {
 		this.onlEdctYn = onlEdctYn;
 	}
 	public String getEdctSttgYmd() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		return sdf.format(edctSttgYmd);
+		return edctSttgYmd;
 	}
-	public void setEdctSttgYmd(Date edctSttgYmd) {
+	public void setEdctSttgYmd(String edctSttgYmd) {
 		this.edctSttgYmd = edctSttgYmd;
 	}
 	public String getEdctFnshYmd() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		return sdf.format(edctFnshYmd);
+		return edctFnshYmd;
 	}
-	public void setEdctFnshYmd(Date edctFnshYmd) {
+	public void setEdctFnshYmd(String edctFnshYmd) {
 		this.edctFnshYmd = edctFnshYmd;
 	}
 	public String getAplcSttgYmd() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-		if(aplcSttgYmd != null)
-			return sdf.format(aplcSttgYmd);
-		else 
-			return "";
+		return aplcSttgYmd;
 	}
-	public void setAplcSttgYmd(Date aplcSttgYmd) {
+	public void setAplcSttgYmd(String aplcSttgYmd) {
 		this.aplcSttgYmd = aplcSttgYmd;
 	}
 	public String getAplcFnshYmd() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-		if(aplcFnshYmd != null)
-			return sdf.format(aplcFnshYmd);
-		else 
-			return "";
+		return aplcFnshYmd;
 	}
-	public void setAplcFnshYmd(Date aplcFnshYmd) {
+	public void setAplcFnshYmd(String aplcFnshYmd) {
 		this.aplcFnshYmd = aplcFnshYmd;
 	}
 	public File getApndDat() {

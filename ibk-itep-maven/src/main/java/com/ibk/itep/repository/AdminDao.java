@@ -1,6 +1,7 @@
 package com.ibk.itep.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -8,12 +9,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ibk.itep.vo.admin.EduEmpListExcelVo;
 import com.ibk.itep.vo.admin.EduEmpListVo;
 import com.ibk.itep.vo.admin.EduOpenReadyStatVo;
 import com.ibk.itep.vo.admin.EduReadyStatVo;
 import com.ibk.itep.vo.admin.EduRegModVo;
 import com.ibk.itep.vo.admin.EduRndRegModVo;
+import com.ibk.itep.vo.admin.EmpAccMngExcelVo;
 import com.ibk.itep.vo.admin.EmpAccMngVo;
+import com.ibk.itep.vo.admin.NewEduInfoVo;
 
 @Repository
 public class AdminDao {
@@ -82,8 +86,25 @@ public class AdminDao {
 	}
 	
 	/* 수강신청현황 > 교육신청직원목록 팝업 */
-	public List<EduEmpListVo> selectEduEmpListPop(String edctCntId) {
+	public List<EduEmpListVo> selectEduEmpListPop(int edctCntId) {
 		List<EduEmpListVo> list = sqlSession.selectList("queryAdmin.selectEduEmpListPop", edctCntId);
+		return list;
+	}
+	
+	/* 수강신청현황 > 교육신청직원목록 > 수료/미수료 처리 */
+	public void updateEduEmpListPopCtcrYn(Map<String, String> map) {
+		
+		sqlSession.update("queryAdmin.updateEduEmpListPopCtcrYn", map);
+	}
+	
+	/* 수강신청현황 > 교육신청직원목록 > 차수완료 */
+	public void updateEduEmpListPopFnshY(int edctCntId) {
+		sqlSession.selectList("queryAdmin.updateEduEmpListPopFnshY", edctCntId);
+	}
+	
+	/* 엑셀 다운로드 */
+	public List<EduEmpListExcelVo> selectEduEmpListExcel(int edctCntId) {
+		List<EduEmpListExcelVo> list = sqlSession.selectList("queryAdmin.selectEduEmpListExcel", edctCntId);
 		return list;
 	}
 	
@@ -94,9 +115,14 @@ public class AdminDao {
 	}
 	
 	/* 과정개설신청현황 상세 팝업*/
-	public EduOpenReadyStatVo selectNewEduInfoPop(int aplcId) {
-		EduOpenReadyStatVo vo = sqlSession.selectOne("queryAdmin.selectNewEduInfoPop", aplcId);
+	public NewEduInfoVo selectNewEduInfoPop(int aplcId) {
+		NewEduInfoVo vo = sqlSession.selectOne("queryAdmin.selectNewEduInfoPop", aplcId);
 		return vo;
+	}
+	
+	/* 과정개설신청 확인 처리 */
+	public void updateNewEduInfoPop(NewEduInfoVo vo) {
+		sqlSession.update("queryAdmin.updateNewEduInfoPop", vo);
 	}
 	
 	/************************************************************
@@ -104,6 +130,12 @@ public class AdminDao {
 	 ************************************************************/
 	public List<EmpAccMngVo> selectEmpAccMng(EmpAccMngVo vo) {
 		List<EmpAccMngVo> list = sqlSession.selectList("queryAdmin.selectEmpAccMng", vo);
+		return list;
+	}
+	
+	/* 엑셀 다운로드 */
+	public List<EmpAccMngExcelVo> selectEmpAccMngExcel(EmpAccMngVo vo) {
+		List<EmpAccMngExcelVo> list = sqlSession.selectList("queryAdmin.selectEmpAccMngExcel", vo);
 		return list;
 	}
 	
