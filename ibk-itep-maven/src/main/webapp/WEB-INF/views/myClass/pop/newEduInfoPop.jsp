@@ -64,7 +64,20 @@
 										</tr>
 										<tr>
 											<th>첨부파일</th>
-											<td class="txt-long" colspan="3">${newEduInfoPop.apndDat }</td>
+								   		   <td colspan="3">
+								   			<section id="container">
+												<form name="readForm" role="form" method="post">
+													<input id="file_no" name="file_no" style="display:none" value="" > 
+												</form>
+													<c:forEach items="${fileVoList}" var="file">
+														<c:if test="${file.del_yn == 'N'}">
+															<div class="form-group" style="border: 1px solid #dbdbdb; text-align:Left;">
+																<a href="#" onclick="fn_fileDown('${file.file_no}'); return false;">${file.org_file_name}</a>(${file.file_size}kb)
+															</div>
+														</c:if>
+													</c:forEach>
+											</section>
+										</td>
 										</tr>
 									</tbody>
 								</table>
@@ -83,4 +96,44 @@
 
 <!-- FOOTER -->
 <jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+
+var fileNoArry = new Array();
+
+function fn_fileDown(fileNo){
+var formObj = $("form[name='readForm']");
+$("#file_no").attr("value", fileNo);
+formObj.attr("action", "/itep/views/cmm/fileDownload");
+formObj.submit();
+}
+
+function fn_del(file_no){
+	fileNoArry.push(file_no);
+	$("#fileNoDel").attr("value", fileNoArry);
+	$(document).on("click","#fileDel", function(){
+	$(this).parent().remove();
+});
+	//alert(fileNoArry);
+}
+
+function fn_fileUpdate(){
+	var formObj = $("form[name='updateForm']");
+	formObj.submit();
+}
+
+$(document).ready(function(){
+fn_addFile();
+})
+function fn_addFile(){
+var fileIndex = 1;
+$(".fileAdd_btn").on("click", function(){
+	$("#fileIndex").append("<div><input type='file' style='float: left;width:90%;' name='file_"+(fileIndex++)+"'>"+"<button style='float: left' type='button' id='fileDelBtn'>"+"삭제"+"</button></div>");	});
+$(document).on("click","#fileDelBtn", function(){
+	$(this).parent().remove();
+	
+});
+}
+</script>
 

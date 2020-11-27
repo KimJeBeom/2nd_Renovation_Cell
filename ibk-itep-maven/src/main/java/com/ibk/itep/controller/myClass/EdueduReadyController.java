@@ -74,6 +74,7 @@ public class EdueduReadyController {
 		/*수강신청 목록 - 반려건 재결재요청*/
 		@RequestMapping(value = "/views/myClass/eduInfoPop/reApply", method = RequestMethod.POST)
 		public @ResponseBody int reApply(@RequestParam("code_nm") String code_nm,  @RequestParam("pbns_id") String pbns_id,
+										 @RequestParam("fileNoArray[]") int[] fileNoDel, @RequestParam("addFileCnt") String addFileCnt, 
 										 MultipartHttpServletRequest mpRequest, HttpServletRequest request, Model model, EduInfoPopVO infoVo) {
 			
 			/* 세션정보를 담은 SessionVo 가져옴 */
@@ -82,17 +83,25 @@ public class EdueduReadyController {
 			
 			//첨부파일 업로드
 			logger.info("FILE Upload Start");
+			logger.info("addFileCnt : " + addFileCnt + "fileNoDel : " + fileNoDel);
 			
+			if(Integer.parseInt(addFileCnt) > 0 || fileNoDel.length > 0) {
+				
 			int id;
 			id = Integer.parseInt(pbns_id);
-			logger.info(pbns_id, code_nm);
-
-			int uploadCount = fileUtil.fileUpload(code_nm, id, mpRequest);
+			fileUtil.fileUpdate(fileNoDel,code_nm,id,mpRequest);
+			
 			logger.info("FILE Upload End");
-			logger.debug("upload file count : " + String.valueOf(uploadCount));
+
+	   }else {
+		   logger.info("addFileCnt : " + addFileCnt + "fileNoDel : " + fileNoDel);
+	   }
 			
 			return myClassService.updateEduInfoPop(infoVo, ssnInfo);
-	 }
+	}
+	
+
+}
+
 
 	 
-}

@@ -24,9 +24,8 @@
 									<tbody>
 									<c:if test="${modType != 'history' && (eduInfoPop.aplcStgCd == 'REJDPM' || eduInfoPop.aplcStgCd == 'REJGRM') }">
 										<tr>
-											<td style="width: 10%;"></td>
-											<td style="width: 20%; padding-left: 30px; text-align: center; padding-bottom: 10px;"><b>▶부서 결재자</b></td>
-											<td style="width: 30%; padding-bottom: 10px;">
+											<td style="width: 5%; text-align: center; padding-bottom: 10px;"><b>■ 부서 결재자</b></td>
+											<td style="width: 10%; padding-bottom: 10px;">
 												<div>
 													<select class="form-control" id="dpmAthzId">
 													<c:forEach items="${dpmList}" var="dpmList">
@@ -69,35 +68,53 @@
 										</tr>
 									<c:choose>
 									<c:when test="${modType != 'history' && (eduInfoPop.aplcStgCd == 'REJDPM' || eduInfoPop.aplcStgCd == 'REJGRM') }">
-																		<tr>
-										   <th>첨부파일<br><button class="fileAdd_btn" type="button">파일추가</button></th>
-										   <td colspan="3">
-												<form name="writeForm"  id="applyForm" method="post" action="upload" enctype="multipart/form-data">
-												<input type="text" name="code_nm" style="display:none" value="EDA">
-												<input id="edctAplcId" type="text" name="pbns_id" style="display:none" value="${eduInfoPop.edctAplcId}">
-												<c:forEach items="${fileVoList}" var="file">
-													<c:if test="${file.del_yn == 'N'}">
-														<div class="form-group" style="border: 1px solid #dbdbdb;">
-															<a href="#" onclick="fn_fileDown('${file.file_no}'); return false;">${file.org_file_name}</a>(${file.file_size}kb)
-															<button id="fileDel" onclick="fn_del('${file.file_no}');" type="button">삭제</button><br>
-														</div>
-													</c:if>
-												</c:forEach>
-												<div id="fileIndex"></div>
+										<tr>
+										  <th>첨부파일</th>
+										  <td colspan="3">
+								   			<section id="container">
+												<form name="updateForm" role="form" method="post" action="/itep/updateFile" enctype="multipart/form-data">
+													<input type="hidden" id="fileNoDel" name="fileNoDel[]" value=""> 
 												</form>
-										   </td>
-										</tr>
-								    </c:when>
+												<form name="readForm" role="form" method="post">
+													<input id="file_no" name="file_no" style="display:none" value="" > 
+												</form>
+													<c:forEach items="${fileVoList}" var="file">
+														<c:if test="${file.del_yn == 'N'}">
+															<div class="form-group" style="border: 1px solid #dbdbdb; text-align:Left;">
+																<a href="#" onclick="fn_fileDown('${file.file_no}'); return false;">${file.org_file_name}</a>(${file.file_size}kb)
+																<button id="fileDel" onclick="fn_del('${file.file_no}');" type="button">삭제</button><br>
+															</div>
+														</c:if>
+													</c:forEach>
+											</section>
+											</td>
+										   </tr>
+											<tr>
+										   <th><button class="fileAdd_btn" type="button">파일추가</button></th>
+														   <td colspan="3">
+																<form name="writeForm"  id="applyForm" method="post" action="upload" enctype="multipart/form-data">
+																<input type="text" name="code_nm" style="display:none" value="EDA">
+																<input id="edctAplcId" type="text" name="pbns_id" style="display:none" value="${eduInfoPop.edctAplcId}">
+																<div id="fileIndex"></div>
+																</form>
+														   </td>
+														</tr>
+												    </c:when>
 								    <c:otherwise>
 								   		   <th>첨부파일</th>
 								   		   <td colspan="3">
-								    	<c:forEach items="${fileVoList}" var="file">
-											<c:if test="${file.del_yn == 'N'}">
-												<div class="form-group" style="border: 1px solid #dbdbdb;">
-													<a href="#" onclick="fn_fileDown('${file.file_no}'); return false;">${file.org_file_name}</a>(${file.file_size}kb)
-												</div>
-											</c:if>
-										</c:forEach>
+								   			<section id="container">
+												<form name="readForm" role="form" method="post">
+													<input id="file_no" name="file_no" style="display:none" value="" > 
+												</form>
+													<c:forEach items="${fileVoList}" var="file">
+														<c:if test="${file.del_yn == 'N'}">
+															<div class="form-group" style="border: 1px solid #dbdbdb; text-align:Left;">
+																<a href="#" onclick="fn_fileDown('${file.file_no}'); return false;">${file.org_file_name}</a>(${file.file_size}kb)
+															</div>
+														</c:if>
+													</c:forEach>
+											</section>
 										</td>
 								    </c:otherwise>
 									</c:choose>
@@ -146,11 +163,14 @@
 			
 			var dpmAthzId = $("#dpmAthzId").val(); //부서결재자
 			var edctAplcId = $("#edctAplcId").val();//결재번호
+			var addFileCnt = $('.addFile').length;
 
 			var form = $('#applyForm')[0];
 			var formData = new FormData(form);
 			formData.append("dpmAthzId",dpmAthzId);
 			formData.append("edctAplcId",edctAplcId);
+			formData.append('fileNoArray[]',fileNoArry);
+			formData.append("addFileCnt",addFileCnt);
 			
 				$.ajax({
 			    	url:"/itep/views/myClass/eduInfoPop/reApply", //데이터를  넘겨줄 링크 설정
@@ -180,6 +200,27 @@
 			 	});
 			}	
 
+		   var fileNoArry = new Array();
+		   
+			function fn_fileDown(fileNo){
+			var formObj = $("form[name='readForm']");
+			$("#file_no").attr("value", fileNo);
+			formObj.attr("action", "/itep/views/cmm/fileDownload");
+			formObj.submit();
+			}
+			
+			function fn_del(file_no){
+				fileNoArry.push(file_no);
+				$("#fileNoDel").attr("value", fileNoArry);
+				$(document).on("click","#fileDel", function(){
+				$(this).parent().remove();
+			});
+		}
+			
+			function fn_fileUpdate(){
+				var formObj = $("form[name='updateForm']");
+				formObj.submit();
+			}
 
 		$(document).ready(function(){
 			fn_addFile();
@@ -187,7 +228,7 @@
 		function fn_addFile(){
 			var fileIndex = 1;
 			$(".fileAdd_btn").on("click", function(){
-				$("#fileIndex").append("<div><input type='file' style='float: left;width:90%;' name='file_"+(fileIndex++)+"'>"+"<button style='float: left' type='button' id='fileDelBtn'>"+"삭제"+"</button></div>");	});
+				$("#fileIndex").append("<div class='addFile'><input type='file' style='float: left;width:90%;' name='file_"+(fileIndex++)+"'>"+"<button style='float: left' type='button' id='fileDelBtn'>"+"삭제"+"</button></div>");	});
 			$(document).on("click","#fileDelBtn", function(){
 				$(this).parent().remove();
 				
