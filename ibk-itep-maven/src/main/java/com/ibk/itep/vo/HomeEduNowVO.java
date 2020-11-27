@@ -30,5 +30,5 @@ public class HomeEduNowVO {
 	}
 	public void setEdctFnshYmd(String edctFnshYmd) {
 		this.edctFnshYmd = edctFnshYmd;
-	}
+	}	
 }
