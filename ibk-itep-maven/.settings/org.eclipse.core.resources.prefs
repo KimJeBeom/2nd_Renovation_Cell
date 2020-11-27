@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/main/resources/config/dbconfig.properties=UTF-8
 encoding//src/main/webapp/WEB-INF/views/form.jsp=UTF-8
 encoding//src/main/webapp/assets/css/bootstrap.css=UTF-8
 encoding//src/main/webapp/assets/css/bootstrap.min.css=UTF-8

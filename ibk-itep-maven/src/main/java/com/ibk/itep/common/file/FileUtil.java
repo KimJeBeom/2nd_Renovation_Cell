@@ -12,13 +12,16 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Service
 public class FileUtil {
-	private static final String SAVE_PATH = "dat";
+	
+	@Value("${file.path}")
+	private String SAVE_PATH;
 	
 	private static final Logger logger = LoggerFactory.getLogger(FileUtil.class);
 	
@@ -28,20 +31,33 @@ public class FileUtil {
 	
 	public void fileUpdate(int[] fileNoDel, String code_nm, int pbns_id, MultipartHttpServletRequest mpRequest) {
 		
-		if(fileNoDel.length !=0 )
+		if(fileNoDel.length !=0 ) {
 			logger.debug("file update count : " + String.valueOf(fileNoDel.length));
+			fileDao.updateFile(fileNoDel);
 			for(int fileNoDel1 : fileNoDel) {
-				fileDao.updateFile(fileNoDel1);
+				FileVo fileVo =fileDao.selectFileInfo(fileNoDel1);
+				String delfile = fileVo.getUpload_path() + fileVo.getStored_file_name();
+				File file = new File(delfile);
+				if(file.exists()) {
+					file.delete();
+					logger.debug(delfile + "삭제완료");
+				}else
+					logger.debug(delfile + "파일이 없어, 삭제 실패");
 			}
-		
+			/*for(int fileNoDel1 : fileNoDel) {
+				fileDao.updateFile(fileNoDel1);
+			}*/
+		}
 		if(mpRequest != null) {
 			Iterator<String> iterator = mpRequest.getFileNames();
-			MultipartFile multipartFile = mpRequest.getFile(iterator.next());
-			if(!multipartFile.getOriginalFilename().isEmpty()) {
-				logger.debug("file update code_nm : " + code_nm);
-				logger.debug("file update pbns_id : " + pbns_id);
-				logger.debug("file update size : " + multipartFile.getOriginalFilename().isEmpty());
-				fileUpload(code_nm, pbns_id, mpRequest);
+			if(iterator.hasNext()) {
+				MultipartFile multipartFile = mpRequest.getFile(iterator.next());
+				if(!multipartFile.getOriginalFilename().isEmpty()) {
+					logger.debug("file update code_nm : " + code_nm);
+					logger.debug("file update pbns_id : " + pbns_id);
+					logger.debug("file update size : " + multipartFile.getOriginalFilename().isEmpty());
+					fileUpload(code_nm, pbns_id, mpRequest);
+				}
 			}
 		}
 	}
@@ -49,6 +65,28 @@ public class FileUtil {
 	public FileVo fileDownload(int file_no) {
 		logger.debug(String.valueOf(file_no));
 		return fileDao.selectFileInfo(file_no);
+	}
+	
+	public int fileAllDelete(String code_nm, int pbns_id) {
+		logger.debug(String.valueOf("게시판 이름 : " + code_nm));
+		logger.debug(String.valueOf("게시글 번호 : " + pbns_id));
+		FileVo fileVo = new FileVo();
+		fileVo.setCode_nm(code_nm);
+		fileVo.setPbns_id(pbns_id);
+		int delCount = fileDao.deleteAllFileInfo(fileVo);
+		List<FileVo> fileVos = fileDao.selectFileInfoList(fileVo);
+		
+		for(FileVo fileVo2 : fileVos) {
+			String delfile = fileVo2.getUpload_path() + fileVo2.getStored_file_name();
+			File file = new File(delfile);
+			if(file.exists()) {
+				file.delete();
+				logger.debug(delfile + "삭제완료");
+			}else
+				logger.debug(delfile + "파일이 없어, 삭제 실패");
+		}
+		logger.debug("파일삭제 완료 :" + delCount );
+		return delCount;
 	}
 	
 	public List<FileVo> selectFileList(String code_nm, int pbns_id) {
