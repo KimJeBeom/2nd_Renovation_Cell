@@ -206,6 +206,7 @@ function insertNewEduRegPop(){
 		}, //넘겨줄 데이터
 		success: function (responseData) {
 			alert("정상등록되었습니다.");
+			 opener.location.reload();
 			window.open("about:blank", "_self").close();
 		},
 		error: function (xhr, status, error) {

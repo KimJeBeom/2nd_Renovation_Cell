@@ -1,9 +1,6 @@
 package com.ibk.itep.controller.admin;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,13 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ibk.itep.controller.HomeController;
-import com.ibk.itep.repository.CmmDao;
-import com.ibk.itep.repository.board.NoticeDao;
 import com.ibk.itep.service.admin.EduRegModService;
 import com.ibk.itep.service.cmm.CmmService;
 import com.ibk.itep.vo.admin.EduRegModVo;
-import com.ibk.itep.vo.board.NoticeVo;
 import com.ibk.itep.vo.cmm.CldVo;
 
 
