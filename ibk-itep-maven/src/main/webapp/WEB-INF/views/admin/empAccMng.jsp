@@ -72,9 +72,9 @@
 										</tbody>
 									</table>
 									<form id="excelForm" role="form" method="post" enctype="multipart/form-data">
-										<input type="hidden" id="ebrcd" name="brcd" value="">
-										<input type="hidden" id="euserIdNm" name="userIdNm" value="">
-										<input type="hidden" id="eathrCd" name="athrCd" value="">
+										<input type="hidden" id="eBrcd" name="brcd" value="">
+										<input type="hidden" id="eUserIdNm" name="userIdNm" value="">
+										<input type="hidden" id="eAthrCd" name="athrCd" value="">
 									</form>
 								</div>
 							</div>
@@ -137,13 +137,14 @@
 		$("#brcd").keyup(function(e){if(e.keyCode == 13)  search(); });
 		$("#userIdNm").keyup(function(e){if(e.keyCode == 13)  search(); });
 		$("#athrCd").keyup(function(e){if(e.keyCode == 13)  search(); });
-		
+				
 		// 검색
 		function search() {
+			// 검색창에 입력된값 
 			var brcd = $('#brcd option:selected').val();
 			var userIdNm = $('#userIdNm').val();
 			var athrCd = $('#athrCd option:selected').val();
-						
+			
 			$.ajax({
 		    	url:"/itep/views/admin/empAccMngSearch", //데이터를  넘겨줄 링크 설정
 		        type:"POST", // post 방식
@@ -163,7 +164,7 @@
 			var athrCdTobe = this.value; // 변경 후 권한코드
 			var athrCdAsis = $(this).parent().parent().children().eq(6).text();
 			var userId = $(this).parent().parent().children().eq(1).text(); // 권한 변경할 직원 번호
-			
+
 			// 검색창에 입력된값 
 			var brcd = $('#brcd option:selected').val();
 			var userIdNm = $('#userIdNm').val();
@@ -221,15 +222,15 @@
 			$('#empAccTBody').replaceWith(str);
 		}
 		
-		function excelDownload() {
+		function excelDownload() {		
 			// 검색창에 입력된값 
 			var brcd = $('#brcd option:selected').val();
 			var userIdNm = $('#userIdNm').val();
 			var athrCd = $('#athrCd option:selected').val();
 			
-			$("#ebrcd").attr("value", brcd);
-			$("#userIdNm").attr("value", userIdNm);
-			$("#athrCd").attr("value", athrCd);
+			$("#eBrcd").attr("value", brcd);
+			$("#eUserIdNm").attr("value", userIdNm);
+			$("#eAthrCd").attr("value", athrCd);
 			
 			var formObj = $("#excelForm");
 			formObj.attr("action", "/itep/views/admin/EmpAccMngExcelDown");

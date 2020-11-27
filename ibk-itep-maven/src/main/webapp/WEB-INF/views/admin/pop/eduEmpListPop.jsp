@@ -41,7 +41,10 @@
 
 							<!-- 교육신청 직원목록 -->
 							<h4 style="float: left;">교육신청 직원목록</h4>
-							<button type="button" class="btn btn-primary btn-toastr btn-top">엑셀 다운로드</button>
+							<form action="/itep/views/admin/pop/EduEmpListPopExcelDown" role="form" method="post" enctype="multipart/form-data">
+								<input type="hidden" id="edctCntId" name="edctCntId" value="${eduEmpList[0].edctCntId }">
+								<input type="submit" class="btn btn-primary btn-toastr btn-top" value="엑셀 다운로드" />
+							</form>
 
 							<table class="table table-bordered tbl-type2">
 								<thead>

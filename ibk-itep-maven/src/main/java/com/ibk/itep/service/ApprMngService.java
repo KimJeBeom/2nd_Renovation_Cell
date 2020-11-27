@@ -41,11 +41,16 @@ public class ApprMngService {
 	/* 결재할 문서 상세내용 */
 	public ApprListDetailVo selectApprListDetail(int edctAplcId){
 		ApprListDetailVo vo = apprMngDAO.selectApprListDetail(edctAplcId);
+		
 		// 날짜 포맷 변경
 		vo.setEdctSttgYmd(changeDateFormat(vo.getEdctSttgYmd()));
 		vo.setEdctFnshYmd(changeDateFormat(vo.getEdctFnshYmd()));
 		vo.setAplcSttgYmd(changeDateFormat(vo.getAplcSttgYmd()));
 		vo.setAplcFnshYmd(changeDateFormat(vo.getAplcFnshYmd()));
+		
+		// 교육내용 개행처리
+		vo.setEdctCon(vo.getEdctCon().replace("\n", "<br>"));
+		
 		return vo;
 	}
 	
@@ -89,9 +94,6 @@ public class ApprMngService {
 			
 			// 교육신청 단계가 부서결재단계, 그룹결재단계 이면 반려처리 진행
 			if(aplcStgCd.equals("APRDPM") || aplcStgCd.equals("APRGRM")) {
-				
-				// 반려사유 개행처리
-				rtreCon = rtreCon.replace("\n", "<br />");
 				
 				// 파라미터 전달을 위한 vo 객체 생성
 				ApprConfRejVo apprConfRejVo = new ApprConfRejVo();
@@ -182,21 +184,7 @@ public class ApprMngService {
 	public ApprStatDetailVo selectApprStatDetail(int edctAplcId){
 		
 		ApprStatDetailVo vo = apprMngDAO.selectApprStatDetail(edctAplcId);
-		
-		// null 체크 및 날짜 포맷 변경
-		if(vo.getAplcTs() == null)
-			vo.setAplcTs("");
-		else
-			vo.setAplcTs(changeDateFormat(vo.getAplcTs())); 
-		if(vo.getDpmAthzTs() == null)
-			vo.setDpmAthzTs("");
-		else
-			vo.setDpmAthzTs(changeDateFormat(vo.getDpmAthzTs()));
-		if(vo.getGrmAthzTs() == null)
-			vo.setGrmAthzTs("");
-		else
-			vo.setGrmAthzTs(changeDateFormat(vo.getGrmAthzTs())); 
-		
+
 		/*
 		 *  결재단계코드에 따른 결재의견 지정
 		 *  APRFIN - DPM, GRM 결재완료
@@ -217,12 +205,26 @@ public class ApprMngService {
 			vo.setDpmAthzCon("결재완료");
 			vo.setGrmAthzCon("결재중");
 		} else if(aplcStgCd.equals("REJDPM")) {
-			vo.setDpmAthzCon(vo.getRtreCon());
+			vo.setDpmAthzCon(vo.getRtreCon().replace("\n", "<br>"));
 			vo.setGrmAthzCon("");
 		} else if(aplcStgCd.equals("REJGRM")) {
 			vo.setDpmAthzCon("결재완료");
-			vo.setGrmAthzCon(vo.getRtreCon());
+			vo.setGrmAthzCon(vo.getRtreCon().replace("\n", "<br>"));
 		}
+		
+		// null 체크 및 날짜 포맷 변경
+		if(vo.getAplcTs() == null)
+			vo.setAplcTs("");
+		else
+			vo.setAplcTs(changeDateFormat(vo.getAplcTs())); 
+		if(vo.getDpmAthzTs() == null)
+			vo.setDpmAthzTs("");
+		else
+			vo.setDpmAthzTs(changeDateFormat(vo.getDpmAthzTs()));
+		if(vo.getGrmAthzTs() == null)
+			vo.setGrmAthzTs("");
+		else
+			vo.setGrmAthzTs(changeDateFormat(vo.getGrmAthzTs())); 
 		
 		return vo;
 	}

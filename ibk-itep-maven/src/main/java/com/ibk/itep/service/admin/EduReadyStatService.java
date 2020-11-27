@@ -7,13 +7,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ibk.itep.common.excel.ExcelUtil;
 import com.ibk.itep.repository.AdminDao;
 import com.ibk.itep.vo.SessionVo;
+import com.ibk.itep.vo.admin.EduEmpListExcelVo;
 import com.ibk.itep.vo.admin.EduEmpListVo;
 import com.ibk.itep.vo.admin.EduOpenReadyStatVo;
 import com.ibk.itep.vo.admin.EduReadyStatVo;
@@ -25,6 +28,8 @@ public class EduReadyStatService {
 	@Autowired
 	private AdminDao adminDao;
 
+	@Autowired
+	private ExcelUtil excelUtil;
 	
 	/* 수강신청현황 */	
 	public List<EduReadyStatVo> selectEduReadyStat(String sttgYmd, String fnshYmd, String edctClsfCd, String edctNm){		
@@ -76,8 +81,8 @@ public class EduReadyStatService {
 	public List<EduEmpListVo> selectEduEmpListPop(int edctCntId){	
 		List<EduEmpListVo> list = adminDao.selectEduEmpListPop(edctCntId);
 		
-		// 날짜 포맷 변경
 		for(EduEmpListVo vo : list) {
+			// 날짜 포맷 변경
 			if(vo.getEdctSttgYmd() == null)
 				vo.setEdctSttgYmd("");
 			else
@@ -86,6 +91,9 @@ public class EduReadyStatService {
 				vo.setEdctFnshYmd("");
 			else
 				vo.setEdctFnshYmd(changeDateFormat(vo.getEdctFnshYmd()));
+			
+			// 교육내용 개행처리
+			vo.setEdctCon(vo.getEdctCon().replace("\n", "<br>"));
 		}
 		
 		return list;
@@ -109,6 +117,25 @@ public class EduReadyStatService {
 			paramMap.put("ctcrYn", map.get(key));
 			adminDao.updateEduEmpListPopCtcrYn(paramMap); // 수료처리
 		}
+	}
+	
+	/* 수강신청현황 > 교육신청직원목록 팝업 > 엑셀 다운로드 */
+	public void selectEduEmpListExcel(HttpServletRequest req, HttpServletResponse res){	
+		
+		int edctCntId = Integer.parseInt(req.getParameter("edctCntId"));
+		
+		// DB 결과 조회
+		List<EduEmpListExcelVo> list = adminDao.selectEduEmpListExcel(edctCntId);
+		
+		// 엑셀관련 데이터 셋팅
+		req.setAttribute("sheetName", "교육신청 직원목록");
+		req.setAttribute("excelName", "ITEP_교육신청 직원목록");
+		String[] colName = {"부서","직원번호","직원명","수료여부"};
+		req.setAttribute("colName", colName);
+		req.setAttribute("list", list);
+		
+		// 엑셀 다운로드 실행
+		excelUtil.excelDownload(req, res);
 	}
 	
 	
@@ -185,6 +212,9 @@ public class EduReadyStatService {
 			vo.setEdctFnshTim("");
 		else
 			vo.setEdctFnshTim(changeTimeFormat(vo.getEdctFnshTim()));
+		
+		// 교육내용 개행처리
+		vo.setEdctCon(vo.getEdctCon().replace("\n", "<br>"));
 		
 		return vo;
 	}

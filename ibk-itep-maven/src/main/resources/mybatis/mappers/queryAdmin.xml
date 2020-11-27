@@ -323,6 +323,21 @@
 			]]>
 		</select>
 		
+		<!-- select 해당 교육차수 신청직원 엑셀 출력 -->
+		<select id="selectEduEmpListExcel" parameterType="Integer" resultType="EduEmpListExcelVo">
+			<![CDATA[
+				SELECT CMB.BRNM AS brnm
+					 , CMU.USER_ID AS userId
+					 , CMU.USER_NM AS userNm
+					 , EDA.CTCR_YN AS ctcrYn
+				FROM TB_IEP_EDA001M EDA, TB_IEP_CMU001M CMU, TB_IEP_CMB001M CMB
+				WHERE EDA.EDCT_CNT_ID = #{edctCntId} AND EDA.USE_YN = 'Y'
+				AND EDA.USER_ID = CMU.USER_ID 
+				AND EDA.DVCD = CMB.BRCD
+				AND EDA.APLC_STG_CD IN ('EDUFIN', 'APRFIN')
+			]]>
+		</select>
+		
 		<!-- update 교육 신청서 이수 -->
 		<update  id="updateEduEmpListPopCtcrYn" parameterType="HashMap">
 			<![CDATA[
@@ -555,7 +570,7 @@
 	</select>
 	
 	<!-- 사용자 조회, 사용자 조회 엑셀 다운로드용 -->
-	<select id="selectEmpAccMngExel" parameterType="EmpAccMngVo" resultType="EmpAccMngExcelVo">
+	<select id="selectEmpAccMngExcel" parameterType="EmpAccMngVo" resultType="EmpAccMngExcelVo">
 		<![CDATA[
 			select	cmu.USER_ID as userId		-- 직원번호
 					,cmu.USER_NM as userNm		-- 직원명

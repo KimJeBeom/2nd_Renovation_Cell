@@ -90,4 +90,17 @@ public class EmpAccMngController{
         eduAccMngService.EmpAccMngExcelDown(req, res);  
 	}
 
+	/* 엑셀 업로드 - 현재 미사용 */ 
+	/*
+	 * @RequestMapping(value = "/views/admin/EmpAccMngExcelUp", method =
+	 * RequestMethod.POST) public String excelUpload(@RequestParam("file")
+	 * MultipartFile file, Model model) throws java.io.IOException {
+	 * 
+	 * List<EmpAccMngExcelVo> excelList = eduAccMngService.EmpAccMngExcelUp(file);
+	 * model.addAttribute("excelList", excelList); // 5
+	 * 
+	 * return "/admin/pop/excelResultPop";
+	 * 
+	 * }
+	 */
 }

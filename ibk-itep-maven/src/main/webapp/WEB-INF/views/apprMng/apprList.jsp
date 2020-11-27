@@ -29,7 +29,7 @@
 						<div id="toastr-demo" class="panel">
 						
 							<!-- 결재 목록 -->
-							<div class="panel-body">
+							<div class="panel-body" style="overflow-x:hidden; height:350px;">
 								<h4 class="panel-title" style="float:left;"><b>▶ 결재 목록</b></h4>
 								
 								<!-- 상단 버튼 -->
@@ -73,7 +73,7 @@
 											    </c:forEach>
 										    </c:when>
 											<c:otherwise>
-											<tr height="100">
+											<tr height="200">
 												<td colspan="7" class="txt_center"><h4>결재 할 문서가 없습니다.</h4></td>
 											</tr>
 											</c:otherwise>

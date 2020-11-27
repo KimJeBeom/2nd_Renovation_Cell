@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ibk.itep.common.excel.ExcelDownloadUtil;
+import com.ibk.itep.common.excel.ExcelUtil;
 import com.ibk.itep.repository.AdminDao;
 import com.ibk.itep.vo.admin.EmpAccMngExcelVo;
 import com.ibk.itep.vo.admin.EmpAccMngVo;
@@ -20,7 +20,7 @@ public class EmpAccMngService {
 	private AdminDao adminDao;
 	
 	@Autowired
-	private ExcelDownloadUtil excelDownloadUtil;
+	private ExcelUtil excelUtil;
 	
 	/* 사용자 계정관리 */
 	public List<EmpAccMngVo> selectEmpAccMng(String brcd, String userIdNm, String athrCd){		
@@ -79,17 +79,43 @@ public class EmpAccMngService {
 			srchVo.setAthrCd(athrCd);
 		
 		// DB 결과 조회
-		List<EmpAccMngExcelVo> list = adminDao.selectEmpAccMngExel(srchVo);
+		List<EmpAccMngExcelVo> list = adminDao.selectEmpAccMngExcel(srchVo);
 		
 		// 엑셀관련 데이터 셋팅
 		req.setAttribute("sheetName", "사용자 계정");
-		req.setAttribute("excelName", "ITEP 사용자 계정");
+		req.setAttribute("excelName", "ITEP_사용자계정");
 		String[] colName = {"직원번호","직원명","직책","행내전화","부서명","권한"};
 		req.setAttribute("colName", colName);
 		req.setAttribute("list", list);
 		
 		// 엑셀 다운로드 실행
-		excelDownloadUtil.excelDownload(req, res);
+		excelUtil.excelDownload(req, res);
 	}
+	
+	/* 엑셀 업로드 - 현재 미사용 */
+	/*  
+	 * public List<EmpAccMngExcelVo> EmpAccMngExcelUp(MultipartFile file) throws
+	 * IOException{
+	 * 
+	 * String[] colName = {"userId","userNm","userJtm","userTpn","brnm","athrNm"};
+	 * 
+	 * // 파일에서 시트 꺼냄 Sheet sheet = excelUtil.excelUpload(file, colName);
+	 * 
+	 * List<EmpAccMngExcelVo> dataList = new ArrayList<>();
+	 * 
+	 * for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) { // 4 Row row =
+	 * sheet.getRow(i); EmpAccMngExcelVo data = new EmpAccMngExcelVo();
+	 * 
+	 * data.setUserId(row.getCell(0).getStringCellValue());
+	 * data.setUserNm(row.getCell(1).getStringCellValue());
+	 * data.setUserJtm(row.getCell(2).getStringCellValue());
+	 * data.setUserTpn(row.getCell(2).getStringCellValue());
+	 * data.setBrnm(row.getCell(2).getStringCellValue());
+	 * data.setAthrNm(row.getCell(2).getStringCellValue());
+	 * 
+	 * dataList.add(data); }
+	 * 
+	 * return dataList; }
+	 */
 }
 

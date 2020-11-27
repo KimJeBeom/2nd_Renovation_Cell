@@ -88,7 +88,7 @@
 
 
 							<!-- 결재 현황 테이블 -->
-							<div class="panel-body">
+							<div class="panel-body" style="overflow-x:hidden; height:300px;">
 								<h4 class="panel-title" style="margin-bottom: 10px">
 									<b>▶ 결재 현황</b>
 								</h4>
@@ -122,7 +122,7 @@
 													</c:forEach>
 										    	</c:when>
 												<c:otherwise>
-													<tr height="100">
+													<tr height="150">
 														<td colspan="7" class="txt_center"><h4>결재 이력이 없습니다.</h4></td>
 													</tr>
 												</c:otherwise>
@@ -131,11 +131,12 @@
 									</table>
 								</div>
 							</div>
+							
 
 							<!-- apprList가 하나도 없으면 apprDetail == null (Controller에서 지정) -->
 							<!-- apprDetail 이 not null일 때만 아래 화면 보여줌 -->
 							<c:if test="${not empty apprDetail}">
-							
+							<br>
 							<!-- 결재 이력 테이블 -->
 							<div class="panel-body" id="apprStatDetailDiv">
 								<h4 class="panel-title">
@@ -208,10 +209,11 @@
 			HighLightTableTr(trs[0]);	
 		});
 		
-		//$("#sttgYmd").keyup(function(e){if(e.keyCode == 13)  search(); });
+		// 엔터키 입력 시 검색
 		$("#fnshYmd").keyup(function(e){if(e.keyCode == 13)  search(); });
 		$("#aplcStg").keyup(function(e){if(e.keyCode == 13)  search(); });
 		
+		// 검색
 		function search() {
 			var sttgYmd = $('#sttgYmd').val();
 			var fnshYmd = $('#fnshYmd').val();
@@ -249,7 +251,7 @@
 							str += '</tr>';
 						});
 					} else {
-							str += '<tr height="100">';
+							str += '<tr height="150">';
 							str += '<td colspan="7" class="txt_center"><h4>조회 결과가 없습니다.</h4></td>';
 							str += '</tr>';
 					}
@@ -269,6 +271,7 @@
 			});
 		}
 		
+		// 결재이력
 		function showDetail(target, edctAplcId) {
 			HighLightTableTr(target);
 			

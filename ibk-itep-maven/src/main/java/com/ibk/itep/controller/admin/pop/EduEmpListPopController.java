@@ -3,6 +3,8 @@ package com.ibk.itep.controller.admin.pop;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ibk.itep.controller.HomeController;
 import com.ibk.itep.service.admin.EduReadyStatService;
@@ -45,5 +48,10 @@ public class EduEmpListPopController{
 		return 1;
 	}
 
+	/* 엑셀 다운로드 */
+	@RequestMapping(value = "/views/admin/pop/EduEmpListPopExcelDown", method = RequestMethod.POST)
+	public void EduEmpListPopExcelDown(MultipartHttpServletRequest req, HttpServletResponse res) {
 
+		eduReadyStatService.selectEduEmpListExcel(req, res);  
+	}
 }

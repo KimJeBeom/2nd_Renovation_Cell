@@ -1,6 +1,5 @@
 package com.ibk.itep.repository;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ibk.itep.vo.admin.EduEmpListExcelVo;
 import com.ibk.itep.vo.admin.EduEmpListVo;
 import com.ibk.itep.vo.admin.EduOpenReadyStatVo;
 import com.ibk.itep.vo.admin.EduReadyStatVo;
@@ -102,6 +102,12 @@ public class AdminDao {
 		sqlSession.selectList("queryAdmin.updateEduEmpListPopFnshY", edctCntId);
 	}
 	
+	/* 엑셀 다운로드 */
+	public List<EduEmpListExcelVo> selectEduEmpListExcel(int edctCntId) {
+		List<EduEmpListExcelVo> list = sqlSession.selectList("queryAdmin.selectEduEmpListExcel", edctCntId);
+		return list;
+	}
+	
 	/* 과정개설신청현황 */
 	public List<EduOpenReadyStatVo> selectEduOpenReadyStat(EduOpenReadyStatVo vo) {
 		List<EduOpenReadyStatVo> list = sqlSession.selectList("queryAdmin.selectEduOpenReadyStat", vo);
@@ -128,8 +134,8 @@ public class AdminDao {
 	}
 	
 	/* 엑셀 다운로드 */
-	public List<EmpAccMngExcelVo> selectEmpAccMngExel(EmpAccMngVo vo) {
-		List<EmpAccMngExcelVo> list = sqlSession.selectList("queryAdmin.selectEmpAccMngExel", vo);
+	public List<EmpAccMngExcelVo> selectEmpAccMngExcel(EmpAccMngVo vo) {
+		List<EmpAccMngExcelVo> list = sqlSession.selectList("queryAdmin.selectEmpAccMngExcel", vo);
 		return list;
 	}
 	
