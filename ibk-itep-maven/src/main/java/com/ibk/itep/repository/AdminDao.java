@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.ibk.itep.vo.admin.EduEmpListExcelVo;
 import com.ibk.itep.service.cmm.CmmService;
 import com.ibk.itep.vo.admin.EduEmpListVo;
+import com.ibk.itep.vo.admin.EduHistoryVo;
 import com.ibk.itep.vo.admin.EduOpenReadyStatVo;
 import com.ibk.itep.vo.admin.EduReadyStatVo;
 import com.ibk.itep.vo.admin.EduRegModVo;
@@ -92,6 +93,24 @@ public class AdminDao {
 		logger.debug("DAO End - deleteEduRndRegMod : result {}");
 		//return true;
 		return count == 1;
+	}
+	/************************************************************
+	 *                        수강이력
+	 ************************************************************/
+	public List<EduHistoryVo> selectEduHistory(EduHistoryVo vo){
+		logger.debug("DAO Start - selectEduHistory");
+		cmmService.objFieldTest(vo);
+		List<EduHistoryVo> list = sqlSession.selectList("queryAdmin.selectEduHistory", vo);
+		logger.debug("DAO End - selectEduHistory");
+		return list;
+	}
+	public boolean updateEduHistory(EduHistoryVo vo) {
+		logger.debug("DAO Start - updateEduHistory");
+		cmmService.objFieldTest(vo);
+		int count = sqlSession.update("queryAdmin.updateEduHistory", vo);
+		logger.debug("DAO Start - updateEduHistory / 결과값 : {}", count);
+		return count == 1;
+		
 	}
 	/************************************************************
 	 *                         교육신청현황

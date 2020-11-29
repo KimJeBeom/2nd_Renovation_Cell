@@ -417,9 +417,10 @@
 	<select id="selectEduHistory" parameterType="EduHistoryVo" resultType="EduHistoryVo">
 		<![CDATA[
 			/*eduHistor 페이지 */
-			/*교육ID, 교육분류, 부서명, 직원번호, 직원명, 과목명, 교육기관, 교육기간, 예산, 참고 */;
-			SELECT	eda.EDCT_APLC_ID as edctAplcID	# 교육 신청 ID
+			/*교육ID, 교육분류, 부서명, 직원번호, 직원명, 과목명, 교육기관, 교육기간, 예산, 참고 */
+			SELECT	eda.EDCT_APLC_ID as edctAplcID		# 교육 신청 ID
 				,	cld.EDCT_CLSF_NM as edctClsfNm		# 교육 분류
+				,	edc.EDCT_ID as edctId				# 교육 ID
     			,	cmb.BRNM as brnm 					# 부서명 
     			,	eda.USER_ID as userId 				# 직원번호
     			,	cmu.USER_NM as userNm 				# 직원명
@@ -453,11 +454,6 @@
 	    		and edm.EDIN_CD = #{edinCd}
 	    	]]>
 	    </if>
-	    <if test="brnm != null">
-	    	<![CDATA[# 부서
-	    		and eda.DVCD = #{brnm}
-	    	]]>
-	    </if>
 	    <if test="userNm != null">
 	    	<![CDATA[# 직원명
 	    		and cmu.USER_NM = #{userNm}
@@ -468,28 +464,27 @@
 	 			and edm.EDCT_NM LIKE CONCAT('%', #{edctNm}, '%')   		
 	    	]]>
 	    </if>
-	    <if test="startDate != null and endDate != null">
+	    	    <if test="brnm != null">
+	    	<![CDATA[# 부서
+	    		#and cmb.BRNM LIKE CONCAT('%', #{brnm}, '%')
+	    	]]>
+	    </if>
+	    <if test="edctSttgYmd != null and edctFnshYmd != null">
 	    	<![CDATA[#교육명
 	 		and (
-				(edc.EDCT_STTG_YMD >= #{startDate} and edc.EDCT_STTG_YMD < #{endDate})
-				or (edc.EDCT_FNSH_YMD >= #{startDate} and edc.EDCT_FNSH_YMD < #{endDate})		
+				(edc.EDCT_STTG_YMD >= #{edctSttgYmd} and edc.EDCT_STTG_YMD <= #{edctFnshYmd})
+				or (edc.EDCT_FNSH_YMD >= #{edctSttgYmd} and edc.EDCT_FNSH_YMD <= #{edctFnshYmd})		
         		)   		
 	    	]]>
 	    </if>
 	</select>
 	<!-- Start - Popup - 참고사항등록 memoRegPop -->
-		<!-- select 신청서 상세사항 -->
-		<select id="selectMemoRegPop" parameterType="Integer" resultType="EduHistoryVo">
-			<![CDATA[
-				하나짜자...
-			]]>
-		</select>
 		<!-- update 신청서 - 참고사항 등록 -->
-		<update  id="updateMemoRegPop" parameterType="EduHistoryVo">
+		<update  id="updateEduHistory" parameterType="EduHistoryVo">
 			<![CDATA[
 				UPDATE TB_IEP_EDA001M 
-				SET RFRC_CON = #{내용}
-				WHERE EDCT_APLC_ID = #{교육신청ID};
+				SET RFRC_CON = #{rfrcCon}
+				WHERE EDCT_APLC_ID = #{edctAplcId};
 			]]>
 		</update>
 	<!-- End - Popup - 참고사항등록 memoRegPop -->

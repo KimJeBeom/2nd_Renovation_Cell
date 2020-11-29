@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- HEADER -->
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
 
@@ -36,39 +37,50 @@
 											<tbody>
 												<tr>
 													<td style="width: 100px;"><b>기간</b></td>
-													<td style="width: 130px; text-align: left"><input
-														type='date' name='startdate' value='2020-09-22' /></td>
+													<td style="width: 130px; text-align: left">
+														<div class="ui calendar" id="edctRangeStart">
+															<div class="ui input left icon">
+																<i class="calendar icon" style="font-size: 14px;"></i> <input
+																	id="edctSttgYmd" type="text"
+																	style="height: 35px; font-size: 14px;">
+															</div>
+														</div>
+													</td>
 													<td style="width: 50px;"><b>~</b></td>
-													<td style="width: 130px; text-align: left"><input
-														type='date' name='enddate' value='2020-09-22' /></td>
+													<td style="width: 130px; text-align: left">
+														<div class="ui calendar" id="edctRangeEnd">
+															<div class="ui input left icon">
+																<i class="calendar icon" style="font-size: 14px;"></i> <input
+																	id="edctFnshYmd" type="text"
+																	style="height: 35px; font-size: 14px;">
+															</div>
+														</div>
+													</td>
 													<td style="width: 150px"><b>교육분류</b></td>
 													<td style="width: 150px"><select class="form-control"
-														style="text-align: left;">
-															<option value="outedu">외부교육</option>
-															<option value="inedu">내부교육</option>
-															<option value="seminar">세미나</option>
+														id="edctClsfCd" style="text-align: left;">
+															<option value="ALL">전체</option>
+															<c:forEach items="${cldVoList }" var="cldVo">
+																<option value=${cldVo.edctClsfCd }>${cldVo.edctClsfNm }</option>
+															</c:forEach>
 													</select></td>
-
 												</tr>
 												<tr style="height: 10px"></tr>
 												<tr>
 													<td style="width: 100px"><b>부서</b></td>
-													<td colspan="3"><select class="form-control"
-														style="text-align: left;">
-															<option value="outedu">IT시스템운영팀</option>
-															<option value="inedu">IT금융개발부</option>
-															<option value="seminar">IT디지털개발부</option>
-													</select></td>
+													<td colspan="3"><input class="form-control" id="brnm"
+														type="text" style="text-align: left;" placeholder="부서명">
+													</td>
 													<td style="width: 150px"><b>직원명</b></td>
-													<td style="width: 150px"><input class="form-control"
-														type="text" style="text-align: left;" value="직원명"></td>
+													<td style="width: 150px"><input class="form-control" id="userNm"
+														type="text" style="text-align: left;" placeholder="직원명"></td>
 												</tr>
 											</tbody>
 										</table>
 									</div>
 									<div
 										style="display: table-cell; padding-right: 10px; vertical-align: middle">
-										<button type="button" class="btn btn-primary"
+										<button id="btnSearch" type="button" class="btn btn-primary"
 											style="float: right; height: 50px">조회</button>
 									</div>
 								</div>
@@ -76,57 +88,29 @@
 								<!-- Start 수강이력 - 버튼바-->
 								<div class="form-group row"
 									style="text-align: right; padding-right: 20px;">
-									<button class="btn btn-primary" type="button" onclick="showPopup('admin','memoRegPop');">참고사항 등록</button>
-									<button class="btn btn-primary" type="button">엑셀 다운로드</button>
+									<button id="btnMemoRegPop" class="btn btn-primary" type="button">참고사항 등록/수정</button>
+									<button id="xlsDown" class="btn btn-primary" type="button">엑셀 다운로드</button>
 								</div>
 								<!-- End 수강이력 - 버튼바-->
 								<!-- Start 수강이력 - 리스트 -->
 								<table class="table table-hover">
 									<thead>
 										<tr>
-											<th style="width: 50px"><input type="checkbox"></th>
-											<th style="width: 50px">No</th>
+											<th style="width: 50px">구분</th>
+											<th style="width: 50px">이력ID</th>
 											<th>교육분류</th>
 											<th>부서명</th>
 											<th>직원명</th>
 											<th>직원번호</th>
-											<th>과목코드</th>
-											<th>과목명</th>
+											<th>교육ID</th>
+											<th>교육명</th>
 											<th>교육기관</th>
 											<th>교육기간</th>
 											<th>예산</th>
 											<th>참고</th>
 										</tr>
 									</thead>
-									<tbody>
-										<tr>
-											<td><input type="checkbox"></td>
-											<td>1</td>
-											<td>외부교육</td>
-											<td>IT시스템운영팀</td>
-											<td>김지영</td>
-											<td>42344</td>
-											<td>OTEDU0001</td>
-											<td>최은혜의 인생이 원래 그런거다</td>
-											<td>뽀리네집</td>
-											<td>2020.09.01 ~ 2020.09.31</td>
-											<td>1,960,000</td>
-											<td>교육 퀄리티 우수</td>
-										</tr>
-										<tr>
-											<td><input type="checkbox"></td>
-											<td>2</td>
-											<td>외부교육</td>
-											<td>IT시스템운영팀</td>
-											<td>김지영</td>
-											<td>41114</td>
-											<td>OTEDU0001</td>
-											<td>최은혜의 인생이 원래 그런거다</td>
-											<td>뽀리네집</td>
-											<td>2020.09.01 ~ 2020.09.31</td>
-											<td>960,000</td>
-											<td>교육 퀄리티 우수</td>
-										</tr>
+									<tbody id="eduHistoryTbody">
 									</tbody>
 								</table>
 								<!-- End 수강이력 - 리스트 -->
@@ -137,7 +121,93 @@
 			</div>
 		</div>
 	</div>
-
-
 	<!-- FOOTER -->
 	<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
+	<script type="text/javascript">
+		$(document).ready(function() {
+			selectEduHistory();
+		});
+		//조회버튼 클릭시
+		$(document).on("click","#btnSearch",function(){
+			selectEduHistory();
+		})
+		//참고사항 등록 버튼 클릭
+		$(document).on("click","#btnMemoRegPop",function(){
+			var radioVal = $('input[name="chkEdctAplcId"]:checked').val();
+			if(radioVal != null){
+				showPopup('admin','memoRegPop?edctAplcId='+radioVal);	
+			}else{
+				alert("참고사항 등록할 이력을 선택해 주세요");
+			}
+		})
+		//엑셀 다운로드 클릭
+		$(document).on("click","#xlsDown",function(){
+			alert("엑셀 다운로드 구현필요");
+		})
+		//캘린더 구현부
+		$('#edctRangeStart').calendar({
+			type: 'date',
+			endCalendar: $('#edctRangeEnd'),
+			formatter: {
+				date: function (date, settings) {
+					if (!date) return '';
+					var day = date.getDate();
+					var month = date.getMonth() + 1;
+					var year = date.getFullYear();
+					return year + '/' + month + '/' + day;
+				}}
+		});
+		$('#edctRangeEnd').calendar({
+			type: 'date',
+			startCalendar: $('#edctRangeStart'),
+			formatter: {
+				date: function (date, settings) {
+					if (!date) return '';
+						var day = date.getDate();
+						var month = date.getMonth() + 1;
+						var year = date.getFullYear();
+						return year + '/' + month + '/' + day;
+					}}
+		});
+		function selectEduHistory() {
+			var edctClsfCd = $("#edctClsfCd").val();
+			var userNm = $("#userNm").val();
+			var brnm = $("#brnm").val();
+			var edctSttgYmd = $('#edctSttgYmd').val();
+			var edctFnshYmd = $('#edctFnshYmd').val();
+		    $.ajax({
+		    	url:"/itep/views/admin/selectEduHistory", //데이터를  넘겨줄 링크 설정
+		        type:"POST", // post 방식
+				data: {	"edctClsfCd"	: $("#edctClsfCd").val(),
+						"userNm"		: $("#userNm").val(),
+						"brnm"			: $("#brnm").val(),
+						"edctFnshYmd"	: $('#edctFnshYmd').val(),
+						"edctSttgYmd"	: $('#edctSttgYmd').val()}, //넘겨줄 데이터
+				success: function (responseData) {
+					var str = '';
+					str += '<tbody  id=\"eduHistoryTbody\">'
+					$.each(responseData, function (i){
+						str += '<tr>'
+						str += '<td><input type="radio" name="chkEdctAplcId" value='+responseData[i].edctAplcId+'></td>'
+						str += '<td>'+responseData[i].edctAplcId+'</td>'
+						str += '<td>'+responseData[i].edctClsfNm+'</td>'
+						str += '<td>'+responseData[i].brnm+'</td>'
+						str += '<td>'+responseData[i].userNm+'</td>'
+						str += '<td>'+responseData[i].userId+'</td>'
+						str += '<td>'+responseData[i].edctId+'</td>'
+						str += '<td>'+responseData[i].edctNm+'</td>'
+						str += '<td>'+responseData[i].edinNm+'</td>'
+						str += '<td>'+responseData[i].edctSttgYmd.replace(/-/g,'.')+'~'+responseData[i].edctFnshYmd.replace(/-/g,'.')+'</td>'
+						str += '<td>'+responseData[i].edex+'</td>'
+						str += '<td>'+responseData[i].rfrcCon+'</td>'
+						str += '</tr>'
+					});
+					str += '</tbody>'
+					$("#eduHistoryTbody").replaceWith(str);
+				},
+				error: function (xhr, status, error) {
+					alert("error");					
+				}
+			});
+		}
+	</script>
