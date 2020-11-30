@@ -58,4 +58,20 @@ public class CmmDao {
 		List<CmbVo> list = sqlSession.selectList("queryCmm.selectCmb");
 		return list;
 	}
+	
+	public void updateCld(List<CldVo> list) {
+		sqlSession.update("queryCmm.updateCld", list);
+	}
+	
+	public void updateCli(List<CliVo> list) {
+		sqlSession.update("queryCmm.updateCli", list);
+	}
+	
+	public void insertCld(CldVo vo) {
+		sqlSession.insert("queryCmm.insertCld", vo);
+	}
+	
+	public void insertCli(CliVo vo) {
+		sqlSession.insert("queryCmm.insertCli", vo);
+	}
 }
