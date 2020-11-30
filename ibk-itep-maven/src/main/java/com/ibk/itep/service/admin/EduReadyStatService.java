@@ -181,7 +181,7 @@ public class EduReadyStatService {
 		NewEduInfoVo vo = adminDao.selectNewEduInfoPop(aplcId);
 		
 		// 교육비용 천단위 , 표시
-		vo.setEdex(String.format("%,d", Integer.parseInt(vo.getEdex())));
+		vo.setEdex(String.format("%,d", Integer.parseInt(vo.getEdex().replace(",", ""))));
 		
 		// 날짜 포맷 변경
 		if(vo.getAplcTs() == null)

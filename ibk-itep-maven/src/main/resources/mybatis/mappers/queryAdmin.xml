@@ -478,6 +478,71 @@
 	    	]]>
 	    </if>
 	</select>
+	<!-- 수강이력 엑셀 조회 -->
+	<select id="selectEduHistoryExcel" parameterType="EduHistoryVo" resultType="EduHistoryExcelVo">
+		<![CDATA[
+			/*eduHistor 페이지 */
+			/*교육ID, 교육분류, 부서명, 직원번호, 직원명, 과목명, 교육기관, 교육기간, 예산, 참고 */
+			SELECT	eda.EDCT_APLC_ID as edctAplcID		# 교육 신청 ID
+				,	cld.EDCT_CLSF_NM as edctClsfNm		# 교육 분류
+    			,	cmb.BRNM as brnm 					# 부서명 
+    			,	cmu.USER_NM as userNm 				# 직원명
+    			,	eda.USER_ID as userId 				# 직원번호
+				,	edc.EDCT_ID as edctId				# 교육 ID
+    			,	edm.EDCT_NM as edctNm 				# 교육명
+    			,	cli.EDIN_NM as edinNm 				# 교육기관명
+    			,	edc.EDCT_STTG_YMD as edctSttgYmd 	# 교육 시작일
+    			,	edc.EDCT_FNSH_YMD as edctFnshYmd 	# 교육 종료일
+    			,	edc.EDEX as edex 					# 예산
+    			,	eda.RFRC_CON as rfrcCon 			# 참고
+			FROM 	itep.tb_iep_eda001m eda 			# 교육신청테이블
+				,	itep.tb_iep_edc001m edc 			# 교육차수테이블
+    			,	itep.tb_iep_edm001m edm 			# 교육메인테이블
+    			,	itep.tb_iep_cmu001m cmu 			# 사용자
+    			,	itep.tb_iep_cmb001m cmb 			# 부점
+    			,	itep.tb_iep_cld001c cld 			# 교육분류코드
+    			,	itep.tb_iep_cli001c cli 			# 교육기관코드
+			where 	eda.EDCT_CNT_ID = edc.EDCT_CNT_ID
+	  			and	edc.EDCT_ID = edm.EDCT_ID
+      			and	eda.USER_ID = cmu.USER_ID
+				and	eda.DVCD = cmb.BRCD
+ 				and	edm.EDCT_CLSF_CD = cld.EDCT_CLSF_CD
+				and	edm.EDIN_CD = cli.EDIN_CD
+	    ]]>
+	    <if test="edctClsfCd != null">
+	    	<![CDATA[#교육구분코드
+	    		and edm.EDCT_CLSF_CD = #{edctClsfCd}
+	    	]]>
+	    </if>
+	    <if test="edinCd != null">
+	    	<![CDATA[#교육기관
+	    		and edm.EDIN_CD = #{edinCd}
+	    	]]>
+	    </if>
+	    <if test="userNm != null">
+	    	<![CDATA[# 직원명
+	    		and cmu.USER_NM = #{userNm}
+	    	]]>
+	    </if>
+	    <if test="edctNm != null">
+	    	<![CDATA[#교육명
+	 			and edm.EDCT_NM LIKE CONCAT('%', #{edctNm}, '%')   		
+	    	]]>
+	    </if>
+	    	    <if test="brnm != null">
+	    	<![CDATA[# 부서
+	    		#and cmb.BRNM LIKE CONCAT('%', #{brnm}, '%')
+	    	]]>
+	    </if>
+	    <if test="edctSttgYmd != null and edctFnshYmd != null">
+	    	<![CDATA[#교육명
+	 		and (
+				(edc.EDCT_STTG_YMD >= #{edctSttgYmd} and edc.EDCT_STTG_YMD <= #{edctFnshYmd})
+				or (edc.EDCT_FNSH_YMD >= #{edctSttgYmd} and edc.EDCT_FNSH_YMD <= #{edctFnshYmd})		
+        		)   		
+	    	]]>
+	    </if>
+	</select>
 	<!-- Start - Popup - 참고사항등록 memoRegPop -->
 		<!-- update 신청서 - 참고사항 등록 -->
 		<update  id="updateEduHistory" parameterType="EduHistoryVo">

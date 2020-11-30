@@ -92,6 +92,15 @@
 									<button id="xlsDown" class="btn btn-primary" type="button">엑셀 다운로드</button>
 								</div>
 								<!-- End 수강이력 - 버튼바-->
+								
+								<form id="excelForm" role="form" method="post" enctype="multipart/form-data">
+										<input type="hidden" id="eEdctSttgYmd" name="eEdctSttgYmd" value="">
+										<input type="hidden" id="eEdctFnshmd" name="eEdctFnshmd" value="">
+										<input type="hidden" id="eEdctClsfCd" name="eEdctClsfCd" value="">
+										<input type="hidden" id="eBrnm" name="eBrnm" value="">
+										<input type="hidden" id="eUserNm" name="eUserNm" value="">
+								</form>
+								
 								<!-- Start 수강이력 - 리스트 -->
 								<table class="table table-hover">
 									<thead>
@@ -142,7 +151,7 @@
 		})
 		//엑셀 다운로드 클릭
 		$(document).on("click","#xlsDown",function(){
-			alert("엑셀 다운로드 구현필요");
+			excelDownload();
 		})
 		//캘린더 구현부
 		$('#edctRangeStart').calendar({
@@ -209,5 +218,24 @@
 					alert("error");					
 				}
 			});
+		}
+		
+		function excelDownload() {		
+			// 검색창에 입력된값 
+			var edctSttgYmd = $('#edctSttgYmd').val();
+			var edctFnshYmd = $('#edctFnshYmd').val();
+			var edctClsfCd = $('#edctClsfCd option:selected').val();
+			var brnm = $('#brnm').val();
+			var userNm = $('#userNm').val();
+			
+			$("#eEdctSttgYmd").attr("value", edctSttgYmd);
+			$("#eEdctFnshmd").attr("value", edctFnshYmd);
+			$("#eEdctClsfCd").attr("value", edctClsfCd);
+			$("#eBrnm").attr("value", brnm);
+			$("#eUserNm").attr("value", userNm);
+			
+			var formObj = $("#excelForm");
+			formObj.attr("action", "/itep/views/admin/EduHistoryExcelDown");
+			formObj.submit();
 		}
 	</script>

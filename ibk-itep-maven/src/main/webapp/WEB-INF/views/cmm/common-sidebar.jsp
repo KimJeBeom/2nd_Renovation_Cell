@@ -92,15 +92,4 @@
 		</nav>
 	</div>
 </div>
-
-<script>
-	var pageName = "";
-	var tempPageName = window.location.href;
-	var strPageName = tempPageName.split("/");
-	pageName = strPageName[strPageName.length-1].split("?")[0];
-	
-	
-	
-	
-</script>
 	

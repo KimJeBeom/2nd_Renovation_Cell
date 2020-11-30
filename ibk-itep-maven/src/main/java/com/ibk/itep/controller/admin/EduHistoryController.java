@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ibk.itep.controller.HomeController;
 import com.ibk.itep.service.admin.EduHistoryService;
@@ -53,6 +56,13 @@ public class EduHistoryController{
 		logger.debug("컨트롤러 End - selectEduHistory");
 		
 		return eduHistoryVoList;		
+	}
+	
+	/* 엑셀 다운로드 */
+	@RequestMapping(value = "/views/admin/EduHistoryExcelDown", method = RequestMethod.POST)
+	public void EduHistoryExcelDown(MultipartHttpServletRequest req, HttpServletResponse res) {
+
+		eduHistoryService.EduHistoryExcelDown(req, res);  
 	}
 
 }
