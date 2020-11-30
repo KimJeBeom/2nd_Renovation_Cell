@@ -172,6 +172,7 @@
 			formData.append('fileNoArray[]',fileNoArry);
 			formData.append("addFileCnt",addFileCnt);
 			
+			
 				$.ajax({
 			    	url:"/itep/views/myClass/eduInfoPop/reApply", //데이터를  넘겨줄 링크 설정
 			        type:"POST", // post 방식
@@ -179,7 +180,7 @@
 			        processData: false,
 					contentType: false,
 					data: formData,
-	
+
 			        success: function (responseData) {	
 			        	if(responseData == 1) {
 			        		alert("결재요청 되었습니다."); // 결과가 1이면 정상적으로 반려처리 완료
@@ -187,7 +188,7 @@
 				     		window.opener.location.reload();
 
 			        	} else {
-			        		alert("실패하였습니다. 히융 다시 시도해주십시오."); // 1이 아니면 승인 실패
+			        		alert("결재요청에 실패하였습니다. 다시 시도해주십시오."); // 1이 아니면 승인 실패
 			        		window.close();
 				     		window.opener.location.reload();
 			        	}

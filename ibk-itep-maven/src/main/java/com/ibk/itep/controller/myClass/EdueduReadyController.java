@@ -83,10 +83,10 @@ public class EdueduReadyController {
 			
 			//첨부파일 업로드
 			logger.info("FILE Upload Start");
-			logger.info("addFileCnt : " + addFileCnt + "fileNoDel : " + fileNoDel);
+			logger.info("addFileCnt : " + addFileCnt + "  fileNoDel : " + fileNoDel.length);
 			
 			if(Integer.parseInt(addFileCnt) > 0 || fileNoDel.length > 0) {
-				
+			logger.info("addFileCnt : " + addFileCnt + "  fileNoDel : " + fileNoDel.length);	
 			int id;
 			id = Integer.parseInt(pbns_id);
 			fileUtil.fileUpdate(fileNoDel,code_nm,id,mpRequest);
@@ -94,7 +94,7 @@ public class EdueduReadyController {
 			logger.info("FILE Upload End");
 
 	   }else {
-		   logger.info("addFileCnt : " + addFileCnt + "fileNoDel : " + fileNoDel);
+		   logger.info("업데이트파일이 없네요! addFileCnt : " + addFileCnt + "  fileNoDel : " + fileNoDel.length);
 	   }
 			
 			return myClassService.updateEduInfoPop(infoVo, ssnInfo);
