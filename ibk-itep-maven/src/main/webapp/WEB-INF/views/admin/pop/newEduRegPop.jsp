@@ -65,35 +65,9 @@
 													<c:forEach items="${cliVoList }" var="cliVo">
 														<option value=${cliVo.edinCd }>${cliVo.edinNm }</option>		
 													</c:forEach>
-													<!-- <option value="etc">기타</option> -->
 												</select> 
 											</td>
 										</tr>
-<!-- 										<tr id="etcInputForm"  style="display: none;">
-											<th>교육기관코드</th>
-											<td><input id="edinCdInput" type="text" class="form-control" placeholder=""></td>
-											<th>교육기관명</th>
-											<td><input id="edinNmInput" type="text" class="form-control" placeholder=""></td>										
-										</tr>
-										<tr>
-											<th>교육기관코드</th>
-											<td><input type="text" class="form-control" placeholder=""></td>
-											<th>교육기관명</th>
-											<td><input type="text" class="form-control" placeholder=""></td>										
-										</tr> -->
-										<!-- 										
-										<tr>
-											<th>교육기간</th>
-											<td><input type="text" class="form-control" placeholder="1일"></td>
-											<th>이수시간</th>
-											<td><input type="text" class="form-control" placeholder="2시간"></td>
-										</tr> 
-										-->
-										<!-- 
-										<th>교육비용</th>
-											<td><input type="text" class="form-control" placeholder="350,000" style="width: 80%; float: left;">
-												<span><i></i>(원)</span></td>										 
-										-->
 										<tr>
 											<th>교육구분</th>
 											<td>
@@ -163,119 +137,83 @@
 <!-- FOOTER -->
 <jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 <script type="text/javascript">
-
-	/* 교육분류 값에 따른 결재대상, 과목코드 자동 입력 */
-/* 	function showEduType() {
-		var state = document.getElementById("eduType").value; // 선택된 교육분류 select option
-		var eduTypeCode = document.getElementById("eduTypeCode"); // 과목코드 text box
-		var appr = document.getElementsByName("appr"); // 결재대상 radio button
-
-		if(state == 'exedu') {
-			//eduTypeCode.value = 'OTEDU';
-			appr[0].checked = true;
-		}
-		else if(state == 'inedu') {
-			//eduTypeCode.value = 'TREDU';
-			appr[1].checked = true;
-		}
-		else if(state == 'seminar') {
-			//eduTypeCode.value = 'SEMIN';
-			appr[1].checked = true;
-		}
-		else if(state == 'etc') {
-			//eduTypeCode.value = 'EXTRA';
-			appr[0].checked = false;
-			appr[1].checked = false;
+$(document).ready(function(){
+});
+//교육 등록 버튼 클릭
+$(document).on("click","#btnRegEdu",function(){
+	var edctNm = $("#edctNm").val();
+	if(verifyValue()){
+		if(confirm("\""+edctNm+"\"\n교육을 등록하시겠습니까?")){
+			insertNewEduRegPop();			
 		}
 	}
- */
-	/* 교육기관 '기타' 선택에 따른 textbox 활성화 */
-/* 	function showEduInstBox() {
-		var state = document.getElementById("cli").value;
-		var etcInputForm = document.getElementById("etcInputForm");
-
-		if(state == 'etc') 
-			//etcInputForm.style.display = 'block'; // textbox 보여줌
-		else 
-			etcInputForm.style.display = 'none'; // textbox 숨김
-	} */
-	$(document).ready(function(){
-		alert("레디는됨");
-		$("#btnRegEdu").click(function(){
-			alert("클릭은됨");
-			insertNewEduRegPop();
-		})
+});
+//입력값 검증 
+function verifyValue(){
+	var edctClsfCd = $("#edctClsfCd").val();
+	var edctNm = $("#edctNm").val();
+	var edctCon = $("#edctCon").val();
+	var edinCd = $("#edinCd").val();
+	var inbkEdctYn = $('input[name="inbkEdctYn"]:checked').val();
+	var eginAplyYn = $('input[name="eginAplyYn"]:checked').val();
+	var onlEdctYn = $('input[name="onlEdctYn"]:checked').val();
+	var edctLevl = $('input[name="edctLevl"]:checked').val();
+	var snctTgtYn = $('input[name="snctTgtYn"]:checked').val();
+	if(edctClsfCd == "" || edctClsfCd == null|| edctClsfCd == "undefined"){
+		alert("교육 분류 코드를 선택해주세요");return false;
+	}
+	if(edctNm == "" || edctNm == null || edctNm == "undefined" ){
+		alert("교육명을 입력해주세요");return false;				
+	}
+	if(edctCon == "" || edctCon == null || edctCon == "undefined"){
+		alert("교육내용을 입력해주세요");return false;				
+	}
+	if(edinCd == "" || edinCd == null || edinCd == "undefined"){
+		alert("교육기관 코드를 선택해주세요");return false;				
+	}
+	if(!(inbkEdctYn == "Y" || inbkEdctYn == "N")){
+		alert("행내교육여부를 선택해주세요");return false;				
+	}
+	if(!(eginAplyYn == "Y" || eginAplyYn == "N")){
+		alert("고용보험적용 여부를 선택해주세요");return false;				
+	}
+	if(!(onlEdctYn == "Y" || onlEdctYn == "N")){
+		alert("온라인 교육여부를 선택해주세요");return false;				
+	}
+	if(!(edctLevl == "상" || edctLevl == "중" || edctLevl == "하")){
+		alert("교육 레벨을 선택해주세요");return false;				
+	}
+	if(!(snctTgtYn != "Y" || snctTgtYn != "N")){
+		alert("결재 대상 여부를 선택해주세요");return false;				
+	}
+	return true;
+}
+//교육 등록 함수
+function insertNewEduRegPop(){
+    $.ajax({
+		url : "/itep/views/admin/pop/insertNewEduRegPop", //데이터를  넘겨줄 링크 설정
+		type : "POST", // post 방식
+		data : {
+			"edctClsfCd" : $("#edctClsfCd").val(),
+			"edctNm" : $("#edctNm").val(),
+			"edctCon" : $("#edctCon").val(),
+			"edinCd" : $("#edinCd").val(),
+			"inbkEdctYn" : $('input[name="inbkEdctYn"]:checked').val(),
+			"eginAplyYn" : $('input[name="eginAplyYn"]:checked').val(),
+			"onlEdctYn" : $('input[name="onlEdctYn"]:checked').val(),
+			"edctLevl" : $('input[name="edctLevl"]:checked').val(),
+			"snctTgtYn" : $('input[name="snctTgtYn"]:checked').val()
+		}, //넘겨줄 데이터
+		success: function (responseData) {
+			alert("정상등록되었습니다.");
+			 opener.location.reload();
+			window.open("about:blank", "_self").close();
+		},
+		error: function (xhr, status, error) {
+			alert("등록 error");					
+		}
 	});
-	function insertNewEduRegPop(){
-		var edctClsfCd = $("#edctClsfCd").val();
-		var edctNm = $("#edctNm").val();
-		var edctCon = $("#edctCon").val();
-		var edinCd = $("#edinCd").val();
-		var inbkEdctYn = $('input[name="inbkEdctYn"]:checked').val();
-		var eginAplyYn = $('input[name="eginAplyYn"]:checked').val();
-		var onlEdctYn = $('input[name="onlEdctYn"]:checked').val();
-		var edctLevl = $('input[name="edctLevl"]:checked').val();
-		var snctTgtYn = $('input[name="snctTgtYn"]:checked').val();
-		if(edctClsfCd == "" || edctClsfCd == null){
-			alert("교육 분류 코드를 선택해주세요");return;
-		}
-		if(edctNm == "" || edctNm == null){
-			alert("교육명을 입력해주세요");return;				
-		}
-		if(edctCon == "" || edctCon == null){
-			alert("교육내용을 입력해주세요");return;				
-		}
-		if(edinCd == "" || edinCd == null){
-			alert("교육기관 코드를 선택해주세요");return;				
-		}
-		if(!(inbkEdctYn == "Y" || inbkEdctYn == "N")){
-			alert("행내교육여부를 선택해주세요");return;				
-		}
-		if(!(eginAplyYn == "Y" || eginAplyYn == "N")){
-			alert("고용보험적용 여부를 선택해주세요");return;				
-		}
-		if(!(onlEdctYn == "Y" || onlEdctYn == "N")){
-			alert("온라인 교육여부를 선택해주세요");return;				
-		}
-		if(!(edctLevl == "상" || edctLevl == "중" || edctLevl == "하")){
-			alert("교육 레벨을 선택해주세요");return;				
-		}
-		if(!(snctTgtYn != "Y" || snctTgtYn != "N")){
-			alert("결재 대상 여부를 선택해주세요");return;				
-		}
-		/* alert("edctClsfCd"+edctClsfCd);
-		alert("edctNm"+edctNm);
-		alert("edctCon"+edctCon);
-		alert("edinCd"+edinCd);
-		alert("inbkEdctYn"+inbkEdctYn);
-		ale	rt("eginAplyYn"+eginAplyYn);
-		alert("onlEdctYn"+onlEdctYn);
-		alert("edctLevl"+edctLevl);
-		alert("snctTgtYn"+snctTgtYn); */
-		alert("할당완료");
-	    $.ajax({
-			url : "/itep/views/admin/pop/insertNewEduRegPop", //데이터를  넘겨줄 링크 설정
-			type : "POST", // post 방식
-			data : {
-				"edctClsfCd" : edctClsfCd,
-				"edctNm" : edctNm,
-				"edctCon" : edctCon,
-				"edinCd" : edinCd,
-				"inbkEdctYn" : inbkEdctYn,
-				"eginAplyYn" : eginAplyYn,
-				"onlEdctYn" : onlEdctYn,
-				"edctLevl" : edctLevl,
-				"snctTgtYn" : snctTgtYn
-			}, //넘겨줄 데이터
-			success: function (responseData) {
-				alert("정상등록되었습니다.");
-				window.open("about:blank", "_self").close();
-			},
-			error: function (xhr, status, error) {
-				alert("등록 error");					
-			}
-		});
-	}
+}
 </script>
 
 

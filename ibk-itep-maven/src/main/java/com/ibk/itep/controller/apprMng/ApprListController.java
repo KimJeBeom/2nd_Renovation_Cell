@@ -69,18 +69,6 @@ public class ApprListController{
 		
 		return apprMngService.updateApprConf(aplcIdArr, ssnInfo);
 	}
-	
-	/* 결재 반려처리 */
-	@RequestMapping(value = "/views/apprMng/apprRej", method = RequestMethod.POST)
-	public @ResponseBody int apprRej(@RequestParam(value="aplcIdArr[]") List<Integer> aplcIdArr, @RequestParam("rtreCon") String rtreCon
-										, HttpServletRequest request) {
-		
-		/* 세션정보를 담은 SessionVo 가져옴 */
-		HttpSession session = request.getSession();
-		SessionVo ssnInfo = (SessionVo)session.getAttribute("ssnInfo");
-		
-		return apprMngService.updateApprRej(aplcIdArr, rtreCon, ssnInfo);
-	}
 }
 
 

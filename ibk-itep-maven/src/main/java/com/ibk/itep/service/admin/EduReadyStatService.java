@@ -1,73 +1,261 @@
 package com.ibk.itep.service.admin;
 
-import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ibk.itep.controller.MainHomeContoller;
+import com.ibk.itep.common.excel.ExcelUtil;
 import com.ibk.itep.repository.AdminDao;
+import com.ibk.itep.vo.SessionVo;
+import com.ibk.itep.vo.admin.EduEmpListExcelVo;
 import com.ibk.itep.vo.admin.EduEmpListVo;
 import com.ibk.itep.vo.admin.EduOpenReadyStatVo;
 import com.ibk.itep.vo.admin.EduReadyStatVo;
+import com.ibk.itep.vo.admin.NewEduInfoVo;
 
 @Service
 public class EduReadyStatService {
 	
 	@Autowired
 	private AdminDao adminDao;
+
+	@Autowired
+	private ExcelUtil excelUtil;
 	
-	/* 교육신청현황 > 수강신청현황 */	
+	/* 수강신청현황 */	
 	public List<EduReadyStatVo> selectEduReadyStat(String sttgYmd, String fnshYmd, String edctClsfCd, String edctNm){		
-		EduReadyStatVo vo = new EduReadyStatVo();
+		EduReadyStatVo srchVo = new EduReadyStatVo();
 		
+		// 검색 데이터 vo에 담아 넘겨줌
 		if(sttgYmd != null && !sttgYmd.equals("")) 
-			vo.setSttgYmd(Date.valueOf(sttgYmd.replace("/", "-"))); // 검색 - 시작일자
-		
+			srchVo.setSttgYmd(sttgYmd);
+		else
+			srchVo.setSttgYmd("");		
 		if(fnshYmd != null && !fnshYmd.equals("")) 
-			vo.setFnshYmd(Date.valueOf(fnshYmd.replace("/", "-"))); // 검색 - 종료일자 
-		
-		if(edctClsfCd != null && !edctClsfCd.equals("")) { // 검색 - 교육구분
+			srchVo.setFnshYmd(fnshYmd); 
+		else 
+			srchVo.setFnshYmd("");		
+		if(edctClsfCd != null && !edctClsfCd.equals("")) { 
 			if(!edctClsfCd.equals("ALL"))
-				vo.setEdctClsfCd(edctClsfCd);
+				srchVo.setEdctClsfCd(edctClsfCd);
 		}
-		if(edctNm != null && !edctNm.equals("")) // 검색 - 교육명
-			vo.setEdctNm(edctNm);
+		if(edctNm != null && !edctNm.equals("")) 
+			srchVo.setEdctNm(edctNm);
 		
-		return adminDao.selectEduReadyStat(vo);
-	}
-	
-	/* 교육신청현황 > 수강신청현황 > 교육신청직원목록 팝업 */	
-	public List<EduEmpListVo> selectEduEmpListPop(String edctCntId){	
-		return adminDao.selectEduEmpListPop(edctCntId);
-	}
-	
-	/* 교육신청현황 > 과정개설신청현황 */	
-	public List<EduOpenReadyStatVo> selectEduOpenReadyStat(String cnfaYn, String userIdNm, String edctNm){		
-		EduOpenReadyStatVo vo = new EduOpenReadyStatVo();
-		if(cnfaYn != null && !cnfaYn.equals("")) { // 검색 - 확인여부
-			if(!cnfaYn.equals("ALL"))
-				vo.setCnfaYn(cnfaYn);
+		List<EduReadyStatVo> list = adminDao.selectEduReadyStat(srchVo);
+		
+		// 날짜 포맷 변경
+		for(EduReadyStatVo vo : list) {
+			if(vo.getEdctSttgYmd() == null)
+				vo.setEdctSttgYmd("");
+			else
+				vo.setEdctSttgYmd(changeDateFormat(vo.getEdctSttgYmd()));
+			if(vo.getEdctFnshYmd() == null)
+				vo.setEdctFnshYmd("");
+			else
+				vo.setEdctFnshYmd(changeDateFormat(vo.getEdctFnshYmd()));
+			if(vo.getSttgYmd() == null)
+				vo.setSttgYmd("");
+			else
+				vo.setSttgYmd(changeDateFormat(vo.getSttgYmd()));
+			if(vo.getFnshYmd() == null)
+				vo.setFnshYmd("");
+			else
+				vo.setFnshYmd(changeDateFormat(vo.getFnshYmd()));
 		}
-		if(userIdNm != null && !userIdNm.equals("")) { // 검색 - 사용자ID, 이름
+		
+		return list;
+	}
+	
+	
+	/* 수강신청현황 > 교육신청직원목록 팝업  */	
+	public List<EduEmpListVo> selectEduEmpListPop(int edctCntId){	
+		List<EduEmpListVo> list = adminDao.selectEduEmpListPop(edctCntId);
+		
+		for(EduEmpListVo vo : list) {
+			// 날짜 포맷 변경
+			if(vo.getEdctSttgYmd() == null)
+				vo.setEdctSttgYmd("");
+			else
+				vo.setEdctSttgYmd(changeDateFormat(vo.getEdctSttgYmd()));
+			if(vo.getEdctFnshYmd() == null)
+				vo.setEdctFnshYmd("");
+			else
+				vo.setEdctFnshYmd(changeDateFormat(vo.getEdctFnshYmd()));
+			
+			// 교육내용 개행처리
+			vo.setEdctCon(vo.getEdctCon().replace("\n", "<br>"));
+		}
+		
+		return list;
+	}
+	
+	
+	/* 수강신청현황 > 교육신청직원목록 팝업 > 차수완료, 수료처리  */	
+	public void updateEduEmpListPop(Map<String, String> map){	
+		
+		// {edctCntId : 차수번호, 신청서번호 : 수료여부, 신청서번호 : 수료여부 ,...} 
+		// 형태로 데이터가 저장되어있음
+		
+		int edctCntId = Integer.parseInt(map.get("edctCntId"));
+		adminDao.updateEduEmpListPopFnshY(edctCntId); // 차수완료 처리
+		map.remove("edctCntId"); // Map에서 차수ID값 제거
+		
+		// DAO에게 신청서ID, 수료여부 한쌍씩 넘기기 위한 map
+		Map<String, String> paramMap = new HashMap<String,String>();
+		for(String key : map.keySet()) {
+			paramMap.put("edctAplcId", key);
+			paramMap.put("ctcrYn", map.get(key));
+			adminDao.updateEduEmpListPopCtcrYn(paramMap); // 수료처리
+		}
+	}
+	
+	/* 수강신청현황 > 교육신청직원목록 팝업 > 엑셀 다운로드 */
+	public void selectEduEmpListExcel(HttpServletRequest req, HttpServletResponse res){	
+		
+		int edctCntId = Integer.parseInt(req.getParameter("edctCntId"));
+		
+		// DB 결과 조회
+		List<EduEmpListExcelVo> list = adminDao.selectEduEmpListExcel(edctCntId);
+		
+		// 엑셀관련 데이터 셋팅
+		req.setAttribute("sheetName", "교육신청 직원목록");
+		req.setAttribute("excelName", "ITEP_교육신청 직원목록");
+		String[] colName = {"부서","직원번호","직원명","수료여부"};
+		req.setAttribute("colName", colName);
+		req.setAttribute("list", list);
+		
+		// 엑셀 다운로드 실행
+		excelUtil.excelDownload(req, res);
+	}
+	
+	
+	/* 과정개설신청현황 */	
+	public List<EduOpenReadyStatVo> selectEduOpenReadyStat(String cnfaYn, String userIdNm, String edctNm){		
+		EduOpenReadyStatVo srchVo = new EduOpenReadyStatVo();
+		
+		// 검색 데이터 vo에 담아 넘겨줌
+		if(cnfaYn != null && !cnfaYn.equals("")) { 
+			if(!cnfaYn.equals("ALL"))
+				srchVo.setCnfaYn(cnfaYn);
+		}
+		if(userIdNm != null && !userIdNm.equals("")) { 
 			if(userIdNm.matches(".*[0-9].*") || userIdNm.equals("admin")) {
-				vo.setUserId(userIdNm);
+				srchVo.setUserId(userIdNm);
 			} else {
-				vo.setUserNm(userIdNm);
+				srchVo.setUserNm(userIdNm);
 			}
 		}
-		if(edctNm != null && !edctNm.equals("")) // 검색 - 교육명
-			vo.setEdctNm(edctNm);
+		if(edctNm != null && !edctNm.equals("")) 
+			srchVo.setEdctNm(edctNm);
 		
-		return adminDao.selectEduOpenReadyStat(vo);
+		List<EduOpenReadyStatVo> list = adminDao.selectEduOpenReadyStat(srchVo);
+
+		// 날짜 포맷 변경
+		for(EduOpenReadyStatVo vo : list) {
+			if(vo.getEdctSttgYmd() == null)
+				vo.setEdctSttgYmd("");
+			else
+				vo.setEdctSttgYmd(changeDateFormat(vo.getEdctSttgYmd()));
+			if(vo.getEdctFnshYmd() == null)
+				vo.setEdctFnshYmd("");
+			else
+				vo.setEdctFnshYmd(changeDateFormat(vo.getEdctFnshYmd()));
+		}
+		
+		return list;
 	}
 	
-	/* 교육신청현황 > 과정개설신청현황 > 상세팝업*/	
-	public EduOpenReadyStatVo selectNewEduInfoPop(int aplcId){	
-		return adminDao.selectNewEduInfoPop(aplcId);
+	
+	/* 과정개설신청현황 > 상세팝업 */	
+	public NewEduInfoVo selectNewEduInfoPop(int aplcId){	
+		NewEduInfoVo vo = adminDao.selectNewEduInfoPop(aplcId);
+		
+		// 교육비용 천단위 , 표시
+		vo.setEdex(String.format("%,d", Integer.parseInt(vo.getEdex())));
+		
+		// 날짜 포맷 변경
+		if(vo.getAplcTs() == null)
+			vo.setAplcTs("");
+		else
+			vo.setAplcTs(changeDateFormat(vo.getAplcTs()));
+		if(vo.getEdctSttgYmd() == null)
+			vo.setEdctSttgYmd("");
+		else
+			vo.setEdctSttgYmd(changeDateFormat(vo.getEdctSttgYmd()));
+		if(vo.getEdctFnshYmd() == null)
+			vo.setEdctFnshYmd("");
+		else
+			vo.setEdctFnshYmd(changeDateFormat(vo.getEdctFnshYmd()));
+		if(vo.getAplcSttgYmd() == null)
+			vo.setAplcSttgYmd("");
+		else
+			vo.setAplcSttgYmd(changeDateFormat(vo.getAplcSttgYmd()));
+		if(vo.getAplcFnshYmd() == null)
+			vo.setAplcFnshYmd("");
+		else
+			vo.setAplcFnshYmd(changeDateFormat(vo.getAplcFnshYmd()));
+		if(vo.getEdctSttgTim() == null)
+			vo.setEdctSttgTim("");
+		else
+			vo.setEdctSttgTim(changeTimeFormat(vo.getEdctSttgTim()));
+		if(vo.getEdctFnshTim() == null)
+			vo.setEdctFnshTim("");
+		else
+			vo.setEdctFnshTim(changeTimeFormat(vo.getEdctFnshTim()));
+		
+		// 교육내용 개행처리
+		vo.setEdctCon(vo.getEdctCon().replace("\n", "<br>"));
+		
+		return vo;
+	}
+	
+	
+	/* 과정개설신청 확인처리 */	
+	public void updateNewEduInfoPop(int aplcId, SessionVo ssnInfo){	
+		NewEduInfoVo vo = new NewEduInfoVo();
+		
+		vo.setAplcId(aplcId);
+		vo.setCnfmId(ssnInfo.getUserId());
+		
+		adminDao.updateNewEduInfoPop(vo);
+	}
+	
+	
+	/* 날짜포맷변경 함수 */
+	public String changeDateFormat(String ymd) {
+		SimpleDateFormat asIsSdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat toBeSdf = new SimpleDateFormat("yyyy.MM.dd");
+		Date date = null;
+		try {
+			date = asIsSdf.parse(ymd);
+			ymd = toBeSdf.format(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return ymd;
+	}
+	
+	/* 시간포맷변경 함수 */
+	public String changeTimeFormat(String time) {
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		Date date = null;
+		try {
+			date = sdf.parse(time);
+			time = sdf.format(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return time;
 	}
 }
 

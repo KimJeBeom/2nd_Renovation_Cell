@@ -53,7 +53,7 @@
 														<tr>
 															<th>과목명</th>
 															<td colspan="3">
-																<input id="edctNm" type="text" class="form-control" readonly onfocus="this.blur();">
+																<input id="edctNm" type="text" class="form-control" readonly onfocus="this.blur();" value="${edctNm }"/>
 															</td>
 														</tr>
 														<tr>
@@ -196,180 +196,203 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	selectEduRndRegMod();
- 	$(document).on("click","#eduRndListTbody tr",function(){
- 		var target = $(this)
- 		showEduRndRegModDetail(target); 	
- 	}); 
- 	$(document).on("keyup","#ctcrTim",function(event){
- 		this.value = this.value.replace(/[^0-9.]/g,'');   // 소숫점 까지 입력 받기 위함 	
- 	});
- 	$(document).on("keyup","#edctTrm",function(event){
- 		this.value = this.value.replace(/[^0-9.]/g,'');   // 소숫점 까지 입력 받기 위함 	
- 	});
- 	$(document).on("keyup","#edex",function(event){
- 		this.value = this.value.replace(/[^0-9]/g,'');   // 입력값이 숫자가 아니면 공백
- 		this.value = this.value.replace(/,/g,'');          // ,값 공백처리
- 		this.value = this.value.replace(/\B(?=(\d{3})+(?!\d))/g, ","); // 정규식을 이용해서 3자리 마다 , 추가*/ 	
- 	}); 
-	$("#btnAddEduRnd").click(function(){
-		var edctNm = $("#edctNm").val();
-		$("input").val(null);
-		$("#edctNm").val(edctNm);
-	});
-	$("#btnModEduRnd").click(function(){
-		var radioVal = $('input[name="chkEdctCntId"]:checked').val();
-		if(radioVal != null){
-			alert("수정버튼 클릭");
-			alert(radioVal);
-			//showPopup('admin','eduModPop?edctId='+radioVal);	
-		}else{
-			alert("수정할 차수를 선택해주세요");
-		} 		
-	});
-		$("#btnDelEduRnd").click(function(){
-			var radioVal = $('input[name="chkEdctCntId"]:checked').val();
-			if(radioVal != null){
-				alert("삭제버튼 클릭");
-				alert(radioVal);
-			}else{
-				alert("삭제할 차수를 선택해주세요");
-			} 				
-	});
-		$("#btnConfirm").click(function(){
-			/* var edctNm = $("#edctNm").val();
-			$("input").val(null);
-			$("#edctNm").val(edctNm); */
-		});
-	  	$('#aplcRangeStart').calendar({
-			type: 'date',
-			endCalendar: $('#aplcRangeEnd'),
-			formatter: {
-				date: function (date, settings) {
-					if (!date) return '';
-					var day = date.getDate();
-					var month = date.getMonth() + 1;
-					var year = date.getFullYear();
-					return year + '.' + month + '.' + day;
-				}
-			},
-	  	
-		});
-	 	$('#aplcRangeEnd').calendar({
-			type: 'date',
-			startCalendar: $('#aplcRangeStart'),
-			formatter: {
-				date: function (date, settings) {
-					if (!date) return '';
-					var day = date.getDate();
-					var month = date.getMonth() + 1;
-					var year = date.getFullYear();
-					return year + '.' + month + '.' + day;
-				}
-			}
-		});
-	  	$('#cnclRangeStart').calendar({
-			type: 'date',
-			endCalendar: $('#cnclRangeEnd'),
-			formatter: {
-				date: function (date, settings) {
-					if (!date) return '';
-					var day = date.getDate();
-					var month = date.getMonth() + 1;
-					var year = date.getFullYear();
-					return year + '.' + month + '.' + day;
-				}
-			},
-	 	    popupOptions: {
-		 	     position: 'bottom right',
-		 	     lastResort: 'bottom right',
-		 	     prefer: 'opposite',
-		 	     hideOnScroll: false
-		 	}
-		});
-	 	$('#cnclRangeEnd').calendar({
-			type: 'date',
-			startCalendar: $('#cnclRangeStart'),
-			formatter: {
-				date: function (date, settings) {
-					if (!date) return '';
-					var day = date.getDate();
-					var month = date.getMonth() + 1;
-					var year = date.getFullYear();
-					return year + '.' + month + '.' + day;
-				}
-			},
-	 	    popupOptions: {
-		 	     position: 'bottom right',
-		 	     lastResort: 'bottom right',
-		 	     prefer: 'opposite',
-		 	     hideOnScroll: false
-		 	}
-		});
-	  	$('#edctRangeStart').calendar({
-			type: 'date',
-			endCalendar: $('#edctRangeEnd'),
-			formatter: {
-				date: function (date, settings) {
-					if (!date) return '';
-					var day = date.getDate();
-					var month = date.getMonth() + 1;
-					var year = date.getFullYear();
-					return year + '.' + month + '.' + day;
-				}
-			},
-	 	    popupOptions: {
-		 	     position: 'bottom left',
-		 	     lastResort: 'bottom left',
-		 	     prefer: 'opposite',
-		 	     hideOnScroll: false
-		 	}
-		});
-	 	$('#edctRangeEnd').calendar({
-			type: 'date',
-			startCalendar: $('#edctRangeStart'),
-			formatter: {
-				date: function (date, settings) {
-					if (!date) return '';
-					var day = date.getDate();
-					var month = date.getMonth() + 1;
-					var year = date.getFullYear();
-					return year + '.' + month + '.' + day;
-				}
-			},
-	 	    popupOptions: {
-		 	     position: 'top left',
-		 	     lastResort: 'top left',
-		 	     prefer: 'opposite',
-		 	     hideOnScroll: false
-		 	}
-		});
-	 	$('#edctTimRangeStart').calendar({
-	 	    type: 'time',
-	 	   	ampm: false,
-	 	    endCalendar: $('#edctTimRangeEnd'),
-	 	    popupOptions: {
-	 	     position: 'top right',
-	 	     lastResort: 'top right',
-	 	     prefer: 'opposite',
-	 	     hideOnScroll: false
-	 	    }
-	 	});
-	 	$('#edctTimRangeEnd').calendar({
-	 	    type: 'time',
-	 	   	ampm: false,
-	 	    startCalendar: $('#edctTimRangeStart'),
-	 		popupOptions: {
-	 	     position: 'top right',
-	 	     lastResort: 'top right',
-	 	     prefer: 'opposite',
-	 	     hideOnScroll: false
-	 	   }	 	    
-	 	});
 });
+//교육 차수 테이블 행 선택시 차수 정보 보이도록
+$(document).on("click","#eduRndListTbody tr",function(){
+	var target = $(this);
+	selectEduRndRegModDetail(target); 
+});
+//입력값 초기화
+$(document).on("click","#btnAddEduRnd",function(){
+	if(confirm("신규차수 등록을 위해 입력 값을 초기화 시키시겠습니까?")){
+		initInputValue();
+	};	
+});
+//차수 삭제 버튼
+$(document).on("click","#btnDelEduRnd",function(){
+	var edctCntId = $(".trEdctCntInfo.active").attr("id");
+	var edctNm = $("#edctNm").val();
+	if(edctCntId == null || edctCntId == "undefined" || edctCntId ==""){
+		alert("삭제할 차수를 선택해 주세요");
+	}else{
+		if(confirm("\""+edctNm+"\" 교육의 \n 차수정보를 삭제 하시겠습니까?")){
+			deleteEduRndRegMod(edctCntId);			
+		};
+	}
+});
+//등록/수정 버튼
+$(document).on("click","#btnConfirm",function(){
+	if(verifyValue()){
+		var edctCntId = $(".trEdctCntInfo.active").attr("id");
+		var edctNm = $("#edctNm").val();
+		if(edctCntId == null || edctCntId == "undefined" || edctCntId ==""){
+			if(confirm("\""+edctNm+"\" 교육의 \n 신규차수를 등록 하시겠습니까?")){
+				insertEduRndRegMod();	
+			};			
+		}else{
+			if(confirm("\""+edctNm+"\" 교육의 \n 차수정보를 수정 하시겠습니까?")){
+				updateEduRndRegMod(edctCntId);				
+			};
+		};
+	};
+});
+//교육시간 입력값 검증 및 수정 용도
+$(document).on("keyup","#ctcrTim",function(event){
+	this.value = this.value.replace(/[^0-9.]/g,'');   // 소숫점 까지 입력 받기 위함 	
+});
+//교육기간 입력값 검증 및 수정 용도
+$(document).on("keyup","#edctTrm",function(event){
+	this.value = this.value.replace(/[^0-9.]/g,'');   // 소숫점 까지 입력 받기 위함 	
+});
+//교육비용 입력값 검증 및 수정 용도
+$(document).on("keyup","#edex",function(event){
+	this.value = this.value.replace(/[^0-9]/g,'');   // 입력값이 숫자가 아니면 공백
+	this.value = this.value.replace(/,/g,'');          // ,값 공백처리
+	this.value = this.value.replace(/\B(?=(\d{3})+(?!\d))/g, ","); // 정규식을 이용해서 3자리 마다 , 추가*/ 	
+}); 
+//------------------------------달력 반복 -------------------------------------------------------------------
+$('#aplcRangeStart').calendar({
+	type: 'date',
+	endCalendar: $('#aplcRangeEnd'),
+	formatter: {
+		date: function (date, settings) {
+			if (!date) return '';
+			var day = date.getDate();
+			var month = date.getMonth() + 1;
+			var year = date.getFullYear();
+			return year + '/' + month + '/' + day;
+		}
+	},
+});
+$('#aplcRangeEnd').calendar({
+type: 'date',
+startCalendar: $('#aplcRangeStart'),
+formatter: {
+	date: function (date, settings) {
+		if (!date) return '';
+		var day = date.getDate();
+		var month = date.getMonth() + 1;
+		var year = date.getFullYear();
+		return year + '/' + month + '/' + day;
+	}}
+});
+ $('#cnclRangeStart').calendar({
+	type: 'date',
+	endCalendar: $('#cnclRangeEnd'),
+	formatter: {
+		date: function (date, settings) {
+			if (!date) return '';
+			var day = date.getDate();
+			var month = date.getMonth() + 1;
+			var year = date.getFullYear();
+			return year + '/' + month + '/' + day;
+		}},
+	popupOptions: {
+ 	     position: 'bottom right',
+ 	     lastResort: 'bottom right',
+ 	     prefer: 'opposite',
+ 	     hideOnScroll: false
+ 	}
+});
+$('#cnclRangeEnd').calendar({
+	type: 'date',
+	startCalendar: $('#cnclRangeStart'),
+	formatter: {
+		date: function (date, settings) {
+			if (!date) return '';
+			var day = date.getDate();
+			var month = date.getMonth() + 1;
+			var year = date.getFullYear();
+			return year + '/' + month + '/' + day;
+		}},
+	popupOptions: {
+ 	     position: 'bottom right',
+ 	     lastResort: 'bottom right',
+ 	     prefer: 'opposite',
+ 	     hideOnScroll: false
+ 	}
+});
+$('#edctRangeStart').calendar({
+	type: 'date',
+	endCalendar: $('#edctRangeEnd'),
+	formatter: {
+		date: function (date, settings) {
+			if (!date) return '';
+			var day = date.getDate();
+			var month = date.getMonth() + 1;
+			var year = date.getFullYear();
+			return year + '/' + month + '/' + day;
+		}},
+	popupOptions: {
+ 	     position: 'bottom left',
+ 	     lastResort: 'bottom left',
+ 	     prefer: 'opposite',
+ 	     hideOnScroll: false
+ 	}
+});
+$('#edctRangeEnd').calendar({
+	type: 'date',
+	startCalendar: $('#edctRangeStart'),
+	formatter: {
+		date: function (date, settings) {
+			if (!date) return '';
+				var day = date.getDate();
+				var month = date.getMonth() + 1;
+				var year = date.getFullYear();
+				return year + '/' + month + '/' + day;
+			}},
+	popupOptions: {
+	 	     position: 'top left',
+	 	     lastResort: 'top left',
+	 	     prefer: 'opposite',
+	 	     hideOnScroll: false
+	 	}
+});
+$('#edctTimRangeStart').calendar({
+	type: 'time',
+	ampm: false,
+	endCalendar: $('#edctTimRangeEnd'),
+	formatter: {
+		time: function (time, settings) {
+			if (!time) return '';
+			var hour = time.getHours();
+			var minute = time.getMinutes();
+			//var second = time.getSeconds();
+			return hour + ':' + minute;// + ':' + second;
+	}},
+	popupOptions: {
+		position: 'top right',
+	    lastResort: 'top right',
+	    prefer: 'opposite',
+	    hideOnScroll: false
+	}
+});
+$('#edctTimRangeEnd').calendar({
+	type: 'time',
+	ampm: false,
+	startCalendar: $('#edctTimRangeStart'),
+	formatter: {
+		time: function (time, settings) {
+			if (!time) return '';
+			var hour = time.getHours();
+			var minute = time.getMinutes();
+			//var second = time.getSeconds();
+			return hour + ':' + minute;// + ':' + second;
+		}
+	},
+	popupOptions: {
+		position: 'top right',
+ 	    lastResort: 'top right',
+ 	    prefer: 'opposite',
+ 	    hideOnScroll: false
+	}	 	    
+ });
+//------------------------------달력 끝 -------------------------------------------------------------------
+//차수 리스트 출력
 function selectEduRndRegMod() {
 	var edctId = ${edctId };
     $.ajax({
-    	url:"/itep/views/admin/selectEduRndRegMod", //데이터를  넘겨줄 링크 설정
+    	url:"/itep/views/admin/pop/selectEduRndRegMod", //데이터를  넘겨줄 링크 설정
         type:"POST", // post 방식
 		data: {"edctId" : edctId}, //넘겨줄 데이터
 		
@@ -377,12 +400,9 @@ function selectEduRndRegMod() {
 			var str = '';
 			str += '<tbody  id=\"eduRndListTbody\">'
 			$.each(responseData, function (i){
-				if(i==0){
-					$('#edctNm').val(responseData[i].edctNm);	
-				}				
 				str += '<tr class=\"trEdctCntInfo\" data-toggle=\"tab\" data-target=\"#'+responseData[i].edctCntId+'\" id=\"'+responseData[i].edctCntId+'\">';
 				str += '<td>'+(i+1)+'</td>';
-				str += '<td>'+responseData[i].edctSttgYmd+' ~ '+responseData[i].edctFnshYmd+'</td>';
+				str += '<td>'+responseData[i].edctSttgYmd.replace(/-/g,'.')+' ~ '+responseData[i].edctFnshYmd.replace(/-/g,'.')+'</td>';
 				str += '<td>'+responseData[i].edctTrm+'일</td>';
 				str += '</tr>';
 			});
@@ -390,21 +410,21 @@ function selectEduRndRegMod() {
 			$("#eduRndListTbody").replaceWith(str);
 		},
 		error: function (xhr, status, error) {
-			alert("error");
+			alert("등록된 차수가 없습니다");
 			
 		}
 	});
 }
-function showEduRndRegModDetail(target){
+//차수 상세정보 출력
+function selectEduRndRegModDetail(target){
 	var edctCntId = target.attr("id");
     $.ajax({
-    	url:"/itep/views/admin/selectEduRndRegMod", //데이터를  넘겨줄 링크 설정
+    	url:"/itep/views/admin/pop/selectEduRndRegMod", //데이터를  넘겨줄 링크 설정
         type:"POST", // post 방식
 		data: {"edctCntId" : edctCntId}, //넘겨줄 데이터
 		
 		success: function (responseData) {
 			$.each(responseData, function (i){
-				$('#edctNm').val(responseData[i].edctNm);
 				$('#aplcSttgYmd').val(responseData[i].aplcSttgYmd);
 				$('#aplcFnshYmd').val(responseData[i].aplcFnshYmd);
 				$('#cnclSttgYmd').val(responseData[i].cnclSttgYmd);
@@ -421,7 +441,140 @@ function showEduRndRegModDetail(target){
 		error: function (xhr, status, error) {
 			alert("error");
 			
+		}	
+	});
+}
+//차수 정보 신규 등록
+function insertEduRndRegMod(){
+	var edctId = ${edctId };
+    $.ajax({
+    	url:"/itep/views/admin/pop/insertEduRndRegMod", //데이터를  넘겨줄 링크 설정
+        type:"POST", // post 방식
+		data:{	"edctId" : 		edctId,
+				"aplcSttgYmd" :	$('#aplcSttgYmd').val(),
+				"aplcFnshYmd" : $('#aplcFnshYmd').val(),
+				"cnclSttgYmd" : $('#cnclSttgYmd').val(),
+				"cnclFnshYmd" :	$('#cnclFnshYmd').val(),
+				"edctSttgYmd" :	$('#edctSttgYmd').val(),
+				"edctFnshYmd" :	$('#edctFnshYmd').val(),
+				"edctSttgTim" :	$('#edctSttgTim').val(),
+				"edctFnshTim" :	$('#edctFnshTim').val(),
+				"ctcrTim" :		$('#ctcrTim').val(),
+				"edctTrm" :		$('#edctTrm').val(),
+				"edex" :		$('#edex').val()			}, //넘겨줄 데이터
+		
+		success: function (responseData) {
+				alert("정상적으로 등록 되었습니다");
+				selectEduRndRegMod();
+				initInputValue();
+		},
+		error: function (xhr, status, error) {
+			alert("차수 등록 에러입니다");
+			
 		}
 	});
+}
+//차수 정보 업데이트
+function updateEduRndRegMod(edctCntId){
+    $.ajax({
+    	url:"/itep/views/admin/pop/updateEduRndRegMod", //데이터를  넘겨줄 링크 설정
+        type:"POST", // post 방식
+		data:{	"edctCntId"		: edctCntId,
+				"aplcSttgYmd" 	: $('#aplcSttgYmd').val(),
+				"aplcFnshYmd" 	: $('#aplcFnshYmd').val(),
+				"cnclSttgYmd" 	: $('#cnclSttgYmd').val(),
+				"cnclFnshYmd" 	: $('#cnclFnshYmd').val(),
+				"edctSttgYmd" 	: $('#edctSttgYmd').val(),
+				"edctFnshYmd" 	: $('#edctFnshYmd').val(),
+				"edctSttgTim" 	: $('#edctSttgTim').val(),
+				"edctFnshTim" 	: $('#edctFnshTim').val(),
+				"ctcrTim" 		: $('#ctcrTim').val(),
+				"edctTrm" 		: $('#edctTrm').val(),
+				"edex" 			: $('#edex').val()			}, //넘겨줄 데이터
+		
+		success: function (responseData) {
+				alert("정상적으로 변경 되었습니다");
+				selectEduRndRegMod();
+				initInputValue();
+		},
+		error: function (xhr, status, error) {
+			alert("수정 에러입니다");
+			
+		}
+	});
+}
+//차수 정보 삭제
+function deleteEduRndRegMod(edctCntId){
+    $.ajax({
+    	url:"/itep/views/admin/pop/deleteEduRndRegMod", //데이터를  넘겨줄 링크 설정
+        type:"POST", // post 방식
+		data:{	"edctCntId"	: edctCntId}, //넘겨줄 데이터		
+		success: function (responseData) {
+				alert("정상적으로 삭제 되었습니다");
+				selectEduRndRegMod();
+				initInputValue();
+		},
+		error: function (xhr, status, error) {
+			alert("삭제 에러 입니다");
+			
+		}
+	});
+}
+function verifyValue(){
+	var dateRegExp = /^(19|20)\d{2}\/(0*[1-9]|1[012])\/(0*[1-9]|[12][0-9]|3[0-1])$/; //yyyy/mm/dd 형태 허용 m과 d는 한자리어도 됨
+	var timeRegExp = /^(0*[0-9]|1[0-9]|2[0-3]):(0*[0-9]|[1-5][0-9])$/; //HH:mm 형태 H와m은 한자리어도 됨
+	var edexRegExp = /^([1-9][0-9,\s]*|[0])*$/; //금액 (따옴표 포함, 공백 가능, 0원 가능)
+	
+	if(!dateRegExp.test($('#aplcSttgYmd').val())){
+		alert("신청시작일자가 올바르지 않습니다");
+		return false;
+	}
+	if(!dateRegExp.test($('#aplcFnshYmd').val())){
+		alert("신청종료일자가 올바르지 않습니다");
+		return false;
+	}
+	if(!dateRegExp.test($('#cnclSttgYmd').val())){
+		alert("취소시작일자가 올바르지 않습니다");
+		return false;
+	}
+	if(!dateRegExp.test($('#cnclFnshYmd').val())){
+		alert("취소종료일자가 올바르지 않습니다");
+		return false;
+	}
+	if(!dateRegExp.test($('#edctSttgYmd').val())){
+		alert("교육시작일자가 올바르지 않습니다");
+		return false;
+	}
+	if(!dateRegExp.test($('#edctFnshYmd').val())){
+		alert("교육종료일자가 올바르지 않습니다");
+		return false;
+	}
+	if(!timeRegExp.test($('#edctSttgTim').val())){
+		alert("교육시작시간이 올바르지 않습니다");
+		return false;
+	}
+	if(!timeRegExp.test($('#edctFnshTim').val())){
+		alert("교육종료시간이 올바르지 않습니다");
+		return false;
+	}
+	if(!$.isNumeric($('#ctcrTim').val())){
+		alert("이수시간이 올바르지 않습니다");
+		return false;
+	}
+	if(!$.isNumeric($('#edctTrm').val())){
+		alert("교육기간이 올바르지 않습니다");
+		return false;
+	}
+	if(!edexRegExp.test($('#edex').val())){
+		alert("비용이 올바르지 않습니다");
+		return false;
+	}
+	return true;
+}	
+function initInputValue(){
+	var edctNm = $("#edctNm").val();
+	$("input").val(null);
+	$("#edctNm").val(edctNm);
+	$(".trEdctCntInfo.active").removeClass("active");
 }
 </script>

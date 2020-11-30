@@ -1,6 +1,7 @@
 package com.ibk.itep.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -8,69 +9,109 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ibk.itep.vo.admin.EduEmpListExcelVo;
+import com.ibk.itep.service.cmm.CmmService;
 import com.ibk.itep.vo.admin.EduEmpListVo;
+import com.ibk.itep.vo.admin.EduHistoryVo;
 import com.ibk.itep.vo.admin.EduOpenReadyStatVo;
 import com.ibk.itep.vo.admin.EduReadyStatVo;
 import com.ibk.itep.vo.admin.EduRegModVo;
 import com.ibk.itep.vo.admin.EduRndRegModVo;
+import com.ibk.itep.vo.admin.EmpAccMngExcelVo;
 import com.ibk.itep.vo.admin.EmpAccMngVo;
+import com.ibk.itep.vo.admin.NewEduInfoVo;
 
 @Repository
 public class AdminDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	@Autowired
+	private CmmService cmmService;
+	
 	private static final Logger logger = LoggerFactory.getLogger(AdminDao.class);
 	
 	public List<EduRegModVo> selectEduRegMod(EduRegModVo vo) {
+		logger.debug("DAO Start - selectEduRegMod");
 		List<EduRegModVo> list = sqlSession.selectList("queryAdmin.selectEduRegMod", vo);
+		logger.debug("DAO End - selectEduRegMod");
+
 		return list;
 	}
-	
 	public boolean deleteEduRegMod(EduRegModVo vo) {
+		logger.debug("DAO Start - deleteEduRegMod");
+		cmmService.objFieldTest(vo);
 		int count = sqlSession.delete("queryAdmin.deleteEduRegMod", vo);
+		logger.debug("DAO End - deleteEduRegMod");
 		return count == 1;
 	}
-
+	
+	public boolean updateEduRegMod(EduRegModVo vo) {
+		logger.debug("DAO Start - updateEduRegMod");
+		cmmService.objFieldTest(vo);
+		//int count =1;
+		int count = sqlSession.update("queryAdmin.updateEduRegMod", vo);
+		logger.debug("DAO End - updateEduRegMod : result {}", count);
+		//return true;
+		return count == 1;
+	}
+	
 	public boolean insertEduRegMod(EduRegModVo vo) {
+		logger.debug("DAO Start - insertEduRegMod");
+		cmmService.objFieldTest(vo);
 		int count = sqlSession.insert("queryAdmin.insertEduRegMod", vo);
+		logger.debug("DAO End - insertEduRegMod");
 		return count == 1;
 	}
 	
+	public boolean insertEduRndRegMod(EduRndRegModVo vo) {
+		logger.debug("DAO Start - insertEduRndRegMod");
+		cmmService.objFieldTest(vo);
+		int count = sqlSession.insert("queryAdmin.insertEduRndRegMod", vo);
+		logger.debug("DAO End - insertEduRndRegMod");
+		return count == 1;
+	}
 	public List<EduRndRegModVo> selectEduRndRegMod(EduRndRegModVo vo){
-		logger.debug("selectEduRndRegMod dao 진입");
+		logger.debug("DAO Start - selectEduRndRegMod");
+		cmmService.objFieldTest(vo);
 		List<EduRndRegModVo> list = sqlSession.selectList("queryAdmin.selectEduRndRegMod", vo);
-		logger.debug("selectEduRndRegMod dao 종료 직전 {}", list.get(0).getEdctCntId());	
+		logger.debug("DAO End - selectEduRndRegMod");
 		return list;
 	}
-	/*
-	public boolean updateAdmin(Integer userId) {
-		int count = sqlSession.update("queryAdmin.updateEudRegModUseN", userId);
+	public boolean updateEduRndRegMod(EduRndRegModVo vo) {
+		logger.debug("DAO Start - updateEduRndRegMod");
+		cmmService.objFieldTest(vo);
+		int count = sqlSession.update("queryAdmin.updateEduRndRegMod", vo);
+		logger.debug("DAO End - updateEduRndRegMod : result {}", count);
+		//return true;
 		return count == 1;
-	}*/
-	
-
-	/*
-	public List<AdminVo> selectAdmList(AdminVo vo) {
-		List<AdminVo> list = sqlSession.selectList("queryLes.selectAdmList", vo);
+	}
+	public boolean deleteEduRndRegMod(EduRndRegModVo vo) {
+		logger.debug("DAO Start - deleteEduRndRegMod");
+		cmmService.objFieldTest(vo);
+		int count = sqlSession.update("queryAdmin.deleteEduRndRegMod", vo);
+		logger.debug("DAO End - deleteEduRndRegMod : result {}");
+		//return true;
+		return count == 1;
+	}
+	/************************************************************
+	 *                        수강이력
+	 ************************************************************/
+	public List<EduHistoryVo> selectEduHistory(EduHistoryVo vo){
+		logger.debug("DAO Start - selectEduHistory");
+		cmmService.objFieldTest(vo);
+		List<EduHistoryVo> list = sqlSession.selectList("queryAdmin.selectEduHistory", vo);
+		logger.debug("DAO End - selectEduHistory");
 		return list;
 	}
-	
-	public boolean insertAdmin(AdminVo vo) {
-		int count = sqlSession.insert("queryLes.insertAdmin", vo);
+	public boolean updateEduHistory(EduHistoryVo vo) {
+		logger.debug("DAO Start - updateEduHistory");
+		cmmService.objFieldTest(vo);
+		int count = sqlSession.update("queryAdmin.updateEduHistory", vo);
+		logger.debug("DAO Start - updateEduHistory / 결과값 : {}", count);
 		return count == 1;
+		
 	}
-	
-	public boolean updateAdmin(AdminVo vo) {
-		int count = sqlSession.delete("queryLes.updateAdmin", vo);
-		return count == 1;
-	}
-	
-	public boolean deleteAdmin(AdminVo rflbId) {
-		int count = sqlSession.delete("queryLes.deleteAdmin", rflbId);
-		return count == 1;	
-	}*/
-	
 	/************************************************************
 	 *                         교육신청현황
 	 ************************************************************/
@@ -82,8 +123,25 @@ public class AdminDao {
 	}
 	
 	/* 수강신청현황 > 교육신청직원목록 팝업 */
-	public List<EduEmpListVo> selectEduEmpListPop(String edctCntId) {
+	public List<EduEmpListVo> selectEduEmpListPop(int edctCntId) {
 		List<EduEmpListVo> list = sqlSession.selectList("queryAdmin.selectEduEmpListPop", edctCntId);
+		return list;
+	}
+	
+	/* 수강신청현황 > 교육신청직원목록 > 수료/미수료 처리 */
+	public void updateEduEmpListPopCtcrYn(Map<String, String> map) {
+		
+		sqlSession.update("queryAdmin.updateEduEmpListPopCtcrYn", map);
+	}
+	
+	/* 수강신청현황 > 교육신청직원목록 > 차수완료 */
+	public void updateEduEmpListPopFnshY(int edctCntId) {
+		sqlSession.selectList("queryAdmin.updateEduEmpListPopFnshY", edctCntId);
+	}
+	
+	/* 엑셀 다운로드 */
+	public List<EduEmpListExcelVo> selectEduEmpListExcel(int edctCntId) {
+		List<EduEmpListExcelVo> list = sqlSession.selectList("queryAdmin.selectEduEmpListExcel", edctCntId);
 		return list;
 	}
 	
@@ -94,9 +152,14 @@ public class AdminDao {
 	}
 	
 	/* 과정개설신청현황 상세 팝업*/
-	public EduOpenReadyStatVo selectNewEduInfoPop(int aplcId) {
-		EduOpenReadyStatVo vo = sqlSession.selectOne("queryAdmin.selectNewEduInfoPop", aplcId);
+	public NewEduInfoVo selectNewEduInfoPop(int aplcId) {
+		NewEduInfoVo vo = sqlSession.selectOne("queryAdmin.selectNewEduInfoPop", aplcId);
 		return vo;
+	}
+	
+	/* 과정개설신청 확인 처리 */
+	public void updateNewEduInfoPop(NewEduInfoVo vo) {
+		sqlSession.update("queryAdmin.updateNewEduInfoPop", vo);
 	}
 	
 	/************************************************************
@@ -104,6 +167,12 @@ public class AdminDao {
 	 ************************************************************/
 	public List<EmpAccMngVo> selectEmpAccMng(EmpAccMngVo vo) {
 		List<EmpAccMngVo> list = sqlSession.selectList("queryAdmin.selectEmpAccMng", vo);
+		return list;
+	}
+	
+	/* 엑셀 다운로드 */
+	public List<EmpAccMngExcelVo> selectEmpAccMngExcel(EmpAccMngVo vo) {
+		List<EmpAccMngExcelVo> list = sqlSession.selectList("queryAdmin.selectEmpAccMngExcel", vo);
 		return list;
 	}
 	

@@ -20,8 +20,8 @@
 					<div class="panel panel-headline">
 						<div class="panel-heading">
 							<div class="row">
-								<div class="col-md-12" style="vertical-align:center;">
-									<img src="/itep/assets/itep/img/itepintro.png" style="height:100%; max-width:100%; display:block;"/>
+								<div class="col-md-12" style="vertical-align:center; text-align: center; ">
+									<img src="/itep/assets/itep/img/itepintro.png" style="height:70%; max-width:100%; margin: 0px auto; display:block;"/>
 								</div>
 							</div>
 						</div>
@@ -41,7 +41,7 @@
 									<table class="table table-hover">
 										<tbody>
 											<c:forEach items="${bdnList }" var="bdnlist">
-												<tr><td>${bdnlist.ttl }</td></tr>
+												<tr onclick="showPopup('board','noticeModPop?pbnsId=${bdnlist.pbnsId}');"><td>${bdnlist.ttl }</td></tr>
 											</c:forEach>
 										</tbody>
 									</table>
@@ -61,7 +61,7 @@
 								<div class="panel-body">
 									<ul class="list-unstyled activity-list">
 										<c:forEach items="${eduNowList }" var="edunowlist">
-											<li><a href="elements.html" class=""><p>${edunowlist.edctNm }<span class="timestamp">${edunowlist.edctSttgYmd } ~ ${edunowlist.edctFnshYmd }</span></p></a></li>
+											<li onclick="showPopup('myClass','eduInfoPop?edctAplcId=${edunowlist.edctAplcId}');"><a><p>${edunowlist.edctNm }<span class="timestamp">${edunowlist.edctSttgYmd } ~ ${edunowlist.edctFnshYmd }</span></p></a></li>
 										</c:forEach>
 									</ul>
 								</div>
@@ -99,5 +99,9 @@
 		
 		var OpenWindow = window.open('','_blank','width='+img_width+', height='+height+', menubars=no, scrollbars=1, resizable=1');
 		OpenWindow.document.write("<img src='"+url+"' width='"+win_width+"'>");
+	}
+	
+	function showNotice(pbnsId) {
+		
 	}
 </script>	

@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ibk.itep.service.admin.EduRegModService;
 import com.ibk.itep.service.admin.EduRndRegModService;
 import com.ibk.itep.service.cmm.CmmService;
+import com.ibk.itep.vo.admin.EduRegModVo;
 import com.ibk.itep.vo.admin.EduRndRegModVo;
 
 
@@ -25,43 +27,58 @@ public class AddEduRndPopController{
 	@Autowired
 	private EduRndRegModService eduRndRegModService;
 	@Autowired
+	private EduRegModService eduRegModService;
+	@Autowired
 	private CmmService cmmService;
 
 	@RequestMapping(value = "/views/admin/pop/addEduRndPop", method = RequestMethod.GET)
-	public String AddEduRndPop(@RequestParam("edctId") Integer edctId, Model model) {
+	public String AddEduRndPop(EduRegModVo ermVo, Model model) {
 		logger.debug("컨트롤러 진입");
-		/*
-		EduRndRegModVo errmVo = new EduRndRegModVo();
-		errmVo.setEdctId(edctId);
 		
-		List<EduRndRegModVo> errmVoList = eduRndRegModService.selectEduRndRegMod(errmVo);
-		
-		model.addAttribute("eduRndRegModVoList", errmVoList);
-		*/
+		List<EduRegModVo> ermVoList = eduRegModService.selectEduRegMod(ermVo);
+		int edctId = ermVoList.get(0).getEdctId();
+		String edctNm = ermVoList.get(0).getEdctNm();
 		model.addAttribute("edctId", edctId);
+		model.addAttribute("edctNm", edctNm);
 		logger.debug("컨트롤러 종료 직전");		
 		return "/admin/pop/addEduRndPop";
 	}
 	
-	@RequestMapping(value = "/views/admin/selectEduRndRegMod", method = RequestMethod.POST)
+	@RequestMapping(value = "/views/admin/pop/selectEduRndRegMod", method = RequestMethod.POST)
 	public @ResponseBody List<EduRndRegModVo> selectEduRndRegMod(EduRndRegModVo errmVo) {
-		logger.info("selectEduRndRegMod 컨트롤러 진입완료");		
+		logger.debug("컨트롤러 start - selectEduRndRegMod");		
 		List<EduRndRegModVo> errmVoList = eduRndRegModService.selectEduRndRegMod(errmVo);
-		int id = errmVoList.get(0).getEdctCntId();
-		logger.debug("selectEduRndRegMod 컨트롤러 종료 직전 edct cnt id : {}", id);
+		cmmService.objFieldTest(errmVoList);
+		logger.debug("컨트롤러 End - selectEduRndRegMod");
 		
 		return errmVoList;		
 	}
 	
-	/*
-	 * @RequestMapping(value = "/views/admin/selectEduRndRegModDetail", method =
-	 * RequestMethod.POST) public @ResponseBody List<EduRndRegModVo>
-	 * selectEduRndRegModDetail(EduRndRegModVo errmVo) {
-	 * logger.info("selectEduRndRegModDetail 컨트롤러 진입완료"); List<EduRndRegModVo>
-	 * errmVoList = eduRndRegModService.selectEduRndRegMod(errmVo);
-	 * logger.debug("selectEduRndRegModDeatil 컨트롤러 종료 직전");
-	 * 
-	 * return errmVoList; }
-	 */
+	@RequestMapping(value = "/views/admin/pop/insertEduRndRegMod", method = RequestMethod.POST)
+	public @ResponseBody boolean insertEduRndRegMod(EduRndRegModVo errmVo) {
+		logger.debug("컨트롤러 Start : insertEduRndRegMod");
+		cmmService.objFieldTest(errmVo);
+		boolean result = eduRndRegModService.insertEduRndRegMod(errmVo);
+		logger.debug("컨트롤러 End : insertEduRndRegMod : result : {}", result);
+		return result;
+	}
+
+	@RequestMapping(value = "/views/admin/pop/updateEduRndRegMod", method = RequestMethod.POST)
+	public @ResponseBody boolean updateEduRndRegMod(EduRndRegModVo errmVo) {
+		logger.debug("컨트롤러 Start : updateEduRndRegMod");
+		cmmService.objFieldTest(errmVo);
+		boolean result = eduRndRegModService.updateEduRndRegMod(errmVo);
+		logger.debug("컨트롤러 End : updateEduRndRegMod, 결과값 {}", result);
+		return result;
+	}
+
+	@RequestMapping(value = "/views/admin/pop/deleteEduRndRegMod", method = RequestMethod.POST)
+	public @ResponseBody boolean deleteEduRndRegMod(EduRndRegModVo errmVo) {
+		logger.debug("컨트롤러 Start : deleteEduRndRegMod");
+		cmmService.objFieldTest(errmVo);
+		boolean result = eduRndRegModService.deleteEduRndRegMod(errmVo);
+		logger.debug("컨트롤러 End : deleteEduRndRegMod, 결과값 {}", result);
+		return result;
+	}
 
 }

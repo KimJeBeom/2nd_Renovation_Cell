@@ -29,8 +29,8 @@
 						<div id="toastr-demo" class="panel">
 						
 							<!-- 결재 목록 -->
-							<div class="panel-body">
-								<h4 class="panel-title" style="float:left;"><b>결재 목록</b></h4>
+							<div class="panel-body" style="overflow-x:hidden; height:350px;">
+								<h4 class="panel-title" style="float:left;"><b>▶ 결재 목록</b></h4>
 								
 								<!-- 상단 버튼 -->
 								<button type="button" class="btn btn-primary btn-toastr btn-top" onclick="apprRej();">반려</button>
@@ -49,27 +49,35 @@
 											<th>부서명</th>
 											<th>직원명</th>
 											<th style="width: 200px;">신청교육</th>
-											<th>신청일자</th>
+											<th>신청일시</th>
 										</tr>
 									</thead>
 									<tbody id="apprListBody">
-										<!-- 컨트롤러에서 가져온 리스트에서 VO 하나씩 꺼내서 출력 -->
-										<c:forEach items="${apprList }" var="apprlist" varStatus="status">
-											<tr data-toggle="tab" data-target="#table" onclick="showDetail(this, ${apprlist.edctAplcId })">
-												<td>
-													<label class="fancy-checkbox" onclick="event.cancelBubble=true">
-														<input type="checkbox" name="checkbox"><span></span>
-													</label>
-												</td>
-												<td>${status.count }</td>
-												<td>${apprlist.brnm }</td>
-												<td>${apprlist.userNm }</td>
-												<td>${apprlist.edctNm }</td>
-												<td>${apprlist.aplcTs }</td>
-												<!-- 체크된 row의 교육신청ID를 넘겨주기 위한 숨겨진 요소 -->
-												<td style="display:none">${apprlist.edctAplcId }</td>
+										<c:choose>
+											<c:when test="${not empty apprList}">
+												<c:forEach items="${apprList }" var="apprlist" varStatus="status">
+													<tr data-toggle="tab" data-target="#table" onclick="showDetail(this, ${apprlist.edctAplcId });">
+														<td>
+															<label class="fancy-checkbox" onclick="event.cancelBubble=true">
+																<input type="checkbox" name="checkbox"><span></span>
+															</label>
+														</td>
+														<td>${status.count }</td>
+														<td>${apprlist.brnm }</td>
+														<td>${apprlist.userNm }</td>
+														<td>${apprlist.edctNm }</td>
+														<td>${apprlist.aplcTs }</td>
+														<!-- 체크된 row의 교육신청ID를 넘겨주기 위한 숨겨진 요소 -->
+														<td style="display:none">${apprlist.edctAplcId }</td>
+													</tr>
+											    </c:forEach>
+										    </c:when>
+											<c:otherwise>
+											<tr height="200">
+												<td colspan="7" class="txt_center"><h4>결재 할 문서가 없습니다.</h4></td>
 											</tr>
-									    </c:forEach>
+											</c:otherwise>
+										</c:choose>	
 									</tbody>
 								</table>
 								
@@ -78,6 +86,7 @@
 								<!-- apprList가 하나도 없으면 apprDetail == null (Controller에서 지정) -->
 								<!-- apprDetail 이 not null일 때만 아래 화면 보여줌 -->
 								<c:if test="${not empty apprDetail}">
+									<h4 class="panel-title" style="float:left;"><b>▶ 상세내용</b></h4>
 									<!-- 위의 결재항목별 교육상세설명 테이블 (TOGGLE 적용) -->
 									<div id="tab-content" class="tab-content">
 										<!-- 테이블 1 -->
@@ -143,95 +152,86 @@
 		HighLightTableTr(trs[0]);	
 	});
 	
-		// 결재건 클릭 시 상세내역 동적변경을 위한 함수
-		function showDetail(target, edctAplcId) {
-			HighLightTableTr(target);
+	// 결재건 클릭 시 상세내역 동적변경을 위한 함수
+	function showDetail(target, edctAplcId) {
+		HighLightTableTr(target);
+		
+	    $.ajax({
+	    	url:"/itep/views/apprMng/apprListDetail", //데이터를  넘겨줄 링크 설정
+	        type:"POST", // post 방식
+			data: {"edctAplcId" : edctAplcId}, //넘겨줄 데이터
 			
-		    $.ajax({
-		    	url:"/itep/views/apprMng/apprListDetail", //데이터를  넘겨줄 링크 설정
-		        type:"POST", // post 방식
-				data: {"edctAplcId" : edctAplcId}, //넘겨줄 데이터
-				
-				success: function (responseData) {						
-					// apprDetail 결과값을 테이블에 동적으로 반영
-					$('#edctNm').html(responseData.edctNm);
-					$('#edctCon').html('<br>'+responseData.edctCon+'<br><br>');
-					$('#edctLevl').html(responseData.edctLevl);
-					$('#onlEdctYn').html(responseData.onlEdctYn);
-					$('#edctYmd').html(responseData.edctSttgYmd+' ~ '+responseData.edctFnshYmd);
-					$('#aplcYmd').html(responseData.aplcSttgYmd+' ~ '+responseData.aplcFnshYmd);
-					$('#apndDat').html(responseData.apndDat);
-				},
-				error: function (xhr, status, error) {
+			success: function (responseData) {						
+				// apprDetail 결과값을 테이블에 동적으로 반영
+				$('#edctNm').html(responseData.edctNm);
+				$('#edctCon').html('<br>'+responseData.edctCon+'<br><br>');
+				$('#edctLevl').html(responseData.edctLevl);
+				$('#onlEdctYn').html(responseData.onlEdctYn);
+				$('#edctYmd').html(responseData.edctSttgYmd+' ~ '+responseData.edctFnshYmd);
+				$('#aplcYmd').html(responseData.aplcSttgYmd+' ~ '+responseData.aplcFnshYmd);
+				$('#apndDat').html(responseData.apndDat);
+			},
+			error: function (xhr, status, error) { }
+		});
+	}		
+	
+	// 결재 승인
+	function apprConf() {
+		var checkbox = $('input[name="checkbox"]:checked'); // 선택된 체크박스
+		var checkedLength = checkbox.length; // 선택된 체크박스의 개수
+		
+		// 체크된게 하나도 없으면 에러메세지 띄움
+		if(checkedLength == 0) {
+			alert("선택된 결재건이 없습니다.");
+		} 
+		
+		// 체크된 결재건의 승인처리
+		// 체크된 row의 교육신청ID를 배열에 담아 넘김
+		else {
+			
+			 if (confirm("승인하시겠습니까?") == true){
+				 var aplcIdArr = new Array(); // 선택된 교육신청ID를 담기위한 배열
+				 
+				// 체크된 체크박스 값을 하나씩 가져온다
+				checkbox.each(function(i) {
+					var tr = checkbox.parent().parent().parent().eq(i); // checkbox의 부모의 부모의 부모는 tr
+					var td = tr.children(); // tr의 자식은 td들
 					
-				}
-			});
-		}		
-		
-		
-		// 결재 승인
-		function apprConf() {
-			var checkbox = $('input[name="checkbox"]:checked'); // 선택된 체크박스
-			var checkedLength = checkbox.length; // 선택된 체크박스의 개수
-			
-			// 체크된게 하나도 없으면 에러메세지 띄움
-			if(checkedLength == 0) {
-				alert("선택된 결재건이 없습니다.");
-			} 
-			
-			// 체크된 결재건의 승인처리
-			// 체크된 row의 교육신청ID를 배열에 담아 넘김
-			else {
-				
-				 if (confirm("승인하시겠습니까?") == true){
-					 var aplcIdArr = new Array(); // 선택된 교육신청ID를 담기위한 배열
-					 
-					// 체크된 체크박스 값을 하나씩 가져온다
-					checkbox.each(function(i) {
-						var tr = checkbox.parent().parent().parent().eq(i); // checkbox의 부모의 부모의 부모는 tr
-						var td = tr.children(); // tr의 자식은 td들
-						
-						aplcIdArr.push(td.eq(6).text());
-					});
-				       
-				    $.ajax({ 
-		            	url:"/itep/views/apprMng/apprConf", //데이터를  넘겨줄 링크 설정
-		    		    type:"POST", // post 방식
-		    			data: {"aplcIdArr" : aplcIdArr}, //넘겨줄 데이터
-				        	
-				        success: function (responseData) {		
-				        	if(responseData == 1) {
-				        		confirm("승인이 완료되었습니다"); // 결과가 1이면 정상적으로 승인처리 완료
-				        		window.location.href = "/itep/views/apprMng/apprList";
-				        	} else {
-				        		confirm("실패하였습니다. 다시 시도해주십시오."); // 1이 아니면 승인 실패
-				        		window.location.href = "/itep/views/apprMng/apprList";
-				        	}
-						},
-						error: function (xhr, status, error) {}
-				 	});
-
-				 }else{
-				     return false;
-				 }
-			}
+					aplcIdArr.push(td.eq(6).text());
+				});
+			       
+			    $.ajax({ 
+	            	url:"/itep/views/apprMng/apprConf", //데이터를  넘겨줄 링크 설정
+	    		    type:"POST", // post 방식
+	    			data: {"aplcIdArr" : aplcIdArr}, //넘겨줄 데이터
+			        	
+			        success: function (responseData) {		
+			        	if(responseData == 1) {
+			        		confirm("승인이 완료되었습니다"); // 결과가 1이면 정상적으로 승인처리 완료
+			        		window.location.href = "/itep/views/apprMng/apprList";
+			        	} else {
+			        		confirm("실패하였습니다. 다시 시도해주십시오."); // 1이 아니면 승인 실패
+			        		window.location.href = "/itep/views/apprMng/apprList";
+			        	}
+					},
+					error: function (xhr, status, error) {}
+			 	});
+			 }else{
+			     return false;
+			 }
 		}
+	}
 		
-		
-		// 결재반려 
-		function apprRej() {
-			var checkedLength = $('input[name="checkbox"]:checked').length; // 선택된 체크박스의 개수
-						
-			if(checkedLength != 0) { // 체크된게 하나라도 있으면 결재반려 팝업 띄움
-				var url = '/itep/views/apprMng/pop/apprRejectPop';
-				var name = '_blank';
-				var size = 'location=no, width=500, height=250, left=300, top=300';
-				
-				window.open(url, name, size);
-			} 
-			else { // 체크된게 하나도 없으면 에러메세지 띄움
-				alert("선택된 결재건이 없습니다.");
-			}
+	// 결재반려 
+	function apprRej() {
+		var checkedLength = $('input[name="checkbox"]:checked').length; // 선택된 체크박스의 개수
+					
+		if(checkedLength != 0) { // 체크된게 하나라도 있으면 결재반려 팝업 띄움
+			showPopup('apprMng','apprRejectPop');
+		} 
+		else { // 체크된게 하나도 없으면 에러메세지 띄움
+			alert("선택된 결재건이 없습니다.");
 		}
-		
-	</script>
+	}
+	
+</script>

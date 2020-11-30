@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.ibk.itep.repository.MainHomeDao;
 import com.ibk.itep.vo.SessionVo;
-import com.ibk.itep.vo.HomeBdnVo;
-import com.ibk.itep.vo.HomeEduNowVo;
+import com.ibk.itep.vo.HomeNoticeVo;
+import com.ibk.itep.vo.HomeEduNowVO;
 
 @Service
 public class MainHomeService {
@@ -20,12 +20,18 @@ public class MainHomeService {
 		return mainHomeDAO.selectSessionInfo(userId);
 	}
 	
-	public List<HomeBdnVo> selectHomeBdnList(){
+	public List<HomeNoticeVo> selectHomeBdnList(){
 		return mainHomeDAO.selectHomeBdnList();
 	}
 	
-	public List<HomeEduNowVo> selectHomeEduNow(String userId){
-		return mainHomeDAO.selectHomeEduNow(userId);
+	public List<HomeEduNowVO> selectHomeEduNow(String userId){
+		List<HomeEduNowVO> list = mainHomeDAO.selectHomeEduNow(userId);
+		for(HomeEduNowVO vo : list) {
+			// 날짜 포맷 변경
+			vo.setEdctSttgYmd(vo.getEdctSttgYmd().replace("-","."));
+			vo.setEdctFnshYmd(vo.getEdctFnshYmd().replace("-","."));
+		}
+		return list;
 	}
 }
 

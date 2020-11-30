@@ -5,16 +5,24 @@
 	<select id="selectEduRegMod" parameterType="EduRegModVo" resultType="EduRegModVo">
 	     <![CDATA[
 			/*교육목록조회*/
-			SELECT	edm.EDCT_ID as edctId    				#교육메인ID 
-	 			,	cld.EDCT_CLSF_NM as edctClsfNm 			#교육분류 
-	    		, 	edm.EDCT_NM as edctNm    				#교육명
-	    		, 	cli.EDIN_NM as edinNm    				#교육기관명
+			SELECT	edm.EDCT_ID as edctId    			#교육메인ID
+				, 	edm.EDCT_NM as edctNm    			#교육명 
+				,	edm.EDCT_CLSF_CD as edctClsfCd	 	#교육분류코드
+	 			,	cld.EDCT_CLSF_NM as edctClsfNm 		#교육분류
+	 			,	edm.EDCT_CON as edctCon				#교육내용 
+	 			,	edm.EDIN_CD as edinCd				#교육기관코드
+	    		, 	cli.EDIN_NM as edinNm    			#교육기관명
+	    		,	edm.SNCT_TGT_YN as snctTgtYn 		#결재여부
+				,	edm.INBK_EDCT_YN as inbkEdctYn		#교육구분
+				,	edm.EGIN_APLY_YN as eginAplyYn		#고용보험여부
+				,	edm.ONL_EDCT_YN as onlEdctYn 		#교육방식
+				,	edm.EDCT_LEVL as edctLevl 			#교육수준
 			FROM 	itep.tb_iep_edm001m edm
 				, 	itep.tb_iep_cld001c cld
 				, 	itep.tb_iep_cli001c cli
 			where 	edm.EDCT_CLSF_CD = cld.EDCT_CLSF_CD 
 	 			and edm.EDIN_CD = cli.EDIN_CD
-	    		and edm.USE_YN = 'Y' 							# 삭제 안된 교육만 show
+	    		and edm.USE_YN = 'Y' 				# 삭제 안된 교육만 show
 	     ]]>
 	     <if test="edctClsfCd != null">
 	     	<![CDATA[
@@ -25,6 +33,11 @@
 	     	<![CDATA[
 	     		and edm.EDCT_NM like concat('%',#{edctNm},'%')	# 조회조건 : 교육 명칭
 	     	]]>	     		     
+	     </if>
+	     <if test="edctId != null">
+	     	<![CDATA[
+	     		and edm.EDCT_ID = #{edctId}
+	     	]]>
 	     </if>
 	</select>
 	<update id="deleteEduRegMod" parameterType="EduRegModVo">
@@ -66,43 +79,23 @@
 		]]>
 		</insert>
 	<!-- Popup - 교육내용수정 eduModPop -->
-		<!-- select 교육메인상세 -->
-			<select id="selectEduModPop" resultType="EduRegModVo" parameterType="Integer" >
-				<![CDATA[
-					/*수정대상 교육 조회(팝업)*/
-					SELECT 
-					EDCT_ID AS edctId, -- 교육id
-					EDCT_CLSF_CD as edctClsfCd, -- 교육분류코드
-					SNCT_TGT_YN as snctTgtYn, -- 결재여부
-					EDCT_NM as edctNm, -- 교육명
-					EDCT_CON as edctCon, -- 교육내용
-					EDIN_CD as edinCd, -- 교육기관코드
-					INBK_EDCT_YN as inbkEdctYn, -- 교육구분
-					EGIN_APLY_YN as egingAplyYn, -- 고용보험여부
-					ONL_EDCT_YN as onlEdctYn, -- 교육방식
-					EDCT_LEVL as edctLevl -- 교육수준
-					FROM TB_IEP_EDM001M
-					WHERE 1=1
-					AND EDCT_ID = #{edctId} -- 교육코드
-				]]>
-			</select>
 		<!-- update 교육메인 -->
-			<update id="updateEduModPop" parameterType="EduRegModVo">
+			<update id="updateEduRegMod" parameterType="EduRegModVo">
 				<![CDATA[
-					/*교육내용 수정 팝업*/
-					UPDATE TB_IEP_EDM001M 
-					SET EDCT_CLSF_CD = #{ edctClsfCd }, -- 교육분류
-					SNCT_TGT_YN = #{ snctTgtYn }, -- 결재여부
-					SET EDCT_NM = #{ edctNm }, -- 교육명
-					EDCT_CON = #{ edctCon }, -- 교육내용
-					EDIN_CD = #{ edinCd }, -- 교육기관
-					INBK_EDCT_YN = #{ inbkEdctYn }, -- 교육구분
-					EGIN_APLY_YN = #{ egingAplyYn }, -- 고용보헙여부
-					ONL_EDCT_YN = #{ onlEdctYn }, -- 교육방식
-					EDCT_LEVL = #{ edctLevl }, -- 교육수준
-					USE_YN = 'Y',
-					RGSN_TS = SYSDATE()
-					WHERE EDCT_ID = #{edctId} -- 교육코드
+					/*교육내용 수정 */
+					UPDATE	TB_IEP_EDM001M 
+					SET 	EDCT_CLSF_CD 	= #{edctClsfCd}	-- 교육분류
+							,SNCT_TGT_YN 	= #{snctTgtYn} 	-- 결재여부
+							,EDCT_NM 		= #{edctNm} 	-- 교육명
+							,EDCT_CON 		= #{edctCon} 	-- 교육내용
+							,EDIN_CD 		= #{edinCd} 	-- 교육기관
+							,INBK_EDCT_YN 	= #{inbkEdctYn}	-- 교육구분
+							,EGIN_APLY_YN 	= #{eginAplyYn}	-- 고용보헙여부
+							,ONL_EDCT_YN 	= #{onlEdctYn}	-- 교육방식
+							,EDCT_LEVL 		= #{edctLevl}	-- 교육수준
+							,USE_YN = 'Y'
+							,RGSN_TS = SYSDATE()
+					WHERE 	EDCT_ID = #{edctId} -- 교육코드
 			     ]]>
 			</update>
 	<!-- Start - Popup - 교육차수추가 addEduRndPop -->
@@ -140,11 +133,11 @@
 	     		]]></if>
 	     		<![CDATA[
 					AND edc.USE_YN = 'Y' 
-					ORDER BY edc.EDCT_STTG_YMD DESC
+					ORDER BY edc.EDCT_STTG_YMD ASC
 	     		]]>
 	     	</select>
 		<!-- 교육차수추가 -->
-			<insert  id="insertAddEduRndPop" parameterType="EduRndRegModVo">
+			<insert  id="insertEduRndRegMod" parameterType="EduRndRegModVo">
 				<![CDATA[
 					/*교육 차수추가 팝업*/
 					INSERT TB_IEP_EDC001M(
@@ -171,40 +164,20 @@
 					#{edctFnshYmd}, 
 					#{aplcSttgYmd}, 
 					#{aplcFnshYmd}, 
-					#{cnclStttgYmd}, 
+					#{cnclSttgYmd}, 
 					#{cnclFnshYmd}, 
 					#{edctSttgTim}, 
 					#{edctFnshTim}, 
 					#{edctTrm}, 
 					#{ctcrTim}, 
 					#{edex}, 
-					NULL, 
+					'N', 
 					'Y', 
 					SYSDATE()) 
 			     ]]>
 			</insert>
-	<!-- End - Popup - 교육차수추가 addEduRndPop -->		
-	<!-- Start - Popup - 교육차수수정 modEduRndPop -->
-		<!-- select 해당 교육 차수 -->
-			<select  id="selectModEduRndPop" parameterType="Integer" resultType="EduRndRegModVo">
-				<![CDATA[
-					/*교육 차수정보 조회(팝업)*/
-					SELECT 
-					@ROWNUM := @ROWNUM + 1 AS rownum, -- 순번
-					EDCT_CNT_ID AS edctCntId, -- 차수id
-					EDCT_ID AS edctId, -- 교육id
-					date_format(EDC.EDCT_STTG_YMD,"%Y.%m.%d") AS edctSttgYmd, -- 학습시작일
-					date_format(EDC.EDCT_FNSH_YMD,"%Y.%m.%d") AS edctFnshYmd, -- 학숩종료일
-					concat(EDC.EDCT_TRM,'일') as edctTrm -- 교육기간
-					FROM TB_IEP_EDC001M EDC, (SELECT @ROWNUM := 0) R
-					WHERE 1=1 
-					AND EDCT_ID = #{edctId}
-					AND USE_YN = 'Y' 
-					ORDER BY EDCT_STTG_YMD DESC
-			     ]]>
-			</select>
 		<!-- 차수 수정 -->
-			<update id="updateModEduRndPop" parameterType="EduRndRegModVo" >
+			<update id="updateEduRndRegMod" parameterType="EduRndRegModVo" >
 				<![CDATA[
 					/*교육 차수수정 팝업*/
 					UPDATE TB_IEP_EDC001M
@@ -212,7 +185,7 @@
 					EDCT_FNSH_YMD = #{edctFnshYmd}, -- 학습종료일
 					APLC_STTG_YMD = #{aplcSttgYmd}, -- 신청시작일
 					APLC_FNSH_YMD = #{aplcFnshYmd}, -- 신청종료일
-					CNCL_STTG_YMD = #{cnclStttgYmd}, -- 취소시작일
+					CNCL_STTG_YMD = #{cnclSttgYmd}, -- 취소시작일
 					CNCL_FNSH_YMD = #{cnclFnshYmd}, -- 취소종료일
 					EDCT_STTG_TIM = #{edctSttgTim}, -- 교육시작시간
 					EDCT_FNSH_TIM = #{edctFnshTim}, -- 교육종료시간
@@ -220,20 +193,20 @@
 					CTCR_TIM = #{ctcrTim}, -- 이수시간
 					EDEX = #{edex}, -- 교육비용
 					RGSN_TS = SYSDATE() -- 등록일시
-					WHERE EDCT_ID = #{edctId} AND EDCT_CNT_ID = #{edctCntId} -- 교육id, 차수id
+					WHERE EDCT_CNT_ID = #{edctCntId} -- 교육id, 차수id
 			     ]]>
 			</update>
 		<!-- 차수 삭제 -->
-			<update id="updateModEduRndPopUseN" parameterType="Integer" >
+			<update id="deleteEduRndRegMod" parameterType="EduRndRegModVo" >
 				<![CDATA[
 					/*교육 차수수정 팝업*/
 					UPDATE TB_IEP_EDC001M
-					USE_YN = 'N',
-					RGSN_TS = SYSDATE() -- 등록일시
+					SET	USE_YN = 'N',			-- 사용여부
+						RGSN_TS = SYSDATE() 	-- 등록일시
 					WHERE EDCT_CNT_ID = #{edctCntId} -- 차수id
 			     ]]>
 			</update>
-	<!-- End - Popup - 교육차수수정 modEduRndPop -->
+	<!-- End - Popup - 교육차수추가 addEduRndPop -->		
 
 	<!-- Start - Popup - 참고사항등록 memoRegPop -->
 	<!-- Start - Popup - 신규코드등록 newEduCdPop -->
@@ -247,61 +220,86 @@
 	<!-- 교육신청현황 > 수강신청현황 -->
 	<select id="selectEduReadyStat" parameterType="EduReadyStatVo" resultType="EduReadyStatVo">
 		<![CDATA[
-	    	SELECT 	edc.EDCT_CNT_ID as edctCntId 				# 교육 차수 ID
-	    		   ,edm.EDCT_CLSF_CD as edctClsfCd				# 교육분류 코드
-				   ,cld.EDCT_CLSF_NM as edctClsfNm 				# 교육분류 명칭
-				   ,edc.EDCT_STTG_YMD as edctSttgYmd 			# 교육 시작 일자
-				   ,edc.EDCT_FNSH_YMD as edctFnshYmd 			# 교육 종료 일자
-        		   ,edm.EDCT_NM as edctNm						# 교육명
-        		   ,cli.EDIN_NM as edinNm 						# 교육기관명
-        		   ,(
-        				select COUNT(EDCT_APLC_ID) 
-        				from TB_IEP_EDA001M
-        				where EDCT_CNT_ID = edc.EDCT_CNT_ID
-        				  and APLC_STG_CD in ('EDUFIN', 'APRFIN')
-        			) as edctAplcIdCnt							# 수강신청 인원
-			 FROM 	itep.TB_IEP_EDC001M edc						# 테이블:교육차수
-				   ,itep.TB_IEP_EDM001M edm						# 테이블:교육메인
-				   ,itep.TB_IEP_CLI001C cli						# 테이블:기관코드
-				   ,itep.TB_IEP_CLD001C cld						# 테이블:교육분류코드
-			 WHERE 	edc.EDCT_ID = edm.EDCT_ID AND edc.USE_YN='Y' AND edm.USE_YN='Y'
-			   AND  edm.EDCT_CLSF_CD = cld.EDCT_CLSF_CD AND cld.USE_YN='Y'
-			   AND  edm.EDIN_CD = cli.EDIN_CD AND cli.USE_YN='Y'	
-		]]>	   	
-		<choose>
-			<when test="!sttgYmd.equals('') and !fnshYmd.equals('')">
-				AND (edc.EDCT_STTG_YMD BETWEEN CONCAT(#{sttgYmd}, ' 00:00:00') AND CONCAT(#{fnshYmd}, ' 23:59:59')
-				OR	edc.EDCT_FNSH_YMD BETWEEN CONCAT(#{sttgYmd}, ' 00:00:00') AND CONCAT(#{fnshYmd}, ' 23:59:59'))
-			</when>
-			<otherwise>
-				AND edc.EDCT_STTG_YMD BETWEEN DATE_ADD(NOW(),INTERVAL -1 YEAR ) AND NOW()
-			</otherwise>
-		</choose>
-		<if test="edctClsfCd != null">
-    			AND edm.EDCT_CLSF_CD = #{edctClsfCd}
-	    </if>
-	    <if test="edctNm != null">
-	    		and edm.EDCT_NM LIKE CONCAT('%', #{edctNm}, '%')
-	    </if>
+		WITH EDC_INFO AS (
+			SELECT EDC.EDCT_CNT_ID, EDM.EDCT_CLSF_CD, CLD.EDCT_CLSF_NM, EDM.EDCT_NM, CLI.EDIN_NM
+		         , EDC.EDCT_STTG_YMD, EDC.EDCT_FNSH_YMD, EDC.FNSH_YN
+			FROM TB_IEP_EDC001M EDC, TB_IEP_EDM001M EDM, TB_IEP_CLI001C CLI, TB_IEP_CLD001C CLD
+		    WHERE EDC.EDCT_ID = EDM.EDCT_ID AND EDC.USE_YN = 'Y' AND EDM.USE_YN ='Y'
+		      AND EDM.EDCT_CLSF_CD = CLD.EDCT_CLSF_CD AND CLD.USE_YN ='Y'
+		      AND EDM.EDIN_CD = CLI.EDIN_CD AND CLI.USE_YN ='Y'
+		      ]]>
+		      <choose>
+				<when test="!sttgYmd.equals('') and !fnshYmd.equals('')">
+					AND (EDC.EDCT_STTG_YMD BETWEEN CONCAT(#{sttgYmd}, ' 00:00:00') AND CONCAT(#{fnshYmd}, ' 23:59:59')
+					OR	EDC.EDCT_FNSH_YMD BETWEEN CONCAT(#{sttgYmd}, ' 00:00:00') AND CONCAT(#{fnshYmd}, ' 23:59:59'))
+				</when>
+				<otherwise>
+					AND EDC.EDCT_STTG_YMD BETWEEN DATE_ADD(NOW(),INTERVAL -1 YEAR ) AND NOW()
+				</otherwise>
+			  </choose>
+			  <if test="edctClsfCd != null">
+    				AND EDM.EDCT_CLSF_CD = #{edctClsfCd}
+		      </if>
+		      <if test="edctNm != null">
+		    		AND EDM.EDCT_NM LIKE CONCAT('%', #{edctNm}, '%')
+		      </if>
+		<![CDATA[
+		), EDA_CNT AS (
+			SELECT EDCT_CNT_ID, COUNT(EDCT_APLC_ID) AS CNT
+			FROM TB_IEP_EDA001M EDA	
+			WHERE APLC_STG_CD IN ('EDUFIN', 'APRFIN') AND USE_YN = 'Y'
+			GROUP BY EDCT_CNT_ID
+		)
+		SELECT EDC_INFO.EDCT_CNT_ID AS edctCntId
+			 , EDC_INFO.EDCT_CLSF_CD AS edctClsfCd
+		     , EDC_INFO.EDCT_CLSF_NM AS edctClsfNm
+		     , EDC_INFO.EDCT_NM AS edctNm
+		     , EDC_INFO.EDIN_NM AS edinNm
+		     , EDC_INFO.EDCT_STTG_YMD AS edctSttgYmd
+		     , EDC_INFO.EDCT_FNSH_YMD AS edctFnshYmd
+		     , EDC_INFO.FNSH_YN AS fnshYn
+		     , IFNULL(EDA_CNT.CNT, 0) AS edctAplcIdCnt
+		FROM EDC_INFO 
+			 LEFT OUTER JOIN EDA_CNT ON EDC_INFO.EDCT_CNT_ID = EDA_CNT.EDCT_CNT_ID
+		ORDER BY EDCT_FNSH_YMD DESC;	
+		]]>	
 	</select>	
 
 	<!-- Start - Popup - 교육신청직원목록 eduEmpListPop -->
-	<!-- select 해당 교육차수 신청직원 목록 -->
-	<select id="selectEduEmpListPop" parameterType="String" resultType="EduEmpListVo">
-		<![CDATA[
-			WITH EDCT_INFO AS (
-				SELECT EDC.EDCT_CNT_ID AS edctCntId
-					 , EDM.EDCT_NM AS edctNm
-					 , EDM.EDCT_CON AS edctCon
-					 , EDC.EDCT_STTG_YMD AS edctSttgYmd
-					 , EDC.EDCT_FNSH_YMD AS edctFnshYmd
-				FROM TB_IEP_EDM001M EDM, TB_IEP_EDC001M EDC
-				WHERE EDM.EDCT_ID = EDC.EDCT_ID
-				AND EDC.EDCT_CNT_ID = #{edctCntId}
-			), EDA_LIST AS (
-				SELECT EDA.EDCT_APLC_ID AS edctAplcId
-		 			 , #{edctCntId} AS edctCntId
-					 , CMB.BRNM AS brnm
+		<!-- select 해당 교육차수 신청직원 목록 -->
+		<select id="selectEduEmpListPop" parameterType="Integer" resultType="EduEmpListVo">
+			<![CDATA[
+				WITH EDCT_INFO AS (
+					SELECT EDC.EDCT_CNT_ID AS edctCntId
+						 , EDM.EDCT_NM AS edctNm
+						 , EDM.EDCT_CON AS edctCon
+						 , EDC.EDCT_STTG_YMD AS edctSttgYmd
+						 , EDC.EDCT_FNSH_YMD AS edctFnshYmd
+					FROM TB_IEP_EDM001M EDM, TB_IEP_EDC001M EDC
+					WHERE EDM.EDCT_ID = EDC.EDCT_ID
+					AND EDC.EDCT_CNT_ID = #{edctCntId}
+				), EDA_LIST AS (
+					SELECT EDA.EDCT_APLC_ID AS edctAplcId
+			 			 , #{edctCntId} AS edctCntId
+						 , CMB.BRNM AS brnm
+						 , CMU.USER_ID AS userId
+						 , CMU.USER_NM AS userNm
+						 , EDA.CTCR_YN AS ctcrYn
+					FROM TB_IEP_EDA001M EDA, TB_IEP_CMU001M CMU, TB_IEP_CMB001M CMB
+					WHERE EDA.EDCT_CNT_ID = #{edctCntId} AND EDA.USE_YN = 'Y'
+					AND EDA.USER_ID = CMU.USER_ID 
+					AND EDA.DVCD = CMB.BRCD
+					AND EDA.APLC_STG_CD IN ('EDUFIN', 'APRFIN')
+				) 
+				SELECT *
+				FROM EDCT_INFO LEFT OUTER JOIN EDA_LIST ON EDCT_INFO.edctCntId = EDA_LIST.edctCntId
+			]]>
+		</select>
+		
+		<!-- select 해당 교육차수 신청직원 엑셀 출력 -->
+		<select id="selectEduEmpListExcel" parameterType="Integer" resultType="EduEmpListExcelVo">
+			<![CDATA[
+				SELECT CMB.BRNM AS brnm
 					 , CMU.USER_ID AS userId
 					 , CMU.USER_NM AS userNm
 					 , EDA.CTCR_YN AS ctcrYn
@@ -309,29 +307,30 @@
 				WHERE EDA.EDCT_CNT_ID = #{edctCntId} AND EDA.USE_YN = 'Y'
 				AND EDA.USER_ID = CMU.USER_ID 
 				AND EDA.DVCD = CMB.BRCD
-			) 
-			SELECT *
-			FROM EDCT_INFO LEFT OUTER JOIN EDA_LIST ON EDCT_INFO.edctCntId = EDA_LIST.edctCntId
-		]]>
-	</select>
+				AND EDA.APLC_STG_CD IN ('EDUFIN', 'APRFIN')
+			]]>
+		</select>
 		
 		<!-- update 교육 신청서 이수 -->
-			<update  id="updateEduEmpListPopCtcrYn" parameterType="EduEmpListVo">
-				<![CDATA[
-					UPDATE TB_IEP_EDA001M
-					SET CTCR_YN = #{ctcrYn}
-					WHERE EDCT_APLC_ID = #{edctAplcId}
-					AND USE_YN = 'Y';
-				]]>
-			</update>
+		<update  id="updateEduEmpListPopCtcrYn" parameterType="HashMap">
+			<![CDATA[
+				UPDATE TB_IEP_EDA001M
+				SET CTCR_YN = #{ctcrYn}
+					, APLC_STG_CD = 'EDUFIN'
+				WHERE EDCT_APLC_ID = #{edctAplcId}
+				AND APLC_STG_CD IN ('EDUFIN', 'APRFIN')
+				AND USE_YN = 'Y';
+			]]>
+		</update>
+		
 		<!-- update 교육차수 종료 -->
-			<update  id="updateEduEmpListPopFnshY" parameterType="EduEmpListVo">
-				<![CDATA[
-					UPDATE TB_IEP_EDC001M
-					SET FNSH_YN = 'Y'
-					WHERE EDCT_CNT_ID = #{edctCntId}
-				]]>
-			</update>		
+		<update  id="updateEduEmpListPopFnshY" parameterType="Integer">
+			<![CDATA[
+				UPDATE TB_IEP_EDC001M
+				SET FNSH_YN = 'Y'
+				WHERE EDCT_CNT_ID = #{edctCntId}
+			]]>
+		</update>		
 	<!-- End - Popup - 교육신청직원목록 eduEmpListPop -->
 	
 	<!-- 교육신청현황 > 과정개설신청현황 -->
@@ -348,6 +347,7 @@
         			,edo.EDIN_NM as edinNm				# 교육기관명
         			,edo.EDCT_STTG_YMD as edctSttgYmd	# 교육시작일
         			,edo.EDCT_FNSH_YMD as edctFnshYmd	# 교육종료일
+        			,edo.CNFA_YN as cnfaYn				# 확인여부
 			from 	itep.tb_iep_edo001m edo				# 테이블 : 과정개설신청
 					,itep.tb_iep_cmu001m cmu			# 테이블 : 유저정보
 					,itep.tb_iep_cmb001m cmb			# 테이블 : 부서정보
@@ -366,16 +366,20 @@
 	    <if test="edctNm != null">
 	    		and edo.EDCT_NM LIKE CONCAT('%', #{edctNm}, '%')
 	    </if>
+	    <![CDATA[
+	    	order by edo.APLC_TS desc
+	    ]]>
 	</select>
 	
 	<!-- Start - Popup - 과정개설신청현황확인 newEduInfoPop -->
 		<!-- 과정개설신청 현황 확인 상세-->
-			<select  id="selectNewEduInfoPop" parameterType="Integer" resultType="EduOpenReadyStatVo">
+			<select  id="selectNewEduInfoPop" parameterType="Integer" resultType="NewEduInfoVo">
 				<![CDATA[
 					SELECT EDO.APLC_ID AS aplcId		-- 신청ID
+					, EDO.APLC_TS AS aplcTs				-- 신청일시
 					, CMB.BRNM AS brnm					-- 부서명
 					, CMU.USER_NM AS userNm				-- 직원명
-					, EDO.INBK_EDCT_YN AS edctYn		-- 행내교육
+					, EDO.INBK_EDCT_YN AS inbkEdctYn	-- 행내교육여부
 					, EDO.EDIN_NM AS edinNm				-- 교육기관명
 					, EDO.EDCT_NM AS edctNm				-- 교육명
 					, EDO.EDCT_CON AS edctCon			-- 교육내용 
@@ -389,6 +393,7 @@
 					, EDO.ONL_EDCT_YN AS onlEdctYn 		-- 온라인교육여부
 					, EDO.EDCT_LEVL AS edctLevl 		-- 교육수준
 					, EDO.APND_DAT AS apndDat 			-- 첨부파일
+        			, EDO.CNFA_YN AS cnfaYn				-- 확인여부
 					FROM TB_IEP_EDO001M EDO, TB_IEP_CMB001M CMB, TB_IEP_CMU001M CMU
 					WHERE EDO.APLC_ID = #{aplcId} AND EDO.USE_YN = 'Y'
 					AND EDO.USER_ID = CMU.USER_ID AND CMU.USE_YN = 'Y'
@@ -396,7 +401,7 @@
 				]]>
 			</select>	
 		<!-- 과정개설신청(읽음으로 update) -->
-			<update id="updateNewEduInfoPop" parameterType="EduOpenReadyStatVo" >
+			<update id="updateNewEduInfoPop" parameterType="NewEduInfoVo" >
 				<![CDATA[
 					UPDATE TB_IEP_EDO001M
 					SET CNFA_YN = 'Y'
@@ -404,7 +409,7 @@
 					WHERE APLC_ID = #{aplcId};
 				]]>
 			</update>	
-			<!-- End - Popup - 과정개설신청현황확인 newEduInfoPop -->		
+	<!-- End - Popup - 과정개설신청현황확인 newEduInfoPop -->		
 
 
 <!-- Start - 수강이력		eduHistory	 -->
@@ -412,84 +417,74 @@
 	<select id="selectEduHistory" parameterType="EduHistoryVo" resultType="EduHistoryVo">
 		<![CDATA[
 			/*eduHistor 페이지 */
-			/*교육ID, 교육분류, 부서명, 직원번호, 직원명, 과목명, 교육기관, 교육기간, 예산, 참고 */;
-			SELECT eda.EDCT_APLC_ID as edctAplcID	# 교육 신청 ID
-				,cld.EDCT_CLSF_NM as edctClsf		# 교육 분류
-    			,cmb.BRNM as brnm 					# 부서명 
-    			,eda.USER_ID as userId 				# 직원번호
-    			,cmu.USER_NM as userNm 				# 직원명
-    			,edm.EDCT_NM as edctNm 				# 교육명
-    			,cli.EDIN_NM as edinNm 				# 교육기관명
-    			,edc.EDCT_STTG_YMD as edctSttgYmd 	# 교육 시작일
-    			,edc.EDCT_FNSH_YMD as edctFnshYmd 	# 교육 종료일
-    			,edc.EDEX as edex 					# 예산
-    			,eda.RFRC_CON as rfrcCon 			# 참고
-			FROM itep.tb_iep_eda001m eda 			# 교육신청테이블
-				,itep.tb_iep_edc001m edc 			# 교육차수테이블
-    			,itep.tb_iep_edm001m edm 			# 교육메인테이블
-    			,itep.tb_iep_cmu001m cmu 			# 사용자
-    			,itep.tb_iep_cmb001m cmb 			# 부점
-    			,itep.tb_iep_cld001c cld 			# 교육분류코드
-    			,itep.tb_iep_cli001c cli 			# 교육기관코드
-			where eda.EDCT_CNT_ID = edc.EDCT_CNT_ID
-	  			and edc.EDCT_ID = edm.EDCT_ID
-      			and eda.USER_ID = cmu.USER_ID
-				and eda.DVCD = cmb.BRCD
- 				and edm.EDCT_CLSF_CD = cld.EDCT_CLSF_CD
-				and edm.EDIN_CD = cli.EDIN_CD
+			/*교육ID, 교육분류, 부서명, 직원번호, 직원명, 과목명, 교육기관, 교육기간, 예산, 참고 */
+			SELECT	eda.EDCT_APLC_ID as edctAplcID		# 교육 신청 ID
+				,	cld.EDCT_CLSF_NM as edctClsfNm		# 교육 분류
+				,	edc.EDCT_ID as edctId				# 교육 ID
+    			,	cmb.BRNM as brnm 					# 부서명 
+    			,	eda.USER_ID as userId 				# 직원번호
+    			,	cmu.USER_NM as userNm 				# 직원명
+    			,	edm.EDCT_NM as edctNm 				# 교육명
+    			,	cli.EDIN_NM as edinNm 				# 교육기관명
+    			,	edc.EDCT_STTG_YMD as edctSttgYmd 	# 교육 시작일
+    			,	edc.EDCT_FNSH_YMD as edctFnshYmd 	# 교육 종료일
+    			,	edc.EDEX as edex 					# 예산
+    			,	eda.RFRC_CON as rfrcCon 			# 참고
+			FROM 	itep.tb_iep_eda001m eda 			# 교육신청테이블
+				,	itep.tb_iep_edc001m edc 			# 교육차수테이블
+    			,	itep.tb_iep_edm001m edm 			# 교육메인테이블
+    			,	itep.tb_iep_cmu001m cmu 			# 사용자
+    			,	itep.tb_iep_cmb001m cmb 			# 부점
+    			,	itep.tb_iep_cld001c cld 			# 교육분류코드
+    			,	itep.tb_iep_cli001c cli 			# 교육기관코드
+			where 	eda.EDCT_CNT_ID = edc.EDCT_CNT_ID
+	  			and	edc.EDCT_ID = edm.EDCT_ID
+      			and	eda.USER_ID = cmu.USER_ID
+				and	eda.DVCD = cmb.BRCD
+ 				and	edm.EDCT_CLSF_CD = cld.EDCT_CLSF_CD
+				and	edm.EDIN_CD = cli.EDIN_CD
 	    ]]>
 	    <if test="edctClsfCd != null">
 	    	<![CDATA[#교육구분코드
-	    		and edm.EDCT_CLSF_CD = '#{edctClsfCd}'
+	    		and edm.EDCT_CLSF_CD = #{edctClsfCd}
 	    	]]>
 	    </if>
 	    <if test="edinCd != null">
 	    	<![CDATA[#교육기관
-	    		and edm.EDIN_CD = '#{edinCd}'
-	    	]]>
-	    </if>
-	    <if test="brnm != null">
-	    	<![CDATA[# 부서
-	    		and eda.DVCD = '#{brnm}'
+	    		and edm.EDIN_CD = #{edinCd}
 	    	]]>
 	    </if>
 	    <if test="userNm != null">
 	    	<![CDATA[# 직원명
-	    		and cmu.USER_NM = '#{userNm}'
-	    	]]>
-	    </if>
-	    <if test="edctNm != null">
-	    	<![CDATA[
-	    		
+	    		and cmu.USER_NM = #{userNm}
 	    	]]>
 	    </if>
 	    <if test="edctNm != null">
 	    	<![CDATA[#교육명
-	 			and edm.EDCT_NM like '%#{edctNm}%'   		
+	 			and edm.EDCT_NM LIKE CONCAT('%', #{edctNm}, '%')   		
 	    	]]>
 	    </if>
-	    <if test="startDate != null and endDate != null">
+	    	    <if test="brnm != null">
+	    	<![CDATA[# 부서
+	    		#and cmb.BRNM LIKE CONCAT('%', #{brnm}, '%')
+	    	]]>
+	    </if>
+	    <if test="edctSttgYmd != null and edctFnshYmd != null">
 	    	<![CDATA[#교육명
 	 		and (
-				(edc.EDCT_STTG_YMD >= '#{startDate}' and edc.EDCT_STTG_YMD < '#{endDate}')
-				or (edc.EDCT_FNSH_YMD >= '#{startDate}' and edc.EDCT_FNSH_YMD < '#{endDate}')		
+				(edc.EDCT_STTG_YMD >= #{edctSttgYmd} and edc.EDCT_STTG_YMD <= #{edctFnshYmd})
+				or (edc.EDCT_FNSH_YMD >= #{edctSttgYmd} and edc.EDCT_FNSH_YMD <= #{edctFnshYmd})		
         		)   		
 	    	]]>
 	    </if>
 	</select>
 	<!-- Start - Popup - 참고사항등록 memoRegPop -->
-		<!-- select 신청서 상세사항 -->
-		<select id="selectMemoRegPop" parameterType="Integer" resultType="EduHistoryVo">
-			<![CDATA[
-				하나짜자...
-			]]>
-		</select>
 		<!-- update 신청서 - 참고사항 등록 -->
-		<update  id="updateMemoRegPop" parameterType="EduHistoryVo">
+		<update  id="updateEduHistory" parameterType="EduHistoryVo">
 			<![CDATA[
 				UPDATE TB_IEP_EDA001M 
-				SET RFRC_CON = #{내용}
-				WHERE EDCT_APLC_ID = #{교육신청ID};
+				SET RFRC_CON = #{rfrcCon}
+				WHERE EDCT_APLC_ID = #{edctAplcId};
 			]]>
 		</update>
 	<!-- End - Popup - 참고사항등록 memoRegPop -->
@@ -509,6 +504,42 @@
     				,(select BRNM from itep.tb_iep_cmb001m where cmu.TEAM_CD = itep.tb_iep_cmb001m.BRCD) as teamNM	-- 팀명
     				,cmu.USE_YN as useYn	-- 퇴직여부
     				,cla.ATHR_CD as athrCd	-- 권한코드
+    				,cla.ATHR_NM as athrNm	-- 권한명
+			from 	itep.tb_iep_cmu001m cmu, itep.tb_iep_cmb001m cmb, itep.tb_iep_cla001c cla
+			where	cmu.DVCD = cmb.BRCD
+    			and cmu.ATHR_CD = cla.ATHR_CD
+    			and cmb.use_yn = 'Y' and cla.use_yn = 'Y'
+		]]>
+    	<if test="userId != null and !userId.equals('')">
+	    	<![CDATA[
+	 	   		and cmu.USER_ID = #{userId}
+	    	]]>
+	    </if>
+    	<if test="userNm != null and !userNm.equals('')">
+	    	<![CDATA[
+	 	   		and cmu.USER_NM = #{userNm}
+	    	]]>
+	    </if>
+    	<if test="brcd != null and !brcd.equals('')">
+	    	<![CDATA[
+	 	   		and cmu.DVCD = #{brcd}
+	    	]]>
+	    </if>
+    	<if test="athrCd != null and !athrCd.equals('')">
+	    	<![CDATA[
+	 	   		and cmu.ATHR_CD =#{athrCd};
+	    	]]>
+	    </if>
+	</select>
+	
+	<!-- 사용자 조회, 사용자 조회 엑셀 다운로드용 -->
+	<select id="selectEmpAccMngExcel" parameterType="EmpAccMngVo" resultType="EmpAccMngExcelVo">
+		<![CDATA[
+			select	cmu.USER_ID as userId		-- 직원번호
+					,cmu.USER_NM as userNm		-- 직원명
+    				,cmu.USER_JTM as userJtm	-- 직책
+    				,cmu.USER_TPN as userTpn	-- 행내전화
+    				,cmb.BRNM as brnm			-- 부서명
     				,cla.ATHR_NM as athrNm	-- 권한명
 			from 	itep.tb_iep_cmu001m cmu, itep.tb_iep_cmb001m cmb, itep.tb_iep_cla001c cla
 			where	cmu.DVCD = cmb.BRCD

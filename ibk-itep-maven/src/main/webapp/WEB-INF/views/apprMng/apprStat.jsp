@@ -50,36 +50,34 @@
 																<div class="ui calendar" id="rangestart">
 																	<div class="ui input left icon">
 																		<i class="calendar icon" style="font-size: 14px;"></i>
-																		<input id="sttgYmd" type="text"
-																			style="height: 35px; font-size: 14px;">
+																		<input id="sttgYmd" type="text" style="height: 35px; font-size: 14px;">
 																	</div>
 																</div>
 															</div>
-															<label style="padding-top: 7px; height: 7px;">
-																&nbsp; ~ &nbsp; </label>
+															<label style="padding-top: 7px; height: 7px;"> &nbsp; ~ &nbsp; </label>
 															<div class="field">
 																<div class="ui calendar" id="rangeend">
 																	<div class="ui input left icon">
 																		<i class="calendar icon" style="font-size: 14px;"></i>
-																		<input id="fnshYmd" type="text"
-																			style="height: 35px; font-size: 14px;">
+																		<input id="fnshYmd" type="text" style="height: 35px; font-size: 14px;">
 																	</div>
 																</div>
 															</div>
 														</div>
 													</div>
 												</td>
-												<td style="width: 100px;"><b>결재상태</b></td>
-												<td style="width: 200px;"><select id="aplcStg"
-													class="form-control" style="width: 100%;">
+												<td style="width: 130px;"><b>결재상태</b></td>
+												<td style="width: 200px;">
+													<select id="aplcStg" class="form-control" style="width: 100%;">
 														<option value="all">전체</option>
 														<option value="fin">결재완료</option>
 														<option value="apr">결재중</option>
 														<option value="rej">반려</option>
-												</select></td>
-												<td style="width: 30%;"><button type="button"
-														class="btn btn-primary btn-toastr"
-														style="margin-right: 20px;" onclick="search()">조회</button></td>
+													</select>
+												</td>
+												<td style="width: 220px;">
+													<button type="button" class="btn btn-primary btn-toastr" style="margin-right: 20px;" onclick="search()">조회</button>
+												</td>
 											</tr>
 										</tbody>
 									</table>
@@ -90,7 +88,7 @@
 
 
 							<!-- 결재 현황 테이블 -->
-							<div class="panel-body">
+							<div class="panel-body" style="overflow-x:hidden; height:300px;">
 								<h4 class="panel-title" style="margin-bottom: 10px">
 									<b>▶ 결재 현황</b>
 								</h4>
@@ -108,27 +106,37 @@
 											</tr>
 										</thead>
 										<tbody id="apprStatBody">
-											<!-- 컨트롤러에서 가져온 리스트에서 VO 하나씩 꺼내서 출력 -->
-											<c:forEach items="${apprStat }" var="apprstat" varStatus="status">
-												<tr data-toggle="tab" data-target="#table" onclick="showDetail(this, ${apprstat.edctAplcId })">
-													<td>${status.count }</td>
-													<td>${apprstat.brnm }</td>
-													<td>${apprstat.userNm }</td>
-													<td>${apprstat.edctNm }</td>
-													<td>${apprstat.aplcTs }</td>
-													<td>${apprstat.aplcStg }</td>
-													<td>${apprstat.apprNm }</td>
-												</tr>
-											</c:forEach>
+											<c:choose>
+												<c:when test="${not empty apprStat}">
+													<!-- 컨트롤러에서 가져온 리스트에서 VO 하나씩 꺼내서 출력 -->
+													<c:forEach items="${apprStat }" var="apprstat" varStatus="status">
+														<tr data-toggle="tab" data-target="#table" onclick="showDetail(this, ${apprstat.edctAplcId })">
+															<td>${status.count }</td>
+															<td>${apprstat.brnm }</td>
+															<td>${apprstat.userNm }</td>
+															<td>${apprstat.edctNm }</td>
+															<td>${apprstat.aplcTs }</td>
+															<td>${apprstat.aplcStg }</td>
+															<td>${apprstat.apprNm }</td>
+														</tr>
+													</c:forEach>
+										    	</c:when>
+												<c:otherwise>
+													<tr height="150">
+														<td colspan="7" class="txt_center"><h4>결재 이력이 없습니다.</h4></td>
+													</tr>
+												</c:otherwise>
+											</c:choose>	
 										</tbody>
 									</table>
 								</div>
 							</div>
+							
 
 							<!-- apprList가 하나도 없으면 apprDetail == null (Controller에서 지정) -->
 							<!-- apprDetail 이 not null일 때만 아래 화면 보여줌 -->
 							<c:if test="${not empty apprDetail}">
-							
+							<br>
 							<!-- 결재 이력 테이블 -->
 							<div class="panel-body" id="apprStatDetailDiv">
 								<h4 class="panel-title">
@@ -138,8 +146,7 @@
 								<!-- 위의 결재항목별 교육상세설명 테이블 (TOGGLE 적용) -->
 								<div class="tab-content">
 									<!-- 테이블 1 -->
-									<div class="tab-pane fade in active" id="table"
-										style="padding-top: 10px;">
+									<div class="tab-pane fade in active" id="table" style="padding-top: 10px;">
 										<div class="table-responsive">
 											<table class="table table-hover tbl-type2">
 												<thead>
@@ -202,10 +209,11 @@
 			HighLightTableTr(trs[0]);	
 		});
 		
-		$("#sttgYmd").keyup(function(e){if(e.keyCode == 13)  search(); });
+		// 엔터키 입력 시 검색
 		$("#fnshYmd").keyup(function(e){if(e.keyCode == 13)  search(); });
 		$("#aplcStg").keyup(function(e){if(e.keyCode == 13)  search(); });
 		
+		// 검색
 		function search() {
 			var sttgYmd = $('#sttgYmd').val();
 			var fnshYmd = $('#fnshYmd').val();
@@ -230,17 +238,23 @@
 					// 결재현황 조회
 					var str = '';
 					str += '<tbody id=\"apprStatBody\">';
-					$.each(responseData, function(i) {
-						str += '<tr data-toggle=\"tab\" data-target=\"#table\" onclick=\"showDetail(this, '+responseData[i].edctAplcId+')\">';
-						str += '<td>'+(i+1)+'</td>';
-						str += '<td>'+responseData[i].brnm+'</td>';
-						str += '<td>'+responseData[i].userNm+'</td>';
-						str += '<td>'+responseData[i].edctNm+'</td>';
-						str += '<td>'+responseData[i].aplcTs+'</td>';
-						str += '<td>'+responseData[i].aplcStg+'</td>';
-						str += '<td>'+responseData[i].apprNm+'</td>';
-						str += '</tr>';
-					});
+					if(responseData.length != 0) {
+						$.each(responseData, function(i) {
+							str += '<tr data-toggle=\"tab\" data-target=\"#table\" onclick=\"showDetail(this, '+responseData[i].edctAplcId+')\">';
+							str += '<td>'+(i+1)+'</td>';
+							str += '<td>'+responseData[i].brnm+'</td>';
+							str += '<td>'+responseData[i].userNm+'</td>';
+							str += '<td>'+responseData[i].edctNm+'</td>';
+							str += '<td>'+responseData[i].aplcTs+'</td>';
+							str += '<td>'+responseData[i].aplcStg+'</td>';
+							str += '<td>'+responseData[i].apprNm+'</td>';
+							str += '</tr>';
+						});
+					} else {
+							str += '<tr height="150">';
+							str += '<td colspan="7" class="txt_center"><h4>조회 결과가 없습니다.</h4></td>';
+							str += '</tr>';
+					}
 					str += '</tbody>';
 					$('#apprStatBody').replaceWith(str);
 					
@@ -257,6 +271,7 @@
 			});
 		}
 		
+		// 결재이력
 		function showDetail(target, edctAplcId) {
 			HighLightTableTr(target);
 			

@@ -1,5 +1,6 @@
 package com.ibk.itep.service.cmm;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -48,5 +49,19 @@ public class CmmService {
 	}
 	public List<CmbVo> selectCmb(){
 		return cmmDao.selectCmb(); // 상위부점이 IT그룹인 부서 조회
+	}
+	
+	public void objFieldTest(Object obj) {
+	    try {
+	        Object o = obj;
+	        for (Field field : o.getClass().getDeclaredFields()) {
+	            field.setAccessible(true);
+				Object value = field.get(o); // 필드에 해당하는 값을 가져옵니다.
+				logger.debug("field : {} / value : {}", field.getName(), value);
+				//System.out.println("field : "+field.getName()+" | value : "+value);
+	        }
+	    }catch (Exception e) {
+	        e.printStackTrace();
+		}
 	}
 }
