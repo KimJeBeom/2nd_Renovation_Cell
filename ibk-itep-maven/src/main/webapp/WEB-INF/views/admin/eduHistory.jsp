@@ -109,6 +109,7 @@
 											<th style="width: 50px">이력ID</th>
 											<th>교육분류</th>
 											<th>부서명</th>
+											<th>팀명</th>
 											<th>직원명</th>
 											<th>직원번호</th>
 											<th>교육ID</th>
@@ -197,10 +198,12 @@
 					str += '<tbody  id=\"eduHistoryTbody\">'
 					$.each(responseData, function (i){
 						str += '<tr>'
-						str += '<td><input type="radio" name="chkEdctAplcId" value='+responseData[i].edctAplcId+'></td>'
+						str += '<td><label class=\"fancy-radio\"><input type=\"radio\" name=\"chkEdctAplcId\" value=\"'+responseData[i].edctAplcId+'\"><span><i style=\"margin-top:7px;\"></i></span></label></td>';
+						//str += '<td><input type="radio" name="chkEdctAplcId" value='+responseData[i].edctAplcId+'></td>'
 						str += '<td>'+responseData[i].edctAplcId+'</td>'
 						str += '<td>'+responseData[i].edctClsfNm+'</td>'
 						str += '<td>'+responseData[i].brnm+'</td>'
+						str += '<td>'+responseData[i].teamNm+'</td>'
 						str += '<td>'+responseData[i].userNm+'</td>'
 						str += '<td>'+responseData[i].userId+'</td>'
 						str += '<td>'+responseData[i].edctId+'</td>'

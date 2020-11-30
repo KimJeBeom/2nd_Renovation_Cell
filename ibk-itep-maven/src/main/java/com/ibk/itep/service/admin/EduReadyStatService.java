@@ -2,6 +2,7 @@ package com.ibk.itep.service.admin;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,10 +11,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ibk.itep.common.excel.ExcelUtil;
+import com.ibk.itep.controller.admin.EduHistoryController;
 import com.ibk.itep.repository.AdminDao;
 import com.ibk.itep.vo.SessionVo;
 import com.ibk.itep.vo.admin.EduEmpListExcelVo;
@@ -30,6 +34,8 @@ public class EduReadyStatService {
 
 	@Autowired
 	private ExcelUtil excelUtil;
+	
+	private static final Logger logger = LoggerFactory.getLogger(EduReadyStatService.class);
 	
 	/* 수강신청현황 */	
 	public List<EduReadyStatVo> selectEduReadyStat(String sttgYmd, String fnshYmd, String edctClsfCd, String edctNm){		
@@ -110,13 +116,15 @@ public class EduReadyStatService {
 		adminDao.updateEduEmpListPopFnshY(edctCntId); // 차수완료 처리
 		map.remove("edctCntId"); // Map에서 차수ID값 제거
 		
-		// DAO에게 신청서ID, 수료여부 한쌍씩 넘기기 위한 map
-		Map<String, String> paramMap = new HashMap<String,String>();
+		// 수료처리
+		List<EduEmpListVo> list = new ArrayList<EduEmpListVo>();
 		for(String key : map.keySet()) {
-			paramMap.put("edctAplcId", key);
-			paramMap.put("ctcrYn", map.get(key));
-			adminDao.updateEduEmpListPopCtcrYn(paramMap); // 수료처리
+			EduEmpListVo vo = new EduEmpListVo();
+			vo.setEdctAplcId(Integer.parseInt(key));
+			vo.setCtcrYn(map.get(key));
+			list.add(vo);
 		}
+		adminDao.updateEduEmpListPopCtcrYn(list); // 수료처리
 	}
 	
 	/* 수강신청현황 > 교육신청직원목록 팝업 > 엑셀 다운로드 */

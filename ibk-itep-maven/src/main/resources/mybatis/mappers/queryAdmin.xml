@@ -312,16 +312,16 @@
 		</select>
 		
 		<!-- update 교육 신청서 이수 -->
-		<update  id="updateEduEmpListPopCtcrYn" parameterType="HashMap">
-			<![CDATA[
-				UPDATE TB_IEP_EDA001M
-				SET CTCR_YN = #{ctcrYn}
+		<update id="updateEduEmpListPopCtcrYn" parameterType="java.util.List">
+			<foreach item="eduEmpListVo" collection="list" separator=";">
+		    	UPDATE TB_IEP_EDA001M
+				SET CTCR_YN = #{eduEmpListVo.ctcrYn}
 					, APLC_STG_CD = 'EDUFIN'
-				WHERE EDCT_APLC_ID = #{edctAplcId}
+				WHERE EDCT_APLC_ID = #{eduEmpListVo.edctAplcId}
 				AND APLC_STG_CD IN ('EDUFIN', 'APRFIN')
 				AND USE_YN = 'Y';
-			]]>
-		</update>
+	    	</foreach>
+	    </update>
 		
 		<!-- update 교육차수 종료 -->
 		<update  id="updateEduEmpListPopFnshY" parameterType="Integer">

@@ -137,9 +137,8 @@ public class AdminDao {
 	}
 	
 	/* 수강신청현황 > 교육신청직원목록 > 수료/미수료 처리 */
-	public void updateEduEmpListPopCtcrYn(Map<String, String> map) {
-		
-		sqlSession.update("queryAdmin.updateEduEmpListPopCtcrYn", map);
+	public void updateEduEmpListPopCtcrYn(List<EduEmpListVo> list) {
+		sqlSession.update("queryAdmin.updateEduEmpListPopCtcrYn", list);
 	}
 	
 	/* 수강신청현황 > 교육신청직원목록 > 차수완료 */
