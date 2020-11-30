@@ -41,14 +41,13 @@
 								</td>
 							 </tr>
 							 <tr>
-								<th>첨부파일</th>
+								<th>첨부파일<br><button class="fileAdd_btn" type="button">파일추가</button></th>
 								<td colspan="3">
-									<input multiple="multiple" type="file" id="apndDat" class="form-control" value="">
-									<!--
-								   <span>
-									   <span class="input-group-btn"><button class="btn btn-default btn-xs" type="button">첨부</button></span>
-								   </span>
-								   -->
+									<form name="writeForm"  id="excelForm" method="post" action="upload" enctype="multipart/form-data">
+									<input type="text" name="code_nm" style="display:none" value="BDR">
+									<input type="text" name="pbns_id" style="display:none" value="">
+									<div id="fileIndex"></div>
+									</form>	
 								</td>
 							 </tr>
 							 <tr>
@@ -74,24 +73,35 @@
  </div>
  <!-- END WRAPPER -->
  <!-- Javascript -->
+<!-- FOOTER -->
+<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
  <script>
  function actMod(modType) {
  	var conf = confirm('등록하시겠습니까?');
  	if(conf){
-    	var ttl = $("#ttl").val();
-    	var apndDat = $("#apndDat").val();
-    	var con = $("#con").val();
-    	var edctClsfCd = $("#edctClsfCd").val();
-		
-        $.ajax({
+     	var ttl = $("#ttl").val(); //제목
+    	var con = $("#con").val(); //내용
+    	var edctClsfCd = $("#edctClsfCd").val(); //교육구분
+		var addFileCnt = $('.addFile').length; //파일개수
+ 	
+   	    var form = $('#excelForm')[0];
+	    // FormData 객체 생성
+	    var formData = new FormData(form);
+	    
+	    formData.append("ttl",ttl);
+	    formData.append("con",con);
+	    formData.append("edctClsfCd",edctClsfCd);
+	    formData.append("modType",modType);
+	    formData.append("addFileCnt",addFileCnt);
+
+       $.ajax({
 	        url:"/itep/views/board/pop/archRegPop", //데이터를  넘겨줄 링크 설정
 			type:"POST", // post 방식
-			data: 
-	    	    {"ttl" : ttl
-	    	    ,"apndDat" : apndDat
-	    	    ,"con" : con
-	    	    ,"edctClsfCd" : edctClsfCd
-	    	    ,"modType" : modType},
+	   	    enctype: 'multipart/form-data',
+		   	processData: false,
+		   	contentType: false,
+	   	 	dataType : 'json',
+			data:formData,
 			
 	         success: function (responseData) {
 	        	 //화면 재호출시(작업완료) 제어를 위한 sctipt
@@ -109,7 +119,19 @@
 		});
  	}
  }
+ 
+	$(document).ready(function(){
+		fn_addFile();
+	})
+	function fn_addFile(){
+		var fileIndex = 1;
+		$(".fileAdd_btn").on("click", function(){
+			$("#fileIndex").append("<div class='addFile'><input type='file' style='float: left;width:95%;' name='file_"+(fileIndex++)+"'>"+"<img src='/itep/assets/itep/img/icon/delete-icon.png' style='width:22px; height:22px; float: left' id='fileDelBtn'></div>");
+		});
+		$(document).on("click","#fileDelBtn", function(){
+			$(this).parent().remove();
+			
+		});
+	}
 </script>
 
-<!-- FOOTER -->
-<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
