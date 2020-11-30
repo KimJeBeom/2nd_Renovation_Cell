@@ -143,7 +143,7 @@ function resizeWindow(win) {
 		hei = document.body.scrollHeight + 65;
 	}
 	
-	window.moveTo((window.screen.width - wid) / 2 , 0);
+	window.moveTo((window.screen.width - wid) / 2 , (window.screen.height - hei) / 2);
 	window.resizeTo(wid, hei);
 }
 

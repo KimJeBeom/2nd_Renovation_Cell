@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+ 
 <!-- HEADER -->
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
 
@@ -12,8 +12,8 @@
 	<!-- WRAPPER -->
 	<div id="wrapper">
 
-		<!-- 사이드메뉴 -->
-		<jsp:include page="/WEB-INF/views/cmm/common-sidebar.jsp" />
+  		<!-- 사이드메뉴 -->
+		<jsp:include page="/WEB-INF/views/cmm/common-sidebar.jsp" /> 
 
 		<!-- MAIN -->
 		<div class="main">
@@ -29,8 +29,11 @@
 						<div id="toastr-demo" class="panel">
 						
 							<!-- 결재 목록 -->
+							<div class="panel-heading">
+								<h4 class="pannel-title"><b>▶ &nbsp;&nbsp;결재 목록</b></h4>
+							</div>
 							<div class="panel-body" style="overflow-x:hidden; height:350px;">
-								<h4 class="panel-title" style="float:left;"><b>▶ 결재 목록</b></h4>
+								<!-- <h4 class="panel-title" style="float:left;"><b>▶ 결재 목록</b></h4> -->
 								
 								<!-- 상단 버튼 -->
 								<button type="button" class="btn btn-primary btn-toastr btn-top" onclick="apprRej();">반려</button>
@@ -86,11 +89,14 @@
 								<!-- apprList가 하나도 없으면 apprDetail == null (Controller에서 지정) -->
 								<!-- apprDetail 이 not null일 때만 아래 화면 보여줌 -->
 								<c:if test="${not empty apprDetail}">
-									<h4 class="panel-title" style="float:left;"><b>▶ 상세내용</b></h4>
+									<div class="panel-heading">
+										<h4 class="pannel-title"><b>▶ &nbsp;&nbsp;결재 내용</b></h4>
+									</div>
+									<!-- <h4 class="panel-title" style="float:left;"><b>▶ 상세내용</b></h4> -->
 									<!-- 위의 결재항목별 교육상세설명 테이블 (TOGGLE 적용) -->
 									<div id="tab-content" class="tab-content">
 										<!-- 테이블 1 -->
-										<div class="tab-pane fade in active" id="table">
+										<div class="tab-pane fade in active" id="table" style="padding:0px 0px 10px 0px;">
 											<div class="table-responsive">
 												<table class="table tbl-type1">
 													<tbody>

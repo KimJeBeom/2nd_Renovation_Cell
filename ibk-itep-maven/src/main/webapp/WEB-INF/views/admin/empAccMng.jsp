@@ -84,13 +84,13 @@
 								<table class="table table-hover tbl-type2">
 									<thead>
 										<tr>
-											<th style="width: 30px;">No</th>
-											<th>직원번호</th>
-											<th>직원명</th>
-											<th>직책</th>
-											<th>행내전화</th>
-											<th>부서명</th>
-											<th style="width: 80px; margin-right:10px; margin-left:20px;">권한</th>
+											<th>No</th>
+											<th style="width:70px;">직원번호</th>
+											<th style="width:70px;">직원명</th>
+											<th style="width:70px;">직책</th>
+											<th style="width:70px;">행내전화</th>
+											<th style="width:70px;">부서명</th>
+											<th style="width:100px;">권한</th>
 										</tr>
 									</thead>
 									
@@ -105,7 +105,7 @@
 												<td>${empacclist.brnm }</td>
 												<td style="display:none;">${empacclist.athrCd }</td>
 												<td>
-													<select class="form-control athrSelBox" style="text-align: left;"> 
+													<select class="form-control athrSelBox" style="text-align: left; width:80%; margin-left:30px;"> 
 													<!--<select class="form-control" style="text-align:left;">-->
 														<c:forEach items="${claList }" var="clalist"> 
 															<option value="${clalist.athrCd }" 
