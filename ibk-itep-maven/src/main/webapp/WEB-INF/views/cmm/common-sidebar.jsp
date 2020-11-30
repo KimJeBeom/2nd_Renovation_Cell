@@ -59,7 +59,7 @@
                     <img src="/itep/assets/itep/img/icon/apprmng-icon.png" class="main-icon" /><span>결재관리</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 	    			<div id="subPages2" class="collapse ">
 						<ul class="nav">
-		    				<li><a href="/itep/views/apprMng/apprList" class="">결재할 문서</a></li>
+		    				<li><a id="menuApprList" href="/itep/views/apprMng/apprList" class="">결재할 문서</a></li>
 							<li><a href="/itep/views/apprMng/apprStat" class="">진행 및 완료 문서</a></li>
 						</ul>
                     </div>
@@ -92,4 +92,15 @@
 		</nav>
 	</div>
 </div>
+
+<script>
+	var pageName = "";
+	var tempPageName = window.location.href;
+	var strPageName = tempPageName.split("/");
+	pageName = strPageName[strPageName.length-1].split("?")[0];
+	
+	
+	
+	
+</script>
 	

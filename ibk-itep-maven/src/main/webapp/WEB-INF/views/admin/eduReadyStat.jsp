@@ -119,11 +119,11 @@
 																<td style="padding-left:0px;">
 																	<c:choose>
 																		<c:when test="${edureadystatlist.fnshYn eq 'Y'}">
-																			<button type="button" class="btn btn-default"
+																			<button type="button" class="btn btn-xs"
 																				onclick="showPopup('admin','eduEmpListPop?edctCntId=${edureadystatlist.edctCntId }');">확인</button>
 																		</c:when>
 																		<c:otherwise>
-																			<button type="button" class="btn btn-primary"
+																			<button type="button" class="btn btn-success btn-xs"
 																				onclick="showPopup('admin','eduEmpListPop?edctCntId=${edureadystatlist.edctCntId }');">확인</button>
 																		</c:otherwise>
 																	</c:choose>
@@ -209,11 +209,11 @@
 																<td>
 																	<c:choose>
 																		<c:when test="${edolist.cnfaYn eq 'Y'}">
-																			<button type="button" class="btn btn-default"
+																			<button type="button" class="btn btn-xs"
 																				onclick="showPopup('admin','newEduInfoPop?aplcId=${edolist.aplcId }');">확인</button>
 																		</c:when>
 																		<c:otherwise>
-																			<button type="button" class="btn btn-primary"
+																			<button type="button" class="btn btn-success btn-xs"
 																				onclick="showPopup('admin','newEduInfoPop?aplcId=${edolist.aplcId }');">확인</button>
 																		</c:otherwise>
 																	</c:choose>
@@ -293,9 +293,9 @@
 							str += '<td>'+responseData[i].edinNm+'</td>';
 							str += '<td>'+responseData[i].edctAplcIdCnt+'</td>';
 							if(responseData[i].fnshYn == "Y")
-								str += '<td style=\"padding-left:0px;\"><button type=\"button\" class=\"btn btn-default\" onclick=\"showPopup(\'admin\',\'eduEmpListPop?edctCntId='+responseData[i].edctCntId+'\');\">확인</button></td>';
+								str += '<td style=\"padding-left:0px;\"><button type=\"button\" class=\"btn btn-xs\" onclick=\"showPopup(\'admin\',\'eduEmpListPop?edctCntId='+responseData[i].edctCntId+'\');\">확인</button></td>';
 							else
-								str += '<td style=\"padding-left:0px;\"><button type=\"button\" class=\"btn btn-primary\" onclick=\"showPopup(\'admin\',\'eduEmpListPop?edctCntId='+responseData[i].edctCntId+'\');\">확인</button></td>';
+								str += '<td style=\"padding-left:0px;\"><button type=\"button\" class=\"btn btn-success btn-xs\" onclick=\"showPopup(\'admin\',\'eduEmpListPop?edctCntId='+responseData[i].edctCntId+'\');\">확인</button></td>';
 							str += '</tr>';
 						});
 					} else {
@@ -337,9 +337,9 @@
 							str += '<td>'+responseData[i].edinNm+'</td>';
 							str += '<td>'+responseData[i].edctSttgYmd+' ~ '+responseData[i].edctFnshYmd+'</td>';
 							if(responseData[i].cnfaYn == "Y")
-								str += '<td><button type=\"button\" class=\"btn btn-default\" onclick=\"showPopup(\'admin\',\'newEduInfoPop?aplcId='+responseData[i].aplcId+'\');\">확인</button></td>';
+								str += '<td><button type=\"button\" class=\"btn btn-xs\" onclick=\"showPopup(\'admin\',\'newEduInfoPop?aplcId='+responseData[i].aplcId+'\');\">확인</button></td>';
 							else
-								str += '<td><button type=\"button\" class=\"btn btn-primary\" onclick=\"showPopup(\'admin\',\'newEduInfoPop?aplcId='+responseData[i].aplcId+'\');\">확인</button></td>';
+								str += '<td><button type=\"button\" class=\"btn btn-success btn-xs\" onclick=\"showPopup(\'admin\',\'newEduInfoPop?aplcId='+responseData[i].aplcId+'\');\">확인</button></td>';
 							str += '</tr>';
 						});
 					} else {

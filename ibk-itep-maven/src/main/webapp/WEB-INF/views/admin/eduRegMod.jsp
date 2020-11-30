@@ -9,7 +9,7 @@
 		<!-- 사이드메뉴 -->
 		<jsp:include page="/WEB-INF/views/cmm/common-sidebar.jsp" />
 
-		<div class="main">
+		<div id="main" class="main">
 			<div class="main-content">
 				<div class="container-fluid">
 					<!-- Start 교육 등록 및 수정-대제목 -->

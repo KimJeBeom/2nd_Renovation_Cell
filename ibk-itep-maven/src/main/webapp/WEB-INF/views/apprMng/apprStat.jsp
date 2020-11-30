@@ -24,8 +24,7 @@
 				<div class="container-fluid">
 					<div class="row" style="display: table; padding: 20px">
 						<div style="display: table-cell; vertical-align: middle">
-							<img src="/itep/assets/itep/img/icon/apprmng-icon-big.png"
-								height="36px">
+							<img src="/itep/assets/itep/img/icon/apprmng-icon-big.png" height="36px">
 						</div>
 						<div style="display: table-cell; vertical-align: middle">
 							<h1 class="page-title" style="vertical-align: middle;">
@@ -83,15 +82,15 @@
 									</table>
 								</div>
 							</div>
-							<br>
-
-
-
+							
 							<!-- 결재 현황 테이블 -->
+							<div class="panel-heading" style="margin-top:0px;">
+								<h4 class="pannel-title"><b>▶ &nbsp;&nbsp;결재 현황</b></h4>
+							</div>
 							<div class="panel-body" style="overflow-x:hidden; height:300px;">
-								<h4 class="panel-title" style="margin-bottom: 10px">
+								<!-- <h4 class="panel-title" style="margin-bottom: 10px">
 									<b>▶ 결재 현황</b>
-								</h4>
+								</h4> -->
 								<div class="table-responsive">
 									<table class="table table-hover tbl-type2">
 										<thead>
@@ -138,15 +137,16 @@
 							<c:if test="${not empty apprDetail}">
 							<br>
 							<!-- 결재 이력 테이블 -->
+							<div class="panel-heading" id="apprStatDetailDivHead">
+								<h4 class="pannel-title"><b>▶ &nbsp;&nbsp;결재 이력</b></h4>
+							</div>
 							<div class="panel-body" id="apprStatDetailDiv">
-								<h4 class="panel-title">
-									<b>▶ 결재 이력</b>
-								</h4>
+								<!-- <h4 class="panel-title"><b>▶ 결재 이력</b></h4> -->
 
 								<!-- 위의 결재항목별 교육상세설명 테이블 (TOGGLE 적용) -->
 								<div class="tab-content">
 									<!-- 테이블 1 -->
-									<div class="tab-pane fade in active" id="table" style="padding-top: 10px;">
+									<div class="tab-pane fade in active" id="table" style="padding:0px 0px 10px 0px;">
 										<div class="table-responsive">
 											<table class="table table-hover tbl-type2">
 												<thead>
@@ -260,6 +260,7 @@
 					
 					if(responseData.length == 0) {
 						$('#apprStatDetailDiv').hide(); // 결재현황 리스트가 없으면 하단 결재이력 테이블이 안보이게
+						$('#apprStatDetailDivHead').hide(); 
 					} else {
 						var tbody = document.getElementById('apprStatBody');
 						var trs = tbody.getElementsByTagName('tr');
