@@ -67,6 +67,7 @@ public class NoticeRegPopController {
 				logger.info("NoticeRegControll FILE Upload Start");
 				//int id = Integer.parseInt(pbns_id); 
 				int pId = cmmService.getPrstKey("TB_IEP_BDN001M");	
+				
 				int uploadcount = fileUtil.fileUpload(code_nm, pId, mpRequest);
 				logger.info("NoticeRegControll FILE Upload End");
 				logger.debug(" --- upload file count : " + String.valueOf(uploadcount));

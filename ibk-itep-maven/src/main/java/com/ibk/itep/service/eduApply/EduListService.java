@@ -19,13 +19,15 @@ public class EduListService {
 	private static final Logger logger = LoggerFactory.getLogger(EduListService.class);
 	
 	//교육목록을 List로 받가오기 위한 Service(praram : schType, schValue)
-	public List<EduListVo> getList(String schType, String schValue){
+	public List<EduListVo> getList(String schType, String schValue, String tabValue, int pageSet){
 		
 		logger.info("EduGetList Start");
 		//조회타입 + 조회값 을 Map으로 설정하여 List조회
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("schType", schType);  //조회타입
 		map.put("schValue", schValue);//조회값
+		map.put("tabValue", tabValue);//탭 선택값
+		map.put("pageSet", pageSet);//탭 선택값
 		List<EduListVo> list =  eduListDAO.selectEduList(map);
 		
 		logger.info("EduGetList End");

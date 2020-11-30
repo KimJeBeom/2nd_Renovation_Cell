@@ -34,12 +34,13 @@ public class ArchieveController{
 		logger.info("ArchievePost Start");
 		logger.info("@@@ReauestParam (Title): " + vo.getTtl());
 		
+		//전달받은 페이지 계산
 		logger.info(" --- pageNum" + pageNum);		
 		int pageSet = (Integer.parseInt(pageNum)-1)*10;
-		vo.setPageSet(pageSet);
-		//List형태로 Vo값을 Return받아옴(Input Vo -> OutPut List)
-		List<ArchieveVo> list = service.getList(vo);
+		vo.setPageSet(pageSet); //List로 받아올 페이지 Set
 		
+		//페이지 리스트 출력
+		List<ArchieveVo> list = service.getList(vo);
 		logger.info("Service Retrn OK");
 		logger.info("-- List line : "+list.size());
 			
@@ -58,22 +59,22 @@ public class ArchieveController{
 		SessionVo ssnInfo = (SessionVo)session.getAttribute("ssnInfo");
 		String athrCd = ssnInfo.getAthrCd();
 		
-		//List형태로 Vo값을 Return받아옴(Input Vo -> OutPut List)
-		List<ArchieveVo> listCnt = service.getList(vo);
-		int listSize= listCnt.size()/10;
-		listSize = (int) Math.ceil(listSize);
-		logger.info("-- listCnt line : "+listSize+"//listCnt : "+listCnt.size());
-		
-		vo.setPageSet(0);
-		//List형태로 Vo값을 Return받아옴(Input Vo -> OutPut List)
+		//전체 ListCount확인(총 페이지수 계산)
+		double listCnt = service.getList(vo).size();
+		double listcntD1 = listCnt/10;
+		double listcntD2 = Math.ceil(listcntD1);
+		int listSize = (int) listcntD2;
+		logger.info("-- listCnt line : "+listCnt);
+
+		//1페이지 리스트 출력
+		vo.setPageSet(0); //1페이지(0~10)
 		List<ArchieveVo> list = service.getList(vo);
 		logger.info("Service Retrn OK");
 		
 		//model을 통한 결과값 화면(notice.jsp)에 전달
-		model.addAttribute("list", list);
-		//사용자권한 전달
-		model.addAttribute("athrCd", athrCd);
-		model.addAttribute("listSize",listSize);
+		model.addAttribute("list", list);  		//리스트
+		model.addAttribute("athrCd", athrCd);	//권한
+		model.addAttribute("listSize",listSize);//페이지수
 		
 		logger.info("ArchieveGet End");
 		

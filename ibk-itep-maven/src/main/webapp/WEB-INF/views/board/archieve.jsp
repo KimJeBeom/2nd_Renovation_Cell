@@ -82,8 +82,8 @@
 							<div style="text-align:center">
 								<button class="btn btn-primary btn-xs" id='prvsPage' onclick="search('prvs');">◀</button>
 								&nbsp;
-								<input type="text" id="pageNum" value=1 style="width:30px; text-align:center">/ ${listSize}
-								&nbsp;
+								<input type="text" id="pageNum" value=1 style="width:30px; text-align:center">&nbsp;/
+								<label id="listCnt" style="width:20px; text-align:center" >${listSize}</label>
 								<!-- <button class="btn btn-default btn-xs" id='movePage' onclick="search('move');">이동</button> --> 
 								<button class="btn btn-primary btn-xs" id='nextPage' onclick="search('next');">▶</button>
 							</div> 
@@ -108,7 +108,7 @@
 <!-- FOOTER -->
 <jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 <script>
-
+//Enter클릭시  수행 스크립트
 $("#ttl").keyup(function(e){if(e.keyCode==13) searchTtl(); });
 $("#pageNum").keyup(function(e){if(e.keyCode==13) search('move'); });
 
