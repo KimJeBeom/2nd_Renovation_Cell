@@ -82,7 +82,7 @@
 														<c:if test="${file.del_yn == 'N'}">
 															<div class="form-group" style="border: 1px solid #dbdbdb; text-align:Left;">
 																<a href="#" onclick="fn_fileDown('${file.file_no}'); return false;">${file.org_file_name}</a>(${file.file_size}kb)
-																<button id="fileDel" onclick="fn_del('${file.file_no}');" type="button">삭제</button><br>
+																<img id="fileDel" onclick="fn_del('${file.file_no}');" src='/itep/assets/itep/img/icon/delete-icon.png' style='width:22px; height:22px; float: center' id='fileDelBtn'><br>
 															</div>
 														</c:if>
 													</c:forEach>
@@ -120,17 +120,24 @@
 									</c:choose>
 									</tbody>
 								</table>
-								<c:if test="${modType != 'history' && (eduInfoPop.aplcStgCd == 'REJDPM' || eduInfoPop.aplcStgCd == 'REJGRM') }">
+								<c:choose>
+									<c:when test="${modType != 'history' && (eduInfoPop.aplcStgCd == 'REJDPM' || eduInfoPop.aplcStgCd == 'REJGRM') }">
 									<table>
 										<tbody>
 											<tr>
-												<td style="width: 80%; padding-left: 5px; text-align: left; padding-bottom: 10px;">
+												<td style="width: 70%; padding-left: 5px; text-align: left; padding-bottom: 10px;">
 													<font color="red"><b>* 반려된 신청건이므로 재결재요청 또는 취소신청을 하시기 바랍니다.</b></font>
 												</td>
+												<c:if test="${modType != 'history' && eduInfoPop.aplcStgCd == 'REJDPM'}">
+												<td style="padding-bottom: 10px;">(최종결재자 : ${apprDetail.dpmAthzDvcd} ${apprDetail.dpmAthzNm })</td>
+												</c:if>
+												<c:if test="${modType != 'history' && eduInfoPop.aplcStgCd == 'REJGRM'}">
+												<td style="padding-bottom: 10px;">(최종결재자 : ${apprDetail.grmAthzDvcd} ${apprDetail.grmAthzNm })</td>
+												</c:if>
 											</tr>
 										</tbody>
 									</table>
-									<!-- 반려사유 확인 테이블 -->
+									<!-- 반려사유 확인 테이블  Start-->
 									<table class="table table-bordered tbl-type1">
 										<tbody>
 											<tr>
@@ -139,7 +146,54 @@
 											</tr>
 										</tbody>
 									</table>
-								</c:if>
+									<!-- 반려사유 확인 테이블 End -->
+									</c:when>
+									<c:when test="${modType == 'ready' && (eduInfoPop.aplcStgCd != 'REJDPM' || eduInfoPop.aplcStgCd != 'REJGRM') }">
+									<!-- 결재정보 조회 테이블 Start -->
+									<table>
+										<tbody>
+											<tr>
+												<td style="width: 80%; padding-left: 5px; text-align: left; padding-bottom: 10px;"><b>▶ 결재정보</b></td>
+											</tr>
+										</tbody>
+									</table>
+									<table class="table table-hover tbl-type2">
+												<thead>
+													<tr>
+														<th>NO</th>
+														<th>부서명</th>
+														<th>직원명</th>
+														<th>결재의견</th>
+														<th>결재일</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td id="rowNum">1</td>
+														<td id="brnm">${apprDetail.brnm}</td>
+														<td id="userNm">${apprDetail.userNm}</td>
+														<td id="apprCon">결재요청</td>
+														<td id="aplcTs">${apprDetail.aplcTs}</td>
+													</tr>
+													<tr>
+														<td id="rowNum">2</td>
+														<td id="dpmAthzDvcd">${apprDetail.dpmAthzDvcd}</td>
+														<td id="dpmAthzNm">${apprDetail.dpmAthzNm}</td>
+														<td id="dpmAthzCon">${apprDetail.dpmAthzCon }</td>
+														<td id="dpmAthzTs">${apprDetail.dpmAthzTs }</td>
+													</tr>
+													<tr>
+														<td id="rowNum">3</td>
+														<td id="grmAthzDvcd">${apprDetail.grmAthzDvcd}</td>
+														<td id="grmAthzNm">${apprDetail.grmAthzNm}</td>
+														<td id="grmAthzCon">${apprDetail.grmAthzCon }</td>
+														<td id="grmAthzTs">${apprDetail.grmAthzTs }</td>
+													</tr>
+												</tbody>
+											</table>
+									<!-- 결재정보 조회 테이블 End -->
+									</c:when>
+								</c:choose>
 							</div>
 							</div>
 						</div>
@@ -163,14 +217,12 @@
 			
 			var dpmAthzId = $("#dpmAthzId").val(); //부서결재자
 			var edctAplcId = $("#edctAplcId").val();//결재번호
-			var addFileCnt = $('.addFile').length;
 
 			var form = $('#applyForm')[0];
 			var formData = new FormData(form);
 			formData.append("dpmAthzId",dpmAthzId);
 			formData.append("edctAplcId",edctAplcId);
 			formData.append('fileNoArray[]',fileNoArry);
-			formData.append("addFileCnt",addFileCnt);
 			
 			
 				$.ajax({
@@ -182,12 +234,14 @@
 					data: formData,
 
 			        success: function (responseData) {	
-			        	if(responseData == 1) {
+			        	if(responseData == 0) {
+			        		alert("파일을 첨부해주세요"); // 파일첨부 체크
+
+			        	}else if(responseData == 1){
 			        		alert("결재요청 되었습니다."); // 결과가 1이면 정상적으로 반려처리 완료
 			        		window.close();
 				     		window.opener.location.reload();
-
-			        	} else {
+			        	}else {
 			        		alert("결재요청에 실패하였습니다. 다시 시도해주십시오."); // 1이 아니면 승인 실패
 			        		window.close();
 				     		window.opener.location.reload();
@@ -229,7 +283,8 @@
 		function fn_addFile(){
 			var fileIndex = 1;
 			$(".fileAdd_btn").on("click", function(){
-				$("#fileIndex").append("<div class='addFile'><input type='file' style='float: left;width:90%;' name='file_"+(fileIndex++)+"'>"+"<button style='float: left' type='button' id='fileDelBtn'>"+"삭제"+"</button></div>");	});
+				$("#fileIndex").append("<div><input type='file' style='float: left;width:90%;' name='file_"+(fileIndex++)+"'>"+"<img src='/itep/assets/itep/img/icon/delete-icon.png' style='width:22px; height:22px; float: left' id='fileDelBtn'></div>");
+				});
 			$(document).on("click","#fileDelBtn", function(){
 				$(this).parent().remove();
 				

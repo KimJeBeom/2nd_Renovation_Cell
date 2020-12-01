@@ -19,12 +19,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.ibk.itep.common.file.FileDao;
 import com.ibk.itep.common.file.FileUtil;
 import com.ibk.itep.common.file.FileVo;
 import com.ibk.itep.controller.HomeController;
+import com.ibk.itep.service.ApprMngService;
 import com.ibk.itep.service.MyClassService;
 import com.ibk.itep.service.cmm.CmmService;
 import com.ibk.itep.vo.SessionVo;
+import com.ibk.itep.vo.apprMng.ApprStatDetailVo;
 import com.ibk.itep.vo.cmm.CluVo;
 import com.ibk.itep.vo.myClass.EduInfoPopVO;
 
@@ -35,6 +38,8 @@ public class myClassEduInfoPopController{
 	private MyClassService myClassService;
 	@Autowired
 	private CmmService CmService;
+	@Autowired
+	private ApprMngService apprMngService;
 	@Autowired FileUtil fileUtil;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -66,6 +71,10 @@ public class myClassEduInfoPopController{
 			logger.debug(fileVoList.get(0).getFile_size().toString());
 			model.addAttribute("fileVoList",fileVoList);
 		}
+		
+		//결재정보 조회
+		ApprStatDetailVo apprDetail = apprMngService.selectApprStatDetail(edctAplcId);
+		model.addAttribute("apprDetail",apprDetail);
 
 		return "/myClass/pop/eduInfoPop";
 

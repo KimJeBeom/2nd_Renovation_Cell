@@ -157,7 +157,7 @@
 <!-- myclass.xml > eduInfoPop -->
 	<select id="selectEduInfoPop" parameterType="Integer" resultType="EduInfoPopVO">
 	     <![CDATA[
-			/*교육신청 상세확인 팝업 -- 반려중인 경우만 결재요청버튼 활성화*/
+			/*교육신청 상세확인 팝업 */
 			SELECT
 				EDA.EDCT_APLC_ID AS edctAplcId, -- 신청id
 				EDM.EDCT_CLSF_CD AS edctClsfCd, -- 교육분류

@@ -2,6 +2,7 @@ package com.ibk.itep.controller.myClass;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ibk.itep.common.file.FileUtil;
+import com.ibk.itep.common.file.FileVo;
 import com.ibk.itep.controller.HomeController;
 import com.ibk.itep.service.MyClassService;
 import com.ibk.itep.vo.SessionVo;
@@ -74,8 +76,8 @@ public class EdueduReadyController {
 		/*수강신청 목록 - 반려건 재결재요청*/
 		@RequestMapping(value = "/views/myClass/eduInfoPop/reApply", method = RequestMethod.POST)
 		public @ResponseBody int reApply(@RequestParam("code_nm") String code_nm,  @RequestParam("pbns_id") String pbns_id,
-										 @RequestParam("fileNoArray[]") int[] fileNoDel, @RequestParam("addFileCnt") String addFileCnt, 
-										 MultipartHttpServletRequest mpRequest, HttpServletRequest request, Model model, EduInfoPopVO infoVo) {
+										 @RequestParam("fileNoArray[]") int[] fileNoDel, MultipartHttpServletRequest mpRequest,
+										 HttpServletRequest request, Model model, EduInfoPopVO infoVo) {
 			
 			/* 세션정보를 담은 SessionVo 가져옴 */
 			HttpSession session = request.getSession();
@@ -83,25 +85,38 @@ public class EdueduReadyController {
 			
 			//첨부파일 업로드
 			logger.info("FILE Upload Start");
-			logger.info("addFileCnt : " + addFileCnt + "  fileNoDel : " + fileNoDel.length);
 			
-			if(Integer.parseInt(addFileCnt) > 0 || fileNoDel.length > 0) {
-			logger.info("addFileCnt : " + addFileCnt + "  fileNoDel : " + fileNoDel.length);	
-			int id;
-			id = Integer.parseInt(pbns_id);
-			fileUtil.fileUpdate(fileNoDel,code_nm,id,mpRequest);
+			Iterator<String> iterator = mpRequest.getFileNames();
 			
-			logger.info("FILE Upload End");
+			List<FileVo> fileVoList = fileUtil.selectFileList("EDA", infoVo.getEdctAplcId());
+			logger.info("fileNoDel : "+ fileNoDel.length + " fileVoList : " + fileVoList.size() + " 결과 : " + (fileNoDel.length - fileVoList.size()));
+			int cnt = fileNoDel.length - fileVoList.size();
+				
+			//첨부된 파일이 없을 경우 리턴
+			if(iterator.hasNext() == false && cnt == 0) {
+				logger.info("iterator.hasNext():" + iterator.hasNext() );
+				logger.info("cnt :" + cnt);
+				logger.info("파일이 없습니다.");
+					return 0;
+			}else {
 
-	   }else {
-		   logger.info("업데이트파일이 없네요! addFileCnt : " + addFileCnt + "  fileNoDel : " + fileNoDel.length);
-	   }
-			
-			return myClassService.updateEduInfoPop(infoVo, ssnInfo);
+				logger.info("정상 업로드");
+				
+				int id;
+				id = Integer.parseInt(pbns_id);
+				fileUtil.fileUpdate(fileNoDel,code_nm,id,mpRequest);
+				
+				logger.info("FILE Upload End");
+				
+				return myClassService.updateEduInfoPop(infoVo, ssnInfo);
+			}
 	}
-	
 
 }
+
+	
+
+
 
 
 	 
