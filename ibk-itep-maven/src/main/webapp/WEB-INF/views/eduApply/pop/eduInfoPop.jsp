@@ -32,12 +32,12 @@
 										<tr>
 											<!-- 신청시 결재 대상인 교육일 경우 안내 매세지 및 부서결재자 정보 활성화 -->
 											<c:if test ="${vo.snctTgtYn eq 'Y' && modType eq 'insert'}">
-											<td style="width: 5%; text-align: center; padding-bottom: 10px;"><b>■ 부서 결재자</b></td>
-											<td style="width: 5%; padding-bottom: 10px;">
+											<td style="width: 8%; text-align: center; padding-bottom: 10px;"><b>■ 부서 결재자</b></td>
+											<td style="width: 7%; padding-bottom: 10px;">
 												<div>
-													<select class="form-control" id="dpmid">														
+													<select class="form-control" id="dpmid"  style="width:230px;">														
 													<c:forEach items="${dpmList}" var="dpmList">
-														<option value="${dpmList.userId}">${dpmList.userNm}</option>
+														<option value="${dpmList.userId}">${dpmList.brnm} ${dpmList.userNm}</option>
 													</c:forEach>
 													</select>
 												</div>
@@ -47,7 +47,7 @@
 											<td style="width: 10%; padding-left: 5px; text-align: right; padding-bottom: 10px;">
 												<c:choose>
 													<c:when test="${modType eq 'insert'}">
-														<button style="text-align:right;" type="button" class="btn btn-primary" onclick="fstApply();">결재요청</button>	 
+														<button style="text-align:right;" type="button" class="btn btn-primary" onclick="fstApply('insert');">결재요청</button>	 
 													</c:when>
 													<c:when test="${modType eq 'update'}">
 														<button style="text-align:right;" type="button" class="btn btn-primary">재요청</button>	 
@@ -96,9 +96,13 @@
 							   				<td>${vo.edctLevl}</td>
 										</tr>
 										<tr>
-										   <th>첨부파일</th>
+										   <th>첨부파일<br><button class="fileAdd_btn" type="button">파일추가</button></th>
 										   <td colspan="3">
-												<input multiple="multiple" type="file" id="file" class="form-control" value="">
+												<form name="writeForm"  id="excelForm" method="post" action="upload" enctype="multipart/form-data">
+												<input type="text" name="code_nm" style="display:none" value="EDA">
+												<input type="text" name="pbns_id" style="display:none" value="">
+												<div id="fileIndex"></div>
+												</form>
 										   </td>
 										</tr>
 									</tbody>
@@ -117,51 +121,68 @@
 	<!-- END WRAPPER -->
 
 <!-- FOOTER -->
+<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 <script>
 //최초교육 등록(insert)할 경우 수행되는 function
-function fstApply(){
+function fstApply(modAct){
    	var conf = confirm('등록하시겠습니까?');
    	if(conf==true){
    	   	var edctCntId = '${vo.edctCntId}'; //교육차수id
 		var dpmAthzId = $("#dpmid").val(); //부서결제자
-		var	apndDat = $("#file").val(); //첨부파일
 		var	snctTgtYn = '${vo.snctTgtYn}'; //결제여부
+		var addFileCnt = $('.addFile').length; //파일개수
 		
-		/* if(apndDat==""){
-       		alert("전체 내용을 입력해주세요");
-		} */
-		
+   	    var form = $('#excelForm')[0];
+	    // FormData 객체 생성
+	    var formData = new FormData(form);
+	    formData.append("edctCntId",edctCntId);
+	    formData.append("dpmAthzId",dpmAthzId);
+	    formData.append("snctTgtYn",snctTgtYn);
+	    formData.append("modAct",modAct);
+	    formData.append("addFileCnt",addFileCnt);
+				
  	     $.ajax({
-		        url:"/itep/views/board/pop/noticeRegPop", //데이터를  넘겨줄 링크 설정
+		        url:"/itep/views/eduApply/pop/eduInfoPop", //데이터를  넘겨줄 링크 설정
 				type:"POST", // post 방식
-				data: 
-		    	    {"edctCntId" : edctCntId
-		    	    ,"dpmAthzId" : dpmAthzId
-		    	    ,"apndDat" : apndDat
-		    	    ,"snctTgtYn" : snctTgtYn
-		    	    ,"modAct" : "insert"},
+		   	    enctype: 'multipart/form-data',
+			   	processData: false,
+			   	contentType: false,
+		   	 	//dataType : 'json',
+				data: formData,
 				
 		         success: function (responseData) {
 		        	 //화면 재호출시(작업완료) 제어를 위한 sctipt
-		        	 if(responseData=='success'){
+ 		        	 if(responseData=='success'){
 		        		 alert("처리완료");
-		        		 opener.parent.location.reload();
 		        	 	 window.close();
 		        	 }else if(responseData=='fail'){
 		        		 alert("등록에 실패 하였습니다. 다시 시도하여 주세요");
+		        	 }else if(responseData=='disable'){
+		        		 alert("기 신청건이 있습니다. 확인바랍니다.");
 		        	 }else{
 		        		 alert("등록에 실패 하였습니다. 다시 시도하여 주세요");
 		        	 }
 		          },
 		         error: function (xhr, status, error) {
-		        	 alert("등록에 실패 하였습니다. 다시 시도하여 주세요 \n"+ xhr +" // " + status +" // "+error);
+		        	 alert("등록에 실패 하였습니다. 다시 시도하여 주세요");
 		          }
 			});
    	}
    	
 }
 
+$(document).ready(function(){
+	fn_addFile();
+})
+function fn_addFile(){
+	var fileIndex = 1;
+	$(".fileAdd_btn").on("click", function(){
+		$("#fileIndex").append("<div class='addFile'><input type='file' style='float: left;width:95%;' name='file_"+(fileIndex++)+"'>"+"<img src='/itep/assets/itep/img/icon/delete-icon.png' style='width:22px; height:22px; float: left' id='fileDelBtn'></div>");	
+	});
+	$(document).on("click","#fileDelBtn", function(){
+		$(this).parent().remove();
+		
+	});
+}
 </script>
-
-<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 

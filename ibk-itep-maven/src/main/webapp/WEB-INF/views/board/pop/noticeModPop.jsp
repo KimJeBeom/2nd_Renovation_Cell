@@ -48,19 +48,44 @@
 						   <tr>
 							  <th>제목</th>
 							  <td>
-								  <input type="title" name="ttl" class="form-control" value="${vo.ttl}">
+								  <input type="text" name="ttl" class="form-control" value="${vo.ttl}">
 							   </td>
 							  <th>등록일</th>
 							  <td>
-								  <input type="reg" name="rgsnTs" class="form-control" value="${vo.rgsnTs}" disabled>
+								  <input type="text" name="rgsnTs" class="form-control" value="${vo.rgsnTs}" disabled>
 							   </td>
 						   </tr>
 						   <tr>
 							  <th>첨부파일</th>
 							  <td colspan="3">
-								   <input multiple="multiple" type="file" name="apndDat" class="form-control" value="${vo.apndDat}">
-							   </td>
+					   			<section id="container">
+									<form name="updateForm" role="form" method="post" action="/itep/updateFile" enctype="multipart/form-data">
+										<input type="hidden" id="fileNoDel" name="fileNoDel[]" value=""> 
+									</form>
+									<form name="readForm" role="form" method="post">
+										<input id="file_no" name="file_no" style="display:none" value="" > 
+									</form>
+										<c:forEach items="${fileVoList}" var="file">
+											<c:if test="${file.del_yn == 'N'}">
+												<div class="form-group" style="border: 1px solid #dbdbdb; text-align:Left;">
+													<a href="#" onclick="fn_fileDown('${file.file_no}'); return false;">${file.org_file_name}</a>(${file.file_size}kb)
+													<img id='fileDel' src='/itep/assets/itep/img/icon/delete-icon.png' onclick="fn_del('${file.file_no}');" style='width:22px; height:22px; float: right'><br>
+												</div>
+											</c:if>
+										</c:forEach>
+								</section>
+							  </td>
 						   </tr>
+							 <tr>
+								<th><button class="fileAdd_btn" type="button">파일추가</button></th>
+								<td colspan="3">
+									<form name="writeForm"  id="excelForm" method="post" action="upload" enctype="multipart/form-data">
+									<input type="text" name="code_nm" style="display:none" value="BDN">
+									<input type="text" name="pbns_id" style="display:none" value="${vo.pbnsId}">
+									<div id="fileIndex"></div>
+									</form>	
+								</td>
+							 </tr>
 							<tr>
 							   <td class="txt-long" colspan="4">
 								<textarea id ="con" style="width:100%; height: 200px;">${vo.con}</textarea>
@@ -82,25 +107,40 @@
  </div>
  <!-- END WRAPPER -->
  <!-- Javascript -->
+ 
+<!-- FOOTER -->
+<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
  <script>
-   //수정 및 삭제 버튼 클릭에 따른 결과 처리
-   function actMod(modType,pbnsId) {
+ //수정 및 삭제 버튼 클릭에 따른 결과 처리
+ function actMod(modType,pbnsId) {
 	var conf = confirm('수정하시겠습니까?');
  	if(conf){
+ 		
     	var ttl = $('input[name=ttl]').val();
-	    var apndDat = $('input[name=apndDat]').val();
 	    var con = $("#con").val();
 	   	var edctClsfCd = $("#edctClsfCd").val();
+	   	var addFileCnt = $('.addFile').length;
+	   	
+   	    var form = $('#excelForm')[0];
+	    // FormData 객체 생성
+	    var formData = new FormData(form);
+	    
+	    formData.append("pbnsId",pbnsId);
+	    formData.append("ttl",ttl);
+	    formData.append("con",con);
+	    formData.append("edctClsfCd",edctClsfCd);
+	    formData.append("modType",modType);
+	    formData.append('fileNoArray[]',fileNoArry);
+	    formData.append("addFileCnt",addFileCnt);
+	    
         $.ajax({
 	        url:"/itep/views/board/pop/noticeModPop", //데이터를  넘겨줄 링크 설정
 			type:"POST", // post 방식
-			data: 
-	    	    {"pbnsId" : pbnsId //id
-				,"ttl" : ttl //제목
-				,"con" : con //내용
-	    	    ,"apndDat" : apndDat //첨부파일
-	    	    ,"edctClsfCd" : edctClsfCd //구분코드
-	    	    ,"modType" : modType}, //update or insert
+	   	    enctype: 'multipart/form-data',
+		   	processData: false,
+		   	contentType: false,
+	   	 	dataType : 'json',
+			data:formData,
 
 	         success: function (responseData) {
 	        	 //화면 재호출시(작업완료) 제어를 위한 sctipt
@@ -118,12 +158,48 @@
 	        	 }
 	          },
 	         error: function (xhr, status, error) {
-	        	 alert("작업에 실패 하였습니다. 다시 시도하여 주세요 \n"+ xhr +" // " + status +" // "+error);
+	        	 alert("등록에 실패 하였습니다. 다시 시도하여 주세요");
 	          }
 		});
  	}
- }
+ } 
+   
+   var fileNoArry = new Array();
+
+	function fn_fileDown(fileNo){
+	var formObj = $("form[name='readForm']");
+	$("#file_no").attr("value", fileNo);
+	formObj.attr("action", "/itep/views/cmm/fileDownload");
+	formObj.submit();
+	}
+
+	function fn_del(file_no){
+		fileNoArry.push(file_no);
+		$("#fileNoDel").attr("value", fileNoArry);
+		$(document).on("click","#fileDel", function(){
+		$(this).parent().remove();
+	});
+		//alert(fileNoArry);
+	}
+	
+	function fn_fileUpdate(){
+		var formObj = $("form[name='updateForm']");
+		formObj.submit();
+	}
+	
+	$(document).ready(function(){
+		fn_addFile();
+	})
+	
+	function fn_addFile(){
+		var fileIndex = 1;
+		$(".fileAdd_btn").on("click", function(){
+			$("#fileIndex").append("<div class='addFile'><input type='file' style='float: left;width:95%;' name='file_"+(fileIndex++)+"'>"+"<img src='/itep/assets/itep/img/icon/delete-icon.png' style='width:22px; height:22px; float: left' id='fileDelBtn'></div>");
+		});
+		$(document).on("click","#fileDelBtn", function(){
+			$(this).parent().remove();
+			
+		});
+	}
 </script>
 
-<!-- FOOTER -->
-<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />

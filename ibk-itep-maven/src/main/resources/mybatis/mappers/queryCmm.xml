@@ -93,4 +93,20 @@
 			and HGRN_BRCD = '0889'
 		]]>
 	</select>
+	
+	<select id="selectNextKey" parameterType="String" resultType="Integer">
+		<![CDATA[			
+			SELECT AUTO_INCREMENT + 1 AS nextKey
+			FROM INFORMATION_SCHEMA.TABLES 
+			WHERE TABLE_NAME = #{tableNm}
+		]]>
+	</select>
+	
+	<select id="selectPrstKey" parameterType="String" resultType="Integer">
+		<![CDATA[			
+			SELECT AUTO_INCREMENT AS nextKey
+			FROM INFORMATION_SCHEMA.TABLES 
+			WHERE TABLE_NAME = #{tableNm}
+		]]>
+	</select>
 </mapper>

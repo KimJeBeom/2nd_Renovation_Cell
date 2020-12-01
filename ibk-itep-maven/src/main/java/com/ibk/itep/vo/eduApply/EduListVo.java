@@ -47,6 +47,9 @@ public class EduListVo {
 	private String apndDat;
 	private String grmAthzId;
 	
+	private Integer pageSet; //페이지SetNumber
+	
+
 	public String getEdinNm() {
 		return edinNm;
 	}
@@ -302,4 +305,10 @@ public class EduListVo {
 		this.grmAthzId = grmAthzId;
 	}
 	
+	public Integer getPageSet() {
+		return pageSet;
+	}
+	public void setPageSet(Integer pageSet) {
+		this.pageSet = pageSet;
+	}
 }

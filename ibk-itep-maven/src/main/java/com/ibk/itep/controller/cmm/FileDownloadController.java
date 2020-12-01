@@ -69,6 +69,7 @@ public class FileDownloadController{
 			@RequestParam("code_nm") String code_nm,
 			@RequestParam("pbns_id") int pbns_id,
 			MultipartHttpServletRequest mpRequest) {
+
 		int uploadCounnt = fileUtil.fileUpload(code_nm, pbns_id, mpRequest);
 		logger.debug("upload file count : " + String.valueOf(uploadCounnt));
 		return "form2";
