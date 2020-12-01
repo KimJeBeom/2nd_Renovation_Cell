@@ -32,8 +32,9 @@ public class EduMyHistoryController{
 
 	/*수강신청 이력조회*/
 	@RequestMapping(value = "/views/myClass/eduMyHistory", method = RequestMethod.GET)
-	public String eduMyHistory(@RequestParam(value="sttgYmd", required=false) String sttgYmd
-							 , @RequestParam(value="fnshYmd", required=false) String fnshYmd, HttpServletRequest request, Model model) {
+	public String eduMyHistory(@RequestParam(value="sttgYmd", required=false) String sttgYmd,
+							   @RequestParam(value="fnshYmd", required=false) String fnshYmd, 
+							   HttpServletRequest request, Model model) {
 		
 		/* 세션정보를 담은 SessionVo 가져옴 */
 		HttpSession session = request.getSession();
@@ -49,12 +50,15 @@ public class EduMyHistoryController{
 
 	/*수강신청이력 > 기간 조회*/
 	@RequestMapping(value = "/views/myClass/eduHistorySearch", method = RequestMethod.POST)
-	public @ResponseBody List<EduMyHistoryVO> completeSearch(@RequestParam(value="sttgYmd", required=false) String sttgYmd
-						 , @RequestParam(value="fnshYmd", required=false) String fnshYmd, HttpServletRequest request, Model model) {
+	public @ResponseBody List<EduMyHistoryVO> completeSearch(EduMyHistoryVO vo, @RequestParam(value="sttgYmd", required=false) String sttgYmd,
+			             @RequestParam(value="fnshYmd", required=false) String fnshYmd, @RequestParam("pageNum") String pageNum, HttpServletRequest request, Model model) {
 		
 		/* 세션정보를 담은 SessionVo 가져옴 */
 		HttpSession session = request.getSession();
 		SessionVo ssnInfo = (SessionVo)session.getAttribute("ssnInfo");
+		
+		int pageSet = (Integer.parseInt(pageNum)-1)*10;
+		vo.setPageSet(pageSet); //List로 받아올 페이지 Set
 		
 		List<EduMyHistoryVO> eduMyHistroy = myClassService.selectHistoryList(sttgYmd, fnshYmd, ssnInfo);
 		
