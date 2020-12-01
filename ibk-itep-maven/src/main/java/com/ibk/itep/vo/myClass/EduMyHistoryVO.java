@@ -94,5 +94,4 @@ public class EduMyHistoryVO {
 	public void setPageSet(Integer pageSet) {
 		this.pageSet = pageSet;
 	}
-
 }

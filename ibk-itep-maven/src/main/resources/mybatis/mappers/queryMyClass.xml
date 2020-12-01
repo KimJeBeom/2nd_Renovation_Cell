@@ -138,6 +138,13 @@
 			IF(EDC.FNSH_YN = 'Y','차수종료','') AS fnshYn, -- 차수종료여부
 			CLS.APLC_STG_NM AS aplcStgNm -- 신청단계명
 			FROM TB_IEP_EDA001M EDA, TB_IEP_EDC001M EDC, TB_IEP_EDM001M EDM, TB_IEP_CLI001C CLI, TB_IEP_CLS001C CLS
+			]]>
+		 <if test="pageSet >= 0">	
+			<![CDATA[
+			, (SELECT @rownum:=#{pageSet}) TMP
+			]]>
+		</if>
+			<![CDATA[
 			WHERE 1=1
 			AND EDA.EDCT_CNT_ID = EDC.EDCT_CNT_ID
 			AND EDC.EDCT_ID = EDM.EDCT_ID
@@ -145,13 +152,18 @@
 			AND EDA.APLC_STG_CD = CLS.APLC_STG_CD
 			AND EDA.USER_ID = #{userId} 
 		]]>
-			<if test="!sttgYmd.equals('') and !fnshYmd.equals('')">
+		<if test="!sttgYmd.equals('') and !fnshYmd.equals('')">
 				AND EDC.EDCT_STTG_YMD BETWEEN CONCAT(#{sttgYmd}, ' 00:00:00') AND CONCAT(#{fnshYmd}, ' 23:59:59')
-			</if>
-		<![CDATA[
+		</if>
+			<![CDATA[
 			AND EDA.USE_YN='Y'
 			ORDER BY EDC.EDCT_STTG_YMD DESC
-	     ]]>
+	     	]]>
+	     <if test="pageSet >= 0">			
+			<![CDATA[
+			Limit #{pageSet} ,10
+			]]>
+		</if>
 	</select>
 	
 <!-- myclass.xml > eduInfoPop -->

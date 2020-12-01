@@ -10,6 +10,7 @@ public class EduListSrchVO {
 	private int edctAplcId;
 	private Date sttgYmd;
 	private Date fnshYmd;
+	private Integer pageSet;
 	
 	public String getUserId() {
 		return userId;
@@ -60,5 +61,12 @@ public class EduListSrchVO {
 	public void setFnshYmd(Date fnshYmd) {
 		this.fnshYmd = fnshYmd;
 	}
+	public Integer getPageSet() {
+		return pageSet;
+	}
+	public void setPageSet(Integer pageSet) {
+		this.pageSet = pageSet;
+	}
+	
 
 }

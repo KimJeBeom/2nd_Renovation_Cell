@@ -59,9 +59,10 @@ public class MyClassService {
 	  }
 	 
 	
-	public List<EduMyHistoryVO> selectHistoryList(String sttgYmd, String fnshYmd, SessionVo ssnInfo){
+	public List<EduMyHistoryVO> selectHistoryList(String sttgYmd, String fnshYmd, SessionVo ssnInfo, int pageSet){
 		EduListSrchVO srchVo = new EduListSrchVO();
 		srchVo.setUserId(ssnInfo.getUserId());
+		srchVo.setPageSet(pageSet);
 
 		  if(sttgYmd != null && !sttgYmd.equals("")) {
 		  srchVo.setSttgYmd(Date.valueOf(sttgYmd.replace("/", "-"))); // 검색 - 시작일자
