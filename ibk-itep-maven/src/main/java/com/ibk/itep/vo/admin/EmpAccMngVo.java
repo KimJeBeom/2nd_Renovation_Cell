@@ -12,6 +12,7 @@ public class EmpAccMngVo {
 	private String athrCd;
 	private String athrNm;
 	private String useYn;
+	private Integer pageSet; //페이지SetNumber
 	
 	public String getUserId() {
 		return userId;
@@ -78,5 +79,11 @@ public class EmpAccMngVo {
 	}
 	public void setUseYn(String useYn) {
 		this.useYn = useYn;
+	}	
+	public Integer getPageSet() {
+		return pageSet;
+	}
+	public void setPageSet(Integer pageSet) {
+		this.pageSet = pageSet;
 	}
 }

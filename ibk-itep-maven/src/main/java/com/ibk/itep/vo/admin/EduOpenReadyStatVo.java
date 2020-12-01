@@ -10,6 +10,7 @@ public class EduOpenReadyStatVo {
 	private String edctSttgYmd;
 	private String edctFnshYmd;
 	private String cnfaYn;
+	private Integer pageSet; //페이지SetNumber
 	
 	public int getAplcId() {
 		return aplcId;
@@ -65,4 +66,10 @@ public class EduOpenReadyStatVo {
 	public void setCnfaYn(String cnfaYn) {
 		this.cnfaYn = cnfaYn;
 	}	
+	public Integer getPageSet() {
+		return pageSet;
+	}
+	public void setPageSet(Integer pageSet) {
+		this.pageSet = pageSet;
+	}
 }

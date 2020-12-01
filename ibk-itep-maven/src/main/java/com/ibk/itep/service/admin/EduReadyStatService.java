@@ -36,29 +36,12 @@ public class EduReadyStatService {
 	private ExcelUtil excelUtil;
 	
 	private static final Logger logger = LoggerFactory.getLogger(EduReadyStatService.class);
-	
-	/* 수강신청현황 */	
-	public List<EduReadyStatVo> selectEduReadyStat(String sttgYmd, String fnshYmd, String edctClsfCd, String edctNm){		
-		EduReadyStatVo srchVo = new EduReadyStatVo();
 		
-		// 검색 데이터 vo에 담아 넘겨줌
-		if(sttgYmd != null && !sttgYmd.equals("")) 
-			srchVo.setSttgYmd(sttgYmd);
-		else
-			srchVo.setSttgYmd("");		
-		if(fnshYmd != null && !fnshYmd.equals("")) 
-			srchVo.setFnshYmd(fnshYmd); 
-		else 
-			srchVo.setFnshYmd("");		
-		if(edctClsfCd != null && !edctClsfCd.equals("")) { 
-			if(!edctClsfCd.equals("ALL"))
-				srchVo.setEdctClsfCd(edctClsfCd);
-		}
-		if(edctNm != null && !edctNm.equals("")) 
-			srchVo.setEdctNm(edctNm);
+	/* 수강신청현황 페이징처리 */	
+	public List<EduReadyStatVo> selectEduReadyStat(EduReadyStatVo srchVo){		
 		
 		List<EduReadyStatVo> list = adminDao.selectEduReadyStat(srchVo);
-		
+		 
 		// 날짜 포맷 변경
 		for(EduReadyStatVo vo : list) {
 			if(vo.getEdctSttgYmd() == null)
@@ -81,7 +64,6 @@ public class EduReadyStatService {
 		
 		return list;
 	}
-	
 	
 	/* 수강신청현황 > 교육신청직원목록 팝업  */	
 	public List<EduEmpListVo> selectEduEmpListPop(int edctCntId){	
@@ -148,7 +130,7 @@ public class EduReadyStatService {
 	
 	
 	/* 과정개설신청현황 */	
-	public List<EduOpenReadyStatVo> selectEduOpenReadyStat(String cnfaYn, String userIdNm, String edctNm){		
+	public List<EduOpenReadyStatVo> selectEduOpenReadyStat(String cnfaYn, String userIdNm, String edctNm, int pageNum){		
 		EduOpenReadyStatVo srchVo = new EduOpenReadyStatVo();
 		
 		// 검색 데이터 vo에 담아 넘겨줌
@@ -165,6 +147,7 @@ public class EduReadyStatService {
 		}
 		if(edctNm != null && !edctNm.equals("")) 
 			srchVo.setEdctNm(edctNm);
+		srchVo.setPageSet(pageNum);
 		
 		List<EduOpenReadyStatVo> list = adminDao.selectEduOpenReadyStat(srchVo);
 

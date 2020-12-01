@@ -229,7 +229,7 @@
 		      AND EDM.EDIN_CD = CLI.EDIN_CD AND CLI.USE_YN ='Y'
 		      ]]>
 		      <choose>
-				<when test="!sttgYmd.equals('') and !fnshYmd.equals('')">
+				<when test="sttgYmd != null and fnshYmd != null and !sttgYmd.equals('') and !fnshYmd.equals('')">
 					AND (EDC.EDCT_STTG_YMD BETWEEN CONCAT(#{sttgYmd}, ' 00:00:00') AND CONCAT(#{fnshYmd}, ' 23:59:59')
 					OR	EDC.EDCT_FNSH_YMD BETWEEN CONCAT(#{sttgYmd}, ' 00:00:00') AND CONCAT(#{fnshYmd}, ' 23:59:59'))
 				</when>
@@ -237,10 +237,10 @@
 					AND EDC.EDCT_STTG_YMD BETWEEN DATE_ADD(NOW(),INTERVAL -1 YEAR ) AND NOW()
 				</otherwise>
 			  </choose>
-			  <if test="edctClsfCd != null">
+			  <if test="edctClsfCd != null and edctClsfCd != 'ALL'">
     				AND EDM.EDCT_CLSF_CD = #{edctClsfCd}
 		      </if>
-		      <if test="edctNm != null">
+		      <if test="edctNm != null and !edctNm.equals('')">
 		    		AND EDM.EDCT_NM LIKE CONCAT('%', #{edctNm}, '%')
 		      </if>
 		<![CDATA[
@@ -261,8 +261,11 @@
 		     , IFNULL(EDA_CNT.CNT, 0) AS edctAplcIdCnt
 		FROM EDC_INFO 
 			 LEFT OUTER JOIN EDA_CNT ON EDC_INFO.EDCT_CNT_ID = EDA_CNT.EDCT_CNT_ID
-		ORDER BY EDCT_FNSH_YMD DESC;	
+		ORDER BY EDCT_FNSH_YMD DESC	
 		]]>	
+		<if test="pageSet != null and pageSet >= 0">		
+			Limit #{pageSet} ,10
+		</if>
 	</select>	
 
 	<!-- Start - Popup - 교육신청직원목록 eduEmpListPop -->
@@ -369,6 +372,9 @@
 	    <![CDATA[
 	    	order by edo.APLC_TS desc
 	    ]]>
+		<if test="pageSet != null and pageSet >= 0">		
+			Limit #{pageSet} ,10
+		</if>
 	</select>
 	
 	<!-- Start - Popup - 과정개설신청현황확인 newEduInfoPop -->
@@ -592,9 +598,12 @@
 	    </if>
     	<if test="athrCd != null and !athrCd.equals('')">
 	    	<![CDATA[
-	 	   		and cmu.ATHR_CD =#{athrCd};
+	 	   		and cmu.ATHR_CD =#{athrCd}
 	    	]]>
 	    </if>
+		<if test="pageSet != null and pageSet >= 0">		
+			Limit #{pageSet} ,10
+		</if>
 	</select>
 	
 	<!-- 사용자 조회, 사용자 조회 엑셀 다운로드용 -->

@@ -96,7 +96,7 @@
 										<table class="table table-hover">
 											<thead style="vertical-align: center;">
 												<tr>
-													<th style="width:5px;">No</th>
+													<th style="width:5px;">차수ID</th>
 													<th style="width:40px;">교육분류</th>
 													<th>학습기간</th>
 													<th style="width:200px;">교육명</th>
@@ -107,24 +107,24 @@
 											</thead>
 											<tbody id="eduReadyStatTBody" style="vertical-align: center;">
 												<c:choose>
-													<c:when test="${not empty eduReadyStatList}">
-														<c:forEach items="${eduReadyStatList }" var="edureadystatlist" varStatus="status">
+													<c:when test="${not empty ersList}">
+														<c:forEach items="${ersList }" var="erslist" varStatus="status">
 															<tr>
-																<td>${status.count }</td>
-																<td>${edureadystatlist.edctClsfNm }</td>
-																<td>${edureadystatlist.edctSttgYmd } ~ ${edureadystatlist.edctFnshYmd }</td>
-																<td>${edureadystatlist.edctNm }</td>
-																<td>${edureadystatlist.edinNm }</td>
-																<td>${edureadystatlist.edctAplcIdCnt }</td>
+																<td>${erslist.edctCntId }</td>
+																<td>${erslist.edctClsfNm }</td>
+																<td>${erslist.edctSttgYmd } ~ ${erslist.edctFnshYmd }</td>
+																<td>${erslist.edctNm }</td>
+																<td>${erslist.edinNm }</td>
+																<td>${erslist.edctAplcIdCnt }</td>
 																<td style="padding-left:0px;">
 																	<c:choose>
-																		<c:when test="${edureadystatlist.fnshYn eq 'Y'}">
+																		<c:when test="${erslist.fnshYn eq 'Y'}">
 																			<button type="button" class="btn btn-xs"
-																				onclick="showPopup('admin','eduEmpListPop?edctCntId=${edureadystatlist.edctCntId }');">확인</button>
+																				onclick="showPopup('admin','eduEmpListPop?edctCntId=${erslist.edctCntId }');">확인</button>
 																		</c:when>
 																		<c:otherwise>
 																			<button type="button" class="btn btn-success btn-xs"
-																				onclick="showPopup('admin','eduEmpListPop?edctCntId=${edureadystatlist.edctCntId }');">확인</button>
+																				onclick="showPopup('admin','eduEmpListPop?edctCntId=${erslist.edctCntId }');">확인</button>
 																		</c:otherwise>
 																	</c:choose>
 																</td>
@@ -141,6 +141,16 @@
 										</table>
 									</div>
 									<!-- End 교육 신청 현황 - 탭1. 수강신청 현황 - 조회결과 -->
+									
+									<!-- nextPage설정 -->
+									<div id="ersPage" style="text-align:center">
+										<button class="btn btn-primary btn-xs" id='prvsPage' onclick="searchEduReadyStat('prvs');">◀</button>
+										&nbsp;
+										<input type="text" id="ersPageNum" value=1 style="width:30px; text-align:center">&nbsp;/
+										<label id="ersListCnt" style="width:30px; text-align:center" >${ersSize}</label>
+										<!-- <button class="btn btn-default btn-xs" id='movePage' onclick="search('move');">이동</button> --> 
+										<button class="btn btn-primary btn-xs" id='nextPage' onclick="searchEduReadyStat('next');">▶</button>
+									</div> 
 								</div>
 								
 								
@@ -184,7 +194,7 @@
 										<table class="table table-hover">
 											<thead style="vertical-align: center;">
 												<tr>
-													<th style="width:5px;">No</th>
+													<th style="width:5px;">신청ID</th>
 													<th>부서명</th>
 													<th>직원번호</th>
 													<th>직원명</th>
@@ -199,7 +209,7 @@
 													<c:when test="${not empty edoList}">
 														<c:forEach items="${edoList }" var="edolist" varStatus="status">
 															<tr>
-																<td>${status.count }</td>
+																<td>${edolist.aplcId }</td>
 																<td>${edolist.brnm }</td>
 																<td>${edolist.userId }</td>
 																<td>${edolist.userNm }</td>
@@ -231,6 +241,16 @@
 										</table>
 									</div>
 									<!-- End 교육 신청 현황 - 탭2 - 개설 신청 현황 - 조회결과 -->
+									<!-- nextPage설정 -->
+									<div id="edoPage" style="text-align:center">
+										<button class="btn btn-primary btn-xs" id='prvsPage' onclick="searchEdo('prvs');">◀</button>
+										&nbsp;
+										<input type="text" id="edoPageNum" value=1 style="width:30px; text-align:center">&nbsp;/
+										<label id="edoListCnt" style="width:30px; text-align:center" >${edoSize}</label>
+										<!-- <button class="btn btn-default btn-xs" id='movePage' onclick="search('move');">이동</button> --> 
+										<button class="btn btn-primary btn-xs" id='nextPage' onclick="searchEdo('next');">▶</button>
+									</div> 
+									
 								</div>
 								<!-- End 교육 신청 현황 - 탭2. 내용 - 개설 신청 현황 -->
 							</div>
@@ -252,13 +272,40 @@
 		$("#fnshYmd").keyup(function(e){if(e.keyCode == 13)  searchEduReadyStat(); });
 		$("#edctClsfCd").keyup(function(e){if(e.keyCode == 13)  searchEduReadyStat(); });
 		$("#edctNm").keyup(function(e){if(e.keyCode == 13)  searchEduReadyStat(); });
+		$("#ersPageNum").keyup(function(e){if(e.keyCode==13) searchEduReadyStat('move'); });
 
 		$("#cnfaYnO").keyup(function(e){if(e.keyCode == 13)  searchEdo(); });
 		$("#userIdNmO").keyup(function(e){if(e.keyCode == 13)  searchEdo(); });
 		$("#edctNmO").keyup(function(e){if(e.keyCode == 13)  searchEdo(); });
-		
-		// 수강신청현황 검색
-		function searchEduReadyStat() {
+		$("#edoPageNum").keyup(function(e){if(e.keyCode==13) searchEdo('move'); });
+				
+		// 수강신청현황 페이지 전환
+		function searchEduReadyStat(ctrlPage) {
+			var pageNum = parseInt($('#ersPageNum').val());
+			var listSize = parseInt('${ersSize}');
+			
+			if(ctrlPage=="prvs"){
+		  		pageNum = pageNum-1;
+				if(pageNum <= 0){
+					alert("이전페이지가 없습니다.");
+					return;
+				}
+			}else if(ctrlPage=="next"){
+				pageNum = pageNum+1;
+				if(pageNum > listSize){
+					alert("다음페이지가 없습니다.");
+					return;
+				}
+			}else if(ctrlPage=="move"){
+				if(pageNum > listSize){
+					alert("이동값이 전체 페이지보다 클수 없습니다.");
+					return;
+				}
+			}else {
+				pageNum = -1;
+			}
+			
+			// 검색 데이터
 			var sttgYmd = $('#sttgYmd').val();
 			var fnshYmd = $('#fnshYmd').val();
 			var edctClsfCd = $('#edctClsfCd').val();
@@ -278,40 +325,75 @@
 				data: {"sttgYmd" : sttgYmd,
 						"fnshYmd" : fnshYmd,
 						"edctClsfCd" : edctClsfCd,
-						"edctNm" : edctNm}, //넘겨줄 데이터
+						"edctNm" : edctNm,
+						"pageNum" : pageNum}, //넘겨줄 데이터
 				
-				success: function (responseData) {
+				success: function (result) {
 					var str = '';
 					str += '<tbody id=\"eduReadyStatTBody\" style=\"vertical-align: center;\">';
-					if(responseData.length != 0) {
-						$.each(responseData, function(i) {
+					if(result.list.length != 0) {
+						$.each(result.list, function(i) {
 							str += '<tr data-toggle=\"tab\" data-target=\"#table\">';
-							str += '<td>'+(i+1)+'</td>';
-							str += '<td>'+responseData[i].edctClsfNm+'</td>';
-							str += '<td>'+responseData[i].edctSttgYmd+' ~ '+responseData[i].edctFnshYmd+'</td>';
-							str += '<td>'+responseData[i].edctNm+'</td>';
-							str += '<td>'+responseData[i].edinNm+'</td>';
-							str += '<td>'+responseData[i].edctAplcIdCnt+'</td>';
-							if(responseData[i].fnshYn == "Y")
-								str += '<td style=\"padding-left:0px;\"><button type=\"button\" class=\"btn btn-xs\" onclick=\"showPopup(\'admin\',\'eduEmpListPop?edctCntId='+responseData[i].edctCntId+'\');\">확인</button></td>';
+							str += '<td>'+result.list[i].edctCntId+'</td>';
+							str += '<td>'+result.list[i].edctClsfNm+'</td>';
+							str += '<td>'+result.list[i].edctSttgYmd+' ~ '+result.list[i].edctFnshYmd+'</td>';
+							str += '<td>'+result.list[i].edctNm+'</td>';
+							str += '<td>'+result.list[i].edinNm+'</td>';
+							str += '<td>'+result.list[i].edctAplcIdCnt+'</td>';
+							if(result.list[i].fnshYn == "Y")
+								str += '<td style=\"padding-left:0px;\"><button type=\"button\" class=\"btn btn-xs\" onclick=\"showPopup(\'admin\',\'eduEmpListPop?edctCntId='+result.list[i].edctCntId+'\');\">확인</button></td>';
 							else
-								str += '<td style=\"padding-left:0px;\"><button type=\"button\" class=\"btn btn-success btn-xs\" onclick=\"showPopup(\'admin\',\'eduEmpListPop?edctCntId='+responseData[i].edctCntId+'\');\">확인</button></td>';
+								str += '<td style=\"padding-left:0px;\"><button type=\"button\" class=\"btn btn-success btn-xs\" onclick=\"showPopup(\'admin\',\'eduEmpListPop?edctCntId='+result.list[i].edctCntId+'\');\">확인</button></td>';
 							str += '</tr>';
 						});
+						$('#ersPage').show();
 					} else {
 						str += '<tr height="100">';
 						str += '<td colspan="7" class="txt_center"><h4>조회 결과가 없습니다.</h4></td>';
 						str += '</tr>';
+						$('#ersPage').hide();
 					}
 					str += '</tbody>';
 					$('#eduReadyStatTBody').replaceWith(str);
+					
+					if(pageNum == -1) {
+						$('#ersPageNum').val(1);
+						$('#ersListCnt').html(result.listSize);
+					} else 
+						$('#ersPageNum').val(pageNum);
+					
 				},
 				error: function (xhr, status, error) { alert("통신실패");
 				}
 			});
 		}
 		
-		function searchEdo() {
+		
+		function searchEdo(ctrlPage) {
+			var pageNum = parseInt($('#edoPageNum').val());
+			var listSize = parseInt('${edoSize}');
+			
+			if(ctrlPage=="prvs"){
+		  		pageNum = pageNum-1;
+				if(pageNum <= 0){
+					alert("이전페이지가 없습니다.");
+					return;
+				}
+			}else if(ctrlPage=="next"){
+				pageNum = pageNum+1;
+				if(pageNum > listSize){
+					alert("다음페이지가 없습니다.");
+					return;
+				}
+			}else if(ctrlPage=="move"){
+				if(pageNum > listSize){
+					alert("이동값이 전체 페이지보다 클수 없습니다.");
+					return;
+				}
+			}else {
+				pageNum = -1;
+			}
+			
 			var cnfaYn = $('#cnfaYnO').val();
 			var userIdNm = $('#userIdNmO').val();
 			var edctNm = $('#edctNmO').val();	
@@ -321,34 +403,43 @@
 		        type:"POST", // post 방식
 				data: {"cnfaYn" : cnfaYn,
 						"userIdNm" : userIdNm,
-						"edctNm" : edctNm}, //넘겨줄 데이터
+						"edctNm" : edctNm,
+						"pageNum" : pageNum}, //넘겨줄 데이터
 				
-				success: function (responseData) {
+				success: function (result) {
 					var str = '';
 					str += '<tbody id=\"eduOpenReadyStatTBody\" style=\"vertical-align: center;\">';
-					if(responseData.length != 0) {
-						$.each(responseData, function(i) {
+					if(result.list.length != 0) {
+						$.each(result.list, function(i) {
 							str += '<tr data-toggle=\"tab\" data-target=\"#table\">';
-							str += '<td>'+(i+1)+'</td>';
-							str += '<td>'+responseData[i].brnm+'</td>';
-							str += '<td>'+responseData[i].userId+'</td>';
-							str += '<td>'+responseData[i].userNm+'</td>';
-							str += '<td>'+responseData[i].edctNm+'</td>';
-							str += '<td>'+responseData[i].edinNm+'</td>';
-							str += '<td>'+responseData[i].edctSttgYmd+' ~ '+responseData[i].edctFnshYmd+'</td>';
-							if(responseData[i].cnfaYn == "Y")
-								str += '<td><button type=\"button\" class=\"btn btn-xs\" onclick=\"showPopup(\'admin\',\'newEduInfoPop?aplcId='+responseData[i].aplcId+'\');\">확인</button></td>';
+							str += '<td>'+result.list[i].aplcId+'</td>';
+							str += '<td>'+result.list[i].brnm+'</td>';
+							str += '<td>'+result.list[i].userId+'</td>';
+							str += '<td>'+result.list[i].userNm+'</td>';
+							str += '<td>'+result.list[i].edctNm+'</td>';
+							str += '<td>'+result.list[i].edinNm+'</td>';
+							str += '<td>'+result.list[i].edctSttgYmd+' ~ '+result.list[i].edctFnshYmd+'</td>';
+							if(result.list[i].cnfaYn == "Y")
+								str += '<td><button type=\"button\" class=\"btn btn-xs\" onclick=\"showPopup(\'admin\',\'newEduInfoPop?aplcId='+result.list[i].aplcId+'\');\">확인</button></td>';
 							else
-								str += '<td><button type=\"button\" class=\"btn btn-success btn-xs\" onclick=\"showPopup(\'admin\',\'newEduInfoPop?aplcId='+responseData[i].aplcId+'\');\">확인</button></td>';
+								str += '<td><button type=\"button\" class=\"btn btn-success btn-xs\" onclick=\"showPopup(\'admin\',\'newEduInfoPop?aplcId='+result.list[i].aplcId+'\');\">확인</button></td>';
 							str += '</tr>';
 						});
+						$('#edoPage').show();
 					} else {
 						str += '<tr height="100">';
 						str += '<td colspan="8" class="txt_center"><h4>조회 결과가 없습니다.</h4></td>';
 						str += '</tr>';
+						$('#edoPage').hide();
 					}
 					str += '</tbody>';
 					$('#eduOpenReadyStatTBody').replaceWith(str);
+					
+					if(pageNum == -1) {
+						$('#edoPageNum').val(1);
+						$('#edoListCnt').html(result.listSize);
+					} else 
+						$('#edoPageNum').val(pageNum);
 				},
 				error: function (xhr, status, error) { alert("통신실패");
 				}

@@ -1,7 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+<%
+	//오늘
+	Date today = new Date();        
+	SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+	String toDay = date.format(today);
+	
+	//세 달 전
+	Calendar mon = Calendar.getInstance();
+	mon.add(Calendar.MONTH , -3);
+	String before3Month = new java.text.SimpleDateFormat("yyyy-MM-dd").format(mon.getTime());
+%>
 
 <!-- HEADER -->
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
@@ -49,7 +60,7 @@
 																<div class="ui calendar" id="rangestart">
 																	<div class="ui input left icon">
 																		<i class="calendar icon" style="font-size: 14px;"></i>
-																		<input id="sttgYmd" type="text" style="height: 35px; font-size: 14px;">
+																		<input id="sttgYmd" type="text" placeholder="<%=before3Month %>" style="height: 35px; font-size: 14px;">
 																	</div>
 																</div>
 															</div>
@@ -58,7 +69,7 @@
 																<div class="ui calendar" id="rangeend">
 																	<div class="ui input left icon">
 																		<i class="calendar icon" style="font-size: 14px;"></i>
-																		<input id="fnshYmd" type="text" style="height: 35px; font-size: 14px;">
+																		<input id="fnshYmd" type="text" placeholder="<%=toDay %>" style="height: 35px; font-size: 14px;">
 																	</div>
 																</div>
 															</div>
