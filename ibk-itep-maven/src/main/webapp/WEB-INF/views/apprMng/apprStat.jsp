@@ -154,6 +154,7 @@
 														<th>NO</th>
 														<th>부서명</th>
 														<th>직원명</th>
+														<th>권한명</th>
 														<th>결재의견</th>
 														<th>결재일</th>
 													</tr>
@@ -163,6 +164,7 @@
 														<td id="rowNum">1</td>
 														<td id="brnm">${apprDetail.brnm}</td>
 														<td id="userNm">${apprDetail.userNm}</td>
+														<td>요청자</td>
 														<td id="apprCon">결재요청</td>
 														<td id="aplcTs">${apprDetail.aplcTs}</td>
 													</tr>
@@ -170,6 +172,7 @@
 														<td id="rowNum">2</td>
 														<td id="dpmAthzDvcd">${apprDetail.dpmAthzDvcd}</td>
 														<td id="dpmAthzNm">${apprDetail.dpmAthzNm}</td>
+														<td>부서결재자</td>
 														<td id="dpmAthzCon">${apprDetail.dpmAthzCon }</td>
 														<td id="dpmAthzTs">${apprDetail.dpmAthzTs }</td>
 													</tr>
@@ -177,6 +180,7 @@
 														<td id="rowNum">3</td>
 														<td id="grmAthzDvcd">${apprDetail.grmAthzDvcd}</td>
 														<td id="grmAthzNm">${apprDetail.grmAthzNm}</td>
+														<td>그룹결재자</td>
 														<td id="grmAthzCon">${apprDetail.grmAthzCon }</td>
 														<td id="grmAthzTs">${apprDetail.grmAthzTs }</td>
 													</tr>

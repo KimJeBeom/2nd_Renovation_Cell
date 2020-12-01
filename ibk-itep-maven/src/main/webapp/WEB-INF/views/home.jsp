@@ -94,7 +94,7 @@
 			$('.main').load("/itep/views/apprMng/apprList");
 		});
 	}); */
-	$(document).ready(function(){
+	/* $(document).ready(function(){
 		alert("1");
 		var nowFolder = $('#menuApprList').parent().parent().parent().parent().eq(0); 
 		alert("2");
@@ -102,7 +102,7 @@
 		alert("3");
 		$('#menuApprList').className = "active";
 		alert("4");
-	});
+	}); */
 
 	function showImgWin(imgName) {
 		var url = "/itep/assets/itep/img/" + imgName + ".png";

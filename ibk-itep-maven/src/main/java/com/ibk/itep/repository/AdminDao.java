@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.ibk.itep.vo.admin.EduEmpListExcelVo;
 import com.ibk.itep.service.cmm.CmmService;
 import com.ibk.itep.vo.admin.EduEmpListVo;
+import com.ibk.itep.vo.admin.EduHistoryExcelVo;
 import com.ibk.itep.vo.admin.EduHistoryVo;
 import com.ibk.itep.vo.admin.EduOpenReadyStatVo;
 import com.ibk.itep.vo.admin.EduReadyStatVo;
@@ -112,6 +113,13 @@ public class AdminDao {
 		return count == 1;
 		
 	}
+	public List<EduHistoryExcelVo> selectEduHistoryExcel(EduHistoryVo vo){
+		logger.debug("DAO Start - selectEduHistory");
+		cmmService.objFieldTest(vo);
+		List<EduHistoryExcelVo> list = sqlSession.selectList("queryAdmin.selectEduHistoryExcel", vo);
+		logger.debug("DAO End - selectEduHistory");
+		return list;
+	}
 	/************************************************************
 	 *                         교육신청현황
 	 ************************************************************/
@@ -129,9 +137,8 @@ public class AdminDao {
 	}
 	
 	/* 수강신청현황 > 교육신청직원목록 > 수료/미수료 처리 */
-	public void updateEduEmpListPopCtcrYn(Map<String, String> map) {
-		
-		sqlSession.update("queryAdmin.updateEduEmpListPopCtcrYn", map);
+	public void updateEduEmpListPopCtcrYn(List<EduEmpListVo> list) {
+		sqlSession.update("queryAdmin.updateEduEmpListPopCtcrYn", list);
 	}
 	
 	/* 수강신청현황 > 교육신청직원목록 > 차수완료 */
