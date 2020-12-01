@@ -216,8 +216,8 @@
 					return;
 				}
 			}else if(ctrlPage=="move"){
-				if(pageNum > listSize){
-					alert("이동값이 전체 페이지보다 클수 없습니다.");
+				if(pageNum > listSize || pageNum <= 0){
+					alert("이동값이 유효하지 않습니다.");
 					return;
 				}
 			}
