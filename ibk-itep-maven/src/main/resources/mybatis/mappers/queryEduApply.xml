@@ -16,8 +16,15 @@
 			  ,M.EDCT_LEVL AS EDCTLEVL #교육수준 
               ,C.APLC_STTG_YMD AS aplcSttgYmd #학습시작시간
               ,C.APLC_FNSH_YMD AS aplcFnshYmd #학습종료시간
-		FROM  TB_IEP_EDM001M M,
-			  (SELECT EDCT_CNT_ID,EDCT_ID, EDCT_STTG_YMD ,EDCT_FNSH_YMD, APLC_STTG_YMD, APLC_FNSH_YMD, CNCL_STTG_YMD, CNCL_FNSH_YMD, EDCT_STTG_TIM, EDCT_FNSH_TIM
+		FROM  TB_IEP_EDM001M M
+		]]>
+    <if test="pageSet >= 0">		
+		<![CDATA[
+			, (SELECT @rownum:=#{pageSet}) TMP
+		]]>
+	</if>
+	    <![CDATA[
+			  ,(SELECT EDCT_CNT_ID,EDCT_ID, EDCT_STTG_YMD ,EDCT_FNSH_YMD, APLC_STTG_YMD, APLC_FNSH_YMD, CNCL_STTG_YMD, CNCL_FNSH_YMD, EDCT_STTG_TIM, EDCT_FNSH_TIM
 			  FROM TB_IEP_EDC001M 
 			  WHERE EDCT_CNT_ID IN
 			  	(SELECT MAX(EDCT_CNT_ID) FROM TB_IEP_EDC001M WHERE USE_YN='Y' GROUP BY EDCT_ID )) C
@@ -38,11 +45,19 @@
 		<otherwise>
 		</otherwise>		
 	</choose>
+    <if test="tabValue != 'TOTAL'">
+    	<![CDATA[
+    		AND   M.EDCT_CLSF_CD = #{tabValue}
+    	]]>
+    </if>
 		<![CDATA[
-		ORDER BY C.APLC_STTG_YMD DESC
-		LIMIT 100
+		ORDER BY C.EDCT_CNT_ID DESC
 		]]>
-		
+	<if test="pageSet >= 0">		
+		<![CDATA[
+		Limit #{pageSet} ,10
+		]]>
+	</if>
 	</select>
 	
 	<select id="selectEduDetail" parameterType="EduListVo" resultType="EduListVo">

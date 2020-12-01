@@ -58,4 +58,12 @@ public class CmmDao {
 		List<CmbVo> list = sqlSession.selectList("queryCmm.selectCmb");
 		return list;
 	}
+	public int selectNextKey(String tableNm) {
+		int nextId = sqlSession.selectOne("queryCmm.selectNextKey",tableNm);
+		return nextId;
+	}
+	public int selectPrstKey(String tableNm) {
+		int nextId = sqlSession.selectOne("queryCmm.selectPrstKey",tableNm);
+		return nextId;
+	}
 }

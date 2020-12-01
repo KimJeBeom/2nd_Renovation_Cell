@@ -19,6 +19,9 @@ public class NoticeVo {
 	private String userNm; //등록자명
 	private String apndDat; //첨부파일
 	
+	private Integer pageSet; //페이지SetNumber
+	
+
 	public String getEdctClsfNm() {
 		return edctClsfNm;
 	}
@@ -76,6 +79,11 @@ public class NoticeVo {
 		this.apndDat = apndDat;
 	}
 		
-
+	public Integer getPageSet() {
+		return pageSet;
+	}
+	public void setPageSet(int pageSet) {
+		this.pageSet = pageSet;
+	}
 	
 }
