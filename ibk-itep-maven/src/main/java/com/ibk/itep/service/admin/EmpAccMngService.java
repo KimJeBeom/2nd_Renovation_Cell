@@ -23,13 +23,12 @@ public class EmpAccMngService {
 	private ExcelUtil excelUtil;
 	
 	/* 사용자 계정관리 */
-	public List<EmpAccMngVo> selectEmpAccMng(String brcd, String userIdNm, String athrCd){		
+	public List<EmpAccMngVo> selectEmpAccMng(String brcd, String userIdNm, String athrCd, int pageNum){		
 		
 		// 입력받은값 Vo에 담기
 		EmpAccMngVo vo = new EmpAccMngVo();
 		if(!brcd.equals("ALL"))
 			vo.setBrcd(brcd);
-		
 		if(userIdNm != null && !userIdNm.equals("")) {
 			if(userIdNm.matches(".*[0-9].*") || userIdNm.equals("admin")) {
 				vo.setUserId(userIdNm);
@@ -37,9 +36,9 @@ public class EmpAccMngService {
 				vo.setUserNm(userIdNm);
 			}
 		}
-		
 		if(!athrCd.equals("ALL")) 
 			vo.setAthrCd(athrCd);
+		vo.setPageSet(pageNum);
 		
 		return adminDao.selectEmpAccMng(vo);
 	}

@@ -6,10 +6,12 @@ public class ApprStatDetailVo {
 	private String userNm;
 	private String aplcTs;	
 	private String dpmAthzDvcd;
+	private String dpmUserNm;
 	private String dpmAthzNm;
 	private String dpmAthzCon;
 	private String dpmAthzTs;
 	private String grmAthzDvcd;
+	private String grmUserNm;
 	private String grmAthzNm;
 	private String grmAthzCon;
 	private String grmAthzTs;
@@ -46,6 +48,12 @@ public class ApprStatDetailVo {
 	public void setDpmAthzDvcd(String dpmAthzDvcd) {
 		this.dpmAthzDvcd = dpmAthzDvcd;
 	}
+	public String getDpmUserNm() {
+		return dpmUserNm;
+	}
+	public void setDpmUserNm(String dpmUserNm) {
+		this.dpmUserNm = dpmUserNm;
+	}
 	public String getDpmAthzNm() {
 		return dpmAthzNm;
 	}
@@ -69,6 +77,12 @@ public class ApprStatDetailVo {
 	}
 	public void setGrmAthzDvcd(String grmAthzDvcd) {
 		this.grmAthzDvcd = grmAthzDvcd;
+	}
+	public String getGrmUserNm() {
+		return grmUserNm;
+	}
+	public void setGrmUserNm(String grmUserNm) {
+		this.grmUserNm = grmUserNm;
 	}
 	public String getGrmAthzNm() {
 		return grmAthzNm;

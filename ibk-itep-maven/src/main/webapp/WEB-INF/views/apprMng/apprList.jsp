@@ -29,7 +29,7 @@
 						<div id="toastr-demo" class="panel">
 						
 							<!-- 결재 목록 -->
-							<div class="panel-heading">
+							<div class="panel-heading" style="padding-bottom:0px;">
 								<h4 class="pannel-title"><b>▶ &nbsp;&nbsp;결재 목록</b></h4>
 							</div>
 							<div class="panel-body" style="overflow-x:hidden; height:350px;">
@@ -83,17 +83,17 @@
 										</c:choose>	
 									</tbody>
 								</table>
-								
-								<br>
-								
-								<!-- apprList가 하나도 없으면 apprDetail == null (Controller에서 지정) -->
-								<!-- apprDetail 이 not null일 때만 아래 화면 보여줌 -->
-								<c:if test="${not empty apprDetail}">
-									<div class="panel-heading">
-										<h4 class="pannel-title"><b>▶ &nbsp;&nbsp;결재 내용</b></h4>
-									</div>
-									<!-- <h4 class="panel-title" style="float:left;"><b>▶ 상세내용</b></h4> -->
-									<!-- 위의 결재항목별 교육상세설명 테이블 (TOGGLE 적용) -->
+							</div>
+							<br>
+							<!-- apprList가 하나도 없으면 apprDetail == null (Controller에서 지정) -->
+							<!-- apprDetail 이 not null일 때만 아래 화면 보여줌 -->
+							<c:if test="${not empty apprDetail}">
+								<div class="panel-heading">
+									<h4 class="pannel-title"><b>▶ &nbsp;&nbsp;결재 내용</b></h4>
+								</div>
+								<!-- <h4 class="panel-title" style="float:left;"><b>▶ 상세내용</b></h4> -->
+								<!-- 위의 결재항목별 교육상세설명 테이블 (TOGGLE 적용) -->
+								<div class="panel-body">
 									<div id="tab-content" class="tab-content">
 										<!-- 테이블 1 -->
 										<div class="tab-pane fade in active" id="table" style="padding:0px 0px 10px 0px;">
@@ -126,16 +126,30 @@
 														</tr>
 														<tr>
 															<th>제출파일</th>
-															<td colspan="3" id="apndDat">${apprDetail.apndDat }</td>
+															<td colspan="3" id="apndDat">
+																<section id="container">
+																	<form name="readForm" role="form" method="post">
+																		<input id="file_no" name="file_no" style="display:none" value="" > 
+																	</form>
+																		<c:forEach items="${fileVoList}" var="file">
+																			<c:if test="${file.del_yn == 'N'}">
+																				<div class="form-group" style="border: 1px solid #dbdbdb; text-align:Left;">
+																					<a href="#" onclick="fn_fileDown('${file.file_no}'); return false;">${file.org_file_name}</a>(${file.file_size}kb)
+																					<img id='fileDel' src='/itep/assets/itep/img/icon/delete-icon.png' onclick="fn_del('${file.file_no}');" style='width:22px; height:22px; float: right'><br>
+																				</div>
+																			</c:if>
+																		</c:forEach>
+																</section>
+															</td>
 														</tr>
 													</tbody>
 												</table>
 											</div>
 										</div>
-									</div>																	
-								</c:if>
+									</div>	
+								</div>																
+							</c:if>
 
-							</div>
 						</div>
 
 					</div>
@@ -167,15 +181,28 @@
 	        type:"POST", // post 방식
 			data: {"edctAplcId" : edctAplcId}, //넘겨줄 데이터
 			
-			success: function (responseData) {						
+			success: function (result) {						
 				// apprDetail 결과값을 테이블에 동적으로 반영
-				$('#edctNm').html(responseData.edctNm);
-				$('#edctCon').html('<br>'+responseData.edctCon+'<br><br>');
-				$('#edctLevl').html(responseData.edctLevl);
-				$('#onlEdctYn').html(responseData.onlEdctYn);
-				$('#edctYmd').html(responseData.edctSttgYmd+' ~ '+responseData.edctFnshYmd);
-				$('#aplcYmd').html(responseData.aplcSttgYmd+' ~ '+responseData.aplcFnshYmd);
-				$('#apndDat').html(responseData.apndDat);
+				$('#edctNm').html(result.apprListDetail.edctNm);
+				$('#edctCon').html('<br>'+result.apprListDetail.edctCon+'<br><br>');
+				$('#edctLevl').html(result.apprListDetail.edctLevl);
+				$('#onlEdctYn').html(result.apprListDetail.onlEdctYn);
+				$('#edctYmd').html(result.apprListDetail.edctSttgYmd+' ~ '+result.apprListDetail.edctFnshYmd);
+				$('#aplcYmd').html(result.apprListDetail.aplcSttgYmd+' ~ '+result.apprListDetail.aplcFnshYmd);
+				
+				str = "";
+				str += "<td colspan=\"3\" id=\"apndDat\"><section id=\"container\">";
+				str += "<form name=\"readForm\" role=\"form\" method=\"post\"><input id=\"file_no\" name=\"file_no\" style=\"display:none\" value=\"\" ></form> ";
+				$.each(fileVoList, function(i, file) {
+					if(file.del_yn == 'N') {
+						str += "<div class=\"form-group\" style=\"border: 1px solid #dbdbdb; text-align:Left;\">";
+						str += "<a href=\"#\" onclick=\"fn_fileDown(\'"+file.file_no+"\'); return false;\">"+file.org_file_name+"</a>("+file.file_size+"kb)";
+						str += "<img id=\'fileDel\' src=\'/itep/assets/itep/img/icon/delete-icon.png\' onclick=\"fn_del(\'"+file.file_no+"\');\" style=\'width:22px; height:22px; float: right\'><br>";
+						str += "</div>";
+					}
+				})
+				str += "</section></td>";
+				$('#apndDat').replaceWith(str);
 			},
 			error: function (xhr, status, error) { }
 		});
