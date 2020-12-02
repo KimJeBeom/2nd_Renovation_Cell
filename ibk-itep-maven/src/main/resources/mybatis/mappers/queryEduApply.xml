@@ -159,7 +159,7 @@
 			,(SELECT MAX(USER_ID) FROM TB_IEP_CMU001M WHERE ATHR_CD='GRM')
 			,NULL
 			,'APRDPM'
-			,'N'
+			,NULL
 			,NULL
 			,NULL
 			,'Y'
@@ -201,7 +201,7 @@
 			,NULL
 			,NULL
 			,'APRFIN'
-			,'N'
+			,NULL
 			,NULL
 			,NULL
 			,'Y'

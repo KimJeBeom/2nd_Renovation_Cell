@@ -109,8 +109,7 @@
 											<button class="btn btn-primary btn-xs" id='prvsPage' onclick="pageCtrl('prvs');">◀</button>
 											&nbsp;
 											<input type="text" id="pageNum_TOTAL" value=1 style="width:30px; text-align:center">&nbsp;/
-											<label id="listCnt_TOTAL" style="width:20px; text-align:center" >${listSize}</label>
-											<!-- <button class="btn btn-default btn-xs" id='movePage' onclick="search('move');">이동</button> --> 
+											<label id="listCnt_TOTAL" style="width:30px; text-align:center" >${listSize}</label> 
 											<button class="btn btn-primary btn-xs" id='nextPage' onclick="pageCtrl('next');">▶</button>
 										</div> 
 									</div>
@@ -138,8 +137,7 @@
 											<button class="btn btn-primary btn-xs" id='prvsPage' onclick="pageCtrl('prvs');">◀</button>
 											&nbsp;
 											<input type="text" id="pageNum_OTEDU" value=1 style="width:30px; text-align:center">&nbsp;/
-											<label id="listCnt_OTEDU" style="width:20px; text-align:center" ></label>
-											<!-- <button class="btn btn-default btn-xs" id='movePage' onclick="search('move');">이동</button> --> 
+											<label id="listCnt_OTEDU" style="width:30px; text-align:center" ></label> 
 											<button class="btn btn-primary btn-xs" id='nextPage' onclick="pageCtrl('next');">▶</button>
 										</div> 
 									</div>
@@ -167,8 +165,7 @@
 											<button class="btn btn-primary btn-xs" id='prvsPage' onclick="pageCtrl('prvs');">◀</button>
 											&nbsp;
 											<input type="text" id="pageNum_TREDU" value=1 style="width:30px; text-align:center">&nbsp;/
-											<label id="listCnt_TREDU" style="width:20px; text-align:center" ></label>
-											<!-- <button class="btn btn-default btn-xs" id='movePage' onclick="search('move');">이동</button> --> 
+											<label id="listCnt_TREDU" style="width:30px; text-align:center" ></label> 
 											<button class="btn btn-primary btn-xs" id='nextPage' onclick="pageCtrl('next');">▶</button>
 										</div> 
 									</div>
@@ -196,7 +193,7 @@
 											<button class="btn btn-primary btn-xs" id='prvsPage' onclick="pageCtrl('prvs');">◀</button>
 											&nbsp;
 											<input type="text" id="pageNum_SEMIN" value=1 style="width:30px; text-align:center">&nbsp;/
-											<label id="listCnt_SEMIN" style="width:20px; text-align:center" ></label>
+											<label id="listCnt_SEMIN" style="width:30px; text-align:center" ></label>
 											<!-- <button class="btn btn-default btn-xs" id='movePage' onclick="search('move');">이동</button> --> 
 											<button class="btn btn-primary btn-xs" id='nextPage' onclick="pageCtrl('next');">▶</button>
 										</div> 
@@ -225,8 +222,7 @@
 											<button class="btn btn-primary btn-xs" id='prvsPage' onclick="pageCtrl('prvs');">◀</button>
 											&nbsp;
 											<input type="text" id="pageNum_EXTRA" value=1 style="width:30px; text-align:center">&nbsp;/
-											<label id="listCnt_EXTRA" style="width:20px; text-align:center" ></label>
-											<!-- <button class="btn btn-default btn-xs" id='movePage' onclick="search('move');">이동</button> --> 
+											<label id="listCnt_EXTRA" style="width:30px; text-align:center" ></label>
 											<button class="btn btn-primary btn-xs" id='nextPage' onclick="pageCtrl('next');">▶</button>
 										</div> 
 									</div>

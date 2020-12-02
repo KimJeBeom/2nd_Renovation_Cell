@@ -81,7 +81,9 @@ public class ArchModPopController{
 	}
 
 	@RequestMapping(value = "/views/board/pop/archModPop", method = RequestMethod.GET)
-	public String ArchModPopGet(ArchieveVo vo, CldVo dVo, Model model, @RequestParam(value="modType", required = false) String modType) {
+	public String ArchModPopGet(ArchieveVo vo, CldVo dVo, Model model
+			, HttpServletRequest request
+			, @RequestParam(value="modType", required = false) String modType) {
 	//화면에서  Vo + 수정모드(update/delete)를 파라미터로 받아온다.
 	//수정모드(modType)은 String으로 받으며 필수값이 아님 
 	//modType이 있을경우 = 상세정보 호출 / 없을경우(update/delete)후 변경화면 호출
@@ -89,6 +91,14 @@ public class ArchModPopController{
 		logger.info("ArchModPopGet Start");
 		logger.info("--- @RequestParam : " + vo.getRflbId());
 		logger.info("--- @RequestParam : " + modType);
+		
+		/* 세션정보를 담은 SessionVo 가져옴 */
+		HttpSession session = request.getSession();
+		SessionVo ssnInfo = (SessionVo)session.getAttribute("ssnInfo");
+		String ssnUserId = ssnInfo.getUserId();
+		String athrCd = ssnInfo.getAthrCd();
+		model.addAttribute("athrCd",athrCd);
+		model.addAttribute("ssnUserId",ssnUserId);
 				
 		//교육구분코드 선택을 위한 select박스 구성 List
 		dVo.setUseYn("Y");

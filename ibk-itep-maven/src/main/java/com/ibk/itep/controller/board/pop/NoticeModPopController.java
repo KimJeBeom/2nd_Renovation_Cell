@@ -82,6 +82,7 @@ public class NoticeModPopController{
 
 	@RequestMapping(value = "/views/board/pop/noticeModPop", method = RequestMethod.GET)
 	public String NoticeModPopGet(NoticeVo vo, CldVo dVo, Model model
+			, HttpServletRequest request
 			, @RequestParam(value="modType", required = false) String modType) {
 	//화면에서  Vo + 수정모드(update/delete)를 파라미터로 받아온다.
 	//수정모드(modType)은 String으로 받으며 필수값이 아님 
@@ -90,6 +91,11 @@ public class NoticeModPopController{
 		logger.info("--- @RequestParam : " + vo.getPbnsId());
 		logger.info("--- @RequestParam : " + modType);
 		
+		/* 세션정보를 담은 SessionVo 가져옴 */
+		HttpSession session = request.getSession();
+		SessionVo ssnInfo = (SessionVo)session.getAttribute("ssnInfo");
+		String athrCd = ssnInfo.getAthrCd();
+		model.addAttribute("athrCd",athrCd);
 	
 		//교육구분코드 선택을 위한 select박스 구성 List
 		dVo.setUseYn("Y");
