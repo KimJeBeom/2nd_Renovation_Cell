@@ -8,7 +8,7 @@ public class EduHistoryVo {
 	private String	edctClsfCd; // 교육 분류 코드
 	private String	edctClsfNm; // 교육 분류
 	private String	dvcd; 		// 부서명
-	private String	teamCd; 	// 팀명
+	private String	teamNm; 	// 팀명
 	private String	brnm; 		// 부서명
 	private String 	userId; 	// 직원번호
 	private String 	userNm; 	// 직원명
@@ -61,14 +61,14 @@ public class EduHistoryVo {
 	public String getBrnm() {
 		return brnm;
 	}
-	public String getTeamCd() {
-		return teamCd;
-	}
-	public void setTeamCd(String teamCd) {
-		this.teamCd = teamCd;
-	}
 	public void setBrnm(String brnm) {
 		this.brnm = brnm;
+	}
+	public String getTeamNm() {
+		return teamNm;
+	}
+	public void setTeamNm(String teamNm) {
+		this.teamNm = teamNm;
 	}
 	public String getUserId() {
 		return userId;
