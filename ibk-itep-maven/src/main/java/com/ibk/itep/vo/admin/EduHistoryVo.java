@@ -10,7 +10,6 @@ public class EduHistoryVo {
 	private String	dvcd; 		// 부서명
 	private String	teamNm; 	// 팀명
 	private String	brnm; 		// 부서명
-	private String	teamNm; 	// 팀명
 	private String 	userId; 	// 직원번호
 	private String 	userNm; 	// 직원명
 	private String 	edctNm; 	// 교육명
