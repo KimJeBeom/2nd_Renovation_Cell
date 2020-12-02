@@ -129,10 +129,10 @@
 													<font color="red"><b>* 반려된 신청건이므로 재결재요청 또는 취소신청을 하시기 바랍니다.</b></font>
 												</td>
 												<c:if test="${modType != 'history' && eduInfoPop.aplcStgCd == 'REJDPM'}">
-												<td style="padding-bottom: 10px;">(최종결재자 : ${apprDetail.dpmAthzDvcd} ${apprDetail.dpmAthzNm })</td>
+												<td style="padding-bottom: 10px;">(최종결재자 : ${apprDetail.dpmAthzDvcd} ${apprDetail.dpmUserNm })</td>
 												</c:if>
 												<c:if test="${modType != 'history' && eduInfoPop.aplcStgCd == 'REJGRM'}">
-												<td style="padding-bottom: 10px;">(최종결재자 : ${apprDetail.grmAthzDvcd} ${apprDetail.grmAthzNm })</td>
+												<td style="padding-bottom: 10px;">(최종결재자 : ${apprDetail.grmAthzDvcd} ${apprDetail.grmUserNm })</td>
 												</c:if>
 											</tr>
 										</tbody>
