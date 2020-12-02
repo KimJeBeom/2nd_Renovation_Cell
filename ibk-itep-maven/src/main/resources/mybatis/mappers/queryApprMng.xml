@@ -48,7 +48,6 @@
 			 , EDC.EDCT_FNSH_YMD AS edctFnshYmd
 			 , EDC.APLC_STTG_YMD AS aplcSttgYmd
 			 , EDC.APLC_FNSH_YMD aplcFnshYmd
-			 , EDA.APND_DAT apndDat
 		FROM TB_IEP_EDA001M EDA, TB_IEP_EDC001M EDC, TB_IEP_EDM001M EDM, TB_IEP_CLI001C CLI
 		WHERE EDA.EDCT_APLC_ID = #{edctAplcId} AND EDA.USE_YN = 'Y' 
 		AND EDA.EDCT_CNT_ID = EDC.EDCT_CNT_ID AND EDC.USE_YN = 'Y'
@@ -145,6 +144,9 @@
 			<when test="aplcStg == 'rej'">
 				AND (EDA.APLC_STG_CD = 'REJDPM' OR EDA.APLC_STG_CD = 'REJGRM')
 			</when>
+			<otherwise>
+				AND EDA.APLC_STG_CD != CANCEL
+			</otherwise>
 		</choose>
 		<![CDATA[
 		AND EDA.EDCT_CNT_ID = EDC.EDCT_CNT_ID AND EDC.USE_YN = 'Y'

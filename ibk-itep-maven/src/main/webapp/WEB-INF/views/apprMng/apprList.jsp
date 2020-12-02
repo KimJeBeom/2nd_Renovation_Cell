@@ -189,18 +189,18 @@
 				$('#onlEdctYn').html(result.apprListDetail.onlEdctYn);
 				$('#edctYmd').html(result.apprListDetail.edctSttgYmd+' ~ '+result.apprListDetail.edctFnshYmd);
 				$('#aplcYmd').html(result.apprListDetail.aplcSttgYmd+' ~ '+result.apprListDetail.aplcFnshYmd);
-				
+							
 				str = "";
 				str += "<td colspan=\"3\" id=\"apndDat\"><section id=\"container\">";
 				str += "<form name=\"readForm\" role=\"form\" method=\"post\"><input id=\"file_no\" name=\"file_no\" style=\"display:none\" value=\"\" ></form> ";
-				$.each(fileVoList, function(i, file) {
+				$.each(result.fileVoList, function(i, file) {
 					if(file.del_yn == 'N') {
 						str += "<div class=\"form-group\" style=\"border: 1px solid #dbdbdb; text-align:Left;\">";
-						str += "<a href=\"#\" onclick=\"fn_fileDown(\'"+file.file_no+"\'); return false;\">"+file.org_file_name+"</a>("+file.file_size+"kb)";
-						str += "<img id=\'fileDel\' src=\'/itep/assets/itep/img/icon/delete-icon.png\' onclick=\"fn_del(\'"+file.file_no+"\');\" style=\'width:22px; height:22px; float: right\'><br>";
+						str += "<a href=\"#\" onclick=\"fn_fileDown("+file.file_no+"); return false;\">"+file.org_file_name+"</a>("+file.file_size+"kb)";
+						str += "<img id=\'fileDel\' src=\'/itep/assets/itep/img/icon/delete-icon.png\' onclick=\"fn_del("+file.file_no+");\" style=\'width:22px; height:22px; float: right\'><br>";
 						str += "</div>";
 					}
-				})
+				});
 				str += "</section></td>";
 				$('#apndDat').replaceWith(str);
 			},
@@ -265,6 +265,14 @@
 		else { // 체크된게 하나도 없으면 에러메세지 띄움
 			alert("선택된 결재건이 없습니다.");
 		}
+	}
+	
+	// 파일 다운로드
+	function fn_fileDown(fileNo){
+		var formObj = $("form[name='readForm']");
+		$("#file_no").attr("value", fileNo);
+		formObj.attr("action", "/itep/views/cmm/fileDownload");
+		formObj.submit();
 	}
 	
 </script>

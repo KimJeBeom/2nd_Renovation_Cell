@@ -86,7 +86,21 @@
 										</tr>
 										<tr>
 											<th>첨부파일</th>
-											<td class="txt-long" colspan="3">${edoVo.apndDat }</td>
+											<td colspan="3" id="apndDat">
+												<section id="container">
+													<form name="readForm" role="form" method="post">
+														<input id="file_no" name="file_no" style="display:none" value="" > 
+													</form>
+													<c:forEach items="${fileVoList}" var="file">
+														<c:if test="${file.del_yn == 'N'}">
+															<div class="form-group" style="border: 1px solid #dbdbdb; text-align:Left;">
+																<a href="#" onclick="fn_fileDown('${file.file_no}'); return false;">${file.org_file_name}</a>(${file.file_size}kb)
+																<img id='fileDel' src='/itep/assets/itep/img/icon/delete-icon.png' onclick="fn_del('${file.file_no}');" style='width:22px; height:22px; float: right'><br>
+															</div>
+														</c:if>
+													</c:forEach>
+												</section>
+											</td>
 										</tr>
 									</tbody>
 								</table>
@@ -131,6 +145,14 @@
 			} else {
 				return false;
 			}
+		}
+		
+		// 파일 다운로드
+		function fn_fileDown(fileNo){
+			var formObj = $("form[name='readForm']");
+			$("#file_no").attr("value", fileNo);
+			formObj.attr("action", "/itep/views/cmm/fileDownload");
+			formObj.submit();
 		}
 	</script>
 

@@ -243,7 +243,6 @@
 			,EDEX	#교육비용 
 			,ONL_EDCT_YN	#온라인교육여부
 			,EDCT_LEVL	#교육수준 
-			,APND_DAT	#첨부파일 
 			,CNFA_YN	#확인여부
 			,CNFM_ID	#확인자ID
 			,USE_YN	#사용여부
@@ -263,7 +262,6 @@
 			,#{edex}
 			,#{onlEdctYn}
 			,#{edctLevl}
-			,#{apndDat}
 			,'N'
 			,NULL
 			,'Y'

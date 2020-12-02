@@ -52,7 +52,7 @@ public class ApprListController{
 			if (!apprList.isEmpty()) {
 				int edctAplcId = apprList.get(0).getEdctAplcId(); // 첫번째 결재건의 신청ID
 				apprDetail = apprMngService.selectApprListDetail(edctAplcId); // 상세내용 조회
-				fileVoList = fileUtil.selectFileList("EDA", edctAplcId);
+				fileVoList = fileUtil.selectFileList("EDA", edctAplcId); // 첨부파일
 			}
 		}
 		model.addAttribute("apprList", apprList);

@@ -182,7 +182,6 @@
 				DATE_FORMAT(EDC.EDCT_STTG_YMD,'%Y.%m.%d') AS edctSttgYmd, -- 학습시작일
 				DATE_FORMAT(EDC.EDCT_FNSH_YMD,'%Y.%m.%d') AS edctFnshYmd, -- 학습종료일
 				EDM.EDCT_LEVL AS edctLevl, -- 교육수준
-				EDA.APND_DAT AS apndDat, -- 첨부파일
 				EDA.APLC_STG_CD AS aplcStgCd, -- 신청단계코드
 				EDA.RTRE_CON AS rtreCon -- 반려사유
 				FROM TB_IEP_EDA001M EDA, TB_IEP_EDC001M EDC, TB_IEP_EDM001M EDM, TB_IEP_CLD001C CLD, TB_IEP_CLI001C CLI
@@ -234,7 +233,6 @@
 				, FORMAT(EDO.EDEX,0) AS edex -- 교육비
 				, IF(EDO.ONL_EDCT_YN = "N", "오프라인","온라인") AS onlEdctYn -- 온라인교육여부
 				, EDO.EDCT_LEVL AS edctLevl -- 교육수준
-				, EDO.APND_DAT AS apndDat -- 첨부파일
 			FROM TB_IEP_EDO001M EDO, TB_IEP_CMB001M CMB, TB_IEP_CMU001M CMU
 			WHERE EDO.APLC_ID = #{aplcId} AND EDO.USE_YN = 'Y'
 			AND EDO.USER_ID = CMU.USER_ID AND CMU.USE_YN = 'Y'
