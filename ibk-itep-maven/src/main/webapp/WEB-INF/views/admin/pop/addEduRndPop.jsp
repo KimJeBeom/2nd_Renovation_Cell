@@ -19,14 +19,15 @@
 						<div class="col-md-9 col-popup">
 							<div class="panel panel-headline">
 								<div class="panel-body panel-popup">
-
-									<h4 style="float: left;"><b>차수</b></h4>
-									
-									<!-- 상단 버튼 -->
-									<button id="btnDelEduRnd" type="button" class="btn btn-primary btn-toastr btn-top">삭제</button>
-									<button id="btnAddEduRnd" type="button" class="btn btn-primary btn-toastr btn-top">신규</button>
+									<div class="panel-body" style="padding:5px 0px;">
+										<h4 style="float: left;"><b>차수</b></h4>
+										<!-- 상단 버튼 -->
+										<button id="btnDelEduRnd" type="button" class="btn btn-primary btn-toastr btn-top">삭제</button>
+										<button id="btnAddEduRnd" type="button" class="btn btn-primary btn-toastr btn-top">신규</button>
+									</div>
 									
 									<!-- 교육별 차수안내 테이블 (TOGGLE) -->
+									<div class="panel-body" style="overflow-x:hidden; height:200px; padding:0px;">
 									<table class="table table-hover tbl-type2">
 										<thead>
 											<tr>
@@ -37,6 +38,7 @@
 										</thead>
 										<tbody id="eduRndListTbody"></tbody>
 									</table>
+									</div>
 									<br>
 
 									<h4 style="float: left;"><b>차수 추가</b></h4>
@@ -45,7 +47,7 @@
 
 									<!-- 차수추가 포맷 및 위의 차수별 상세내용(TOGGLE) -->
 									<div class="tab-content">
-										<div class="tab-pane fade in active" id="table1" style="padding: 5px 5px;">
+										<div class="tab-pane fade in active" id="table1" style="padding: 5px 0px;">
 											<div class="table-responsive" >
 												<!-- 교육 안내 테이블 -->
 												<table class="table table-bordered tbl-type1">
@@ -352,14 +354,14 @@ $('#edctTimRangeStart').calendar({
 	type: 'time',
 	ampm: false,
 	endCalendar: $('#edctTimRangeEnd'),
-	formatter: {
+	/* formatter: {
 		time: function (time, settings) {
 			if (!time) return '';
 			var hour = time.getHours();
 			var minute = time.getMinutes();
 			//var second = time.getSeconds();
 			return hour + ':' + minute;// + ':' + second;
-	}},
+	}}, */
 	popupOptions: {
 		position: 'top right',
 	    lastResort: 'top right',
@@ -371,7 +373,7 @@ $('#edctTimRangeEnd').calendar({
 	type: 'time',
 	ampm: false,
 	startCalendar: $('#edctTimRangeStart'),
-	formatter: {
+	/* formatter: {
 		time: function (time, settings) {
 			if (!time) return '';
 			var hour = time.getHours();
@@ -379,7 +381,7 @@ $('#edctTimRangeEnd').calendar({
 			//var second = time.getSeconds();
 			return hour + ':' + minute;// + ':' + second;
 		}
-	},
+	}, */
 	popupOptions: {
 		position: 'top right',
  	    lastResort: 'top right',

@@ -145,7 +145,7 @@
 				AND (EDA.APLC_STG_CD = 'REJDPM' OR EDA.APLC_STG_CD = 'REJGRM')
 			</when>
 			<otherwise>
-				AND EDA.APLC_STG_CD != CANCEL
+				AND EDA.APLC_STG_CD != 'CANCEL'
 			</otherwise>
 		</choose>
 		<![CDATA[
