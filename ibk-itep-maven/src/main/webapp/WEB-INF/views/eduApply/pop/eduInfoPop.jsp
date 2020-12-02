@@ -132,7 +132,7 @@ function fstApply(modAct){
 	
 	if(addFileCnt==0){
 		alert("파일첨부는 필수입니다."); return;
-	}if(dpmAthzId==""){
+	}if(dpmAthzId==null || dpmAthzId=="" ){
 		alert("부서결재자를 지정해주세요"); return;
 	}
 	

@@ -39,6 +39,7 @@ public class EduListVo {
 	private String aplcAbleYn;
 	
 	//교육신청
+	private int edctAplcId;
 	private String teamCd;
 	private String dvcd;
 	private String userId;
@@ -258,7 +259,13 @@ public class EduListVo {
 	public void setAplcAbleYn(String aplcAbleYn) {
 		this.aplcAbleYn = aplcAbleYn;
 	}
-	
+			
+	public int getEdctAplcId() {
+		return edctAplcId;
+	}
+	public void setEdctAplcId(int edctAplcId) {
+		this.edctAplcId = edctAplcId;
+	}
 	public String getTeamCd() {
 		return teamCd;
 	}

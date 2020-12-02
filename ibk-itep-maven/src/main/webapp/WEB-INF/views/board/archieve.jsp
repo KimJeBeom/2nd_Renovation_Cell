@@ -58,7 +58,7 @@
 								<table class="table table-hover">
 									<thead>	
 										<tr>
-											<th style="text-align:center; width:10%;" id="1">No.</th>
+											<!-- <th style="text-align:center; width:10%;" id="1">No.</th> -->
 											<th style="text-align:center; width:15%;" id="2">구분</th>
 											<th style="text-align:center; width:45%;" id="3">제목</th>
 											<th style="text-align:center; width:15%;" id="4">등록일</th>
@@ -68,7 +68,7 @@
 									<tbody id ="archList">
 										<c:forEach items="${list}" var="arch" varStatus="status">
 										<tr onclick="showPopup('board','archModPop?rflbId=${arch.rflbId}');">
-	 										<td style="text-align:center">${arch.rflbId}</td>
+	 										<%-- <td style="text-align:center">${arch.rflbId}</td> --%>
 											<td style="text-align:center">${arch.edctClsfNm}</td>
 											<td style="text-align:  left">${arch.ttl}</td>
 											<td style="text-align:center">${arch.rgsnTs}</td>
@@ -169,7 +169,7 @@ function search(ctrlPage) {
 						str += '<tbody id="archList">'; //탭 선택값에 맞는 테이블 id로 설정
 						$.each(responseData, function(i) {
 							str += '<tr onclick="showPopup(\'board\',\'archModPop?rflbId=\''+responseData[i].rflbId+'\');">';
-							str += '<td style="text-align:center">'+responseData[i].rflbId+'</td>';
+							/* str += '<td style="text-align:center">'+responseData[i].rflbId+'</td>'; */
 							str += '<td style="text-align:center">'+responseData[i].edctClsfNm+'</td>';
 							str += '<td style="text-align:  left">'+responseData[i].ttl+'</td>';
 							str += '<td style="text-align:center">'+responseData[i].rgsnTs+'</td>';

@@ -61,7 +61,7 @@ public class EduInfoPopController{
 				logger.info("EduInfoPopPost FILE Upload Start");
 				int id;
 				if(modAct.equals("insert"))
-					id = cmmService.getPrstKey("TB_IEP_EDA001M");
+					id = vo.getEdctAplcId();
 				else
 					id = Integer.parseInt(pbns_id);
 				
