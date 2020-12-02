@@ -21,7 +21,7 @@
 				   <div class="panel panel-headline">
 				   <div class="panel-body panel-popup">
 				   <!-- 작업수행을 위한 버튼 -->
-				   <c:if test ="${athrCd eq 'DPM' || athrCd eq 'ADM' }">
+				   <c:if test ="${athrCd eq 'GRM' || athrCd eq 'ADM' }">
 					<div style="text-align:right; padding-bottom: 10px;">
 						<button type="button" class="btn btn-success btn-toastr" onclick="actMod('update','${vo.pbnsId}');">수정</button>
 						<button type="button" class="btn btn-danger btn-toastr" onclick="actMod('delete','${vo.pbnsId}');">삭제</button>
@@ -71,7 +71,7 @@
 											<c:if test="${file.del_yn == 'N'}">
 												<div class="form-group" style="border: 1px solid #dbdbdb; text-align:Left;">
 													<a href="#" onclick="fn_fileDown('${file.file_no}'); return false;">${file.org_file_name}</a>(${file.file_size}kb)
-													<c:if test ="${athrCd eq 'DPM' || athrCd eq 'ADM' }">
+													<c:if test ="${athrCd eq 'GRM' || athrCd eq 'ADM' }">
 													<img id='fileDel' src='/itep/assets/itep/img/icon/delete-icon.png' onclick="fn_del('${file.file_no}');" style='width:22px; height:22px; float: right'><br>
 													</c:if>
 												</div>
@@ -80,7 +80,7 @@
 								</section>
 							  </td>
 						   </tr>
-						   <c:if test ="${athrCd eq 'DPM' || athrCd eq 'ADM' }">
+						   <c:if test ="${athrCd eq 'GRM' || athrCd eq 'ADM' }">
 							 <tr>
 								<th><button class="fileAdd_btn" type="button">파일추가</button></th>
 								<td colspan="3">

@@ -50,7 +50,7 @@
 										</tbody>
 									</table>
 								</div>
-							<c:if test ="${athrCd eq 'DPM' || athrCd eq 'ADM' }">
+							<c:if test ="${athrCd eq 'GRM' || athrCd eq 'ADM' }">
 							<div class="form-group row" style="text-align: right; padding-right: 15px;">
 								<button class="btn btn-primary" type="button" onclick="showPopup('board','noticeRegPop');">등 록</button>
 							</div>
