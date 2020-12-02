@@ -9,7 +9,7 @@
 		<!-- 사이드메뉴 -->
 		<jsp:include page="/WEB-INF/views/cmm/common-sidebar.jsp" />
 
-		<div class="main">
+		<div id="main" class="main">
 			<div class="main-content">
 				<div class="container-fluid">
 					<!-- Start 교육 등록 및 수정-대제목 -->
@@ -153,7 +153,8 @@
 					str += '<tbody  id=\"eduRegModVoListTbody\">'
 					$.each(responseData, function (i){
 						str += '<tr>'
-						str += '<td><input type="radio" name="chkEdctId" value='+responseData[i].edctId+'></td>'
+						str += '<td><label class=\"fancy-radio\"><input type=\"radio\" name=\"chkEdctId\" value=\"'+responseData[i].edctId+'\"><span><i style=\"margin-top:7px;\"></i></span></label></td>';
+						//str += '<td><input type="radio" name="chkEdctId" value='+responseData[i].edctId+'></td>'
 						str += '<td>'+responseData[i].edctId+'</td>'
 						str += '<td>'+responseData[i].edctClsfNm+'</td>'
 						str += '<td style=\"text-align: left\" class=\"edctNmTxt\">'+responseData[i].edctNm+'</td>'
@@ -237,7 +238,8 @@
 					str += '<tbody  id=\"eduRegModVoListTbody\">'
 					$.each(responseData, function (i){
 						str += '<tr>'
-						str += '<td><input type="radio" name="chkEdctId" value='+responseData[i].edctId+'></td>'
+						str += '<td><label class=\"fancy-radio\"><input type=\"radio\" name=\"chkEdctId\" value=\"'+responseData[i].edctId+'\"><span><i style=\"margin-top:7px;\"></i></span></label></td>';
+						//str += '<td><input type="radio" name="chkEdctId" value='+responseData[i].edctId+'></td>'
 						str += '<td>'+responseData[i].edctId+'</td>'
 						str += '<td>'+responseData[i].edctClsfNm+'</td>'
 						str += '<td style=\"text-align: left\" class=\"edctNmTxt\">'+responseData[i].edctNm+'</td>'

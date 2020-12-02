@@ -1,7 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+<%
+	//오늘
+	Date today = new Date();        
+	SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+	String toDay = date.format(today);
+	
+	//세 달 전
+	Calendar mon = Calendar.getInstance();
+	mon.add(Calendar.MONTH , -3);
+	String before3Month = new java.text.SimpleDateFormat("yyyy-MM-dd").format(mon.getTime());
+%>
 
 <!-- HEADER -->
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
@@ -24,8 +35,7 @@
 				<div class="container-fluid">
 					<div class="row" style="display: table; padding: 20px">
 						<div style="display: table-cell; vertical-align: middle">
-							<img src="/itep/assets/itep/img/icon/apprmng-icon-big.png"
-								height="36px">
+							<img src="/itep/assets/itep/img/icon/apprmng-icon-big.png" height="36px">
 						</div>
 						<div style="display: table-cell; vertical-align: middle">
 							<h1 class="page-title" style="vertical-align: middle;">
@@ -50,7 +60,7 @@
 																<div class="ui calendar" id="rangestart">
 																	<div class="ui input left icon">
 																		<i class="calendar icon" style="font-size: 14px;"></i>
-																		<input id="sttgYmd" type="text" style="height: 35px; font-size: 14px;">
+																		<input id="sttgYmd" type="text" placeholder="<%=before3Month %>" style="height: 35px; font-size: 14px;">
 																	</div>
 																</div>
 															</div>
@@ -59,7 +69,7 @@
 																<div class="ui calendar" id="rangeend">
 																	<div class="ui input left icon">
 																		<i class="calendar icon" style="font-size: 14px;"></i>
-																		<input id="fnshYmd" type="text" style="height: 35px; font-size: 14px;">
+																		<input id="fnshYmd" type="text" placeholder="<%=toDay %>" style="height: 35px; font-size: 14px;">
 																	</div>
 																</div>
 															</div>
@@ -83,15 +93,15 @@
 									</table>
 								</div>
 							</div>
-							<br>
-
-
-
+							
 							<!-- 결재 현황 테이블 -->
+							<div class="panel-heading" style="margin-top:0px;">
+								<h4 class="pannel-title"><b>▶ &nbsp;&nbsp;결재 현황</b></h4>
+							</div>
 							<div class="panel-body" style="overflow-x:hidden; height:300px;">
-								<h4 class="panel-title" style="margin-bottom: 10px">
+								<!-- <h4 class="panel-title" style="margin-bottom: 10px">
 									<b>▶ 결재 현황</b>
-								</h4>
+								</h4> -->
 								<div class="table-responsive">
 									<table class="table table-hover tbl-type2">
 										<thead>
@@ -138,15 +148,16 @@
 							<c:if test="${not empty apprDetail}">
 							<br>
 							<!-- 결재 이력 테이블 -->
+							<div class="panel-heading" id="apprStatDetailDivHead">
+								<h4 class="pannel-title"><b>▶ &nbsp;&nbsp;결재 이력</b></h4>
+							</div>
 							<div class="panel-body" id="apprStatDetailDiv">
-								<h4 class="panel-title">
-									<b>▶ 결재 이력</b>
-								</h4>
+								<!-- <h4 class="panel-title"><b>▶ 결재 이력</b></h4> -->
 
 								<!-- 위의 결재항목별 교육상세설명 테이블 (TOGGLE 적용) -->
 								<div class="tab-content">
 									<!-- 테이블 1 -->
-									<div class="tab-pane fade in active" id="table" style="padding-top: 10px;">
+									<div class="tab-pane fade in active" id="table" style="padding:0px 0px 10px 0px;">
 										<div class="table-responsive">
 											<table class="table table-hover tbl-type2">
 												<thead>
@@ -154,6 +165,7 @@
 														<th>NO</th>
 														<th>부서명</th>
 														<th>직원명</th>
+														<th>권한명</th>
 														<th>결재의견</th>
 														<th>결재일</th>
 													</tr>
@@ -163,12 +175,14 @@
 														<td id="rowNum">1</td>
 														<td id="brnm">${apprDetail.brnm}</td>
 														<td id="userNm">${apprDetail.userNm}</td>
+														<td>요청자</td>
 														<td id="apprCon">결재요청</td>
 														<td id="aplcTs">${apprDetail.aplcTs}</td>
 													</tr>
 													<tr>
 														<td id="rowNum">2</td>
 														<td id="dpmAthzDvcd">${apprDetail.dpmAthzDvcd}</td>
+														<td id="dpmUserNm">${apprDetail.dpmUserNm}</td>
 														<td id="dpmAthzNm">${apprDetail.dpmAthzNm}</td>
 														<td id="dpmAthzCon">${apprDetail.dpmAthzCon }</td>
 														<td id="dpmAthzTs">${apprDetail.dpmAthzTs }</td>
@@ -176,6 +190,7 @@
 													<tr>
 														<td id="rowNum">3</td>
 														<td id="grmAthzDvcd">${apprDetail.grmAthzDvcd}</td>
+														<td id="grmUserNm">${apprDetail.grmUserNm}</td>
 														<td id="grmAthzNm">${apprDetail.grmAthzNm}</td>
 														<td id="grmAthzCon">${apprDetail.grmAthzCon }</td>
 														<td id="grmAthzTs">${apprDetail.grmAthzTs }</td>
@@ -260,6 +275,7 @@
 					
 					if(responseData.length == 0) {
 						$('#apprStatDetailDiv').hide(); // 결재현황 리스트가 없으면 하단 결재이력 테이블이 안보이게
+						$('#apprStatDetailDivHead').hide(); 
 					} else {
 						var tbody = document.getElementById('apprStatBody');
 						var trs = tbody.getElementsByTagName('tr');
@@ -286,10 +302,12 @@
 					$('#userNm').html(responseData.userNm);
 					$('#aplcTs').html(responseData.aplcTs);
 					$('#dpmAthzDvcd').html(responseData.dpmAthzDvcd);
+					$('#dpmUserNm').html(responseData.dpmUserNm);
 					$('#dpmAthzNm').html(responseData.dpmAthzNm);
 					$('#dpmAthzCon').html(responseData.dpmAthzCon);
 					$('#dpmAthzTs').html(responseData.dpmAthzTs);
 					$('#grmAthzDvcd').html(responseData.grmAthzDvcd);
+					$('#grmUserNm').html(responseData.grmUserNm);
 					$('#grmAthzNm').html(responseData.grmAthzNm);
 					$('#grmAthzCon').html(responseData.grmAthzCon);
 					$('#grmAthzTs').html(responseData.grmAthzTs);

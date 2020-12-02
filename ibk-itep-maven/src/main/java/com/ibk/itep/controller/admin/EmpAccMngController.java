@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ibk.itep.service.admin.EmpAccMngService;
 import com.ibk.itep.service.cmm.CmmService;
+import com.ibk.itep.vo.admin.EduOpenReadyStatVo;
 import com.ibk.itep.vo.admin.EmpAccMngVo;
 import com.ibk.itep.vo.cmm.ClaVo;
 import com.ibk.itep.vo.cmm.CmbVo;
@@ -32,7 +33,11 @@ public class EmpAccMngController{
 	@RequestMapping(value = "/views/admin/empAccMng", method = RequestMethod.GET)
 	public String empAccList(Model model) {
 		
-		List<EmpAccMngVo> empAccList = eduAccMngService.selectEmpAccMng("", "", "");
+		// 전체 리스트 크기 조회
+		int listSize = eduAccMngService.selectEmpAccMng("", "", "", -1).size();
+		listSize = (int) Math.ceil((double)listSize / 10);
+				
+		List<EmpAccMngVo> empAccList = eduAccMngService.selectEmpAccMng("", "", "", 0);
 		List<CmbVo> cmbList = cmmService.selectCmb();
 		
 		ClaVo claVo = new ClaVo();
@@ -42,6 +47,7 @@ public class EmpAccMngController{
 		model.addAttribute("empAccList", empAccList );
 		model.addAttribute("cmbList", cmbList );
 		model.addAttribute("claList", claList );
+		model.addAttribute("listSize", listSize );
 		return "/admin/empAccMng";
 	}
 	
@@ -51,17 +57,31 @@ public class EmpAccMngController{
 	public @ResponseBody HashMap<String, Object> empAccMngSearch(Model model 
 						 			 , @RequestParam(value="brcd", required=false) String brcd
 									 , @RequestParam(value="userIdNm", required=false) String userIdNm
-									 , @RequestParam(value="athrCd", required=false) String athrCd) {
+									 , @RequestParam(value="athrCd", required=false) String athrCd
+									 , @RequestParam(value="pageNum", required=false) String pageNum) {
+
+		HashMap<String, Object> result = new HashMap<String, Object>();
 		
-		List<EmpAccMngVo> empAccList = eduAccMngService.selectEmpAccMng(brcd, userIdNm, athrCd);
+		// pageNum < 0 이면 => 전체 카운트 조회 & 첫번째 페이지 조회
+		// 그 외는 페이지만큼 조회
+		if(Integer.parseInt(pageNum) < 0) {
+			int listSize = eduAccMngService.selectEmpAccMng(brcd, userIdNm, athrCd, -1).size();
+			listSize = (int) Math.ceil((double)listSize / 10);
+			
+			List<EmpAccMngVo> list = eduAccMngService.selectEmpAccMng(brcd, userIdNm, athrCd, 0);
+			
+			result.put("listSize", listSize);
+			result.put("list", list);
+		}
+		else {
+			List<EmpAccMngVo> list = eduAccMngService.selectEmpAccMng(brcd, userIdNm, athrCd, (Integer.parseInt(pageNum)-1)*10);
+			
+			result.put("list", list);
+		}
 		
 		ClaVo claVo = new ClaVo();
 		claVo.setUseYn("Y");
 		List<ClaVo> claList = cmmService.selectCla(claVo);
-		
-		// 사용자리스트와 권한리스트를 같이 반환하기 위해 HashMap 사용
-		HashMap<String, Object> result = new HashMap<String, Object>();
-		result.put("empAccList", empAccList);
 		result.put("claList", claList);
 		
 		return result;

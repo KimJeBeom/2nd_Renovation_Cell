@@ -50,7 +50,7 @@ public class NewEduApplyController{
 			if(addRst.equals("success") && Integer.parseInt(addFileCnt) > 0) {
 				//파일 업로드를 위한 공지사항ID를 받아온다.
 				logger.info("NoticeRegControll FILE Upload Start");
-				int pId = cmmService.getPrstKey("TB_IEP_EDO001M");
+				int pId = vo.getAplcId();
 				
 				int uploadcount = fileUtil.fileUpload(code_nm, pId, mpRequest);
 				logger.info("NoticeRegControll FILE Upload End");

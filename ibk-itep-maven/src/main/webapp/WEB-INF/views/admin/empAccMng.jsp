@@ -84,20 +84,18 @@
 								<table class="table table-hover tbl-type2">
 									<thead>
 										<tr>
-											<th style="width: 30px;">No</th>
-											<th>직원번호</th>
-											<th>직원명</th>
-											<th>직책</th>
-											<th>행내전화</th>
-											<th>부서명</th>
-											<th style="width: 80px; margin-right:10px; margin-left:20px;">권한</th>
+											<th style="width:70px;">직원번호</th>
+											<th style="width:70px;">직원명</th>
+											<th style="width:70px;">직책</th>
+											<th style="width:70px;">행내전화</th>
+											<th style="width:70px;">부서명</th>
+											<th style="width:100px;">권한</th>
 										</tr>
 									</thead>
 									
 									<tbody id="empAccTBody">
 										<c:forEach items="${empAccList }" var="empacclist" varStatus="status">
 											<tr>
-												<td>${status.count }</td>
 												<td>${empacclist.userId }</td>
 												<td>${empacclist.userNm }</td>
 												<td>${empacclist.userJtm }</td>
@@ -105,7 +103,7 @@
 												<td>${empacclist.brnm }</td>
 												<td style="display:none;">${empacclist.athrCd }</td>
 												<td>
-													<select class="form-control athrSelBox" style="text-align: left;"> 
+													<select class="form-control athrSelBox" style="text-align: left; width:80%; margin-left:30px;"> 
 													<!--<select class="form-control" style="text-align:left;">-->
 														<c:forEach items="${claList }" var="clalist"> 
 															<option value="${clalist.athrCd }" 
@@ -119,6 +117,16 @@
 										</c:forEach>
 									</tbody>
 								</table>
+								
+								<!-- nextPage설정 -->
+								<div id="page" style="text-align:center">
+									<button class="btn btn-primary btn-xs" id='prvsPage' onclick="search('prvs');">◀</button>
+									&nbsp;
+									<input type="text" id="pageNum" value=1 style="width:30px; text-align:center">&nbsp;/
+									<label id="listCnt" style="width:30px; text-align:center" >${listSize}</label>
+									<!-- <button class="btn btn-default btn-xs" id='movePage' onclick="search('move');">이동</button> --> 
+									<button class="btn btn-primary btn-xs" id='nextPage' onclick="search('next');">▶</button>
+								</div> 
 						</div>
 						<!-- End-직원 조회 리스트 부분-->
 					</div>
@@ -137,9 +145,34 @@
 		$("#brcd").keyup(function(e){if(e.keyCode == 13)  search(); });
 		$("#userIdNm").keyup(function(e){if(e.keyCode == 13)  search(); });
 		$("#athrCd").keyup(function(e){if(e.keyCode == 13)  search(); });
-				
+		$("#pageNum").keyup(function(e){if(e.keyCode==13) search('move'); });
+		
 		// 검색
-		function search() {
+		function search(ctrlPage) {
+			var pageNum = parseInt($('#pageNum').val());
+			var listSize = parseInt('${listSize}');
+			
+			if(ctrlPage=="prvs"){
+		  		pageNum = pageNum-1;
+				if(pageNum <= 0){
+					alert("이전페이지가 없습니다.");
+					return;
+				}
+			}else if(ctrlPage=="next"){
+				pageNum = pageNum+1;
+				if(pageNum > listSize){
+					alert("다음페이지가 없습니다.");
+					return;
+				}
+			}else if(ctrlPage=="move"){
+				if(pageNum > listSize){
+					alert("이동값이 전체 페이지보다 클수 없습니다.");
+					return;
+				}
+			}else {
+				pageNum = -1;
+			}
+			
 			// 검색창에 입력된값 
 			var brcd = $('#brcd option:selected').val();
 			var userIdNm = $('#userIdNm').val();
@@ -150,17 +183,42 @@
 		        type:"POST", // post 방식
 				data: {"brcd" : brcd,
 					   "userIdNm" : userIdNm,
-					   "athrCd" : athrCd}, //넘겨줄 데이터
+					   "athrCd" : athrCd,
+						"pageNum" : pageNum}, //넘겨줄 데이터
 				
 				success: function (result) {
-					reDrawTable(result.empAccList, result.claList);
+					reDrawTable(result.list, result.claList, result.listSize, pageNum);
 				},
 				error: function (xhr, status, error) { alert("통신실패"); }
 			});
 		}	
 		
 		// 권한 변경 처리
-		$(document).on("change",".athrSelBox", function(){
+		$(document).on("change",".athrSelBox", function(ctrlPage){
+			var pageNum = parseInt($('#pageNum').val());
+			var listSize = parseInt('${listSize}');
+			
+			if(ctrlPage=="prvs"){
+		  		pageNum = pageNum-1;
+				if(pageNum <= 0){
+					alert("이전페이지가 없습니다.");
+					return;
+				}
+			}else if(ctrlPage=="next"){
+				pageNum = pageNum+1;
+				if(pageNum > listSize){
+					alert("다음페이지가 없습니다.");
+					return;
+				}
+			}else if(ctrlPage=="move"){
+				if(pageNum > listSize){
+					alert("이동값이 전체 페이지보다 클수 없습니다.");
+					return;
+				}
+			}else {
+				pageNum = -1;
+			}
+			
 			var athrCdTobe = this.value; // 변경 후 권한코드
 			var athrCdAsis = $(this).parent().parent().children().eq(6).text();
 			var userId = $(this).parent().parent().children().eq(1).text(); // 권한 변경할 직원 번호
@@ -178,11 +236,12 @@
 						   "athrCdTobe" : athrCdTobe,
 						   "brcd" : brcd,
 						   "userIdNm" : userIdNm,
-						   "athrCd" : athrCd}, //넘겨줄 데이터
+						   "athrCd" : athrCd,
+						   "pageNum" : pageNum}, //넘겨줄 데이터
 						
 					success: function (result) {
 						confirm("변경되었습니다.");
-						reDrawTable(result.empAccList, result.claList);
+						reDrawTable(result.list, result.claList, result.listSize, pageNum);
 					},
 					error: function (xhr, status, error) { alert("통신실패"); }
 				});
@@ -193,33 +252,46 @@
 		});
 		
 		// 사용자 테이블 다시 그리는 함수
-		function reDrawTable(empAccList, claList) {
+		function reDrawTable(list, claList, listSize, pageNum) {
 			var str = '';
 			str += '<tbody id=\"empAccTBody\">';
-			$.each(empAccList, function(i, empacclist) {
-				str += '<tr>';
-				str += '<td>'+(i+1)+'</td>';
-				str += '<td>'+empacclist.userId+'</td>';
-				str += '<td>'+empacclist.userNm+'</td>';
-				str += '<td>'+empacclist.userJtm+'</td>';
-				str += '<td>'+empacclist.userTpn+'</td>';
-				str += '<td>'+empacclist.brnm+'</td>';
-				str += '<td style="display:none;">'+empacclist.athrCd+'</td>';
-				str += '<td>';
-				str += '<select class="form-control athrSelBox" style="text-align: left;">';
-				// 권한 셀렉트박스 출력
-				$.each(claList, function(j, clalist) {
-					if(clalist.athrCd == empacclist.athrCd) 
-						str += '<option value='+clalist.athrCd+' selected>'+clalist.athrNm+'</option>';
-					else
-						str += '<option value='+clalist.athrCd+'>'+clalist.athrNm+'</option>';
-				})
-				str += '</select>';
-				str += '</td>';
+			if(list.length != 0) {
+				$.each(list, function(i, list) {
+					str += '<tr>';
+					str += '<td>'+list.userId+'</td>';
+					str += '<td>'+list.userNm+'</td>';
+					str += '<td>'+list.userJtm+'</td>';
+					str += '<td>'+list.userTpn+'</td>';
+					str += '<td>'+list.brnm+'</td>';
+					str += '<td style="display:none;">'+list.athrCd+'</td>';
+					str += '<td>';
+					str += '<select class="form-control athrSelBox" style="text-align: left;">';
+					// 권한 셀렉트박스 출력
+					$.each(claList, function(j, clalist) {
+						if(clalist.athrCd == list.athrCd) 
+							str += '<option value='+clalist.athrCd+' selected>'+clalist.athrNm+'</option>';
+						else
+							str += '<option value='+clalist.athrCd+'>'+clalist.athrNm+'</option>';
+					})
+					str += '</select>';
+					str += '</td>';
+					str += '</tr>';
+				});
+				$('#page').show();
+			} else {
+				str += '<tr height="100">';
+				str += '<td colspan="8" class="txt_center"><h4>조회 결과가 없습니다.</h4></td>';
 				str += '</tr>';
-			});
+				$('#page').hide();
+			}
 			str += '</tbody>';
 			$('#empAccTBody').replaceWith(str);
+			
+			if(pageNum == -1) {
+				$('#pageNum').val(1);
+				$('#listCnt').html(listSize);
+			} else 
+				$('#pageNum').val(pageNum);
 		}
 		
 		function excelDownload() {		

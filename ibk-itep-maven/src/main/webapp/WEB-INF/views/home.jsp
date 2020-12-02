@@ -3,10 +3,10 @@
 <!-- HEADER -->
 <jsp:include page="./cmm/common-header.jsp" />
 
-<body>
+<body>	
 	<!-- WRAPPER -->
 	<div id="wrapper">
-
+	
 		<!-- 사이드메뉴  -->
 		<jsp:include page="./cmm/common-sidebar.jsp" />
 
@@ -89,6 +89,21 @@
 <jsp:include page="./cmm/common-footer.jsp" />
 
 <script>
+	/* $(document).ready(function(){
+		$('#menuApprList').click(function(){
+			$('.main').load("/itep/views/apprMng/apprList");
+		});
+	}); */
+	/* $(document).ready(function(){
+		alert("1");
+		var nowFolder = $('#menuApprList').parent().parent().parent().parent().eq(0); 
+		alert("2");
+		nowFolder.className = "active";
+		alert("3");
+		$('#menuApprList').className = "active";
+		alert("4");
+	}); */
+
 	function showImgWin(imgName) {
 		var url = "/itep/assets/itep/img/" + imgName + ".png";
 			var imgObj = new Image();

@@ -1,5 +1,7 @@
 package com.ibk.itep.controller.admin.pop;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ibk.itep.common.file.FileUtil;
+import com.ibk.itep.common.file.FileVo;
 import com.ibk.itep.controller.HomeController;
 import com.ibk.itep.service.admin.EduReadyStatService;
 import com.ibk.itep.vo.SessionVo;
@@ -25,6 +29,9 @@ public class NewEduInfoPopController{
 	@Autowired
 	private EduReadyStatService eduReadyStatService;
 	
+	@Autowired 
+	private FileUtil fileUtil;
+	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	/* 과정개설신청현황 팝업 */
@@ -32,8 +39,10 @@ public class NewEduInfoPopController{
 	public String newEduInfoPop(Model model, @RequestParam(value="aplcId", required=false) String aplcId) {
 
 		NewEduInfoVo edoVo = eduReadyStatService.selectNewEduInfoPop(Integer.parseInt(aplcId));
+		List<FileVo> fileVoList = fileUtil.selectFileList("EDO", Integer.parseInt(aplcId));
 
-		model.addAttribute("edoVo", edoVo );		
+		model.addAttribute("edoVo", edoVo );	
+		model.addAttribute("fileVoList", fileVoList);	
 		return "/admin/pop/newEduInfoPop";
 	}
 	

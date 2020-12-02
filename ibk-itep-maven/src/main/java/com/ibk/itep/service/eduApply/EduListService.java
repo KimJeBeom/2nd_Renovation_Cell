@@ -40,6 +40,7 @@ public class EduListService {
 		
 		logger.info("EduGetList Start");
 		EduListVo outVo =  eduListDAO.selectEduDetail(vo);		
+		outVo.setEdctCon(outVo.getEdctCon().replace("\n", "<br>"));
 		logger.info("EduGetList End");
 
 		return outVo;

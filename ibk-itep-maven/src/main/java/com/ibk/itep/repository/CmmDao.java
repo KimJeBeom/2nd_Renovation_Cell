@@ -58,6 +58,7 @@ public class CmmDao {
 		List<CmbVo> list = sqlSession.selectList("queryCmm.selectCmb");
 		return list;
 	}
+
 	public int selectNextKey(String tableNm) {
 		int nextId = sqlSession.selectOne("queryCmm.selectNextKey",tableNm);
 		return nextId;
@@ -65,5 +66,21 @@ public class CmmDao {
 	public int selectPrstKey(String tableNm) {
 		int nextId = sqlSession.selectOne("queryCmm.selectPrstKey",tableNm);
 		return nextId;
+	}
+	
+	public void updateCld(List<CldVo> list) {
+		sqlSession.update("queryCmm.updateCld", list);
+	}
+	
+	public void updateCli(List<CliVo> list) {
+		sqlSession.update("queryCmm.updateCli", list);
+	}
+	
+	public void insertCld(CldVo vo) {
+		sqlSession.insert("queryCmm.insertCld", vo);
+	}
+	
+	public void insertCli(CliVo vo) {
+		sqlSession.insert("queryCmm.insertCli", vo);
 	}
 }

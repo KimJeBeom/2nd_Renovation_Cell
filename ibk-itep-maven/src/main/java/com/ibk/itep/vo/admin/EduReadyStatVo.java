@@ -12,6 +12,7 @@ public class EduReadyStatVo {
 	private String sttgYmd; // 검색 시작일자
 	private String fnshYmd; // 검색 종료일자
 	private String fnshYn;
+	private Integer pageSet; //페이지SetNumber
 	
 	public int getEdctCntId() {
 		return edctCntId;
@@ -79,5 +80,10 @@ public class EduReadyStatVo {
 	public void setFnshYn(String fnshYn) {
 		this.fnshYn = fnshYn;
 	}
-	
+	public Integer getPageSet() {
+		return pageSet;
+	}
+	public void setPageSet(Integer pageSet) {
+		this.pageSet = pageSet;
+	}
 }

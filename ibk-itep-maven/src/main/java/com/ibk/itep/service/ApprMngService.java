@@ -210,7 +210,7 @@ public class ApprMngService {
 		} else if(aplcStgCd.equals("REJGRM")) {
 			vo.setDpmAthzCon("결재완료");
 			vo.setGrmAthzCon(vo.getRtreCon().replace("\n", "<br>"));
-		}
+		} 
 		
 		// null 체크 및 날짜 포맷 변경
 		if(vo.getAplcTs() == null)
@@ -229,7 +229,6 @@ public class ApprMngService {
 		return vo;
 	}
 
-	
 	/* 날짜포맷변경 함수 */
 	 public String changeDateFormat(String ymd) {
 	      SimpleDateFormat asIsSdf = new SimpleDateFormat("yyyy-MM-dd");

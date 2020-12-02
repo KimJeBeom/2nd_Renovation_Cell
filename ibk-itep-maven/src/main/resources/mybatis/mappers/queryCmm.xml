@@ -22,10 +22,13 @@
 				,	EDCT_CLSF_NM 	as edctClsfNm						
 				,	USE_YN 			as useYn
 			from	itep.TB_IEP_CLD001C
-			
+			where   1=1
 		]]>
     	<if test="useYn != null">
-	 	   	where	USE_YN=#{useYn}
+	 	   	and		USE_YN=#{useYn}
+	    </if>
+	    <if test="edctClsfCd != null">
+	 	   	and		EDCT_CLSF_CD=#{edctClsfCd}
 	    </if>
 		<![CDATA[
 	   	 	order by field(EDCT_CLSF_CD,'EXTRA'), EDCT_CLSF_CD desc;
@@ -37,11 +40,13 @@
 				,	EDIN_NM 	as edinNm						
 				,	USE_YN 		as useYn
 			from	itep.TB_IEP_CLI001C
+			where	1=1
 		]]>
     	<if test="useYn != null">
-		    <![CDATA[
-	 	   		where	USE_YN=#{useYn}
-	    	]]>
+	 	    and		USE_YN=#{useYn}
+	    </if>
+	    <if test="edinCd != null">
+	 	   	and		EDIN_CD=#{edinCd}
 	    </if>
 	</select>
 	<select id="selectCls" parameterType="ClsVo" resultType="ClsVo">
@@ -105,4 +110,36 @@
 			WHERE TABLE_NAME = #{tableNm}
 		]]>
 	</select>
+
+	<update id="updateCld" parameterType="java.util.List">
+		<foreach item="cldVo" collection="list" separator=";">
+	    	UPDATE TB_IEP_CLD001C
+			SET EDCT_CLSF_NM = #{cldVo.edctClsfNm}
+				, USE_YN = #{cldVo.useYn}
+			WHERE EDCT_CLSF_CD = #{cldVo.edctClsfCd}	
+    	</foreach>
+    </update>
+	
+	<update id="updateCli" parameterType="java.util.List">
+		<foreach item="cliVo" collection="list" separator=";">
+	    	UPDATE TB_IEP_CLI001C
+			SET EDIN_NM = #{cliVo.edinNm}
+				, USE_YN = #{cliVo.useYn}
+			WHERE EDIN_CD = #{cliVo.edinCd}		
+    	</foreach>
+	</update>
+	
+	<insert id="insertCld" parameterType="CldVo">
+		<![CDATA[
+			INSERT INTO TB_IEP_CLD001C
+			VALUE(#{edctClsfCd}, #{edctClsfNm}, 'Y')
+		]]>
+	</insert>
+	
+	<insert id="insertCli" parameterType="CliVo">
+		<![CDATA[
+			INSERT INTO TB_IEP_CLI001C
+			VALUE(#{edinCd}, #{edinNm}, 'Y')
+		]]>
+	</insert>
 </mapper>

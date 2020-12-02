@@ -40,12 +40,15 @@
 							</table>
 
 							<!-- 교육신청 직원목록 -->
-							<h4 style="float: left;">교육신청 직원목록</h4>
-							<form action="/itep/views/admin/pop/EduEmpListPopExcelDown" role="form" method="post" enctype="multipart/form-data">
-								<input type="hidden" id="edctCntId" name="edctCntId" value="${eduEmpList[0].edctCntId }">
-								<input type="submit" class="btn btn-primary btn-toastr btn-top" value="엑셀 다운로드" />
-							</form>
-
+							<div class="panel-body" style="padding:0px;">
+								<h4 style="float:left; margin:10px 0px 0px;">교육신청 직원목록</h4>
+								<form action="/itep/views/admin/pop/EduEmpListPopExcelDown" role="form" method="post" enctype="multipart/form-data">
+									<input type="hidden" id="edctCntId" name="edctCntId" value="${eduEmpList[0].edctCntId }">
+									<input type="submit" class="btn btn-primary btn-toastr btn-top" style="float:right;" value="엑셀 다운로드" />
+								</form>
+							</div>
+							
+							<div class="panel-body" style="overflow-x:hidden; height:300px; padding:0px;">
 							<table class="table table-bordered tbl-type2">
 								<thead>
 									<tr>
@@ -91,6 +94,8 @@
 									</c:choose>
 								</tbody>
 							</table>
+							
+							</div>
 						</div>
 					</div>
 				</div>
