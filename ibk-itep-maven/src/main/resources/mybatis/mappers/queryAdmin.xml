@@ -496,6 +496,9 @@
 	    		and eda.EDCT_APLC_ID = #{edctAplcId}
 	    	]]>
 	    </if>
+	    <if test="pageSet != null and pageSet >= 0">		
+			Limit #{pageSet} ,10
+		</if>
 	</select>
 	<!-- 수강이력 엑셀 조회 -->
 	<select id="selectEduHistoryExcel" parameterType="EduHistoryVo" resultType="EduHistoryExcelVo">

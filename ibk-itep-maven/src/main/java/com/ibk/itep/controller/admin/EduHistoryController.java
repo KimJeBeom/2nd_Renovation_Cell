@@ -49,9 +49,15 @@ public class EduHistoryController{
 	}
 	
 	@RequestMapping(value = "/views/admin/selectEduHistory", method = RequestMethod.POST)
-	public @ResponseBody List<EduHistoryVo> selectEduHistory(EduHistoryVo ehVo) {
+	public @ResponseBody List<EduHistoryVo> selectEduHistory(EduHistoryVo ehVo
+			 , @RequestParam(value="pageNum", required=false) String pageNum) {
+		
 		logger.debug("컨트롤러 Start - selectEduHistory");
 		cmmService.objFieldTest(ehVo);
+		
+		logger.info(" --- pageNum" + pageNum);		
+		int pageSet = (Integer.parseInt(pageNum)-1)*10; //현재 페이지 숫자를 쿼리의 offset설정값으로 변환(2->10)
+		ehVo.setPageSet(pageSet);
 		List<EduHistoryVo> eduHistoryVoList = eduHistoryService.selectEduHistory(ehVo);
 		logger.debug("컨트롤러 End - selectEduHistory");
 		

@@ -71,11 +71,11 @@
 									<thead>
 										<tr>
 											<th style="width: 5px;">구분</th>
-											<th style="width: 25px;">교육ID</th>
-											<th style="width: 30px;">교육분류</th>
-											<th>교육명</th>
-											<th style="width: 30px;">교육기관</th>
-											<th style="width: 15px;">차수관리</th>
+											<th style="width: 5px;">교육ID</th>
+											<th>교육분류</th>
+											<th style="width: 200px;">교육명</th>
+											<th>교육기관</th>
+											<th>차수관리</th>
 										</tr>
 									</thead>
 									<tbody  id="eduRegModVoListTbody">
@@ -103,6 +103,8 @@
 	<script type="text/javascript">
 	
 		//페이지 수기 입력 이동 pageCtrl();수행 스크립트
+		$("#edctClsfCd").keyup(function(e){if(e.keyCode == 13)  selectEduRegMod(); });
+		$("#edctNm").keyup(function(e){if(e.keyCode == 13)  selectEduRegMod(); });
 		$("#pageNum").keyup(function(e){if(e.keyCode==13) pageCtrl('move'); });
 	
 		// 결재건 클릭 시 상세내역 동적변경을 위한 함수
