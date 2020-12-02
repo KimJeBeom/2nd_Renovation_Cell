@@ -26,7 +26,62 @@
 					<!-- 본문 Start -->
 					<div class="row">
 						<div class="panel">
-							<!-- Start 과정개설 신청목록-소제목 -->
+							<!-- Start 수강신청목록-소제목 -->
+							<div class="panel-heading">
+								<h4 class="pannel-title">
+									<br><b>▶&nbsp;&nbsp; 수강신청 목록</b>
+								</h4>
+							</div>
+							<!-- End 수강신청목록-소제목 -->
+							<div id="eduReadyListdiv" class="panel-body" style="overflow-x:hidden; height:300px;">
+								<!-- Start 수강신청목록-리스트 -->
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>No</th>
+											<th style="width: 150px;">과목명</th>
+											<th>교육기관</th>
+											<th>학습기간</th>
+											<th>신청일자</th>
+											<th>상세확인</th>
+											<th>결재진행</th>
+											<th>취소</th>
+										</tr>
+									</thead>
+									<tbody  id="eduReadyListTbody" >
+									<c:choose>
+								<c:when test="${not empty eduReadyList}">
+									<c:forEach items="${eduReadyList}" var="eduReadyList">
+										<c:set var="cnt" value="${cnt+1}"/>
+										<tr>
+											<td id="cnt">${cnt }</td>
+											<td id="edctNm">${eduReadyList.edctNm }</td>
+											<td id="edinNm">${eduReadyList.edinNm }</td>
+											<td id="edctYmd">${eduReadyList.edctSttgYmd } ~ ${eduReadyList.edctFnshYmd }</td>
+											<td id="aplcTs">${eduReadyList.aplcTs }</td>
+											<td>
+												<button type="button" class="btn btn-primary btn-xs"
+													onclick="showPopup('myClass','eduInfoPop?edctAplcId='+${eduReadyList.edctAplcId}+'&&modType=ready');">확인</button>
+											</td>
+											<td id="aplcStgNm">${eduReadyList.aplcStgNm }</td>
+											<td id="edctAplcId" style="display:none">${eduReadyList.edctAplcId}</td>
+											<td>
+												<button type="button" class="btn btn-default btn-xs" onclick="cancel(${eduReadyList.edctAplcId});">취소요청</button>
+											</td>
+										</tr>	
+									</c:forEach>
+									</c:when>
+								<c:otherwise>
+									<tr height="150">
+										<td colspan="8" class="txt_center"><h4>수강 신청한 과정이 없습니다.</h4></td>
+									</tr>
+								</c:otherwise>
+							</c:choose>
+									</tbody>
+								</table>
+							</div>
+						<!-- End 수강신청목록-리스트 -->
+													<!-- Start 과정개설 신청목록-소제목 -->
 							<div class="panel-heading">
 								<h4 class="pannel-title">
 									<b>▶ &nbsp;&nbsp;과정개설 신청목록</b>
@@ -34,7 +89,7 @@
 							</div>
 							<!-- End 과정개설 신청목록-소제목 -->
 							<!-- Start 과정개설 신청목록-리스트 -->
-							<div class="panel-body" style="overflow-x:hidden; height:250px;">
+							<div class="panel-body" style="overflow-x:hidden; height:300px;">
 								<table id="eduNewListTb" class="table table-hover">
 									<thead>
 										<tr>
@@ -76,61 +131,6 @@
 								</table>
 							</div>
 							<!-- End 과정개설 신청목록-리스트 -->
-							<!-- Start 수강신청목록-소제목 -->
-							<div class="panel-heading">
-								<h4 class="pannel-title">
-									<br><b>▶&nbsp;&nbsp; 수강신청 목록</b>
-								</h4>
-							</div>
-							<!-- End 수강신청목록-소제목 -->
-							<div id="eduReadyListdiv" class="panel-body" style="overflow-x:hidden; height:350px;">
-								<!-- Start 수강신청목록-리스트 -->
-								<table class="table table-hover">
-									<thead>
-										<tr>
-											<th>No</th>
-											<th style="width: 150px;">과목명</th>
-											<th>교육기관</th>
-											<th>학습기간</th>
-											<th>신청일자</th>
-											<th>상세확인</th>
-											<th>결재진행</th>
-											<th>취소</th>
-										</tr>
-									</thead>
-									<tbody  id="eduReadyListTbody" >
-									<c:choose>
-								<c:when test="${not empty eduReadyList}">
-									<c:forEach items="${eduReadyList}" var="eduReadyList">
-										<c:set var="cnt" value="${cnt+1}"/>
-										<tr>
-											<td id="cnt">${cnt }</td>
-											<td id="edctNm">${eduReadyList.edctNm }</td>
-											<td id="edinNm">${eduReadyList.edinNm }</td>
-											<td id="edctYmd">${eduReadyList.edctSttgYmd } ~ ${eduReadyList.edctFnshYmd }</td>
-											<td id="aplcTs">${eduReadyList.aplcTs }</td>
-											<td>
-												<button type="button" class="btn btn-primary btn-xs"
-													onclick="showPopup('myClass','eduInfoPop?edctAplcId='+${eduReadyList.edctAplcId});">확인</button>
-											</td>
-											<td id="aplcStgNm">${eduReadyList.aplcStgNm }</td>
-											<td id="edctAplcId" style="display:none">${eduReadyList.edctAplcId}</td>
-											<td>
-												<button type="button" class="btn btn-default btn-xs" onclick="cancel(${eduReadyList.edctAplcId});">취소요청</button>
-											</td>
-										</tr>	
-									</c:forEach>
-									</c:when>
-								<c:otherwise>
-									<tr height="150">
-										<td colspan="8" class="txt_center"><h4>수강 신청한 과정이 없습니다.</h4></td>
-									</tr>
-								</c:otherwise>
-							</c:choose>
-									</tbody>
-								</table>
-								<!-- End 수강신청목록-리스트 -->
-							</div>
 						</div>
 					</div>
 					<!--End 본문-->

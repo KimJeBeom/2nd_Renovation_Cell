@@ -73,7 +73,7 @@
 			AND  EDA.APLC_STG_CD = CLS.APLC_STG_CD
 			AND EDA.USER_ID = #{userId}
 			AND EDA.APLC_STG_CD NOT IN ('EDUFIN','CANCEL')
-			AND EDA.CTCR_YN NOT IN ('Y','N')
+			AND EDA.CTCR_YN IS NULL
 			AND EDA.USE_YN = 'Y'
 			AND EDC.FNSH_YN != 'Y'
 			AND NOW() < EDC.EDCT_STTG_YMD
@@ -138,6 +138,13 @@
 			IF(EDC.FNSH_YN = 'Y','차수종료','') AS fnshYn, -- 차수종료여부
 			CLS.APLC_STG_NM AS aplcStgNm -- 신청단계명
 			FROM TB_IEP_EDA001M EDA, TB_IEP_EDC001M EDC, TB_IEP_EDM001M EDM, TB_IEP_CLI001C CLI, TB_IEP_CLS001C CLS
+			]]>
+		 <if test="pageSet >= 0">	
+			<![CDATA[
+			, (SELECT @rownum:=#{pageSet}) TMP
+			]]>
+		</if>
+			<![CDATA[
 			WHERE 1=1
 			AND EDA.EDCT_CNT_ID = EDC.EDCT_CNT_ID
 			AND EDC.EDCT_ID = EDM.EDCT_ID
@@ -145,19 +152,24 @@
 			AND EDA.APLC_STG_CD = CLS.APLC_STG_CD
 			AND EDA.USER_ID = #{userId} 
 		]]>
-			<if test="!sttgYmd.equals('') and !fnshYmd.equals('')">
+		<if test="!sttgYmd.equals('') and !fnshYmd.equals('')">
 				AND EDC.EDCT_STTG_YMD BETWEEN CONCAT(#{sttgYmd}, ' 00:00:00') AND CONCAT(#{fnshYmd}, ' 23:59:59')
-			</if>
-		<![CDATA[
+		</if>
+			<![CDATA[
 			AND EDA.USE_YN='Y'
 			ORDER BY EDC.EDCT_STTG_YMD DESC
-	     ]]>
+	     	]]>
+	     <if test="pageSet >= 0">			
+			<![CDATA[
+			Limit #{pageSet} ,10
+			]]>
+		</if>
 	</select>
 	
 <!-- myclass.xml > eduInfoPop -->
 	<select id="selectEduInfoPop" parameterType="Integer" resultType="EduInfoPopVO">
 	     <![CDATA[
-			/*교육신청 상세확인 팝업 -- 반려중인 경우만 결재요청버튼 활성화*/
+			/*교육신청 상세확인 팝업 */
 			SELECT
 				EDA.EDCT_APLC_ID AS edctAplcId, -- 신청id
 				EDM.EDCT_CLSF_CD AS edctClsfCd, -- 교육분류
@@ -188,9 +200,15 @@
 	     <![CDATA[
 			/*교육신청 상세확인 팝업 > 재결재요청*/
 			UPDATE TB_IEP_EDA001M
-			SET APLC_STG_CD = "APRDPM",
+			SET 
+			APLC_TS = NOW(),
+			APLC_STG_CD = "APRDPM",
+			DVCD = #{dvcd} ,
+			TEAM_CD = #{teamCd} ,
 			DPM_ATHZ_ID = #{dpmAthzId},
-			APLC_TS = SYSDATE()
+			DPM_ATHZ_TS = NULL,
+			GRM_ATHZ_ID = (SELECT USER_ID FROM TB_IEP_CMU001M WHERE ATHR_CD='GRM' LIMIT 1),
+			GRM_ATHZ_TS = NULL
 			WHERE APLC_STG_CD IN ("REJDPM","REJGRM")
 			AND EDCT_APLC_ID = #{edctAplcId};
 	     ]]>

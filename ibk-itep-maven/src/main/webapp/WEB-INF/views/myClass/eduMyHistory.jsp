@@ -95,7 +95,7 @@
 												<td>${eduMyHistroy.aplcStgNm }</td>
 												<td>
 													<button type="button" class="btn btn-primary btn-xs"
-														onclick="showPopup('myClass','eduInfoPop?edctAplcId='+${eduMyHistroy.edctAplcId}+'&&type=history');">확인</button>
+														onclick="showPopup('myClass','eduInfoPop?edctAplcId='+${eduMyHistroy.edctAplcId}+'&&modType=history');">확인</button>
 												</td>
 											</tr>
 								       </c:forEach>
@@ -109,6 +109,13 @@
 							</tbody>
 								</table>
 								<!-- End 수강신청 이력-조회결과 -->
+							 <div style="text-align:center">
+								<button class="btn btn-primary btn-xs" id='prvsPage' onclick="searchPage('prvs');">◀</button>
+								&nbsp;
+								<input type="text" id="pageNum" value=1 style="width:30px; text-align:center">&nbsp;/
+								<label id="listCnt" style="width:20px; text-align:center" >${listSize}</label>
+								<button class="btn btn-primary btn-xs" id='nextPage' onclick="searchPage('next');">▶</button>
+							 </div> 
 							</div>
 						</div>
 					</div>
@@ -122,9 +129,15 @@
 	<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 			<script type="text/javascript">
 		
+		$("#sttgYmd").keyup(function(e){if(e.keyCode == 13)  search(); });
+		$("#fnshYmd").keyup(function(e){if(e.keyCode == 13)  search(); });
+		$("#pageNum").keyup(function(e){if(e.keyCode==13) searchPage('move'); });
+
 		function search() {
+		var datePattern = /^(19|20)\d{2}\/([1-9]|1[012])\/([1-9]|[12][0-9]|3[0-1])$/; //날짜 유효성 검증
 		var sttgYmd = $('#sttgYmd').val();
 		var fnshYmd = $('#fnshYmd').val();
+		var pageNum = "1";
 		
 		if(sttgYmd == "" && fnshYmd != "") {
 			alert("시작 날짜를 입력해주세요.");
@@ -132,13 +145,20 @@
 		} else if(sttgYmd != "" && fnshYmd == "") {
 			alert("종료 날짜를 입력해주세요.");
 			return;
+		} else if(sttgYmd != "" && !datePattern.test(sttgYmd)){
+			alert("시작 날짜가 유효하지 않습니다.");
+			return;
+		} else if(fnshYmd != "" && !datePattern.test(fnshYmd)){
+			alert("종료 날짜가 유효하지 않습니다.");
+			return;
 		} 
 
 		$.ajax({
 	    	url:"/itep/views/myClass/eduHistorySearch", //데이터를  넘겨줄 링크 설정
 	        type:"POST", // post 방식
 			data: {"sttgYmd" : sttgYmd,
-				   "fnshYmd" : fnshYmd}, //넘겨줄 데이터
+				   "fnshYmd" : fnshYmd,
+				   "pageNum" : pageNum}, //넘겨줄 데이터
 			
 			success: function (responseData) {
 				
@@ -159,17 +179,85 @@
 				});
 				str += '</tbody>';
 				$('#hitoryTbody').replaceWith(str);
+				$('#pageNum').val("1");
 				}else{
 						str += '<tr height="130">';
 						str += '<td colspan="7" class="txt_center"><h4>선택 기간 내 수강 신청한 교육이 없습니다.</h4></td>';
 						str += '</tr>';
 					str += '</tbody>';
 					$('#hitoryTbody').replaceWith(str);
+					$('#pageNum').val("1");
+					$('#listCnt').html("1");
 				}
 			},
-			error: function (xhr, status, error) { alert("왜때문에그런거니~");
+			error: function (xhr, status, error) { alert("조회가 불가합니다. 다시 시도해주세요.");
 				
 			}
 		});
+	}
+		
+		function searchPage(ctrlPage) {
+			
+			var sttgYmd = $('#sttgYmd').val();
+			var fnshYmd = $('#fnshYmd').val();
+			var pageNum = parseInt($('#pageNum').val());
+			var listSize = parseInt('${listSize}');
+			
+		  	if(ctrlPage=="prvs"){
+		  		pageNum = pageNum-1;
+				if(pageNum <= 0){
+					alert("이전페이지가 없습니다.");
+					return;
+				}
+			}else if(ctrlPage=="next"){
+				pageNum = pageNum+1;
+				if(pageNum > listSize){
+					alert("다음페이지가 없습니다.");
+					return;
+				}
+			}else if(ctrlPage=="move"){
+				if(pageNum > listSize || pageNum <= 0){
+					alert("이동값이 유효하지 않습니다.");
+					return;
+				}
+			}
+		  	
+		    $.ajax({
+		        url:"/itep/views/myClass/eduHistorySearch", //데이터를  넘겨줄 링크 설정
+				type:"POST", // post 방식
+				data: {"sttgYmd" : sttgYmd,
+					   "fnshYmd" : fnshYmd,
+					   "pageNum" : pageNum},
+		    	    
+		         success: function (responseData) {
+		        	 
+						if(responseData.length == 0){
+						}
+							
+						else{ //조회결과가 있을경우 테이블 replace 수행
+							var str = '';
+							str += '<tbody id=\"hitoryTbody\">';
+							if(responseData != 0){
+							$.each(responseData, function(i) {
+								str += '<tr>';
+								str += '<td>'+(i+1)+'</td>';
+								str += '<td>'+responseData[i].edctNm+'</td>';
+								str += '<td>'+responseData[i].edinNm+'</td>';
+								str += '<td>'+responseData[i].edctSttgYmd + '~' + responseData[i].edctFnshYmd+'</td>';
+								str += '<td>'+responseData[i].fnshYn+'</td>';
+								str += '<td>'+responseData[i].aplcStgNm+'</td>';
+								str += '<td><button type=\"button\" class=\"btn btn-primary bts-xs\" onclick=\"showPopup(\'myClass\',\'eduInfoPop?edctAplcId='+responseData[i].edctAplcId+'\');\">확인</button></td>'
+								str += '</tr>';
+							});
+							str += '</tbody>';
+							$('#hitoryTbody').replaceWith(str);
+							$('#pageNum').val(pageNum);
+						}
+					}
+		         },
+		         error: function (xhr, status, error) {
+		        	 	alert("조회실패");
+		          }
+			}); 
 	}
 	</script>

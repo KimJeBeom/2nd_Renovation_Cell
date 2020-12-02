@@ -14,6 +14,7 @@ public class EduMyHistoryVO {
 	private String aplcStgNm;
 	private String startDate;
 	private String endDate;
+	private Integer pageSet;
 	
 	public Integer getEdctAplcId() {
 		return edctAplcId;
@@ -87,5 +88,10 @@ public class EduMyHistoryVO {
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
-
+	public Integer getPageSet() {
+		return pageSet;
+	}
+	public void setPageSet(Integer pageSet) {
+		this.pageSet = pageSet;
+	}
 }

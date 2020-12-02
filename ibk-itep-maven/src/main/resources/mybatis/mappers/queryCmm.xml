@@ -72,12 +72,8 @@
 			FROM TB_IEP_CMU001M CMU
 			LEFT JOIN TB_IEP_CMB001M CMB ON CMU.TEAM_CD = CMB.BRCD
 			WHERE  ATHR_CD ='DPM'
-		]]>
-    	<if test="userId != null">
-		<![CDATA[
 	 	   	AND    DVCD IN (SELECT DISTINCT DVCD FROM TB_IEP_CMU001M WHERE USER_ID =#{userId})
 	    ]]>
-	    </if>
 	</select>
 	
 	<select id="selectAuth" parameterType="String" resultType="String">
