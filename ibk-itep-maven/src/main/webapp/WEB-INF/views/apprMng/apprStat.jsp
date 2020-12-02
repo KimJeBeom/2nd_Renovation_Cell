@@ -182,16 +182,16 @@
 													<tr>
 														<td id="rowNum">2</td>
 														<td id="dpmAthzDvcd">${apprDetail.dpmAthzDvcd}</td>
+														<td id="dpmUserNm">${apprDetail.dpmUserNm}</td>
 														<td id="dpmAthzNm">${apprDetail.dpmAthzNm}</td>
-														<td>부서결재자</td>
 														<td id="dpmAthzCon">${apprDetail.dpmAthzCon }</td>
 														<td id="dpmAthzTs">${apprDetail.dpmAthzTs }</td>
 													</tr>
 													<tr>
 														<td id="rowNum">3</td>
 														<td id="grmAthzDvcd">${apprDetail.grmAthzDvcd}</td>
+														<td id="grmUserNm">${apprDetail.grmUserNm}</td>
 														<td id="grmAthzNm">${apprDetail.grmAthzNm}</td>
-														<td>그룹결재자</td>
 														<td id="grmAthzCon">${apprDetail.grmAthzCon }</td>
 														<td id="grmAthzTs">${apprDetail.grmAthzTs }</td>
 													</tr>
@@ -302,10 +302,12 @@
 					$('#userNm').html(responseData.userNm);
 					$('#aplcTs').html(responseData.aplcTs);
 					$('#dpmAthzDvcd').html(responseData.dpmAthzDvcd);
+					$('#dpmUserNm').html(responseData.dpmUserNm);
 					$('#dpmAthzNm').html(responseData.dpmAthzNm);
 					$('#dpmAthzCon').html(responseData.dpmAthzCon);
 					$('#dpmAthzTs').html(responseData.dpmAthzTs);
 					$('#grmAthzDvcd').html(responseData.grmAthzDvcd);
+					$('#grmUserNm').html(responseData.grmUserNm);
 					$('#grmAthzNm').html(responseData.grmAthzNm);
 					$('#grmAthzCon').html(responseData.grmAthzCon);
 					$('#grmAthzTs').html(responseData.grmAthzTs);

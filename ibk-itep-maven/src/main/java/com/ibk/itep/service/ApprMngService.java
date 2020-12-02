@@ -229,7 +229,6 @@ public class ApprMngService {
 		return vo;
 	}
 
-	
 	/* 날짜포맷변경 함수 */
 	 public String changeDateFormat(String ymd) {
 	      SimpleDateFormat asIsSdf = new SimpleDateFormat("yyyy-MM-dd");
