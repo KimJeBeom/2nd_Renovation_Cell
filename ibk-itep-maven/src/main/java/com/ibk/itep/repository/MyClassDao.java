@@ -68,4 +68,9 @@ public class MyClassDao {
 		int cnt = sqlSession.update("queryMyClass.updateEduInfoPop",infoVo);
 		return cnt;
 	}
+	
+	public String selectAplcStgCd(int edctAplcId) {
+		String aplcStgCd = sqlSession.selectOne("queryMyClass.selectAplcStgCd", edctAplcId);
+		return aplcStgCd;
+	}
 }

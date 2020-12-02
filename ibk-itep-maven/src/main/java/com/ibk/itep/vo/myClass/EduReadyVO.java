@@ -11,6 +11,7 @@ public class EduReadyVO {
 		private String edctFnshYmd;
 		private String aplcTs;
 		private String aplcStgNm;
+		private String aplcStgCd;
 		
 		public Integer getEdctAplcId() {
 			return edctAplcId;
@@ -65,6 +66,12 @@ public class EduReadyVO {
 		}
 		public void setAplcStgNm(String aplcStgNm) {
 			this.aplcStgNm = aplcStgNm;
+		}
+		public String getAplcStgCd() {
+			return aplcStgCd;
+		}
+		public void setAplcStgCd(String aplcStgCd) {
+			this.aplcStgCd = aplcStgCd;
 		}
 
 

@@ -64,9 +64,17 @@
 													onclick="showPopup('myClass','eduInfoPop?edctAplcId='+${eduReadyList.edctAplcId}+'&&modType=ready');">확인</button>
 											</td>
 											<td id="aplcStgNm">${eduReadyList.aplcStgNm }</td>
+											<td id="aplcStgCd" style="display:none">${eduReadyList.aplcStgCd}</td>
 											<td id="edctAplcId" style="display:none">${eduReadyList.edctAplcId}</td>
 											<td>
+										 <c:choose>
+											 <c:when test="${eduReadyList.aplcStgCd eq 'REJDPM' || eduReadyList.aplcStgCd eq 'REJGRM' || eduReadyList.aplcStgCd eq 'APRDPM'}">
 												<button type="button" class="btn btn-default btn-xs" onclick="cancel(${eduReadyList.edctAplcId});">취소요청</button>
+											 </c:when>
+											  <c:otherwise>
+												<button type="button" class="btn btn-default btn-xs" onclick="cancel(${eduReadyList.edctAplcId});" disabled>취소요청</button>
+											 </c:otherwise>
+										  </c:choose>
 											</td>
 										</tr>	
 									</c:forEach>
@@ -149,25 +157,23 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/floatthead/2.2.1/jquery.floatThead.js"></script>
 	<script type="text/javascript">
 
-	//$('#eduNewListTb').floatThead();
-
-	
 		$(document).ready(function() {
 			var tbody = document.getElementById('eduReadyListTbody');
 			var trs = tbody.getElementsByTagName('tr');	
 		});
 		
 		function cancel(edctAplcId) {
-		
+
 		if (confirm("해당 교육을 취소하시겠습니까?") == true){  
 			$.ajax({
 		    	url:"/itep/views/myClass/eduReady/cancel", //데이터를  넘겨줄 링크 설정
 		        type:"POST", // post 방식
 				data: {"edctAplcId" : edctAplcId}, //넘겨줄 데이터
-	
+
 				success: function (responseData) {
 					var str = '';
 					str += '<tbody id=\"eduReadyListTbody\">';
+					if(responseData.length != 0) {
 					$.each(responseData, function(i) {
 						str += '<tr>';
 						str += '<td>'+(i+1)+'</td>';
@@ -177,18 +183,21 @@
 						str += '<td>'+responseData[i].aplcTs+'</td>';
 						str += '<td><button type=\"button\" class=\"btn btn-primary bts-xs\" onclick=\"showPopup(\'myClass\',\'eduInfoPop?edctAplcId='+responseData[i].edctAplcId+'\');\">확인</button></td>'
 						str += '<td>'+responseData[i].aplcStgNm+'</td>';
+						if(responseData[i].aplcStgCd == "REJDPM" || responseData[i].aplcStgCd == "REJGRM"  || responseData[i].aplcStgCd == "APRDPM" ){
 						str += '<td><button type=\"button\" class=\"btn btn-default btn-xs\" onclick=\"cancel('+responseData[i].edctAplcId+');\">취소요청</button></td>'
+						}else{
+							str += '<td><button type=\"button\" class=\"btn btn-default btn-xs\" onclick=\"cancel('+responseData[i].edctAplcId+');\" disabled>취소요청</button></td>'
+						}
 						str += '</tr>';
 					});
+					} else {
+						str += '<tr height="130">';
+						str += '<td colspan="8" class="txt_center"><h4>개설 신청한 과정이 없습니다.</h4></td>';
+						str += '</tr>';
+				}
 					str += '</tbody>';
 					$('#eduReadyListTbody').replaceWith(str);
 					
-					if(responseData.length == 0) {
-						 
-					} else {
-						var tbody = document.getElementById('eduReadyListTbody');
-						var trs = tbody.getElementsByTagName('tr');
-					}
 				},
 				error: function (xhr, status, error) { alert("왜때문에그런거니~");
 					

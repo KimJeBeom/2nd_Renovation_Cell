@@ -60,17 +60,16 @@ public class EdueduReadyController {
 	  /*수강신청 목록 - 취소요청처리*/
 	  @RequestMapping(value = "/views/myClass/eduReady/cancel", method = RequestMethod.POST)
 	  public @ResponseBody List<EduReadyVO> eduReadyList(HttpServletRequest request, @RequestParam("edctAplcId") int edctAplcId, Model model) {
-	  
-		 myClassService.updateEduReady(edctAplcId);
+		 
+		  int result = myClassService.updateEduReady(edctAplcId);
 		  
 			/* 세션정보를 담은 SessionVo 가져옴 */
 			HttpSession session = request.getSession();
 			SessionVo ssnInfo = (SessionVo)session.getAttribute("ssnInfo");
 			
+			logger.info("취소 업데이트 cnt" + result);
 		 List<EduReadyVO> eduReadyList = myClassService.getReadyList(ssnInfo);
-	   
-	   return eduReadyList;
-	 
+		 return eduReadyList;
 	 }
 	 
 		/*수강신청 목록 - 반려건 재결재요청*/

@@ -85,7 +85,13 @@ public class MyClassService {
 	
 	public int updateEduReady(int edctAplcId){
 
+		String aplcStgCd = myClassDao.selectAplcStgCd(edctAplcId);
+		
+		if(aplcStgCd.equals("APRDPM") || aplcStgCd.equals("REJDPM") || aplcStgCd.equals("REJGRM") ) {
 		return	myClassDao.updateEduReady(edctAplcId);
+		}else{
+			return 0; 
+		}
 	}
 	
 	public int updateEduInfoPop(EduInfoPopVO infoVo, SessionVo ssnInfo){

@@ -64,7 +64,8 @@
 			DATE_FORMAT(EDC.EDCT_STTG_YMD,'%Y.%m.%d') AS edctSttgYmd,   -- 학습시작일 
 			DATE_FORMAT(EDC.EDCT_FNSH_YMD,'%Y.%m.%d') AS edctFnshYmd,    -- 학습종료일
 			DATE_FORMAT(EDA.APLC_TS, '%Y.%m.%d')  AS aplcTs, -- 신청일시
-			CLS.APLC_STG_NM AS aplcStgNm -- 신청단계명
+			CLS.APLC_STG_NM AS aplcStgNm, -- 신청단계명
+			EDA.APLC_STG_CD AS aplcStgCd -- 신청단계코드
 			FROM TB_IEP_EDA001M EDA, TB_IEP_EDC001M EDC, TB_IEP_EDM001M EDM, TB_IEP_CLI001C CLI, TB_IEP_CLS001C CLS
 			WHERE 1=1
             AND EDA.EDCT_CNT_ID = EDC.EDCT_CNT_ID
@@ -238,5 +239,15 @@
 			AND EDO.USER_ID = CMU.USER_ID AND CMU.USE_YN = 'Y'
 			AND CMU.DVCD = CMB.BRCD AND CMB.USE_YN = 'Y';
 	     ]]>
+	</select>
+
+<!-- 결재단계코드 확인 -->
+		<select id="selectAplcStgCd" parameterType="Integer" resultType="String">
+		<![CDATA[
+		SELECT APLC_STG_CD AS aplcStgCd
+		FROM TB_IEP_EDA001M
+		WHERE EDCT_APLC_ID = #{edctAplcId} AND USE_YN = 'Y' 
+		FOR UPDATE
+		]]>
 	</select>
 </mapper>
