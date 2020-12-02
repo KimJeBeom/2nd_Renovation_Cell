@@ -37,7 +37,7 @@
 							</div>
 							
 							<!-- 결재 목록 테이블 (TOGGLE 적용)-->
-							<div class="panel-body" style="overflow-x:hidden; height:300px; padding:10px 25px;">
+							<div class="panel-body" style="overflow-x:hidden; height:250px; padding:10px 25px;">
 								<table class="table table-hover tbl-type2">
 									<thead>
 										<tr>

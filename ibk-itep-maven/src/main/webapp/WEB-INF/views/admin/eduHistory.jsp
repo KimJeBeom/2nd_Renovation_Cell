@@ -108,7 +108,6 @@
 											<th style="width: 50px">구분</th>
 											<th style="width: 50px">이력ID</th>
 											<th>교육분류</th>
-											<th>팀명</th>
 											<th>부서명</th>
 											<th>팀명</th>
 											<th>직원명</th>
@@ -144,7 +143,11 @@
 	<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 	<script type="text/javascript">
 	
-		//페이지 수기 입력 이동 pageCtrl();수행 스크립트
+		//페이지 수기 입력 이동 pageCtrl();수행 스크립트		
+		$("#edctFnshYmd").keyup(function(e){if(e.keyCode == 13)  selectEduHistory(); });
+		$("#edctClsfCd").keyup(function(e){if(e.keyCode == 13)  selectEduHistory(); });
+		$("#brnm").keyup(function(e){if(e.keyCode == 13)  selectEduHistory(); });
+		$("#userNm").keyup(function(e){if(e.keyCode == 13)  selectEduHistory(); });
 		$("#pageNum").keyup(function(e){if(e.keyCode==13) pageCtrl('move'); });
 	
 		$(document).ready(function() {
@@ -218,7 +221,6 @@
 						//str += '<td><input type="radio" name="chkEdctAplcId" value='+responseData[i].edctAplcId+'></td>'
 						str += '<td>'+responseData[i].edctAplcId+'</td>'
 						str += '<td>'+responseData[i].edctClsfNm+'</td>'
-						str += '<td>'+responseData[i].teamNm+'</td>'
 						str += '<td>'+responseData[i].brnm+'</td>'
 						str += '<td>'+responseData[i].teamNm+'</td>'
 						str += '<td>'+responseData[i].userNm+'</td>'
@@ -302,11 +304,12 @@
 					str += '<tbody  id=\"eduHistoryTbody\">'
 					$.each(responseData, function (i){
 						str += '<tr>'
-						str += '<td><input type="radio" name="chkEdctAplcId" value='+responseData[i].edctAplcId+'></td>'
+						str += '<td><label class=\"fancy-radio\"><input type=\"radio\" name=\"chkEdctAplcId\" value=\"'+responseData[i].edctAplcId+'\"><span><i style=\"margin-top:7px;\"></i></span></label></td>';
+						//str += '<td><input type="radio" name="chkEdctAplcId" value='+responseData[i].edctAplcId+'></td>'
 						str += '<td>'+responseData[i].edctAplcId+'</td>'
 						str += '<td>'+responseData[i].edctClsfNm+'</td>'
-						str += '<td>'+responseData[i].teamNm+'</td>'
 						str += '<td>'+responseData[i].brnm+'</td>'
+						str += '<td>'+responseData[i].teamNm+'</td>'
 						str += '<td>'+responseData[i].userNm+'</td>'
 						str += '<td>'+responseData[i].userId+'</td>'
 						str += '<td>'+responseData[i].edctId+'</td>'

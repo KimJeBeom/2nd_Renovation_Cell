@@ -45,7 +45,7 @@
 												<th colspan="4">참고사항등록</th>
 											</tr>
 											<tr>
-												<td class="txt-long" colspan="4"><textarea id="rfrcCon"
+												<td class="txt-long" class="form-control" colspan="4"><textarea id="rfrcCon"
 														placeholder="참고사항을 입력하세요"
 														style="width: 100%; height: 200px;"></textarea> </td>
 											</tr>

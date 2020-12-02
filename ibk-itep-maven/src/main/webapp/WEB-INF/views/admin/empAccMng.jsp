@@ -220,8 +220,8 @@
 			}
 			
 			var athrCdTobe = this.value; // 변경 후 권한코드
-			var athrCdAsis = $(this).parent().parent().children().eq(6).text();
-			var userId = $(this).parent().parent().children().eq(1).text(); // 권한 변경할 직원 번호
+			var athrCdAsis = $(this).parent().parent().children().eq(5).text();
+			var userId = $(this).parent().parent().children().eq(0).text(); // 권한 변경할 직원 번호
 
 			// 검색창에 입력된값 
 			var brcd = $('#brcd option:selected').val();
@@ -265,7 +265,7 @@
 					str += '<td>'+list.brnm+'</td>';
 					str += '<td style="display:none;">'+list.athrCd+'</td>';
 					str += '<td>';
-					str += '<select class="form-control athrSelBox" style="text-align: left;">';
+					str += '<select class="form-control athrSelBox" style="text-align: left;width:80%; margin-left:30px;">';
 					// 권한 셀렉트박스 출력
 					$.each(claList, function(j, clalist) {
 						if(clalist.athrCd == list.athrCd) 
