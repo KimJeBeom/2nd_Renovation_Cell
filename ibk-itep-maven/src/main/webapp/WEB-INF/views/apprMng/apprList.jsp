@@ -25,21 +25,19 @@
 						<div style="display: table-cell; vertical-align: middle"><h1 class="page-title" style="vertical-align: middle;">&nbsp;&nbsp;<b>결재 할 문서</b></h1></div>						 	
 					</div>
 					<div class="row">
-					
 						<div id="toastr-demo" class="panel">
-						
 							<!-- 결재 목록 -->
 							<div class="panel-heading" style="padding-bottom:0px;">
 								<h4 class="pannel-title"><b>▶ &nbsp;&nbsp;결재 목록</b></h4>
 							</div>
-							<div class="panel-body" style="overflow-x:hidden; height:350px;">
-								<!-- <h4 class="panel-title" style="float:left;"><b>▶ 결재 목록</b></h4> -->
-								
+							<div class="panel-body" style="padding:0px 25px;">
 								<!-- 상단 버튼 -->
 								<button type="button" class="btn btn-primary btn-toastr btn-top" onclick="apprRej();">반려</button>
 								<button type="button" class="btn btn-primary btn-toastr btn-top" onclick="apprConf();">승인</button>
+							</div>
 							
-								<!-- 결재 목록 테이블 (TOGGLE 적용)-->
+							<!-- 결재 목록 테이블 (TOGGLE 적용)-->
+							<div class="panel-body" style="overflow-x:hidden; height:300px; padding:10px 25px;">
 								<table class="table table-hover tbl-type2">
 									<thead>
 										<tr>
