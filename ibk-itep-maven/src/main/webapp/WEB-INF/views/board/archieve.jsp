@@ -83,8 +83,7 @@
 								<button class="btn btn-primary btn-xs" id='prvsPage' onclick="search('prvs');">◀</button>
 								&nbsp;
 								<input type="text" id="pageNum" value=1 style="width:30px; text-align:center">&nbsp;/
-								<label id="listCnt" style="width:20px; text-align:center" >${listSize}</label>
-								<!-- <button class="btn btn-default btn-xs" id='movePage' onclick="search('move');">이동</button> --> 
+								<label id="listCnt" style="width:30px; text-align:center" >${listSize}</label> 
 								<button class="btn btn-primary btn-xs" id='nextPage' onclick="search('next');">▶</button>
 							</div> 
 						</div>

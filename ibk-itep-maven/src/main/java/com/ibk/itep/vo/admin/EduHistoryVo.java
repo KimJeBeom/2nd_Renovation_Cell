@@ -8,6 +8,7 @@ public class EduHistoryVo {
 	private String	edctClsfCd; // 교육 분류 코드
 	private String	edctClsfNm; // 교육 분류
 	private String	dvcd; 		// 부서명
+	private String	teamNm; 	// 팀명
 	private String	brnm; 		// 부서명
 	private String	teamNm; 	// 팀명
 	private String 	userId; 	// 직원번호
@@ -19,6 +20,9 @@ public class EduHistoryVo {
 	private String 	edctFnshYmd;// 교육 종료일
 	private String 	edex; 		// 예산
 	private String 	rfrcCon; 	// 참고
+	
+	private Integer pageSet; //페이지SetNumber
+	
 	public Integer getEdctAplcId() {
 		return edctAplcId;
 	}
@@ -121,7 +125,12 @@ public class EduHistoryVo {
 	public void setRfrcCon(String rfrcCon) {
 		this.rfrcCon = rfrcCon;
 	}
-	
+	public Integer getPageSet() {
+		return pageSet;
+	}
+	public void setPageSet(Integer pageSet) {
+		this.pageSet = pageSet;
+	}
 	
 	
 }

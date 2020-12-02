@@ -39,6 +39,11 @@
 	     		and edm.EDCT_ID = #{edctId}
 	     	]]>
 	     </if>
+		<if test="pageSet != null and pageSet >= 0">		
+			<![CDATA[
+				Limit #{pageSet} ,10
+			]]>
+		</if>
 	</select>
 	<update id="deleteEduRegMod" parameterType="EduRegModVo">
 		<![CDATA[
@@ -426,6 +431,7 @@
 			SELECT	eda.EDCT_APLC_ID as edctAplcID		# 교육 신청 ID
 				,	cld.EDCT_CLSF_NM as edctClsfNm		# 교육 분류
 				,	edc.EDCT_ID as edctId				# 교육 ID
+				,   (select b.BRNM from itep.tb_iep_cmb001m b where eda.team_cd = b.BRCD) as teamNm #팀명
     			,	cmb.BRNM as brnm 					# 부서명 
     			,	eda.USER_ID as userId 				# 직원번호
     			,	cmu.USER_NM as userNm 				# 직원명
@@ -480,6 +486,11 @@
 				(edc.EDCT_STTG_YMD >= #{edctSttgYmd} and edc.EDCT_STTG_YMD <= #{edctFnshYmd})
 				or (edc.EDCT_FNSH_YMD >= #{edctSttgYmd} and edc.EDCT_FNSH_YMD <= #{edctFnshYmd})		
         		)   		
+	    	]]>
+	    </if>
+		<if test="edctAplcId != null">
+	    	<![CDATA[#신청교육ID
+	    		and eda.EDCT_APLC_ID = #{edctAplcId}
 	    	]]>
 	    </if>
 	</select>

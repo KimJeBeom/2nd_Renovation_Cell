@@ -65,9 +65,8 @@ public class NoticeRegPopController {
 			if(modRst==true && Integer.parseInt(addFileCnt) > 0) {
 				//파일 업로드를 위한 공지사항ID를 받아온다.
 				logger.info("NoticeRegControll FILE Upload Start");
-				//int id = Integer.parseInt(pbns_id); 
-				int pId = cmmService.getPrstKey("TB_IEP_BDN001M");	
-				
+
+				int pId = vo.getPbnsId();	
 				int uploadcount = fileUtil.fileUpload(code_nm, pId, mpRequest);
 				logger.info("NoticeRegControll FILE Upload End");
 				logger.debug(" --- upload file count : " + String.valueOf(uploadcount));

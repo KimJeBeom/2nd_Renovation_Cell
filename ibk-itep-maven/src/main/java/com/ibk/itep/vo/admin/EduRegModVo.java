@@ -19,6 +19,8 @@ public class EduRegModVo {
 	private String 	useYn;		//사용여부
 	private Date 	rgsnTs;		//등록일시
 	
+	private Integer pageSet; //페이지SetNumber
+	
 	public Integer getEdctId() {
 		return edctId;
 	}
@@ -103,5 +105,10 @@ public class EduRegModVo {
 	public void setRgsnTs(Date rgsnTs) {
 		this.rgsnTs = rgsnTs;
 	}
-	
+	public Integer getPageSet() {
+		return pageSet;
+	}
+	public void setPageSet(int pageSet) {
+		this.pageSet = pageSet;
+	}
 }
