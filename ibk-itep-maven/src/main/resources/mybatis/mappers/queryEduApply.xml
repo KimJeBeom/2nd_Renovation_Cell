@@ -137,7 +137,6 @@
 			,DVCD	#부서코드
 			,USER_ID	#신청자ID
 			,APLC_TS	#신청일시
-			,APND_DAT	#첨부파일
 			,DPM_ATHZ_ID	#부서승인ID 
 			,DPM_ATHZ_TS	#부서승인일시
 			,GRM_ATHZ_ID	#관리자승인ID
@@ -153,7 +152,6 @@
 			,#{dvcd}
 			,#{userId}
 			,NOW()
-			,#{apndDat}
 			,#{dpmAthzId}
 			,NULL
 			,(SELECT MAX(USER_ID) FROM TB_IEP_CMU001M WHERE ATHR_CD='GRM')
@@ -179,7 +177,6 @@
 			,DVCD	#부서코드
 			,USER_ID	#신청자ID
 			,APLC_TS	#신청일시
-			,APND_DAT	#첨부파일
 			,DPM_ATHZ_ID	#부서승인ID 
 			,DPM_ATHZ_TS	#부서승인일시
 			,GRM_ATHZ_ID	#관리자승인ID
@@ -195,7 +192,6 @@
 			,#{dvcd}
 			,#{userId}
 			,NOW()
-			,#{apndDat}
 			,NULL
 			,NULL
 			,NULL
@@ -218,7 +214,6 @@
 		UPDATE TB_IEP_EDA001M
 		SET
 			 APLC_TS = NOW() #신청일시
-			,APND_DAT = #{apndDat} #첨부파일
 		  	,DPM_ATHZ_ID = #{dpmAthzId} #부서담당자ID
 			,DPM_ATHZ_TS = NULL #부서담당자승인일시
 			,GRM_ATHZ_ID = (SELECT USER_ID FROM TB_IEP_CMU001M ATHR_CD='GRM' LIMIT 1) #그룹담당자ID
@@ -248,7 +243,6 @@
 			,EDEX	#교육비용 
 			,ONL_EDCT_YN	#온라인교육여부
 			,EDCT_LEVL	#교육수준 
-			,APND_DAT	#첨부파일 
 			,CNFA_YN	#확인여부
 			,CNFM_ID	#확인자ID
 			,USE_YN	#사용여부
@@ -268,7 +262,6 @@
 			,#{edex}
 			,#{onlEdctYn}
 			,#{edctLevl}
-			,#{apndDat}
 			,'N'
 			,NULL
 			,'Y'

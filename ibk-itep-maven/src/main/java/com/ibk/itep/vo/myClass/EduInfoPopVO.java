@@ -11,7 +11,6 @@ public class EduInfoPopVO {
  private String edctSttgYmd;
  private String edctFnshYmd;
  private String edctLevl;
- private String apndDat;
  private Integer edctAplcId;
  private String aplcStgCd;
  private String rtreCon;
@@ -72,12 +71,6 @@ public class EduInfoPopVO {
 	}
 	public void setEdctLevl(String edctLevl) {
 		this.edctLevl = edctLevl;
-	}
-	public String getApndDat() {
-		return apndDat;
-	}
-	public void setApndDat(String apndDat) {
-		this.apndDat = apndDat;
 	}
 	public Integer getEdctAplcId() {
 		return edctAplcId;

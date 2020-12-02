@@ -44,7 +44,6 @@ public class EduListVo {
 	private String userId;
 	private String dpmAthzId;
 	private String aplcStgCd;
-	private String apndDat;
 	private String grmAthzId;
 	
 	private Integer pageSet; //페이지SetNumber
@@ -291,13 +290,7 @@ public class EduListVo {
 	public void setAplcStgCd(String aplcStgCd) {
 		this.aplcStgCd = aplcStgCd;
 	}
-	public String getApndDat() {
-		return apndDat;
-	}
-	public void setApndDat(String apndDat) {
-		this.apndDat = apndDat;
-	}
-	
+
 	public String getGrmAthzId() {
 		return grmAthzId;
 	}

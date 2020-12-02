@@ -19,7 +19,6 @@ public class NewEduInfoVo {
 	private String edex;
 	private String onlEdctYn;
 	private String edctLevl;
-	private String apndDat;
 	private String cnfaYn;
 	private String cnfmId;
 	
@@ -130,12 +129,6 @@ public class NewEduInfoVo {
 	}
 	public void setEdctLevl(String edctLevl) {
 		this.edctLevl = edctLevl;
-	}
-	public String getApndDat() {
-		return apndDat;
-	}
-	public void setApndDat(String apndDat) {
-		this.apndDat = apndDat;
 	}
 	public String getCnfaYn() {
 		return cnfaYn;

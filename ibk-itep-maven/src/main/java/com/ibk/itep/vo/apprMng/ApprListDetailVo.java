@@ -15,7 +15,6 @@ public class ApprListDetailVo {
 	private String edctFnshYmd;
 	private String aplcSttgYmd;
 	private String aplcFnshYmd;
-	private File apndDat;
 	
 	public Integer getEdctAplcId() {
 		return edctAplcId;
@@ -88,11 +87,5 @@ public class ApprListDetailVo {
 	}
 	public void setAplcFnshYmd(String aplcFnshYmd) {
 		this.aplcFnshYmd = aplcFnshYmd;
-	}
-	public File getApndDat() {
-		return apndDat;
-	}
-	public void setApndDat(File apndDat) {
-		this.apndDat = apndDat;
 	}
 }

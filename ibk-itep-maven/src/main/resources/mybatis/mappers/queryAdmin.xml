@@ -397,7 +397,6 @@
 					, EDO.EDEX AS edex 					-- 교육비
 					, EDO.ONL_EDCT_YN AS onlEdctYn 		-- 온라인교육여부
 					, EDO.EDCT_LEVL AS edctLevl 		-- 교육수준
-					, EDO.APND_DAT AS apndDat 			-- 첨부파일
         			, EDO.CNFA_YN AS cnfaYn				-- 확인여부
 					FROM TB_IEP_EDO001M EDO, TB_IEP_CMB001M CMB, TB_IEP_CMU001M CMU
 					WHERE EDO.APLC_ID = #{aplcId} AND EDO.USE_YN = 'Y'

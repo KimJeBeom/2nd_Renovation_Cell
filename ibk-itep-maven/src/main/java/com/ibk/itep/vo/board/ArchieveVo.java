@@ -17,7 +17,6 @@ public class ArchieveVo {
 	private Date rgsnTs; //등록일시(TimeStamp)
 	private String userId; //등록자직원번호
 	private String userNm; //등록자명
-	private String apndDat; //첨부파일
 	
 	private Integer pageSet; //페이지SetNumber
 	
@@ -70,12 +69,6 @@ public class ArchieveVo {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
-	}
-	public String getApndDat() {
-		return apndDat;
-	}
-	public void setApndDat(String apndDat) {
-		this.apndDat = apndDat;
 	}
 	public Integer getPageSet() {
 		return pageSet;
