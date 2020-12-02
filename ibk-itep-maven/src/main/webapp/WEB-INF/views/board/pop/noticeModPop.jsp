@@ -94,7 +94,7 @@
 							 </c:if>
 							<tr>
 							   <td class="txt-long" colspan="4">
-								<textarea id ="con" style="width:100%; height: 200px;">${vo.con}</textarea>
+								<textarea id ="con" class="form-control" style="width:100%; height: 200px;">${vo.con}</textarea>
 							   </td>
 							</tr>
 						 </tbody>

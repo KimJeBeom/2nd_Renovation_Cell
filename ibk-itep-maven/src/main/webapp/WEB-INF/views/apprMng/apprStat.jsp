@@ -176,7 +176,7 @@
 														<td id="brnm">${apprDetail.brnm}</td>
 														<td id="userNm">${apprDetail.userNm}</td>
 														<td>요청자</td>
-														<td id="apprCon">${apprDetail.userAthzCon}</td>
+														<td id="apprCon">결재요청</td>
 														<td id="aplcTs">${apprDetail.aplcTs}</td>
 													</tr>
 													<tr>
@@ -300,7 +300,6 @@
 					// apprDetail 결과값을 테이블에 동적으로 반영
 					$('#brnm').html(responseData.brnm);
 					$('#userNm').html(responseData.userNm);
-					$('#userAthzCon').html(responseData.userAthzCon);
 					$('#aplcTs').html(responseData.aplcTs);
 					$('#dpmAthzDvcd').html(responseData.dpmAthzDvcd);
 					$('#dpmUserNm').html(responseData.dpmUserNm);

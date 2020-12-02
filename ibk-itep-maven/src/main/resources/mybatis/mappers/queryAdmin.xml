@@ -39,6 +39,9 @@
 	     		and edm.EDCT_ID = #{edctId}
 	     	]]>
 	     </if>
+	     <![CDATA[
+	     		ORDER BY edctId DESC
+	     ]]>
 		<if test="pageSet != null and pageSet >= 0">		
 			<![CDATA[
 				Limit #{pageSet} ,10

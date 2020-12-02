@@ -52,7 +52,7 @@
 							 <tr>
 								<td class="txt-long" colspan="4">
 									<form>
-										<textarea id="con" placeholder="공지내용을 입력하세요" style="width:100%; height: 200px;"></textarea>
+										<textarea id="con" class="form-control" placeholder="공지내용을 입력하세요" style="width:100%; height: 200px;"></textarea>
 									</form>
 								</td>
 							 </tr>

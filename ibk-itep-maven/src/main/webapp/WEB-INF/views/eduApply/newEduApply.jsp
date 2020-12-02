@@ -58,7 +58,7 @@
 										<td class="info"><b>교육내용 및<br>신청사유</b></td>
 										<td colspan="3">
 											<form>
-												<textarea id="edctCon" placeholder="" style="width:100%; height:200px;"></textarea>
+												<textarea id="edctCon" class="form-control" placeholder="" style="width:100%; height:200px;"></textarea>
 											</form>
 										</td>
 									</tr>
@@ -225,7 +225,7 @@ function insertNewEdu() {
 		var	aplcSttgYmd = $("#aplcSttgYmd").val().split(".").join("-");
 		var	aplcFnshYmd = $("#aplcFnshYmd").val().split(".").join("-");
 		var	edctSttgYmd = $("#edctSttgYmd").val().split(".").join("-");
-		var	edctSttgTim = $("#edctSttgTim").val().split(".").join("-");
+		var	edctFnshYmd = $("#edctFnshYmd").val().split(".").join("-");
 		var	edctSttgTim = $("#edctSttgTim").val(); //교육시작시간 
 		var	edctFnshTim = $("#edctFnshTim").val(); //교육종료시간
 		var	edex = $("#edex").val(); //교육비용

@@ -41,10 +41,10 @@
 							</tr>
 							<tr>
 							   <th>교육내용</th>
-							   <td class="txt-long" colspan="3">
-								<form>
-									<textarea id="edctCon" placeholder="" style="width:100%; height:150px;" readonly>${vo.edctCon}</textarea>
-								</form>
+							   <td class="txt-long" colspan="3" style="min-height:100px;">${vo.edctCon}
+								<!-- <form>
+									<textarea id="edctCon" class="form-control" placeholder="" style="width:100%; height:150px;" readonly>${vo.edctCon}</textarea>
+								</form> -->
 							   </td>
 							</tr>
 							<tr>

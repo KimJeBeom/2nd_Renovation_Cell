@@ -15,7 +15,6 @@
 			  ,RGSN_TS AS RGSNTS#등록일시 
 			  ,USER_ID AS USERID#사용자ID
 			  ,(SELECT USER_NM FROM TB_IEP_CMU001M U WHERE U.USER_ID = N.USER_ID LIMIT 1 ) AS USERNM #신청자명
-			  ,APND_DAT AS APNDDAT  #첨부파일
 			  ,USE_YN AS USEYN 	#사용여부
 		FROM  TB_IEP_BDN001M N
 		WHERE 1=1
@@ -48,7 +47,6 @@
 			  ,RGSN_TS AS RGSNTS #등록일시 
 			  ,USER_ID AS USERID #사용자ID
 			  ,(SELECT USER_NM FROM TB_IEP_CMU001M U WHERE U.USER_ID = N.USER_ID LIMIT 1 ) AS USERNM #신청자명
-			  ,APND_DAT AS APNDDAT #첨부파일
 			  ,USE_YN AS USEYN 	#사용여부
 		FROM  TB_IEP_BDN001M N
 		WHERE 1=1
@@ -66,7 +64,6 @@
 			,CON#내용
 			,RGSN_TS#등록일시 
 			,USER_ID#사용자ID
-			,APND_DAT #첨부파일
 			,USE_YN	#사용여부
 		) VALUES(
 			 #{edctClsfCd}
@@ -74,7 +71,6 @@
 			,#{con}
 			,NOW()
 			,#{userId}
-			,#{apndDat}
 			,'Y' 
 		)
 	     ]]>
@@ -91,7 +87,6 @@
 		    EDCT_CLSF_CD = #{edctClsfCd} #교육분류코드
 		   ,TTL = #{ttl} #제목 
 		   ,CON = #{con}#내용
-		   ,APND_DAT = #{apndDat} #첨부파일
 		WHERE PBNS_ID =#{pbnsId}
 	     ]]>
 	</update>
@@ -117,7 +112,6 @@
 			  ,RGSN_TS AS RGSNTS#등록일시 
 			  ,USER_ID AS USERID#사용자ID
 			  ,(SELECT USER_NM FROM TB_IEP_CMU001M U WHERE U.USER_ID = R.USER_ID LIMIT 1 ) AS USERNM #신청자명
-			  ,APND_DAT AS APNDDAT  #첨부파일
 			  ,USE_YN AS USEYN 	#사용여부
 		FROM  TB_IEP_BDR001M R
 		WHERE 1=1
@@ -153,7 +147,6 @@
 			  ,RGSN_TS AS RGSNTS #등록일시 
 			  ,USER_ID AS USERID #사용자ID
 			  ,(SELECT USER_NM FROM TB_IEP_CMU001M U WHERE U.USER_ID = R.USER_ID LIMIT 1 ) AS USERNM #신청자명
-			  ,APND_DAT AS APNDDAT #첨부파일
 			  ,USE_YN AS USEYN 	#사용여부
 		FROM  TB_IEP_BDR001M R
 		WHERE 1=1
@@ -171,7 +164,6 @@
 			,CON#내용
 			,RGSN_TS#등록일시 
 			,USER_ID#사용자ID
-			,APND_DAT #첨부파일
 			,USE_YN	#사용여부
 		) VALUES(
 			 #{edctClsfCd}
@@ -179,7 +171,6 @@
 			,#{con}
 			,NOW()
 			,#{userId}
-			,#{apndDat}
 			,'Y' 
 		)
 	     ]]>
@@ -196,7 +187,6 @@
 		    EDCT_CLSF_CD = #{edctClsfCd} #교육분류코드
 		   ,TTL = #{ttl} #제목 
 		   ,CON = #{con}#내용
-		   ,APND_DAT = #{apndDat} #첨부파일
 		WHERE RFLB_ID = #{rflbId}
 	     ]]>
 	</update>
