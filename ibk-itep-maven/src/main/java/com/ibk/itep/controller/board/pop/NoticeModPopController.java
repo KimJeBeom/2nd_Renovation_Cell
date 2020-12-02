@@ -47,7 +47,7 @@ public class NoticeModPopController{
 	
 		boolean modRst = false;
 		if(modType!=null) {//modType = insert
-					
+			
 			logger.info("NoticeModPopPost job Start");
 			logger.info("--- @RequestParam : " + modType);
 			
@@ -58,25 +58,22 @@ public class NoticeModPopController{
 			modRst = service.modAction(vo,modType,ssnInfo);
 			logger.info("NoticeModPopPost job End" + modRst);
 			
-			if(modRst==true && (Integer.parseInt(addFileCnt) > 0 || fileNoDel.length > 0)) {
-				logger.info("NoticeRegControll FILE" +modType+" Start");
+			int id = Integer.parseInt(pbns_id);
+			logger.info("NoticeModPopPost FILE" +modType+" Start");
+			if(modRst==true && modType.equals("update") && (Integer.parseInt(addFileCnt) > 0 || fileNoDel.length > 0)) {
 				//파일 삭제+업로드 수행
-				int id = Integer.parseInt(pbns_id);
-				if(modType.equals("update")) {
-					logger.debug(String.valueOf(fileNoDel.length));
-					fileUtil.fileUpdate(fileNoDel,code_nm,id,mpRequest);
-				}else if(modType.equals("delete")) {
-					fileUtil.fileAllDelete(code_nm, id);
-				}
-				
-				logger.info("NoticeRegControll FILE" +modType+" End");
+				logger.debug(String.valueOf(fileNoDel.length));
+				fileUtil.fileUpdate(fileNoDel,code_nm,id,mpRequest);			
+			}else if(modType.equals("delete")) {
+				fileUtil.fileAllDelete(code_nm, id);
 			}else {
-				logger.info("NoticeRegControll FILE Upload Cancle");
+				logger.info("NoticeModPopPost FILE Upload Cancle");
 				logger.info(" --- modRst : "+ modRst + "/ fileCnt: " + addFileCnt + "/ fileNoDel: " + fileNoDel.length );
 			}
+			logger.info("NoticeModPopPost FILE" +modType+" End");
 			
 		}
-		
+				
 		logger.info("NoticeModPopPost End");
 		
 		//insert는 상세조회 기능 필요 없음으로 인한 별도 재조회 없이 화면을 호출하여 창종료 시킴

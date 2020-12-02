@@ -66,7 +66,7 @@ public class ArchRegPopController{
 			if(modRst==true && Integer.parseInt(addFileCnt) > 0) {
 				//파일 업로드를 위한 공지사항ID를 받아온다.
 				logger.info("ArchRegControll FILE Upload Start");
-				int pId = cmmService.getPrstKey("TB_IEP_BDR001M");	
+				int pId = vo.getRflbId();
 				int uploadCount = fileUtil.fileUpload(code_nm, pId, mpRequest);
 				logger.info("ArchRegControll FILE Upload End");
 				logger.debug(" --- upload file count : " + String.valueOf(uploadCount));

@@ -37,6 +37,6 @@ public class FileDao {
     }
 
     public List<FileVo> selectFileInfoList(FileVo fileVo) {
-    	return sqlSession.selectOne("queryFile.selectFileInfoList", fileVo);
+    	return sqlSession.selectList("queryFile.selectFileInfoList", fileVo);
     }
 }

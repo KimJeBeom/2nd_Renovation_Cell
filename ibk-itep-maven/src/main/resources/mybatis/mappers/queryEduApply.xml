@@ -164,8 +164,10 @@
 			,NULL
 			,'Y'
 		)
-		
 	     ]]>
+	     <selectKey resultType="int" keyProperty="edctAplcId" order="AFTER">
+        	SELECT LAST_INSERT_ID()
+    	</selectKey>
 	</insert>
 	
 	<insert id="insertEduApplyPopNon" parameterType="EduListVo">
@@ -205,6 +207,9 @@
 			,'Y'
 		)
 	     ]]>
+	     <selectKey resultType="int" keyProperty="edctAplcId" order="AFTER">
+        	SELECT LAST_INSERT_ID()
+    	</selectKey>
 	</insert>
 	
 	<update id="updateEduApplyPopRe" parameterType="EduListVo">
@@ -269,6 +274,9 @@
 			,'Y'
 		)
 	     ]]>
+	     <selectKey resultType="int" keyProperty="aplcId" order="AFTER">
+        	SELECT LAST_INSERT_ID()
+    	</selectKey>
 	</insert>
 
 

@@ -83,6 +83,14 @@
 								</table>
 							</div>
 							<!-- End 교육 조회 결과 리스트-->
+							<!-- nextPage설정 -->
+							<div style="text-align:center">
+								<button class="btn btn-primary btn-xs" id='prvsPage' onclick="pageCtrl('prvs');">◀</button>
+								&nbsp;
+								<input type="text" id="pageNum" value=1 style="width:30px; text-align:center">&nbsp;/
+								<label id="listCnt" style="width:20px; text-align:center" ></label>
+								<button class="btn btn-primary btn-xs" id='nextPage' onclick="pageCtrl('next');">▶</button>
+							</div> 
 						</div>
 					</div>
 				</div>
@@ -93,6 +101,10 @@
 	<!-- FOOTER -->
 	<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 	<script type="text/javascript">
+	
+		//페이지 수기 입력 이동 pageCtrl();수행 스크립트
+		$("#pageNum").keyup(function(e){if(e.keyCode==13) pageCtrl('move'); });
+	
 		// 결재건 클릭 시 상세내역 동적변경을 위한 함수
 		$(document).ready(function(){
 			selectEduRegMod();
@@ -129,10 +141,12 @@
 		function selectEduRegMod() {
 			var edctClsfCd = $("#edctClsfCd").val();
 			var edctNm = $("#edctNm").val();
+			var pageNum = "1";
+			
 		    $.ajax({
 		    	url:"/itep/views/admin/selectEduRegMod", //데이터를  넘겨줄 링크 설정
 		        type:"POST", // post 방식
-				data: {"edctClsfCd" : edctClsfCd, "edctNm" : edctNm}, //넘겨줄 데이터
+				data: {"edctClsfCd" : edctClsfCd, "edctNm" : edctNm, "pageNum" : pageNum}, //넘겨줄 데이터
 				
 				success: function (responseData) {
 					var str = '';
@@ -149,11 +163,26 @@
 					});
 					str += '</tbody>'
 					$("#eduRegModVoListTbody").replaceWith(str);
+					$('#pageNum_'+tabValue).val("1");
 				},
 				error: function (xhr, status, error) {
 					alert("error");					
 				}
 			});
+		    //조회시 전체 페이지 재조회 필요로 인한 페이지 재계산 로직 수행
+		    $.ajax({
+		    	url:"/itep/views/admin/selectEduRegMod", //데이터를  넘겨줄 링크 설정
+		        type:"POST", // post 방식
+				data: {"edctClsfCd" : edctClsfCd, "edctNm" : edctNm, "pageNum" : "-1"}, //넘겨줄 데이터
+		    	    
+		         success: function (responseData) {
+		        	 var listSize = (responseData.length/10);
+		        	 var listCnt = Math.ceil(listSize);
+		        	 //현재탭의 총 탭수()
+		        	 $('#listCnt').html(listCnt);
+		         }
+		    	    
+		    }); 
 		}
 		function deleteEduRegMod() {
 			var chkEdctId = $('input[name="chkEdctId"]:checked').val();
@@ -167,6 +196,62 @@
 				},
 				error: function (xhr, status, error) {		
 					alert("삭제 error");					
+				}
+			});
+		}
+		//페이지 클릭시 수행 function
+		function pageCtrl(ctrlPage) {
+			var edctClsfCd = $("#edctClsfCd").val();
+			var edctNm = $("#edctNm").val();
+			
+		    var pageNum = parseInt($('#pageNum').val()); //현재탭의 페이지넘버
+			var listSize = parseInt($('#listCnt').html()); //현재탭에 총 페이지
+			
+			//패이지 이동 검증 로직
+		  	if(ctrlPage=="prvs"){
+		  		pageNum = pageNum-1;
+				if(pageNum <= 0){
+					alert("이전페이지가 없습니다.");
+					return;
+				}
+			}else if(ctrlPage=="next"){
+				pageNum = pageNum+1;
+				if(pageNum > listSize){
+					alert("다음페이지가 없습니다.");
+					return;
+				}
+			}else if(ctrlPage=="move"){
+				if(pageNum > listSize){
+					alert("이동값이 전체 페이지보다 클수 없습니다.");
+					return;
+				}
+			}
+			
+		    $.ajax({
+		    	url:"/itep/views/admin/selectEduRegMod", //데이터를  넘겨줄 링크 설정
+		        type:"POST", // post 방식
+				data: {"edctClsfCd" : edctClsfCd, "edctNm" : edctNm, "pageNum" : pageNum}, //넘겨줄 데이터
+				
+				success: function (responseData) {
+					var str = '';
+					str += '<tbody  id=\"eduRegModVoListTbody\">'
+					$.each(responseData, function (i){
+						str += '<tr>'
+						str += '<td><input type="radio" name="chkEdctId" value='+responseData[i].edctId+'></td>'
+						str += '<td>'+responseData[i].edctId+'</td>'
+						str += '<td>'+responseData[i].edctClsfNm+'</td>'
+						str += '<td style=\"text-align: left\" class=\"edctNmTxt\">'+responseData[i].edctNm+'</td>'
+						str += '<td>'+responseData[i].edinNm+'</td>'
+						str += '<td><button type=\"button\" class=\"btn btn-primary bts-xs\" onclick=\"showPopup(\'admin\',\'addEduRndPop?edctId='+responseData[i].edctId+'\');\">차수관리</button></td>'
+						str += '</tr>'
+					});
+					str += '</tbody>'
+					$("#eduRegModVoListTbody").replaceWith(str);
+					//이동된 페이지를 화면에 적용
+				    $('#pageNum').val(pageNum);
+				},
+				error: function (xhr, status, error) {
+					alert("error");					
 				}
 			});
 		}

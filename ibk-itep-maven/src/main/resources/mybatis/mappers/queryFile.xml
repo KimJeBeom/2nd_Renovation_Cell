@@ -63,7 +63,7 @@
     <update id="deleteAllFileInfo" parameterType="FileVo">
 	    	UPDATE tb_iep_cmf001m SET
 	    	del_yn = 'Y'
-	    	WHERE file_no = #{code_nm} AND
+	    	WHERE code_nm = #{code_nm} AND
 	    	pbns_id = #{pbns_id}
     </update>  
     

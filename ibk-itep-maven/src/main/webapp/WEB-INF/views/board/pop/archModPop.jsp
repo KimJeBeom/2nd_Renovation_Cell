@@ -134,7 +134,7 @@
 	    formData.append("addFileCnt",addFileCnt);
 	    
         $.ajax({
-	        url:"/itep/views/board/pop/noticeModPop", //데이터를  넘겨줄 링크 설정
+	        url:"/itep/views/board/pop/archModPop", //데이터를  넘겨줄 링크 설정
 			type:"POST", // post 방식
 	   	    enctype: 'multipart/form-data',
 		   	processData: false,

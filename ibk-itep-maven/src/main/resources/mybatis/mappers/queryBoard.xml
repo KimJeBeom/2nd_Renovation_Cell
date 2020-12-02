@@ -64,7 +64,7 @@
 		]]>
 	</select>
 	
-	<select id="insertNotice" parameterType="NoticeVo" resultType="String">
+	<insert id="insertNotice" parameterType="NoticeVo">
 	     <![CDATA[
 		/*게시판>공지사항>공지사항등록*/
 		INSERT INTO TB_IEP_BDN001M(
@@ -85,7 +85,10 @@
 			,'Y' 
 		)
 	     ]]>
-	</select>
+	     <selectKey resultType="int" keyProperty="pbnsId" order="AFTER">
+        	SELECT LAST_INSERT_ID()
+    	</selectKey>
+	</insert>
 	
 	<update id="updateNotice" parameterType="NoticeVo">
 	     <![CDATA[
@@ -173,7 +176,7 @@
 		]]>
 	</select>
 
-	<select id="insertArchieve" parameterType="ArchieveVo" resultType="String">
+	<insert id="insertArchieve" parameterType="ArchieveVo">
 	     <![CDATA[
 		/*게시판>자료실>자료실등록*/
 		INSERT INTO TB_IEP_BDR001M(
@@ -194,7 +197,10 @@
 			,'Y' 
 		)
 	     ]]>
-	</select>
+	     <selectKey resultType="int" keyProperty="rflbId" order="AFTER">
+        	SELECT LAST_INSERT_ID()
+    	</selectKey>
+	</insert>
 	
 	<update id="updateArchieve" parameterType="ArchieveVo">
 	     <![CDATA[
