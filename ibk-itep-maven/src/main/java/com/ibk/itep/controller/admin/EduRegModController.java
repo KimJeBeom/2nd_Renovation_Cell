@@ -53,11 +53,18 @@ public class EduRegModController{
 	}
 	
 	@RequestMapping(value = "/views/admin/selectEduRegMod", method = RequestMethod.POST)
-	public @ResponseBody List<EduRegModVo> selectEduRegMod(@RequestParam("edctClsfCd") String edctClsfCd, @RequestParam("edctNm") String edctNm) {
+	public @ResponseBody List<EduRegModVo> selectEduRegMod(
+			@RequestParam("edctClsfCd") String edctClsfCd,
+			@RequestParam("edctNm") String edctNm,
+			@RequestParam(value="pageNum", required = false) String pageNum) { //현재 페이지
+		
 		logger.info("컨트롤러 진입완료");
 		EduRegModVo ermVo = new EduRegModVo();
 		ermVo.setEdctClsfCd(edctClsfCd);
 		ermVo.setEdctNm(edctNm);
+		logger.info(" --- pageNum" + pageNum);		
+		int pageSet = (Integer.parseInt(pageNum)-1)*10; //현재 페이지 숫자를 쿼리의 offset설정값으로 변환(2->10)
+		ermVo.setPageSet(pageSet);
 		
 		List<EduRegModVo> eduRegModVoList = eduRegModService.selectEduRegMod(ermVo);
 		logger.info("{}", eduRegModVoList);

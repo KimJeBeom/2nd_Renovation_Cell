@@ -88,7 +88,7 @@
 								<button class="btn btn-primary btn-xs" id='prvsPage' onclick="pageCtrl('prvs');">◀</button>
 								&nbsp;
 								<input type="text" id="pageNum" value=1 style="width:30px; text-align:center">&nbsp;/
-								<label id="listCnt" style="width:20px; text-align:center" ></label>
+								<label id="listCnt" style="width:30px; text-align:center" ></label>
 								<button class="btn btn-primary btn-xs" id='nextPage' onclick="pageCtrl('next');">▶</button>
 							</div> 
 						</div>
@@ -163,7 +163,7 @@
 					});
 					str += '</tbody>'
 					$("#eduRegModVoListTbody").replaceWith(str);
-					$('#pageNum_'+tabValue).val("1");
+					$('#pageNum').val("1");
 				},
 				error: function (xhr, status, error) {
 					alert("error");					

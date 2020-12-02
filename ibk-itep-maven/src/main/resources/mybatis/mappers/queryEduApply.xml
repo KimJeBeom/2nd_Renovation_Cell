@@ -114,8 +114,8 @@
 	    <![CDATA[
 		/*교육신청>교육목록팝업>결재요청>결재가능여부 확인*/
 		SELECT 		
-				CASE WHEN A.APLC_STG_CD ='APRRJT' THEN 'update'
-				WHEN A.APLC_STG_CD = 'insert' THEN 'insert'
+				CASE WHEN A.APLC_STG_CD in ('DPMRJT','GRMRJT') THEN 'update'
+				WHEN (A.APLC_STG_CD = 'insert' or A.APLC_STG_CD ='CANCLE') THEN 'insert'
 				ELSE 'disable' END AS MODCODE
 		FROM
 				(SELECT 

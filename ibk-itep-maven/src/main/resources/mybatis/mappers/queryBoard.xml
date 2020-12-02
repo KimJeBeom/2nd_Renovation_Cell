@@ -18,13 +18,6 @@
 			  ,APND_DAT AS APNDDAT  #첨부파일
 			  ,USE_YN AS USEYN 	#사용여부
 		FROM  TB_IEP_BDN001M N
-		]]>
-	<if test="pageSet != null">		
-		<![CDATA[
-		, (SELECT @rownum:=#{pageSet}) TMP
-		]]>
-	</if>
-		<![CDATA[
 		WHERE 1=1
 		]]>
 	<if test="ttl != null">
@@ -36,7 +29,7 @@
 		AND   USE_YN ='Y'
 		ORDER BY RGSN_TS DESC
 		]]>
-	<if test="pageSet != null">		
+	<if test="pageSet != null and pageSet >= 0">
 		<![CDATA[
 		Limit #{pageSet} ,10
 		]]>
@@ -127,13 +120,6 @@
 			  ,APND_DAT AS APNDDAT  #첨부파일
 			  ,USE_YN AS USEYN 	#사용여부
 		FROM  TB_IEP_BDR001M R
-		]]>
-	<if test="pageSet != null">		
-		<![CDATA[
-		, (SELECT @rownum:=#{pageSet}) TMP
-		]]>
-	</if>
-		<![CDATA[
 		WHERE 1=1
 		]]>
 	<if test="ttl != null">
@@ -145,7 +131,7 @@
 		AND   USE_YN ='Y'
 		ORDER BY RGSN_TS DESC
 		]]>
-	<if test="pageSet != null">		
+	<if test="pageSet != null and pageSet >= 0">
 		<![CDATA[
 		Limit #{pageSet} ,10
 		

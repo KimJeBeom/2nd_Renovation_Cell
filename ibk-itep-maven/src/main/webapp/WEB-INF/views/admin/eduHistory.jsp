@@ -99,6 +99,7 @@
 											<th style="width: 50px">구분</th>
 											<th style="width: 50px">이력ID</th>
 											<th>교육분류</th>
+											<th>팀명</th>
 											<th>부서명</th>
 											<th>직원명</th>
 											<th>직원번호</th>
@@ -114,6 +115,14 @@
 									</tbody>
 								</table>
 								<!-- End 수강이력 - 리스트 -->
+								<!-- nextPage설정 -->
+								<div style="text-align:center">
+									<button class="btn btn-primary btn-xs" id='prvsPage' onclick="pageCtrl('prvs');">◀</button>
+									&nbsp;
+									<input type="text" id="pageNum" value=1 style="width:30px; text-align:center">&nbsp;/
+									<label id="listCnt" style="width:30px; text-align:center" ></label>
+									<button class="btn btn-primary btn-xs" id='nextPage' onclick="pageCtrl('next');">▶</button>
+								</div> 
 							</div>
 						</div>
 					</div>
@@ -124,6 +133,10 @@
 	<!-- FOOTER -->
 	<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 	<script type="text/javascript">
+	
+		//페이지 수기 입력 이동 pageCtrl();수행 스크립트
+		$("#pageNum").keyup(function(e){if(e.keyCode==13) pageCtrl('move'); });
+	
 		$(document).ready(function() {
 			selectEduHistory();
 		});
@@ -175,6 +188,8 @@
 			var brnm = $("#brnm").val();
 			var edctSttgYmd = $('#edctSttgYmd').val();
 			var edctFnshYmd = $('#edctFnshYmd').val();
+			var pageNum = "1";
+			
 		    $.ajax({
 		    	url:"/itep/views/admin/selectEduHistory", //데이터를  넘겨줄 링크 설정
 		        type:"POST", // post 방식
@@ -182,7 +197,8 @@
 						"userNm"		: $("#userNm").val(),
 						"brnm"			: $("#brnm").val(),
 						"edctFnshYmd"	: $('#edctFnshYmd').val(),
-						"edctSttgYmd"	: $('#edctSttgYmd').val()}, //넘겨줄 데이터
+						"edctSttgYmd"	: $('#edctSttgYmd').val(),
+						"pageNum" 		: pageNum}, //넘겨줄 데이터
 				success: function (responseData) {
 					var str = '';
 					str += '<tbody  id=\"eduHistoryTbody\">'
@@ -191,6 +207,7 @@
 						str += '<td><input type="radio" name="chkEdctAplcId" value='+responseData[i].edctAplcId+'></td>'
 						str += '<td>'+responseData[i].edctAplcId+'</td>'
 						str += '<td>'+responseData[i].edctClsfNm+'</td>'
+						str += '<td>'+responseData[i].teamNm+'</td>'
 						str += '<td>'+responseData[i].brnm+'</td>'
 						str += '<td>'+responseData[i].userNm+'</td>'
 						str += '<td>'+responseData[i].userId+'</td>'
@@ -204,6 +221,94 @@
 					});
 					str += '</tbody>'
 					$("#eduHistoryTbody").replaceWith(str);
+					$('#pageNum').val("1");
+				},
+				error: function (xhr, status, error) {
+					alert("error");					
+				}
+			});
+		    //조회시 전체 페이지 재조회 필요로 인한 페이지 재계산 로직 수행
+		    $.ajax({
+		    	url:"/itep/views/admin/selectEduHistory", //데이터를  넘겨줄 링크 설정
+		        type:"POST", // post 방식
+				data: {	"edctClsfCd"	: $("#edctClsfCd").val(),
+						"userNm"		: $("#userNm").val(),
+						"brnm"			: $("#brnm").val(),
+						"edctFnshYmd"	: $('#edctFnshYmd').val(),
+						"edctSttgYmd"	: $('#edctSttgYmd').val(),
+						"pageNum" 		: "-1"}, //넘겨줄 데이터
+		         success: function (responseData) {
+		        	 var listSize = (responseData.length/10);
+		        	 var listCnt = Math.ceil(listSize);
+		        	 //현재탭의 총 탭수()
+		        	 $('#listCnt').html(listCnt);
+		         }
+		    	    
+		    }); 
+		}
+		//페이지 클릭시 수행 function
+		function pageCtrl(ctrlPage) {
+			var edctClsfCd = $("#edctClsfCd").val();
+			var userNm = $("#userNm").val();
+			var brnm = $("#brnm").val();
+			var edctSttgYmd = $('#edctSttgYmd').val();
+			var edctFnshYmd = $('#edctFnshYmd').val();
+			
+		    var pageNum = parseInt($('#pageNum').val()); //현재탭의 페이지넘버
+			var listSize = parseInt($('#listCnt').html()); //현재탭에 총 페이지
+			
+			//패이지 이동 검증 로직
+		  	if(ctrlPage=="prvs"){
+		  		pageNum = pageNum-1;
+				if(pageNum <= 0){
+					alert("이전페이지가 없습니다.");
+					return;
+				}
+			}else if(ctrlPage=="next"){
+				pageNum = pageNum+1;
+				if(pageNum > listSize){
+					alert("다음페이지가 없습니다.");
+					return;
+				}
+			}else if(ctrlPage=="move"){
+				if(pageNum > listSize){
+					alert("이동값이 전체 페이지보다 클수 없습니다.");
+					return;
+				}
+			}
+		    $.ajax({
+		    	url:"/itep/views/admin/selectEduHistory", //데이터를  넘겨줄 링크 설정
+		        type:"POST", // post 방식
+				data: {	"edctClsfCd"	: $("#edctClsfCd").val(),
+						"userNm"		: $("#userNm").val(),
+						"brnm"			: $("#brnm").val(),
+						"edctFnshYmd"	: $('#edctFnshYmd').val(),
+						"edctSttgYmd"	: $('#edctSttgYmd').val(),
+						"pageNum" 		: pageNum}, //넘겨줄 데이터
+				success: function (responseData) {
+					var str = '';
+					str += '<tbody  id=\"eduHistoryTbody\">'
+					$.each(responseData, function (i){
+						str += '<tr>'
+						str += '<td><input type="radio" name="chkEdctAplcId" value='+responseData[i].edctAplcId+'></td>'
+						str += '<td>'+responseData[i].edctAplcId+'</td>'
+						str += '<td>'+responseData[i].edctClsfNm+'</td>'
+						str += '<td>'+responseData[i].teamNm+'</td>'
+						str += '<td>'+responseData[i].brnm+'</td>'
+						str += '<td>'+responseData[i].userNm+'</td>'
+						str += '<td>'+responseData[i].userId+'</td>'
+						str += '<td>'+responseData[i].edctId+'</td>'
+						str += '<td>'+responseData[i].edctNm+'</td>'
+						str += '<td>'+responseData[i].edinNm+'</td>'
+						str += '<td>'+responseData[i].edctSttgYmd.replace(/-/g,'.')+'~'+responseData[i].edctFnshYmd.replace(/-/g,'.')+'</td>'
+						str += '<td>'+responseData[i].edex+'</td>'
+						str += '<td>'+responseData[i].rfrcCon+'</td>'
+						str += '</tr>'
+					});
+					str += '</tbody>'
+					$("#eduHistoryTbody").replaceWith(str);
+					//이동된 페이지를 화면에 적용
+				    $('#pageNum').val(pageNum);
 				},
 				error: function (xhr, status, error) {
 					alert("error");					
