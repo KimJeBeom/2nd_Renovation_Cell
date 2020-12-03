@@ -6,7 +6,7 @@
 <style>
   *{margin:0;padding:0;}
   ul,li{list-style:none;}
-  #slide{height:560px;width:90%;position:relative;overflow:hidden}
+  #slide{height:610px;width:90%;position:relative;overflow:hidden}
   #slide ul{width:400%;height:100%;transition:1s;}
   #slide ul:after{content:"";display:block;clear:both;}
   #slide li{float:left;width:25%;height:100%;}
@@ -30,18 +30,15 @@
 <body>	
 	<!-- WRAPPER -->
 	<div id="wrapper">
-	
 		<!-- 사이드메뉴  -->
 		<jsp:include page="./cmm/common-sidebar.jsp" />
-
 		<!-- MAIN -->
 		<div class="main">
-
 			<!-- MAIN CONTENT -->
 			<div class="main-content">
 				<div class="container-fluid">
 					<!-- 메인 이미지 패널 -->
-					<div class="panel panel-headline" style="height:590px;">
+					<div class="panel panel-headline" style="height:640px;">
 						<div class="panel-heading">
 							<!-- 메인이미지 슬라이딩 -->
 							<div id="slide">
