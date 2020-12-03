@@ -130,10 +130,12 @@ function fstApply(modAct){
 	var dpmAthzId = $("#dpmid").val(); //부서결제자
 	var	snctTgtYn = '${vo.snctTgtYn}'; //결제여부
 	
-	if(addFileCnt==0){
-		alert("파일첨부는 필수입니다."); return;
-	}if(dpmAthzId==null || dpmAthzId=="" ){
-		alert("부서결재자를 지정해주세요"); return;
+	if(snctTgtYn == 'Y'){
+		if(addFileCnt==0){
+			alert("파일첨부는 필수입니다."); return;
+		}if(dpmAthzId==null || dpmAthzId=="" ){
+			alert("부서결재자를 지정해주세요"); return;
+		}
 	}
 	
    	var conf = confirm('등록하시겠습니까?');

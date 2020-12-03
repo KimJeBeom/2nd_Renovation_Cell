@@ -29,7 +29,8 @@ public class MainHomeContoller{
 
 	@RequestMapping(value = "/views", method = RequestMethod.GET)
 	public String home(Authentication authentication, HttpServletRequest request, Model model) {
-
+		
+		logger.info("############ MainHome Start ############");
 		HttpSession session = request.getSession();
 		String id = (String) authentication.getPrincipal();
 		SessionVo ssnInfo = mainHomeService.selectSessionInfo(id); // 로그인한 id 기준으로 사용자 정보 조회
@@ -41,6 +42,7 @@ public class MainHomeContoller{
 		
 		model.addAttribute("bdnList", bdnList);
 		model.addAttribute("eduNowList", eduNowList);
+		logger.info("############ welcome "+ssnInfo.getUserNm()+"!! ############");
 
 		return "home";
 	}

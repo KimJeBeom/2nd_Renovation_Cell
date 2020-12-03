@@ -47,7 +47,8 @@ public class myClassEduInfoPopController{
 	/*교육 신청내용 상세조회*/
 	@RequestMapping(value = "/views/myClass/pop/eduInfoPop", method = RequestMethod.GET)
 	public String EduInfo(@RequestParam(value = "edctAplcId") int edctAplcId, 
-						  @RequestParam(value = "modType") String modType, HttpServletRequest request, Model model) {
+						  @RequestParam(value="modType", required = false) String modType,
+						  HttpServletRequest request, Model model) {
 		
 		/* 세션정보를 담은 SessionVo 가져옴 */
 		HttpSession session = request.getSession();
