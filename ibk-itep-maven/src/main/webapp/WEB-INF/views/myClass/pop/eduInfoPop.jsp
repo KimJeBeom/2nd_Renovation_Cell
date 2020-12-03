@@ -178,14 +178,14 @@
 													<tr>
 														<td id="rowNum">2</td>
 														<td id="dpmAthzDvcd">${apprDetail.dpmAthzDvcd}</td>
-														<td id="dpmAthzNm">${apprDetail.dpmAthzNm}</td>
+														<td id="grmUserNm">${apprDetail.dpmUserNm}</td>
 														<td id="dpmAthzCon">${apprDetail.dpmAthzCon }</td>
 														<td id="dpmAthzTs">${apprDetail.dpmAthzTs }</td>
 													</tr>
 													<tr>
 														<td id="rowNum">3</td>
 														<td id="grmAthzDvcd">${apprDetail.grmAthzDvcd}</td>
-														<td id="grmAthzNm">${apprDetail.grmAthzNm}</td>
+														<td id="grmUserNm">${apprDetail.grmUserNm}</td>
 														<td id="grmAthzCon">${apprDetail.grmAthzCon }</td>
 														<td id="grmAthzTs">${apprDetail.grmAthzTs }</td>
 													</tr>
