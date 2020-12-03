@@ -40,11 +40,11 @@
 												<td style="width: 80px; padding-left: 5px; text-align: center;"><b>■ 제 목</b></td>
 												<td style="width: 300px; padding-right: 40px">
 													<div>
-														<input class="form-control" type="text" id="ttl" name="ttl" value="${param.ttl}"/>
+														<input class="form-control" type="text" id="ttl" name="ttl"/>
 													</div>
 												</td>
 												<td style="width: 10%; text-align: left;">
-													<button class="btn btn-primary btn-toastr" type="button"  onclick="searchTtl();">조회</button>
+													<button class="btn btn-primary btn-toastr" type="button"  onclick="search();">조회</button>
 												</td>
 											</tr>
 										</tbody>
@@ -80,11 +80,11 @@
 							</div>
 							<!-- nextPage설정 -->
 							<div style="text-align:center">
-								<button class="btn btn-primary btn-xs" id='prvsPage' onclick="search('prvs');">◀</button>
+								<button class="btn btn-primary btn-xs" id='prvsPage' onclick="pageCtrl('prvs');">◀</button>
 								&nbsp;
 								<input type="text" id="pageNum" value=1 style="width:30px; text-align:center">&nbsp;/
 								<label id="listCnt" style="width:30px; text-align:center" >${listSize}</label> 
-								<button class="btn btn-primary btn-xs" id='nextPage' onclick="search('next');">▶</button>
+								<button class="btn btn-primary btn-xs" id='nextPage' onclick="pageCtrl('next');">▶</button>
 							</div> 
 						</div>
 					</div>
@@ -108,23 +108,67 @@
 <jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 <script>
 //Enter클릭시  수행 스크립트
-$("#ttl").keyup(function(e){if(e.keyCode==13) searchTtl(); });
-$("#pageNum").keyup(function(e){if(e.keyCode==13) search('move'); });
+$("#ttl").keyup(function(e){if(e.keyCode==13) search(); });
+$("#pageNum").keyup(function(e){if(e.keyCode==13) pageCtrl('move'); });
 
 //(조회)제목을 필드값을 가져와 URL에 세팅하여 화면을 재수행한다.
-function searchTtl() {
+function search() {
 	var ttl = $('input[name=ttl]').val();
+	var pageNum = "1";
 	
-	if(ttl!=""){
-		location.href='/itep/views/board/archieve?ttl='+ttl;
-	}else{
-		location.href='/itep/views/board/archieve';
-	}
+  $.ajax({
+	        url:"/itep/views/board/archieve", //데이터를  넘겨줄 링크 설정
+			type:"POST", // post 방식
+			data: {ttl : ttl, pageNum : pageNum},
+	    	    
+	         success: function (responseData) {
+	        	 
+					if(responseData.length == 0){
+						alert("조회결과가 없습니다");
+						return;
+					}
+					var str = '';
+					str += '<tbody id="archList">'; //탭 선택값에 맞는 테이블 id로 설정
+					$.each(responseData, function(i) {
+						str += '<tr onclick="showPopup(\'board\',\'archModPop?rflbId=\''+responseData[i].rflbId+'\');">';
+						str += '<td style="text-align:center">'+responseData[i].edctClsfNm+'</td>';
+						str += '<td style="text-align:  left">'+responseData[i].ttl+'</td>';
+						str += '<td style="text-align:center">'+responseData[i].rgsnTs+'</td>';
+						str += '<td style="text-align:center">'+responseData[i].userNm+'</td>';
+						str += '</tr>';
+					});
+					str += '</tbody>';
+					$("#archList").replaceWith(str);	
+					$('#pageNum').val("1");
+	          },
+	         error: function (xhr, status, error) {
+	        	 	alert("조회실패");
+	          }
+		}); 
+  $.ajax({
+      url:"/itep/views/board/archieve", //데이터를  넘겨줄 링크 설정
+		type:"POST", // post 방식
+		data: {ttl : ttl, pageNum : "-1"},
+  	    
+       success: function (responseData) {
+   		if(responseData.length == 0){
+			return;
+		}
+      	 var listSize = (responseData.length/10);
+    	 var listCnt = Math.ceil(listSize);
+    	 //현재탭의 총 탭수()
+    	 $('#listCnt').html(listCnt);
+        },
+       error: function (xhr, status, error) {
+      	 	alert("조회실패");
+        }
+	}); 
+
 }		
 
 
 //조회버튼 클릭시 function
-function search(ctrlPage) {
+function pageCtrl(ctrlPage) {
 	
 	var pageNum = parseInt($('#pageNum').val());
 	var listSize = parseInt('${listSize}');
@@ -140,7 +184,6 @@ function search(ctrlPage) {
 			alert("다음페이지가 없습니다.");
 			return;
 		}
-		
 	}else if(ctrlPage=="move"){
 		if(pageNum > listSize){
 			alert("이동값이 전체 페이지보다 클수 없습니다.");
@@ -162,24 +205,22 @@ function search(ctrlPage) {
 	        	 
 					if(responseData.length == 0){
 						alert("조회결과가 없습니다");
+						return;
 					}
-						
-					else{ //조회결과가 있을경우 테이블 replace 수행
-						var str = '';
-						str += '<tbody id="archList">'; //탭 선택값에 맞는 테이블 id로 설정
-						$.each(responseData, function(i) {
-							str += '<tr onclick="showPopup(\'board\',\'archModPop?rflbId=\''+responseData[i].rflbId+'\');">';
-							/* str += '<td style="text-align:center">'+responseData[i].rflbId+'</td>'; */
-							str += '<td style="text-align:center">'+responseData[i].edctClsfNm+'</td>';
-							str += '<td style="text-align:  left">'+responseData[i].ttl+'</td>';
-							str += '<td style="text-align:center">'+responseData[i].rgsnTs+'</td>';
-							str += '<td style="text-align:center">'+responseData[i].userNm+'</td>';
-							str += '</tr>';
-						});
-						str += '</tbody>';
-						$("#archList").replaceWith(str);	
-						$('#pageNum').val(pageNum);
-					}
+					var str = '';
+					str += '<tbody id="archList">'; //탭 선택값에 맞는 테이블 id로 설정
+					$.each(responseData, function(i) {
+						str += '<tr onclick="showPopup(\'board\',\'archModPop?rflbId=\''+responseData[i].rflbId+'\');">';
+						/* str += '<td style="text-align:center">'+responseData[i].rflbId+'</td>'; */
+						str += '<td style="text-align:center">'+responseData[i].edctClsfNm+'</td>';
+						str += '<td style="text-align:  left">'+responseData[i].ttl+'</td>';
+						str += '<td style="text-align:center">'+responseData[i].rgsnTs+'</td>';
+						str += '<td style="text-align:center">'+responseData[i].userNm+'</td>';
+						str += '</tr>';
+					});
+					str += '</tbody>';
+					$("#archList").replaceWith(str);	
+					$('#pageNum').val(pageNum);
 	          },
 	         error: function (xhr, status, error) {
 	        	 	alert("조회실패");

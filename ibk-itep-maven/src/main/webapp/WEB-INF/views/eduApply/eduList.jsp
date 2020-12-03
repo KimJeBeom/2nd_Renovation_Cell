@@ -338,25 +338,22 @@ function search() {
 	        	 
 					if(responseData.length == 0){
 						alert("조회결과가 없습니다");
-					}
-						
-					else{ //조회결과가 있을경우 테이블 replace 수행
-						var str = '';
-						str += '<tbody id=\"'+tabValue+'\">'; //탭 선택값에 맞는 테이블 id로 설정
-						$.each(responseData, function(i) {
-								str += '<tr>';
-								str += '<td style="text-align:center">'+responseData[i].edctCntId+'</td>';
-								str += '<td style="text-align:  left"><span class="badge badge-primary">'+responseData[i].edctLevl+'</span>'+responseData[i].edctNm+'</td>';
-								str += '<td style="text-align:center">'+responseData[i].edinNm+'</td>';
-								str += '<td style="text-align:center">'+responseData[i].aplcSttgYmd+'~'+responseData[i].aplcFnshYmd+'</td>';
-								str += '<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup(\'eduApply\',\'eduApplyPop?edctCntId='+responseData[i].edctCntId+'\');">안내 및 신청</button></td>';
-								str += '</tr>';
-						});
-						str += '</tbody>';
-						$("#"+tabValue).replaceWith(str);
-						$('#pageNum_'+tabValue).val("1");
-						
-					}
+						return;
+					}						
+					var str = '';
+					str += '<tbody id=\"'+tabValue+'\">'; //탭 선택값에 맞는 테이블 id로 설정
+					$.each(responseData, function(i) {
+							str += '<tr>';
+							str += '<td style="text-align:center">'+responseData[i].edctCntId+'</td>';
+							str += '<td style="text-align:  left"><span class="badge badge-primary">'+responseData[i].edctLevl+'</span>'+responseData[i].edctNm+'</td>';
+							str += '<td style="text-align:center">'+responseData[i].edinNm+'</td>';
+							str += '<td style="text-align:center">'+responseData[i].aplcSttgYmd+'~'+responseData[i].aplcFnshYmd+'</td>';
+							str += '<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup(\'eduApply\',\'eduApplyPop?edctCntId='+responseData[i].edctCntId+'\');">안내 및 신청</button></td>';
+							str += '</tr>';
+					});
+					str += '</tbody>';
+					$("#"+tabValue).replaceWith(str);
+					$('#pageNum_'+tabValue).val("1");
 	          },
 	         error: function (xhr, status, error) {
 	        	 	alert("조회실패");
@@ -373,6 +370,10 @@ function search() {
     	    ,"pageNum" : "-1" }, //-1일 경우 OffSet없이 SQL수행됨
     	    
          success: function (responseData) {
+			if(responseData.length == 0){
+				alert("조회결과가 없습니다");
+				return;
+			}		
         	 var listSize = (responseData.length/10);
         	 var listCnt = Math.ceil(listSize);
         	 //현재탭의 총 탭수()
@@ -426,26 +427,24 @@ function pageCtrl(ctrlPage) {
 	        	 
 					if(responseData.length == 0){
 						alert("조회결과가 없습니다");
+						return;
 					}
 						
-					else{ //조회결과가 있을경우 테이블 replace 수행
-						var str = '';
-						str += '<tbody id=\"'+tabValue+'\">'; //탭 선택값에 맞는 테이블 id로 설정
-						$.each(responseData, function(i) {
-								str += '<tr>';
-								str += '<td style="text-align:center">'+responseData[i].edctCntId+'</td>';
-								str += '<td style="text-align:  left"><span class="badge badge-primary">'+responseData[i].edctLevl+'</span>'+responseData[i].edctNm+'</td>';
-								str += '<td style="text-align:center">'+responseData[i].edinNm+'</td>';
-								str += '<td style="text-align:center">'+responseData[i].aplcSttgYmd+'~'+responseData[i].aplcFnshYmd+'</td>';
-								str += '<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup(\'eduApply\',\'eduApplyPop?edctCntId='+responseData[i].edctCntId+'\');">안내 및 신청</button></td>';
-								str += '</tr>';
-						});
-						str += '</tbody>';
-						$("#"+tabValue).replaceWith(str);
-						//이동된 페이지를 화면에 적용
-					    $('#pageNum_'+tabValue).val(pageNum);
-						
-					}
+					var str = '';
+					str += '<tbody id=\"'+tabValue+'\">'; //탭 선택값에 맞는 테이블 id로 설정
+					$.each(responseData, function(i) {
+							str += '<tr>';
+							str += '<td style="text-align:center">'+responseData[i].edctCntId+'</td>';
+							str += '<td style="text-align:  left"><span class="badge badge-primary">'+responseData[i].edctLevl+'</span>'+responseData[i].edctNm+'</td>';
+							str += '<td style="text-align:center">'+responseData[i].edinNm+'</td>';
+							str += '<td style="text-align:center">'+responseData[i].aplcSttgYmd+'~'+responseData[i].aplcFnshYmd+'</td>';
+							str += '<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup(\'eduApply\',\'eduApplyPop?edctCntId='+responseData[i].edctCntId+'\');">안내 및 신청</button></td>';
+							str += '</tr>';
+					});
+					str += '</tbody>';
+					$("#"+tabValue).replaceWith(str);
+					//이동된 페이지를 화면에 적용
+				    $('#pageNum_'+tabValue).val(pageNum);
 	          },
 	         error: function (xhr, status, error) {
 	        	 	alert("조회실패");
