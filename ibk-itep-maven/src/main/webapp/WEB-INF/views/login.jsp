@@ -28,7 +28,7 @@ window.onload = function() {
 		 document.getElementById("submit").click();
 	}
 	else{
-		alert("직원번호가 없습니다.");
+		alert("직원번호를 입력해주세요");
 		return;	
 	}
 }
