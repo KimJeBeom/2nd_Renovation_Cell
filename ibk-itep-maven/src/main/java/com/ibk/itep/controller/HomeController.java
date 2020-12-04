@@ -5,8 +5,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ibk.itep.service.TestService;
 
@@ -25,14 +27,18 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) {
+	public String home(Model model, @RequestParam(value="userId", required = false) String userId) {
+		
+		model.addAttribute("userId", userId);  		//직원번호
 		
 		logger.debug(testService.getSysdate());
 		return "login";
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(Model model) {
+	public String login(Model model, @RequestParam(value="userId", required = false) String userId) {
+		
+		model.addAttribute("userId", userId);  		//직원번호
 		
 		logger.debug("Login page 호출");
 		return "login";
