@@ -209,7 +209,7 @@ function pageCtrl(ctrlPage) {
 					var str = '';
 					str += '<tbody id="noticeList">'; //탭 선택값에 맞는 테이블 id로 설정
 					$.each(responseData, function(i) {
-						str += '<tr onclick="showPopup(\'board\',\'noticeModPop?pbnsId=\''+responseData[i].pbnsId+'\');">';
+						str += '<tr onclick="showPopup(\'board\',\'noticeModPop?pbnsId='+responseData[i].pbnsId+'\');">';
 						str += '<td style="text-align:center">'+responseData[i].edctClsfNm+'</td>';
 						str += '<td style="text-align:  left">'+responseData[i].ttl+'</td>';
 						str += '<td style="text-align:center">'+responseData[i].rgsnTs+'</td>';
