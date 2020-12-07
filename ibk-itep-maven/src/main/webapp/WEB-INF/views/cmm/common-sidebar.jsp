@@ -65,11 +65,11 @@
                     </div>
                 </li>
                 <% } %>
-				<li><a href="#subPages3" data-toggle="collapse" class="collapsed">
+				<li><a href="#subPages3" data-toggle="collapse" class="collapsedBD">
                     <img src="/itep/assets/itep/img/icon/board-icon.png" class="main-icon" /><span>게시판</span><i class="icon-submenu lnr lnr-chevron-left"></i></a>
-					<div id="subPages3" class="collapse ">
+					<div id="subPages3" class="collapsedBD" id="board">
 						<ul class="nav">
-							<li><a href="/itep/views/board/notice" class="">공지사항</a></li>
+							<li id="notice"><a href="/itep/views/board/notice" class="" >공지사항</a></li>
 							<li><a href="/itep/views/board/archieve" class="">자료실</a></li>
 						</ul>
                     </div>
