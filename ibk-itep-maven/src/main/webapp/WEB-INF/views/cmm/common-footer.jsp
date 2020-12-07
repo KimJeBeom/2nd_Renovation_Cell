@@ -17,8 +17,8 @@
 		// 팝업인지 아닌지 체크
 		if(!isPopup()) {
 			// 팝업이 아닌 경우만 메뉴폴딩 아이콘 보며줌
-			document.write('<div class="navbar-btn" style="position:fixed; right:35px; top:5px;">');
-			document.write('<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>');
+			document.write('<div class="navbar-btn" style="position:fixed; right:47px; top:5px;">');
+			document.write('<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle" style="font-size:35px;"></i></button>');
 			document.write('</div>');
 		} else {
 			// 팝업이면 창 크기 자동조절

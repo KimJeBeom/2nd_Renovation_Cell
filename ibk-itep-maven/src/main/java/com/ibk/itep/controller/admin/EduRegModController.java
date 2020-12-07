@@ -2,6 +2,8 @@ package com.ibk.itep.controller.admin;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ibk.itep.service.admin.EduRegModService;
 import com.ibk.itep.service.cmm.CmmService;
@@ -82,5 +85,11 @@ public class EduRegModController{
 		return result;		
 	}
 	
+	/* 엑셀 다운로드 */
+	@RequestMapping(value = "/views/admin/EduRegModExcelDown", method = RequestMethod.POST)
+	public void EduRegModExcelDown(MultipartHttpServletRequest req, HttpServletResponse res) {
+
+		eduRegModService.EduRegModExcelDown(req, res);  
+	}
 
 }

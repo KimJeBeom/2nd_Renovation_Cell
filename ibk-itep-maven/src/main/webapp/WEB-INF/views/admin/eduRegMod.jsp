@@ -62,9 +62,13 @@
 								<button class="btn btn-primary" type="button" id="btnReg">등록</button>
 								<button class="btn btn-primary" type="button" id="btnMod">수정</button>
 								<button class="btn btn-primary" type="button" id="btnDel">삭제</button>
-								<button class="btn btn-primary" type="button" id="btnXlsDown">엑셀다운로드</button>
+								<button class="btn btn-primary" type="button" id="btnXlsDown" onclick="excelDownload()">엑셀다운로드</button>
 							</div>
 							<!-- End 교육 등록 및 수정 - 버튼바-->
+							<form id="excelForm" role="form" method="post" enctype="multipart/form-data">
+								<input type="hidden" id="eEdctClsfCd" name="edctClsfCd" value="">
+								<input type="hidden" id="eEdctNm" name="edctNm" value="">
+							</form>
 							<!-- Start 교육 조회 결과 리스트-->
 							<div class="table-responsive">
 								<table class="table table-hover">
@@ -258,5 +262,18 @@
 					alert("error");					
 				}
 			});
+		}
+		
+		function excelDownload() {		
+			// 검색창에 입력된값 
+			var edctClsfCd = $("#edctClsfCd").val();
+			var edctNm = $("#edctNm").val();
+			
+			$("#eEdctClsfCd").attr("value", edctClsfCd);
+			$("#eEdctNm").attr("value", edctNm);
+			
+			var formObj = $("#excelForm");
+			formObj.attr("action", "/itep/views/admin/EduRegModExcelDown");
+			formObj.submit();
 		}
 	</script>

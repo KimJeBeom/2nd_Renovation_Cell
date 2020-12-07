@@ -48,6 +48,45 @@
 			]]>
 		</if>
 	</select>
+	<select id="selectEduRegModExcel" parameterType="EduRegModVo" resultType="EduRegModExcelVo">
+	     <![CDATA[
+			/*교육목록조회*/
+			SELECT	edm.EDCT_ID as edctId    			#교육메인ID
+	 			,	cld.EDCT_CLSF_NM as edctClsfNm 		#교육분류
+				, 	edm.EDCT_NM as edctNm    			#교육명 
+	 			,	edm.EDCT_CON as edctCon				#교육내용 
+	    		, 	cli.EDIN_NM as edinNm    			#교육기관명
+	    		,	edm.SNCT_TGT_YN as snctTgtYn 		#결재여부
+				,	edm.INBK_EDCT_YN as inbkEdctYn		#교육구분
+				,	edm.EGIN_APLY_YN as eginAplyYn		#고용보험여부
+				,	edm.ONL_EDCT_YN as onlEdctYn 		#교육방식
+				,	edm.EDCT_LEVL as edctLevl 			#교육수준
+			FROM 	itep.tb_iep_edm001m edm
+				, 	itep.tb_iep_cld001c cld
+				, 	itep.tb_iep_cli001c cli
+			where 	edm.EDCT_CLSF_CD = cld.EDCT_CLSF_CD 
+	 			and edm.EDIN_CD = cli.EDIN_CD
+	    		and edm.USE_YN = 'Y' 				# 삭제 안된 교육만 show
+	     ]]>
+	     <if test="edctClsfCd != null">
+	     	<![CDATA[
+	     		and edm.EDCT_CLSF_CD = #{edctClsfCd}     		# 조회조건 : 교육 분류
+	     	]]>	     		     
+	     </if>
+	     <if test="edctNm != null">
+	     	<![CDATA[
+	     		and edm.EDCT_NM like concat('%',#{edctNm},'%')	# 조회조건 : 교육 명칭
+	     	]]>	     		     
+	     </if>
+	     <if test="edctId != null">
+	     	<![CDATA[
+	     		and edm.EDCT_ID = #{edctId}
+	     	]]>
+	     </if>
+	     <![CDATA[
+	     		ORDER BY edctId
+	     ]]>
+	</select>
 	<update id="deleteEduRegMod" parameterType="EduRegModVo">
 		<![CDATA[
 			update	itep.tb_iep_edm001m edm 

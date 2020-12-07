@@ -119,11 +119,11 @@
 		<!-- END MAIN -->
 		
 		<!-- 오른쪽 아래 아이콘 -->
-		<div style="position:fixed; right:41px; top:70px;">
-			<a href="javascript:showImgWin('deptTop')"><img src="/itep/assets/itep/img/icon/deptTop-icon.png" style="width:33px; height:43px;"/></a>
+		<div style="position:fixed; right:48px; top:85px;">
+			<a href="javascript:showImgWin('deptTop')"><img src="/itep/assets/itep/img/icon/deptTop-icon.png" style="width:48px; height:60px;"/></a>
 		</div>
-		<div style="position:fixed; right:24px; top:123px;">
-			<a href="javascript:showImgWin('eduCurric')"><img src="/itep/assets/itep/img/icon/eduCurric-icon.png"/></a>
+		<div style="position:fixed; right:26px; top:153px;">
+			<a href="javascript:showImgWin('eduCurric')"><img src="/itep/assets/itep/img/icon/eduCurric-icon.png" style="width:85px; height:90px;"/></a>
 		</div>
 			
 	</div>
@@ -133,20 +133,6 @@
 <jsp:include page="./cmm/common-footer.jsp" />
 
 <script>
-	/* $(document).ready(function(){
-		$('#menuApprList').click(function(){
-			$('.main').load("/itep/views/apprMng/apprList");
-		});
-	}); */
-	/* $(document).ready(function(){
-		alert("1");
-		var nowFolder = $('#menuApprList').parent().parent().parent().parent().eq(0); 
-		alert("2");
-		nowFolder.className = "active";
-		alert("3");
-		$('#menuApprList').className = "active";
-		alert("4");
-	}); */
 	
 	//메인화면 이미지 자동 슬라이딩 기능
 	setInterval(function(){slideImg();},5000); //3초

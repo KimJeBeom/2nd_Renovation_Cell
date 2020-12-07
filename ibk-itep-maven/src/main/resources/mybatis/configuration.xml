@@ -41,6 +41,7 @@
 		<typeAlias alias="EduOpenReadyStatVo" type="com.ibk.itep.vo.admin.EduOpenReadyStatVo"></typeAlias>
 		<typeAlias alias="EduReadyStatVo" type="com.ibk.itep.vo.admin.EduReadyStatVo"></typeAlias>
 		<typeAlias alias="EduRegModVo" type="com.ibk.itep.vo.admin.EduRegModVo"></typeAlias>
+		<typeAlias alias="EduRegModExcelVo" type="com.ibk.itep.vo.admin.EduRegModExcelVo"></typeAlias>
 		<typeAlias alias="EduRndRegModVo" type="com.ibk.itep.vo.admin.EduRndRegModVo"></typeAlias>
 		<typeAlias alias="EmpAccMngVo" type="com.ibk.itep.vo.admin.EmpAccMngVo"></typeAlias>
 		<typeAlias alias="EmpAccMngExcelVo" type="com.ibk.itep.vo.admin.EmpAccMngExcelVo"></typeAlias>

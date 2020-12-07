@@ -109,7 +109,7 @@
 							</tbody>
 								</table>
 								<!-- End 수강신청 이력-조회결과 -->
-							 <div style="text-align:center">
+							 <div id="page" style="text-align:center;">
 								<button class="btn btn-primary btn-xs" id='prvsPage' onclick="searchPage('prvs');">◀</button>
 								&nbsp;
 								<input type="text" id="pageNum" value=1 style="width:30px; text-align:center">&nbsp;/
@@ -127,7 +127,7 @@
 
 	<!-- FOOTER -->
 	<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
-			<script type="text/javascript">
+	<script type="text/javascript">
 		
 		$("#sttgYmd").keyup(function(e){if(e.keyCode == 13)  search(); });
 		$("#fnshYmd").keyup(function(e){if(e.keyCode == 13)  search(); });
@@ -180,6 +180,7 @@
 				str += '</tbody>';
 				$('#hitoryTbody').replaceWith(str);
 				$('#pageNum').val("1");
+				$('#page').show();
 				}else{
 						str += '<tr height="130">';
 						str += '<td colspan="7" class="txt_center"><h4>선택 기간 내 수강 신청한 교육이 없습니다.</h4></td>';
@@ -188,6 +189,7 @@
 					$('#hitoryTbody').replaceWith(str);
 					$('#pageNum').val("1");
 					$('#listCnt').html("1");
+					$('#page').hide();
 				}
 			},
 			error: function (xhr, status, error) { alert("조회가 불가합니다. 다시 시도해주세요.");
@@ -232,6 +234,7 @@
 		         success: function (responseData) {
 		        	 
 						if(responseData.length == 0){
+							$('#page').hide();
 						}
 							
 						else{ //조회결과가 있을경우 테이블 replace 수행
@@ -252,6 +255,7 @@
 							str += '</tbody>';
 							$('#hitoryTbody').replaceWith(str);
 							$('#pageNum').val(pageNum);
+							$('#page').show();
 						}
 					}
 		         },

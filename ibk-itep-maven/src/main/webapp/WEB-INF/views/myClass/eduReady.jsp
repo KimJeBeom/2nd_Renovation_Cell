@@ -138,6 +138,7 @@
 									</tbody>
 								</table>
 							</div>
+							<br>
 							<!-- End 과정개설 신청목록-리스트 -->
 						</div>
 					</div>

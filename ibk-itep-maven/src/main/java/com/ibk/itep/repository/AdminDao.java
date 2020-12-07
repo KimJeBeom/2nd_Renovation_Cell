@@ -16,6 +16,7 @@ import com.ibk.itep.vo.admin.EduHistoryExcelVo;
 import com.ibk.itep.vo.admin.EduHistoryVo;
 import com.ibk.itep.vo.admin.EduOpenReadyStatVo;
 import com.ibk.itep.vo.admin.EduReadyStatVo;
+import com.ibk.itep.vo.admin.EduRegModExcelVo;
 import com.ibk.itep.vo.admin.EduRegModVo;
 import com.ibk.itep.vo.admin.EduRndRegModVo;
 import com.ibk.itep.vo.admin.EmpAccMngExcelVo;
@@ -39,6 +40,15 @@ public class AdminDao {
 
 		return list;
 	}
+	
+	public List<EduRegModExcelVo> selectEduRegModExcel(EduRegModVo vo) {
+		logger.debug("DAO Start - selectEduRegModExcel");
+		List<EduRegModExcelVo> list = sqlSession.selectList("queryAdmin.selectEduRegModExcel", vo);
+		logger.debug("DAO End - selectEduRegModExcel");
+
+		return list;
+	}
+	
 	public boolean deleteEduRegMod(EduRegModVo vo) {
 		logger.debug("DAO Start - deleteEduRegMod");
 		cmmService.objFieldTest(vo);
