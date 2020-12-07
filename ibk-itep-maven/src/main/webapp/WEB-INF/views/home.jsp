@@ -42,8 +42,8 @@
 						<div class="panel-heading">
 							<!-- 메인이미지 슬라이딩 -->
 							<div id="slide">
-							  <input type="radio" name="pos" id="pos1" value="1" checked>
-							  <input type="radio" name="pos" id="pos2" value="2">
+							  <input type="radio" name="pos" id="pos1" value="1" onclick="clearTmg();" checked >
+							  <input type="radio" name="pos" id="pos2" value="2" onclick="clearTmg();">
 							  <ul style="float:center">
 								<li><img src="/itep/assets/itep/img/itepintro.png"  style="width :inherit; height:100%; width:80%;margin: 0px auto; display:block;"/></li>
 								<li><img src="/itep/assets/itep/img/cheers.png"  style="width :inherit; height:100%; width:80%;margin: 0px auto; display:block;"/></li>
@@ -135,7 +135,7 @@
 <script>
 	
 	//메인화면 이미지 자동 슬라이딩 기능
-	setInterval(function(){slideImg();},5000); //3초
+	var myInsterval = setInterval(function(){slideImg();},5000); //3초
 	function slideImg() {
 		var radioVal = $('input[name="pos"]:checked').val(); //현재체크값
 		var addFileCnt = $("input[name=pos]").length; //페이지개수
@@ -145,6 +145,10 @@
 		}else if(parseInt(radioVal) >= addFileCnt){
 			$("input:radio[name='pos']:radio[id='pos1']").prop('checked', true); // 선택하기			
 		}
+	}
+	function clearTmg(){
+		clearInterval(myInsterval);
+		myInsterval = setInterval(function(){slideImg();},5000); //3초
 	}
 
 	function showImgWin(imgName) {
