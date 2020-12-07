@@ -110,16 +110,8 @@
 <jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 
 <script>
-//Enter클릭시  수행 스크립트
-window.onload = function() {
-		$('.collapsedBD').collapse();
-		document.getElementById('notice').style.fontWeight='bold';
-		document.getElementById('notice').style.color = 'blue';
-		/* let collapses = $('div.container').find('.subPages3'); //collapse라는 자식을 찾아서 배열을 불러온다
-		collapses.each(function () { $('#board').collapse('toggle'); });  */
-}
- //$("#collapse" + e.target.text).collapse('show'); 
 
+//Enter클릭시  수행 스크립트
 $("#ttl").keyup(function(e){if(e.keyCode==13) search(); });
 $("#pageNum").keyup(function(e){if(e.keyCode==13) pageCtrl('move'); });
 
