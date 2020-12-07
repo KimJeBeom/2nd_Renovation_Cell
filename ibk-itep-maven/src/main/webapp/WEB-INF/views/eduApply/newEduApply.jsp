@@ -39,12 +39,12 @@
 									</tr>
 									<tr>
 										<td class="info"><b>교육구분</b></td>
-										<td width="500px">
-											<label class="fancy-radio col-md-3">
+										<td width="500px" style="text-align:center;">
+											<label class="fancy-radio" style="display:inline-block;">
 												<input id="inbkEdctYn" name="inbkEdctYn" value="Y" type="radio">
 												<span><i></i>행내</span>
 											</label>
-											<label class="fancy-radio col-md-3">
+											<label class="fancy-radio" style="display:inline-block; margin-left: 150px;">
 												<input id="inbkEdctYn" name="inbkEdctYn" value="N" type="radio">
 												<span><i></i>행외</span>
 											</label>
@@ -148,27 +148,27 @@
 									</tr>
 									<tr>
 										<td class="info"><b>교육방식</b></td>
-										<td>
-											<label class="fancy-radio col-md-3">
+										<td style="text-align:center;">
+											<label class="fancy-radio" style="display:inline-block;">
 												<input id="onlEdctYn" name="onlEdctYn" value="Y" type="radio">
 												<span><i></i>온라인</span>
 											</label>
-											<label class="fancy-radio col-md-3">
+											<label class="fancy-radio" style="display:inline-block; margin-left: 150px;">
 												<input id="onlEdctYn" name="onlEdctYn" value="N" type="radio">
 												<span><i></i>오프라인</span>
 											</label>
 										</td>
 										<td class="info"><b>교육수준</b></td>
-										<td>
-											<label class="fancy-radio col-md-2">
+										<td style="text-align:center;">
+											<label class="fancy-radio" style="display:inline-block;">
 												<input id="edctLevl" name="edctLevl" value="상" type="radio">
 												<span><i></i>상</span>
 											</label>
-											<label class="fancy-radio col-md-2">
+											<label class="fancy-radio" style="display:inline-block; margin-left: 100px;">
 												<input id="edctLevl" name="edctLevl" value="중" type="radio">
 												<span><i></i>중</span>
 											</label>
-											<label class="fancy-radio col-md-2">
+											<label class="fancy-radio" style="display:inline-block; margin-left: 100px;">
 												<input id="edctLevl" name="edctLevl" value="하" type="radio">
 												<span><i></i>하</span>
 											</label>
@@ -205,8 +205,7 @@
 		<div class="clearfix"></div>
 		<footer>
 			<div class="container-fluid">
-				<!-- <p class="copyright">Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a> -->
-</p>
+				<!-- <p class="copyright">Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a></p> -->
 			</div>
 		</footer>
 	</div>

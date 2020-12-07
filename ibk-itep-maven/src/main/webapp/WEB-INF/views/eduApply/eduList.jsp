@@ -4,7 +4,15 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- HEADER -->
 <jsp:include page="/WEB-INF/views/cmm/common-header.jsp" />
-
+<style>
+	.badge{
+		vertical-align:center;
+		margin-right:5px;
+	}
+	.badge.bg-info{
+		background-color: #5bc0de;
+	}
+</style>
 <body>
 	<!-- WRAPPER -->
 	<div id="wrapper">
@@ -80,7 +88,7 @@
 								<!-- 테이블 1 : 전체 -->
 								<div class="tab-pane active" id="tab1">
 									<div class="col-md-12">
-										<div class="table-responsive" style="overflow-x:hidden; height:540px;">
+										<div class="table-responsive" style="overflow-x:hidden; height:570px;">
 											<table class="table table-hover table-sm first">
 												<thead>
 													<tr>
@@ -95,7 +103,13 @@
 													<c:forEach items="${list}" var="eduList" varStatus="status">
 													<tr>
 				 										<td style="text-align:center">${eduList.edctCntId}
-														<td style="text-align:  left"><span class="badge badge-primary">${eduList.edctLevl}</span>${eduList.edctNm}</td>
+														<td style="text-align:  left">
+															<c:choose>
+																<c:when test="${eduList.edctLevl eq '상'}"><span class="badge bg-danger"></c:when>
+																<c:when test="${eduList.edctLevl eq '중'}"><span class="badge bg-success"></c:when>
+																<c:when test="${eduList.edctLevl eq '하'}"><span class="badge bg-info"></c:when>
+															</c:choose>
+															${eduList.edctLevl}</span>${eduList.edctNm}</td>
 														<td style="text-align:center">${eduList.edinNm}</td>
 														<td style="text-align:center">${eduList.aplcSttgYmd} ~ ${eduList.aplcFnshYmd}</td>
 														<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup('eduApply','eduApplyPop?edctCntId=${eduList.edctCntId}');">안내 및 신청</button></td>
@@ -283,9 +297,17 @@ function a(tabValue){
 					$.each(responseData, function(i) {
 							str += '<tr>';
 							str += '<td style="text-align:center">'+responseData[i].edctCntId+'</td>';
-							str += '<td style="text-align:  left"><span class="badge badge-primary">'+responseData[i].edctLevl+'</span>'+responseData[i].edctNm+'</td>';
+							str += '<td style="text-align:  left">';
+							if(responseData[i].edctLevl == '상')
+								str += '<span class="badge bg-danger">';
+							else if(responseData[i].edctLevl == '중')
+								str += '<span class="badge bg-success">';
+							else if(responseData[i].edctLevl == '하')
+								str += '<span class="badge bg-info">';
+							str += responseData[i].edctLevl+'</span>'+responseData[i].edctNm+'</td>';
+							//str += '<td style="text-align:  left"><span class="badge badge-primary">'+responseData[i].edctLevl+'</span>'+responseData[i].edctNm+'</td>';
 							str += '<td style="text-align:center">'+responseData[i].edinNm+'</td>';
-							str += '<td style="text-align:center">'+responseData[i].aplcSttgYmd+'~'+responseData[i].aplcFnshYmd+'</td>';
+							str += '<td style="text-align:center">'+responseData[i].aplcSttgYmd+' ~ '+responseData[i].aplcFnshYmd+'</td>';
 							str += '<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup(\'eduApply\',\'eduApplyPop?edctCntId='+responseData[i].edctCntId+'\');">안내 및 신청</button></td>';
 							str += '</tr>';
 					});
@@ -345,9 +367,17 @@ function search() {
 					$.each(responseData, function(i) {
 							str += '<tr>';
 							str += '<td style="text-align:center">'+responseData[i].edctCntId+'</td>';
-							str += '<td style="text-align:  left"><span class="badge badge-primary">'+responseData[i].edctLevl+'</span>'+responseData[i].edctNm+'</td>';
+							str += '<td style="text-align:  left">';
+							if(responseData[i].edctLevl == '상')
+								str += '<span class="badge bg-danger">';
+							else if(responseData[i].edctLevl == '중')
+								str += '<span class="badge bg-success">';
+							else if(responseData[i].edctLevl == '하')
+								str += '<span class="badge bg-info">';
+							str += responseData[i].edctLevl+'</span>'+responseData[i].edctNm+'</td>';
+							//str += '<td style="text-align:  left"><span class="badge badge-primary">'+responseData[i].edctLevl+'</span>'+responseData[i].edctNm+'</td>';
 							str += '<td style="text-align:center">'+responseData[i].edinNm+'</td>';
-							str += '<td style="text-align:center">'+responseData[i].aplcSttgYmd+'~'+responseData[i].aplcFnshYmd+'</td>';
+							str += '<td style="text-align:center">'+responseData[i].aplcSttgYmd+' ~ '+responseData[i].aplcFnshYmd+'</td>';
 							str += '<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup(\'eduApply\',\'eduApplyPop?edctCntId='+responseData[i].edctCntId+'\');">안내 및 신청</button></td>';
 							str += '</tr>';
 					});
@@ -435,9 +465,17 @@ function pageCtrl(ctrlPage) {
 					$.each(responseData, function(i) {
 							str += '<tr>';
 							str += '<td style="text-align:center">'+responseData[i].edctCntId+'</td>';
-							str += '<td style="text-align:  left"><span class="badge badge-primary">'+responseData[i].edctLevl+'</span>'+responseData[i].edctNm+'</td>';
+							str += '<td style="text-align:  left">';
+							if(responseData[i].edctLevl == '상')
+								str += '<span class="badge bg-danger">';
+							else if(responseData[i].edctLevl == '중')
+								str += '<span class="badge bg-success">';
+							else if(responseData[i].edctLevl == '하')
+								str += '<span class="badge bg-info">';
+							str += responseData[i].edctLevl+'</span>'+responseData[i].edctNm+'</td>';
+							//str += '<td style="text-align:  left"><span class="badge badge-primary">'+responseData[i].edctLevl+'</span>'+responseData[i].edctNm+'</td>';
 							str += '<td style="text-align:center">'+responseData[i].edinNm+'</td>';
-							str += '<td style="text-align:center">'+responseData[i].aplcSttgYmd+'~'+responseData[i].aplcFnshYmd+'</td>';
+							str += '<td style="text-align:center">'+responseData[i].aplcSttgYmd+' ~ '+responseData[i].aplcFnshYmd+'</td>';
 							str += '<td style="text-align:center"><button class="btn btn-success align-bottom btn-xs" onclick="showPopup(\'eduApply\',\'eduApplyPop?edctCntId='+responseData[i].edctCntId+'\');">안내 및 신청</button></td>';
 							str += '</tr>';
 					});
