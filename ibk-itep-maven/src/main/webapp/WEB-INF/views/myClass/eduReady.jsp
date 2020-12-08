@@ -154,8 +154,6 @@
 	<!-- FOOTER -->
 	<jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 	
-	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/floatthead/2.2.1/jquery.floatThead.js"></script>
 	<script type="text/javascript">
 
 		$(document).ready(function() {

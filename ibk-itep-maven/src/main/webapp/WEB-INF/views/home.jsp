@@ -134,8 +134,8 @@
 
 <script>
 	
-	//메인화면 이미지 자동 슬라이딩 기능
-	var myInsterval = setInterval(function(){slideImg();},5000); //3초
+	//메인화면 이미지 자동 슬라이딩 기능(타이머)
+	var myInsterval = setInterval(function(){slideImg();},5000); //5초
 	function slideImg() {
 		var radioVal = $('input[name="pos"]:checked').val(); //현재체크값
 		var addFileCnt = $("input[name=pos]").length; //페이지개수
@@ -146,9 +146,10 @@
 			$("input:radio[name='pos']:radio[id='pos1']").prop('checked', true); // 선택하기			
 		}
 	}
+	//메인화면 전환시 타이머 초기화
 	function clearTmg(){
 		clearInterval(myInsterval);
-		myInsterval = setInterval(function(){slideImg();},5000); //3초
+		myInsterval = setInterval(function(){slideImg();},5000); //5초
 	}
 
 	function showImgWin(imgName) {
