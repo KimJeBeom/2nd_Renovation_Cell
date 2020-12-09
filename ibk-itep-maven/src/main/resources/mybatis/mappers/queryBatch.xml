@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="queryBatch">
+
+	<insert id="upsertUser" parameterType="CluVo">
+	    <![CDATA[
+		/*게시판>공지사항>공지사항조회*/
+		INSERT INTO TB_IEP_CMU001M(
+			 USER_ID
+			,USER_NM
+			,USER_JTM
+			,USER_TPN
+			,TEAM_CD
+			,DVCD
+			,ATHR_CD
+			,USER_YN
+		)VALUES(
+			 #{userId}
+			,#{userNm}
+			,#{userJtm}
+			,#{usertpn}
+			,#{teamCd}
+			,#{dvcd}
+			,#{athrCd}
+			,#{useYn}
+		ON DUPLICATE KEY UPDATE 
+			 USER_NM = #{userNm}
+			,USER_JTM = #{userJtm}
+			,USER_TPN = #{usertpn}
+			,TEAM_CD = #{teamCd}
+			,DVCD = #{dvcd}
+			,ATHR_CD = #{athrCd}
+			,USER_YN = #{useYn}
+		]]>
+	</insert>
+	
+	<insert id="upsertBranch" parameterType="CmbVo">
+	    <![CDATA[
+		/*게시판>공지사항>공지사항조회*/
+		INSERT INTO TB_IEP_CMU001M(
+			 BRCD
+			,BRNM
+			,HGRN_BRCD
+			,USE_YN
+		)VALUES(
+			 #{brcd}
+			,#{brnm}
+			,#{hgrn_Brcd}
+			,#{useYn}
+		ON DUPLICATE KEY UPDATE 
+			 BRCD = #{brcd};
+			,BRNM = #{brnm};
+			,HGRN_BRCD = #{hgrn_Brcd};
+			,USE_YN = #{useYn};
+		]]>
+	</insert>
+</mapper>
