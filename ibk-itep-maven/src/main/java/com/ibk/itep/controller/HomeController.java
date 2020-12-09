@@ -42,14 +42,14 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
 	
-		logger.debug("SSO체크 1");
+		logger.debug("SSO Check 1 : SSO인증 티켓 추출");
 		return "index";
 	}
 	@RequestMapping(value = "/ssoLogin", method = RequestMethod.GET)
 	public String home(Model model 
 			,@RequestParam(value="ticket", required = false) String ticket) {
 			
-		logger.debug("SSO체크 2");		
+		logger.debug("SSO Check 1 : SSO 사용자ID 추출");		
 		model.addAttribute("ticket", ticket);  	//SSO인증 티켓
 		
 		return "ssoLogin";
