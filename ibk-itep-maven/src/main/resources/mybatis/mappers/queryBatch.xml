@@ -14,7 +14,7 @@
 			,TEAM_CD
 			,DVCD
 			,ATHR_CD
-			,USER_YN
+			,USE_YN
 		)VALUES(
 			 #{userId}
 			,#{userNm}
@@ -23,7 +23,7 @@
 			,#{teamCd}
 			,#{dvcd}
 			,#{athrCd}
-			,#{useYn}
+			,#{useYn} )
 		ON DUPLICATE KEY UPDATE 
 			 USER_NM = #{userNm}
 			,USER_JTM = #{userJtm}
@@ -47,7 +47,7 @@
 			 #{brcd}
 			,#{brnm}
 			,#{hgrn_Brcd}
-			,#{useYn}
+			,#{useYn} )
 		ON DUPLICATE KEY UPDATE 
 			 BRCD = #{brcd};
 			,BRNM = #{brnm};
