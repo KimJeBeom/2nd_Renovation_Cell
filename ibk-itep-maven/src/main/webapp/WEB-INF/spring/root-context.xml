@@ -61,7 +61,7 @@
         <property name="locations">
         	<list>
 	       		<value>classpath:config/dbconfig.properties</value>        
-	       		<value>classpath:config/file.properties</value>   
+	       		<value>classpath:config/file.properties</value>      
        		</list>     
         </property>
         <property name="fileEncoding" value="UTF-8" />
