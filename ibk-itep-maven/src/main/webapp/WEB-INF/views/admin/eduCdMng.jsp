@@ -48,6 +48,7 @@
 						<!-- End 코드 관리 - 조회바 -->
 						<!-- Start 버튼바-->
 						<div class="form-group row" style="text-align: right; padding-right: 42px; margin-bottom:0px;">
+							<button class="btn btn-primary" type="button" onclick="showPopup('admin','batchPagePop');">배치실행</button>
 							<button class="btn btn-primary" type="button" onclick="updateCmm();">수정</button>
 							<button class="btn btn-primary" type="button" onclick="showPopup('admin','addEduCdPop');">추가</button>
 							<br>

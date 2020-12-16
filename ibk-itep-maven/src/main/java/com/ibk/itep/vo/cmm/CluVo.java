@@ -7,7 +7,7 @@ public class CluVo {
 	private String  brnm;		//부서명
 	
 	private String userJtm ="";
-	private String usertpn ="";
+	private String userTpn ="";
 	private String teamCd  ="";
 	private String dvcd    ="";
 	private String athrCd  ="";
@@ -38,11 +38,11 @@ public class CluVo {
 	public void setUserJtm(String userJtm) {
 		this.userJtm = userJtm;
 	}
-	public String getUsertpn() {
-		return usertpn;
+	public String getUserTpn() {
+		return userTpn;
 	}
-	public void setUsertpn(String usertpn) {
-		this.usertpn = usertpn;
+	public void setUserTpn(String userTpn) {
+		this.userTpn = userTpn;
 	}
 	public String getTeamCd() {
 		return teamCd;

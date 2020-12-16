@@ -4,21 +4,30 @@ import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.ibk.itep.repository.board.NoticeDao;
 import com.ibk.itep.vo.cmm.CluVo;
 import com.ibk.itep.vo.cmm.CmbVo;
 
+@Repository
 public class BatchDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
 	private static final Logger logger = LoggerFactory.getLogger(NoticeDao.class);
+	//사용자권한확인
+	public String userAthrChk(CluVo vo) {
+		logger.info("[DAO]userAthrChk Start");
+		String userAthr = sqlSession.selectOne("queryBatch.userAthrChk",vo);
+		logger.info("[DAO]userAthrChk End");
+		return userAthr;
+	}
 	//사용자 등록
 	public int upsertUser(CluVo vo) {
 
 		logger.info("[DAO]upsertUser Start");
-		int regRst = sqlSession.insert("querybatch.upsertUser",vo);
+		int regRst = sqlSession.insert("queryBatch.upsertUser",vo);
 		logger.info("[DAO]upsertUser End");
 
 		return regRst;
@@ -27,10 +36,11 @@ public class BatchDao {
 	public int upsertBranch(CmbVo vo) {
 
 		logger.info("[DAO]upsertBranch Start");
-		int regRst = sqlSession.insert("querybatch.upsertBranch",vo);
+		int regRst = sqlSession.insert("queryBatch.upsertBranch",vo);
 		logger.info("[DAO]upsertBranch End");
 
 		return regRst;
 	}
+	
 
 }
