@@ -19,13 +19,13 @@
 				<div class="col-md-9 col-popup">
 				   <!-- INPUTS -->
 				   <div class="panel panel-headline">
-				   <div class="panel-body panel-popup">
+				   <div class="panel-body panel-popup" style="height: 250px;">
 				   <!-- 작업수행을 위한 버튼 -->
 					<div style="text-align:left; padding-bottom: 10px;">
 						<button type="button" class="btn btn-primary" onclick="addUser();">직원배치수행</button>
 						<button type="button" class="btn btn-primary" onclick="addBranch();">부서배치수행</button>
 					</div>
-					<textarea id ="result" class="form-control" style="width:100%; height: 200px;"></textarea>
+					<textarea id ="result" class="form-control" style="width:100%; height: 180px; padding-bottom: 10px;"></textarea>
 				   </div>
 				   </div>
 				   <!-- END INPUTS -->
@@ -53,7 +53,7 @@
 	         success: function (responseData) {
 	        	 var result = responseData.split("@@")
 	        	 if(result[0] == "success"){
-	        		 $('#result').val("[배치수행성공] =================\n"+result[1]);
+	        		 $('#result').val("[배치수행성공] =================\n"+result[1]+"건 등록");
         		 }else if(result[0] == "nofile"){
         			 $('#result').val("[READ파일 없음] =================\n"+result[1]);
         		 }else if(result[0] == "failed"){
@@ -73,10 +73,10 @@
 	        url:"/itep/views/admin/pop/addBranchBat", //데이터를  넘겨줄 링크 설정
 			type:"POST", // post 방식
 
-	         success: function (responseData) {
-	        	 var result = responseData.split("@@")
-	        	 if(result[0] == "success"){
-	        		 $('#result').val("[배치수행성공] =================\n"+result[1]);
+         success: function (responseData) {
+        	 var result = responseData.split("@@")
+        	 if(result[0] == "success"){
+        		 $('#result').val("[배치수행성공] =================\n"+result[1]);
      		 }else if(result[0] == "nofile"){
      			 $('#result').val("[READ파일 없음] =================\n"+result[1]);
      		 }else if(result[0] == "failed"){
@@ -85,9 +85,9 @@
 	        	 	$('#result').val("[ERROR] =================\n 전달값이 이상합니다.");
      		 }
 	          },
-	         error: function (xhr, status, error) {
+         error: function (xhr, status, error) {
  			 $('#result').val("[배치수행실패] =================\n"+result[1]);
-	          }
+          }
 		});
 } 
    

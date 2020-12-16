@@ -17,19 +17,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ibk.itep.repository.batch.BatchDao;
-import com.ibk.itep.repository.board.NoticeDao;
+import com.ibk.itep.service.BatchService;
 import com.ibk.itep.vo.cmm.CluVo;
 import com.ibk.itep.vo.cmm.CmbVo;
  
 @Controller
 public class BatchPageController {
 	
-	@Autowired private static BatchDao batchDAO;
+	@Autowired private BatchService service;
 	@Value("${file.path}")	private String FILE_PATH;
 	private String read_path = null;
 	
-	private static final Logger logger = LoggerFactory.getLogger(NoticeDao.class);
+	private static final Logger logger = LoggerFactory.getLogger(BatchPageController.class);
 	
 	//GET거래 : 최초접속시 / 조회시  거래
 	@RequestMapping(value = "/views/admin/pop/batchPagePop", method = RequestMethod.GET)
@@ -62,19 +61,21 @@ public class BatchPageController {
             String[] sArray;
             int sCnt = 0; 
             CluVo vo = new CluVo();
+            int rCnt = 0;
             while((line = bufReader.readLine()) != null){
-            	sArray = line.split("|");
+            	rCnt++;
+            	sArray = line.split("[|]");
             	sCnt = sArray.length;
-            	logger.info("[BATCH] line : "+line);
+            	logger.info("[BATCH] line : "+line+" / count :"+sCnt);
             	if(sCnt>0) {
             		vo.setUserId(sArray[0]);
             		vo.setUserNm(sArray[1].trim());
             		vo.setUserJtm(sArray[2]);
-            		vo.setUsertpn(sArray[3]);
+            		vo.setUserTpn(sArray[3]);
             		vo.setTeamCd(sArray[4]);
             		vo.setDvcd(sArray[5]);
-            		//vo.setAthrCd(sArray[6]);
-            		int regRst = batchDAO.upsertUser(vo);
+            		vo.setUseYn(sArray[6]);
+            		int regRst = service.upsertUser(vo);
             		logger.info("[BATCH] RESULT : "+ regRst);
             	}
             	
@@ -82,6 +83,7 @@ public class BatchPageController {
             //.readLine()은 끝에 개행문자를 읽지 않는다.            
             bufReader.close();
             logger.info("[BATCH] Cmu001m END ======================");
+            return "success"+"@@"+rCnt;
         }catch (FileNotFoundException e) {
             // TODO: handle exception
         	logger.info("[BATCH] Cmu001m Failed : NoFile ==========");
@@ -91,7 +93,6 @@ public class BatchPageController {
             logger.info("[BATCH] Cmu001m Failed : Job Failed ======");
             return "failed"+"@@"+e;
         }
-		return "success";
     }
 	
 	//POST거래 : 부서정보 UPDATE/INSERT
@@ -102,8 +103,9 @@ public class BatchPageController {
         	//keyValue(메서드명체크)
         	String mName = new Object() {}.getClass().getEnclosingMethod().getName();
             //파일 객체 생성
-        	String path = FILE_PATH + File.separator + mName + File.separator +"EDW_D_CMB001M.dat";
-            File file = new File(path);
+        	//read_path = FILE_PATH + File.separator + mName + File.separator +"EDW_D_CMB001M.dat";
+        	read_path = "C:\\dat\\AddBranchBat\\EDW_D_CMB001M.dat";
+            File file = new File(read_path);
             
             //입력 스트림 생성
             FileReader filereader = new FileReader(file);
@@ -114,23 +116,25 @@ public class BatchPageController {
             String[] sArray;
             int sCnt = 0; 
             CmbVo vo = new CmbVo();
+            int rCnt = 0;
             while((line = bufReader.readLine()) != null){
+            	rCnt++;
             	sArray = line.split("[|]");
             	sCnt = sArray.length;
             	logger.info("[BATCH] line : "+ line);
             	if(sCnt>0) {
-            		vo.setBrcd(sArray[1]);
-            		vo.setBrnm(sArray[2].trim());
-            		vo.setHgrn_brcd(sArray[3]);
-            		vo.setUseYn(sArray[4]);
-            		int regRst = batchDAO.upsertBranch(vo);
+            		vo.setBrcd(sArray[0]);
+            		vo.setBrnm(sArray[1].trim());
+            		vo.setHgrn_brcd(sArray[2]);
+            		vo.setUseYn(sArray[3]);
+            		int regRst = service.upsertBranch(vo);
             		logger.info("[BATCH] RESULT : "+ regRst);
             	}
-            	
             }
             //.readLine()은 끝에 개행문자를 읽지 않는다.            
             bufReader.close();
             logger.info("[BATCH] Cmb001m END ======================");
+            return "success"+"@@"+rCnt;
         }catch (FileNotFoundException e) {
             // TODO: handle exception
         	logger.info("[BATCH] Cmb001m Failed : NoFile ==========");
@@ -140,6 +144,5 @@ public class BatchPageController {
             logger.info("[BATCH] Cmb001m Failed : Job Failed ======");
             return "failed"+"@@"+e;
         }
-		return "success";
-    }
+	}
 }
