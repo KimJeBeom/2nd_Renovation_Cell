@@ -76,13 +76,13 @@
          success: function (responseData) {
         	 var result = responseData.split("@@")
         	 if(result[0] == "success"){
-        		 $('#result').val("[배치수행성공] =================\n"+result[1]);
+        		 $('#result').val("[배치수행성공] =================\n"+result[1]+"건 등록");
      		 }else if(result[0] == "nofile"){
      			 $('#result').val("[READ파일 없음] =================\n"+result[1]);
      		 }else if(result[0] == "failed"){
      			 $('#result').val("[배치수행실패] =================\n"+result[1]);
      		 }else{
-	        	 	$('#result').val("[ERROR] =================\n 전달값이 이상합니다.");
+	        	 $('#result').val("[ERROR] =================\n 전달값이 이상합니다.");
      		 }
 	          },
          error: function (xhr, status, error) {
