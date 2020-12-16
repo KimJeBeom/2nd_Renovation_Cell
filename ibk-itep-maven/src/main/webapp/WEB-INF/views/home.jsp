@@ -44,13 +44,19 @@
 							<div id="slide">
 							  <input type="radio" name="pos" id="pos1" value="1" onclick="clearTmg();" checked >
 							  <input type="radio" name="pos" id="pos2" value="2" onclick="clearTmg();">
+							  <input type="radio" name="pos" id="pos3" value="3" onclick="clearTmg();">
+							  <input type="radio" name="pos" id="pos4" value="4" onclick="clearTmg();">
 							  <ul style="float:center">
 								<li><img src="/itep/assets/itep/img/itepintro.png"  style="width :inherit; height:100%; width:80%;margin: 0px auto; display:block;"/></li>
 								<li><img src="/itep/assets/itep/img/cheers.png"  style="width :inherit; height:100%; width:80%;margin: 0px auto; display:block;"/></li>
+								<li><img src="/itep/assets/itep/img/deptTop-main.png"  style="width :inherit; height:100%; width:80%;margin: 0px auto; display:block;"/></li>
+								<li><img src="/itep/assets/itep/img/eduCurric-main.png"  style="width :inherit; height:100%; width:80%;margin: 0px auto; display:block;"/></li>
 							  </ul>
 							  <p class="pos">
 							    <label for="pos1"></label>
 							    <label for="pos2"></label>
+							    <label for="pos3"></label>
+							    <label for="pos4"></label>
 							  </p>
 							</div>	
 						</div>
