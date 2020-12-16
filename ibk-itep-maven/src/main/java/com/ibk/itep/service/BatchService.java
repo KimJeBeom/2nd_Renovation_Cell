@@ -2,9 +2,11 @@ package com.ibk.itep.service;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,18 +35,18 @@ public class BatchService {
         	
 	        //파일 객체 생성
 	    	read_path = File.separator + FILE_PATH + File.separator + mName + File.separator +"EDW_D_CMU001M.dat";
-	    	//read_path = "C:\\dat\\AddUserBat\\EDW_D_CMU001M.dat";
-	    	logger.info("FILE path : "+read_path);
-	        File file = new File(read_path);
 	        //입력 스트림 생성
-	        FileReader filereader = new FileReader(file);
+	        FileInputStream input = new FileInputStream(read_path);
+	        InputStreamReader filereader = new InputStreamReader(input,"UTF-8");
 	        //입력 버퍼 생성
 	        BufferedReader bufReader = new BufferedReader(filereader);
+	        
 	        String line = "";
 	        String[] sArray;
 	        int sCnt = 0; 
 	        int rCnt = 0;
 	        CluVo vo = new CluVo();
+	        
 			while((line = bufReader.readLine()) != null){
 				rCnt++;
 				sArray = line.split("[|]");
@@ -85,19 +87,18 @@ public class BatchService {
 
             //파일 객체 생성
         	read_path = File.separator + FILE_PATH + File.separator + mName + File.separator +"EDW_D_CMB001M.dat";
-        	//read_path = "C:\\dat\\AddBranchBat\\EDW_D_CMB001M.dat";
-            File file = new File(read_path);
-            
-            //입력 스트림 생성
-            FileReader filereader = new FileReader(file);
-            //입력 버퍼 생성
-            BufferedReader bufReader = new BufferedReader(filereader);
+	        //입력 스트림 생성
+	        FileInputStream input = new FileInputStream(read_path);
+	        InputStreamReader filereader = new InputStreamReader(input,"UTF-8");
+	        //입력 버퍼 생성
+	        BufferedReader bufReader = new BufferedReader(filereader);
             
             String line = "";
             String[] sArray;
             int sCnt = 0; 
             int rCnt = 0;
             CmbVo vo = new CmbVo();
+            
             while((line = bufReader.readLine()) != null){
             	rCnt++;
             	sArray = line.split("[|]");
