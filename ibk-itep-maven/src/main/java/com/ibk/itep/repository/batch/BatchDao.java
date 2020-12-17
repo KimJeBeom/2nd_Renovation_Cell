@@ -19,6 +19,12 @@ public class BatchDao {
 	//사용자권한확인
 	public String userAthrChk(CluVo vo) {
 		logger.info("[DAO]userAthrChk Start");
+		/* 
+		 * [유저권한 확인 로직]
+		 * 1)기존에 부여된권한이 있을경우 = 기존권한 부여
+		 * 2)권한은 없지만 상위부서가 IT그룹일경우 = USR권한부여
+		 * 3)권한도없고 IT그룹직원이 아닐경우 = 권한미부여
+		 */
 		String userAthr = sqlSession.selectOne("queryBatch.userAthrChk",vo);
 		logger.info("[DAO]userAthrChk End");
 		return userAthr;
@@ -32,7 +38,7 @@ public class BatchDao {
 
 		return regRst;
 	}
-	//기존사용자목록 조회
+	//부서 등록
 	public int upsertBranch(CmbVo vo) {
 
 		logger.info("[DAO]upsertBranch Start");

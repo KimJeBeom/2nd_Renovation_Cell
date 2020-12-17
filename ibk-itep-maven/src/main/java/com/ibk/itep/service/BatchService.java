@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -28,14 +27,15 @@ public class BatchService {
 	private String read_path = null;
 
 	private static final Logger logger = LoggerFactory.getLogger(BatchPageController.class);
-		
+	
+	//직원등록서비스
 	public String upsertUser(String mName) {
         try {
         	logger.info("[BATCH] Cmu001m START ======================");
         	
-	        //파일 객체 생성
+	        //파일 객체 생성(root/dat/컨트롤러명/EDW_D_CMU001M.dat)
 	    	read_path = File.separator + FILE_PATH + File.separator + mName + File.separator +"EDW_D_CMU001M.dat";
-	        //입력 스트림 생성
+	        //입력 스트림 생성(UTF-8변환)
 	        FileInputStream input = new FileInputStream(read_path);
 	        InputStreamReader filereader = new InputStreamReader(input,"UTF-8");
 	        //입력 버퍼 생성
@@ -46,7 +46,8 @@ public class BatchService {
 	        int sCnt = 0; 
 	        int rCnt = 0;
 	        CluVo vo = new CluVo();
-	        
+
+	        //파일의 LINE수로 1열씩 update/insert진행
 			while((line = bufReader.readLine()) != null){
 				rCnt++;
 				sArray = line.split("[|]");
@@ -60,7 +61,7 @@ public class BatchService {
 					vo.setTeamCd(sArray[4]);
 					vo.setDvcd(sArray[5]);
 					vo.setUseYn(sArray[6]);
-					vo.setAthrCd(batchDAO.userAthrChk(vo));
+					vo.setAthrCd(batchDAO.userAthrChk(vo)); //유저권한획득
 					int regRst = batchDAO.upsertUser(vo);
 					logger.info("[BATCH] RESULT : "+ regRst);
 				}
@@ -80,14 +81,16 @@ public class BatchService {
         }
 
 	}
+	
+	//부서등록 서비스
 	public String upsertBranch(String mName) {
 		
         try{
         	logger.info("[BATCH] Cmb001m START ======================");
 
-            //파일 객체 생성
+	        //파일 객체 생성(root/dat/컨트롤러명/EDW_D_CMB001M.dat)
         	read_path = File.separator + FILE_PATH + File.separator + mName + File.separator +"EDW_D_CMB001M.dat";
-	        //입력 스트림 생성
+	        //입력 스트림 생성(UTF-8변환)
 	        FileInputStream input = new FileInputStream(read_path);
 	        InputStreamReader filereader = new InputStreamReader(input,"UTF-8");
 	        //입력 버퍼 생성
@@ -99,6 +102,7 @@ public class BatchService {
             int rCnt = 0;
             CmbVo vo = new CmbVo();
             
+            //파일의 LINE수로 1열씩 update/insert진행
             while((line = bufReader.readLine()) != null){
             	rCnt++;
             	sArray = line.split("[|]");

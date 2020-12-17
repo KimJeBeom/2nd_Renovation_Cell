@@ -5,7 +5,7 @@
 
 	<insert id="upsertUser" parameterType="CluVo">
 	    <![CDATA[
-		/*게시판>공지사항>공지사항조회*/
+		/*관리자>코드관리>배치실행>직원배치*/
 		INSERT INTO TB_IEP_CMU001M(
 			 USER_ID
 			,USER_NM
@@ -37,7 +37,7 @@
 	
 	<insert id="upsertBranch" parameterType="CmbVo">
 	    <![CDATA[
-		/*게시판>공지사항>공지사항조회*/
+		/*관리자>코드관리>배치실행>부서배치*/
 		INSERT INTO TB_IEP_CMB001M(
 			 BRCD
 			,BRNM
@@ -57,7 +57,7 @@
 	
 	<select id="userAthrChk" resultType="String" parameterType="CluVo">
 	    <![CDATA[
-		/*관리자>직원정보배치>직원권한확인*/
+		/*관리자>코드관리>직원정보배치>직원권한확인*/
 		SELECT 
 			CASE WHEN ATHR_CD IN ('DPM','GRM','ADM','USR') THEN ATHR_CD
 				 WHEN DVCD IN (SELECT BRCD FROM TB_IEP_CMB001M WHERE (HGRN_BRCD = '0889' OR BRCD ='0889')) THEN 'USR'
