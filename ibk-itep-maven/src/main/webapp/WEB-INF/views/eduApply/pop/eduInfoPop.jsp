@@ -32,8 +32,8 @@
 										<tr>
 											<!-- 신청시 결재 대상인 교육일 경우 안내 매세지 및 부서결재자 정보 활성화 -->
 											<c:if test ="${vo.snctTgtYn eq 'Y' && modType eq 'insert'}">
-											<td style="width: 8%; text-align: center; padding-bottom: 10px;"><b>■ 부서 결재자</b></td>
-											<td style="width: 7%; padding-bottom: 10px;">
+											<td style="width: 5%; text-align: center; padding-bottom: 10px;"><b>■ 부서 결재자</b></td>
+											<td style="width: 10%; padding-bottom: 10px;">
 												<div>
 													<select class="form-control" id="dpmid"  style="width:230px;">														
 													<c:forEach items="${dpmList}" var="dpmList">
@@ -97,7 +97,7 @@
 										</tr>
 										<tr>
 										   <th>첨부파일<br><button class="fileAdd_btn" type="button">파일추가</button></th>
-										   <td colspan="3">
+										   <td colspan="3"><b>신청서와 교육 팜플렛을 첨부해주세요<font color="red"> (필수)</font></b>
 												<form name="writeForm"  id="excelForm" method="post" action="upload" enctype="multipart/form-data">
 												<input type="text" name="code_nm" style="display:none" value="EDA">
 												<input type="text" name="pbns_id" style="display:none" value="">
@@ -132,13 +132,13 @@ function fstApply(modAct){
 	
 	if(snctTgtYn == 'Y'){
 		if(addFileCnt==0){
-			alert("파일첨부는 필수입니다."); return;
+			alert("파일을 첨부해주세요."); return;
 		}if(dpmAthzId==null || dpmAthzId=="" ){
 			alert("부서결재자를 지정해주세요"); return;
 		}
 	}
 	
-   	var conf = confirm('등록하시겠습니까?');
+   	var conf = confirm('결재요청하시겠습니까?');
    	if(conf==true){
 
    		var form = $('#excelForm')[0];
@@ -162,7 +162,7 @@ function fstApply(modAct){
 		         success: function (responseData) {
 		        	 //화면 재호출시(작업완료) 제어를 위한 sctipt
  		        	 if(responseData=='success'){
-		        		 alert("처리완료");
+		        		 alert("결재요청 되었습니다.");
 		        	 	 window.close();
 		        	 }else if(responseData=='fail'){
 		        		 alert("등록에 실패 하였습니다. 다시 시도하여 주세요");

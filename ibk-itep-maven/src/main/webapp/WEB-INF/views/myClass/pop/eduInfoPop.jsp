@@ -70,7 +70,7 @@
 									<c:when test="${modType != 'history' && (eduInfoPop.aplcStgCd == 'REJDPM' || eduInfoPop.aplcStgCd == 'REJGRM') }">
 										<tr>
 										  <th>첨부파일</th>
-										  <td colspan="3">
+										  <td colspan="3"><b>신청서와 교육 팜플렛을 첨부해주세요<font color="red"> (필수)</font></b>
 								   			<section id="container">
 												<form name="updateForm" role="form" method="post" action="/itep/updateFile" enctype="multipart/form-data">
 													<input type="hidden" id="fileNoDel" name="fileNoDel[]" value=""> 

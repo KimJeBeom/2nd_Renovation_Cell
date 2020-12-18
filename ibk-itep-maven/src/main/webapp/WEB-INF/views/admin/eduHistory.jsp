@@ -230,7 +230,12 @@
 						str += '<td>'+responseData[i].edinNm+'</td>'
 						str += '<td>'+responseData[i].edctSttgYmd.replace(/-/g,'.')+'~'+responseData[i].edctFnshYmd.replace(/-/g,'.')+'</td>'
 						str += '<td>'+responseData[i].edex+'</td>'
+						var rfrcCon = responseData[i].rfrcCon;
+						if(rfrcCon.length > 8){
+						str += '<td>'+rfrcCon.substr(0,8)+".."+'</td>'
+						}else{
 						str += '<td>'+responseData[i].rfrcCon+'</td>'
+						}
 						str += '</tr>'
 					});
 					str += '</tbody>'
@@ -317,7 +322,12 @@
 						str += '<td>'+responseData[i].edinNm+'</td>'
 						str += '<td>'+responseData[i].edctSttgYmd.replace(/-/g,'.')+'~'+responseData[i].edctFnshYmd.replace(/-/g,'.')+'</td>'
 						str += '<td>'+responseData[i].edex+'</td>'
+						var rfrcCon = responseData[i].rfrcCon;
+						if(rfrcCon.length > 8){
+						str += '<td>'+rfrcCon.substr(0,8)+".."+'</td>'
+						}else{
 						str += '<td>'+responseData[i].rfrcCon+'</td>'
+						}
 						str += '</tr>'
 					});
 					str += '</tbody>'

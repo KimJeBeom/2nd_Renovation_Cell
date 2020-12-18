@@ -186,6 +186,12 @@
 									</tr>
 									</tbody>
 								</table>
+								<br>
+								<table>
+								<tbody>
+									<tr><td><b>* 신청하신 내역은 내 학습실 > 수강신청한 교육에서 확인하실 수 있으며, 관리자 확인 후 처리됩니다.</b></td></tr>
+								</tbody>
+								</table>
 							</div>
 							<br>
 							<div class="form-group row" style="text-align:center">
@@ -215,7 +221,7 @@
 <jsp:include page="/WEB-INF/views/cmm/common-footer.jsp" />
 <script>
 function insertNewEdu() {
-   	var conf = confirm('등록하시겠습니까?');
+   	var conf = confirm('개설 신청 하시겠습니까?');
    	if(conf==true){
 	    var	inbkEdctYn = $('input[name="inbkEdctYn"]:checked').val(); //행내교육여부
 		var	edctNm = $("#edctNm").val(); //교육명   
@@ -268,7 +274,7 @@ function insertNewEdu() {
 					
 			         success: function (responseData) {
 			        	 if(responseData=='success'){
-				        	 alert("정상등록 되었습니다.");
+				        	 alert("개설 신청 되었습니다.");
 				        	 location.href='/itep/views/eduApply/newEduApply';
 			        	 }else if(responseData=='fail'){
 			        		 alert("등록에 실패 하였습니다. 다시 시도하여 주세요");
