@@ -11,6 +11,7 @@ public class ApprStatVo {
 	private String aplcStgCd;
 	private String aplcStg;
 	private String apprNm;
+	private String teamCd;
 	
 	public Integer getEdctAplcId() {
 		return edctAplcId;
@@ -71,5 +72,11 @@ public class ApprStatVo {
 	}
 	public void setApprNm(String apprNm) {
 		this.apprNm = apprNm;
+	}
+	public String getTeamCd() {
+		return teamCd;
+	}
+	public void setTeamCd(String teamCd) {
+		this.teamCd = teamCd;
 	}
 }

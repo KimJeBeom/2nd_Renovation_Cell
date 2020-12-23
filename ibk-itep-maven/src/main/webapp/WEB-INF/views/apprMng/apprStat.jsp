@@ -108,6 +108,7 @@
 											<tr>
 												<th>NO</th>
 												<th>부서명</th>
+												<th>팀명</th>
 												<th>직원명</th>
 												<th style="width: 200px;">신청교육</th>
 												<th>신청일자</th>
@@ -123,6 +124,7 @@
 														<tr data-toggle="tab" data-target="#table" onclick="showDetail(this, ${apprstat.edctAplcId })">
 															<td>${status.count }</td>
 															<td>${apprstat.brnm }</td>
+															<td>${apprstat.teamCd }</td>
 															<td>${apprstat.userNm }</td>
 															<td>${apprstat.edctNm }</td>
 															<td>${apprstat.aplcTs }</td>
@@ -258,6 +260,7 @@
 							str += '<tr data-toggle=\"tab\" data-target=\"#table\" onclick=\"showDetail(this, '+responseData[i].edctAplcId+')\">';
 							str += '<td>'+(i+1)+'</td>';
 							str += '<td>'+responseData[i].brnm+'</td>';
+							str += '<td>'+responseData[i].teamCd+'</td>';
 							str += '<td>'+responseData[i].userNm+'</td>';
 							str += '<td>'+responseData[i].edctNm+'</td>';
 							str += '<td>'+responseData[i].aplcTs+'</td>';
@@ -299,6 +302,7 @@
 				success: function (responseData) {		
 					// apprDetail 결과값을 테이블에 동적으로 반영
 					$('#brnm').html(responseData.brnm);
+					$('#teamCd').html(responseData.teamCd);
 					$('#userNm').html(responseData.userNm);
 					$('#aplcTs').html(responseData.aplcTs);
 					$('#dpmAthzDvcd').html(responseData.dpmAthzDvcd);

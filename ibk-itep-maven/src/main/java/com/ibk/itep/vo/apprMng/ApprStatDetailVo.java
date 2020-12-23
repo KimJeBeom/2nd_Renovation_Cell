@@ -17,6 +17,7 @@ public class ApprStatDetailVo {
 	private String grmAthzTs;
 	private String aplcStgCd;
 	private String rtreCon;
+	private String teamCd; 
 	
 	public Integer getEdctAplcId() {
 		return edctAplcId;
@@ -114,4 +115,11 @@ public class ApprStatDetailVo {
 	public void setRtreCon(String rtreCon) {
 		this.rtreCon = rtreCon;
 	}
+	public String getTeamCd() {
+		return teamCd;
+	}
+	public void setTeamCd(String teamCd) {
+		this.teamCd = teamCd;
+	}
+
 }
