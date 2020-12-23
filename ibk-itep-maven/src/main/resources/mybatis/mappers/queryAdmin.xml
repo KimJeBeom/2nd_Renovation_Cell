@@ -281,7 +281,7 @@
 					OR	EDC.EDCT_FNSH_YMD BETWEEN CONCAT(#{sttgYmd}, ' 00:00:00') AND CONCAT(#{fnshYmd}, ' 23:59:59'))
 				</when>
 				<otherwise>
-					AND EDC.EDCT_STTG_YMD BETWEEN DATE_ADD(NOW(),INTERVAL -1 YEAR ) AND NOW()
+					AND EDC.EDCT_STTG_YMD BETWEEN DATE_ADD(NOW(),INTERVAL -3 MONTH ) AND DATE_ADD(NOW(),INTERVAL 3 MONTH )
 				</otherwise>
 			  </choose>
 			  <if test="edctClsfCd != null and edctClsfCd != 'ALL'">
@@ -294,7 +294,7 @@
 		), EDA_CNT AS (
 			SELECT EDCT_CNT_ID, COUNT(EDCT_APLC_ID) AS CNT
 			FROM TB_IEP_EDA001M EDA	
-			WHERE APLC_STG_CD IN ('EDUFIN', 'APRFIN') AND USE_YN = 'Y'
+			WHERE APLC_STG_CD IN ('APRFIN') AND USE_YN = 'Y'
 			GROUP BY EDCT_CNT_ID
 		)
 		SELECT EDC_INFO.EDCT_CNT_ID AS edctCntId
@@ -339,7 +339,7 @@
 					WHERE EDA.EDCT_CNT_ID = #{edctCntId} AND EDA.USE_YN = 'Y'
 					AND EDA.USER_ID = CMU.USER_ID 
 					AND EDA.DVCD = CMB.BRCD
-					AND EDA.APLC_STG_CD IN ('EDUFIN', 'APRFIN')
+					AND EDA.APLC_STG_CD IN ('APRFIN')
 				) 
 				SELECT *
 				FROM EDCT_INFO LEFT OUTER JOIN EDA_LIST ON EDCT_INFO.edctCntId = EDA_LIST.edctCntId
@@ -357,7 +357,7 @@
 				WHERE EDA.EDCT_CNT_ID = #{edctCntId} AND EDA.USE_YN = 'Y'
 				AND EDA.USER_ID = CMU.USER_ID 
 				AND EDA.DVCD = CMB.BRCD
-				AND EDA.APLC_STG_CD IN ('EDUFIN', 'APRFIN')
+				AND EDA.APLC_STG_CD IN ('APRFIN')
 			]]>
 		</select>
 		
@@ -368,7 +368,7 @@
 				SET CTCR_YN = #{eduEmpListVo.ctcrYn}
 					, APLC_STG_CD = 'EDUFIN'
 				WHERE EDCT_APLC_ID = #{eduEmpListVo.edctAplcId}
-				AND APLC_STG_CD IN ('EDUFIN', 'APRFIN')
+				AND APLC_STG_CD IN ('APRFIN')
 				AND USE_YN = 'Y';
 	    	</foreach>
 	    </update>
