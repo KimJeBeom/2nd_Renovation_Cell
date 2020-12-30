@@ -50,7 +50,7 @@
 													<select class="form-control" id="schType">
 														<option value="edctNm">과목명</option>
 														<option value="edinCd">기관명</option>
-														<option value="edctId">순번</option>
+														<option value="edctId">교육ID</option>
 													</select>
 												</div>
 											</td>
@@ -92,7 +92,7 @@
 											<table class="table table-hover table-sm first">
 												<thead>
 													<tr>
-														<th style="text-align:center; width:10%;" id="th1">순번</th>
+														<th style="text-align:center; width:10%;" id="th1">교육ID</th>
 														<th style="text-align:center; width:40%;" id="th2">교육명</th>
 														<th style="text-align:center; width:15%;" id="th3">기관명</th>
 														<th style="text-align:center; width:20%;" id="th4">접수기간</th>
@@ -135,7 +135,7 @@
 											<table class="table table-hover table-sm first">
 												<thead>
 													<tr>
-														<th style="text-align:center; width:10%;" id="th1">순번</th>
+														<th style="text-align:center; width:10%;" id="th1">교육ID</th>
 														<th style="text-align:center; width:40%;" id="th2">교육명</th>
 														<th style="text-align:center; width:15%;" id="th3">기관명</th>
 														<th style="text-align:center; width:20%;" id="th4">접수기간</th>
@@ -163,7 +163,7 @@
 											<table class="table table-hover table-sm first">
 												<thead>
 													<tr>
-														<th style="text-align:center; width:10%;" id="th1">순번</th>
+														<th style="text-align:center; width:10%;" id="th1">교육ID</th>
 														<th style="text-align:center; width:40%;" id="th2">교육명</th>
 														<th style="text-align:center; width:15%;" id="th3">기관명</th>
 														<th style="text-align:center; width:20%;" id="th4">접수기간</th>
@@ -191,7 +191,7 @@
 											<table class="table table-hover table-sm first">
 												<thead>
 													<tr>
-														<th style="text-align:center; width:10%;" id="th1">순번</th>
+														<th style="text-align:center; width:10%;" id="th1">교육ID</th>
 														<th style="text-align:center; width:40%;" id="th2">교육명</th>
 														<th style="text-align:center; width:15%;" id="th3">기관명</th>
 														<th style="text-align:center; width:20%;" id="th4">접수기간</th>
@@ -220,7 +220,7 @@
 											<table class="table table-hover table-sm first">
 												<thead>
 													<tr>
-														<th style="text-align:center; width:10%;" id="th1">순번</th>
+														<th style="text-align:center; width:10%;" id="th1">교육ID</th>
 														<th style="text-align:center; width:40%;" id="th2">교육명</th>
 														<th style="text-align:center; width:15%;" id="th3">기관명</th>
 														<th style="text-align:center; width:20%;" id="th4">접수기간</th>
