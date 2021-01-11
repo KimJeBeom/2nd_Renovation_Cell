@@ -137,7 +137,7 @@
 		</choose>
 		<choose>
 			<when test="aplcStg == 'fin'">
-				AND EDA.APLC_STG_CD = 'APRFIN'
+				AND (EDA.APLC_STG_CD = 'APRFIN' OR EDA.APLC_STG_CD = 'EDUFIN')
 			</when>
 			<when test="aplcStg == 'apr'">
 				AND (EDA.APLC_STG_CD = 'APRDPM' OR EDA.APLC_STG_CD = 'APRGRM')
