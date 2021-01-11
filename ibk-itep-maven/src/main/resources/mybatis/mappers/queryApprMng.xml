@@ -43,7 +43,7 @@
 			 , EDM.EDCT_CON AS edctCon
 			 , CLI.EDIN_NM AS edinNm
 			 , EDM.EDCT_LEVL AS edctLevl
-			 , EDM.ONL_EDCT_YN AS onlEdctYn
+			 , IF(EDM.ONL_EDCT_YN = 'Y','온라인','오프라인')  AS onlEdctYn
 			 , EDC.EDCT_STTG_YMD AS edctSttgYmd
 			 , EDC.EDCT_FNSH_YMD AS edctFnshYmd
 			 , EDC.APLC_STTG_YMD AS aplcSttgYmd
