@@ -118,7 +118,7 @@
 				ELSE 'disable' END AS MODCODE
 		FROM
 				(SELECT 
-						COALESCE(APLC_STG_CD, 'insert') as APLC_STG_CD
+						COALESCE(MIN(APLC_STG_CD), 'insert') as APLC_STG_CD
 				 FROM   TB_IEP_EDA001M
 				 WHERE  USER_ID = #{userId}
 				 AND    EDCT_CNT_ID = #{edctCntId}
