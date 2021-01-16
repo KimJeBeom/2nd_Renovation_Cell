@@ -20,4 +20,5 @@
 	<link rel="stylesheet" href="/itep/assets/css/demo.css">
 	<!-- GOOGLE FONTS -->
 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+	<link rel="shortcut icon" type="image/x-icon" href="/itep/assets/itep/img/icon/test_pap.ico" />
 </head>
