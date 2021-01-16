@@ -80,7 +80,9 @@
 window.onload = function() {
 	var userId = $('input[name=user_id]').val();
 	if(userId != null){
-		 document.getElementById("submit").click();
+		document.getElementById("submit").click();
+	}else{
+		window.location.replace('/itep/index');
 	}
 }
 </script>

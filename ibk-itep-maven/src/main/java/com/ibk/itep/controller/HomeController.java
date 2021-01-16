@@ -30,31 +30,12 @@ public class HomeController {
 			,@RequestParam(value="userId", required = false) String userId
 			,@RequestParam(value="show", required = false) String show) {
 		
-		/*Index.jsp로 리턴하여 SSO자동 로그인 기능 구현 예정*/
-		
 		model.addAttribute("userId", userId);  	//직원번호
 		model.addAttribute("show", show); 		//수동로그인
 		
 		logger.debug("Login page 호출");
 		return "login";
 	}
-	/*
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) {
-	
-		logger.debug("SSO Check 1 : SSO인증 티켓 추출");
-		return "index";
-	}
-	@RequestMapping(value = "/ssoLogin", method = RequestMethod.GET)
-	public String home(Model model 
-			,@RequestParam(value="ticket", required = false) String ticket) {
-			
-		logger.debug("SSO Check 1 : SSO 사용자ID 추출");		
-		model.addAttribute("ticket", ticket);  	//SSO인증 티켓
-		
-		return "ssoLogin";
-	}
-	*/
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Model model 
 			,@RequestParam(value="userId", required = false) String userId
@@ -65,6 +46,23 @@ public class HomeController {
 		
 		logger.debug("Login page 호출");
 		return "login";
+	}
+	
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	public String home(Model model) {
+	
+		logger.debug("SSO Check 1 : SSO인증 티켓 추출");
+		return "index";
+	}
+	
+	@RequestMapping(value = "/ssoLogin", method = RequestMethod.GET)
+	public String home(Model model 
+			,@RequestParam(value="ticket", required = false) String ticket) {
+			
+		logger.debug("SSO Check 1 : SSO 사용자ID 추출");		
+		model.addAttribute("ticket", ticket);  	//SSO인증 티켓
+		
+		return "ssoLogin";
 	}
 	
 }
