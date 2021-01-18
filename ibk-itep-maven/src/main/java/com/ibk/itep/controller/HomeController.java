@@ -39,7 +39,7 @@ public class HomeController {
 		return "ssoLogin";
 	}
 	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(Model model 
 			,@RequestParam(value="userId", required = false) String userId
 			,@RequestParam(value="show", required = false) String show) {
