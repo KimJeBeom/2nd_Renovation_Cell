@@ -13,7 +13,6 @@
   #slide li:nth-child(1){background:#FFFFFF;}
   #slide li:nth-child(3){background:#FFFFFF;}
   #slide li:nth-child(3){background:#FFFFFF;}
-  #slide li:nth-child(4){background:#FFFFFF;}
   #slide input{display:none;}
   #slide label{display:inline-block;vertical-align:middle;width:10px;height:10px;border:2px solid #666;background:#fff;transition:0.3s;border-radius:50%;cursor:pointer;}
   #slide .pos{text-align:center;position:absolute;bottom:10px;left:0;width:100%;text-align:center;}
@@ -24,7 +23,6 @@
   #pos1:checked~.pos>label:nth-child(1){background:#666;}
   #pos2:checked~.pos>label:nth-child(2){background:#666;}
   #pos3:checked~.pos>label:nth-child(3){background:#666;}
-  #pos4:checked~.pos>label:nth-child(4){background:#666;}
 </style>
 
 <body>	
@@ -45,18 +43,15 @@
 							  <input type="radio" name="pos" id="pos1" value="1" onclick="clearTmg();" checked >
 							  <input type="radio" name="pos" id="pos2" value="2" onclick="clearTmg();">
 							  <input type="radio" name="pos" id="pos3" value="3" onclick="clearTmg();">
-							  <input type="radio" name="pos" id="pos4" value="4" onclick="clearTmg();">
 							  <ul style="float:center">
 								<li><img src="/itep/assets/itep/img/itepintro.png"  style="width :inherit; height:100%; width:80%;margin: 0px auto; display:block;"/></li>
 								<li><img src="/itep/assets/itep/img/deptTop-main.png"  style="width :inherit; height:100%; width:80%;margin: 0px auto; display:block;"/></li>
 								<li><img src="/itep/assets/itep/img/eduCurric-main.png"  style="width :inherit; height:100%; width:80%;margin: 0px auto; display:block;"/></li>
-								<li><img src="/itep/assets/itep/img/cheers.png"  style="width :inherit; height:100%; width:80%;margin: 0px auto; display:block;"/></li>
 							  </ul>
 							  <p class="pos">
 							    <label for="pos1"></label>
 							    <label for="pos2"></label>
 							    <label for="pos3"></label>
-							    <label for="pos4"></label>
 							  </p>
 							</div>	
 						</div>

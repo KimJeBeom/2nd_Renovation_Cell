@@ -91,7 +91,7 @@
 										</tr>
 										<tr>
 											<th>학습기간</th>
-											<td>2020-02-01 ~ 2020-02-05</td>
+											<td>${vo.edctSttgYmd} ~ ${vo.edctFnshYmd}</td>
 											<th>교육수준</th>
 							   				<td>${vo.edctLevl}</td>
 										</tr>

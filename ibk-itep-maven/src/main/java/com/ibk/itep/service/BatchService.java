@@ -22,7 +22,7 @@ import com.ibk.itep.vo.cmm.CmbVo;
 @Service
 public class BatchService {
 	
-	@Value("${file.path}") private String FILE_PATH;
+	@Value("${file.path1}") private String FILE_PATH;
 	@Autowired private BatchDao batchDAO;
 	private String read_path = null;
 
@@ -63,7 +63,7 @@ public class BatchService {
 				  }
 					vo.setUserTpn(sArray[3]); //행내전화
 					vo.setTeamCd(sArray[10]); //팀코드
-				  if(sArray[12] == "0004") {
+				  if(sArray[12] == "0004" || sArray[9] == "0002") {
 					  vo.setDvcd(sArray[10]); //부서급팀인경우 부서코드 팀코드으로 지정
 				  }else {
 					  vo.setDvcd(sArray[7]); //부서코드

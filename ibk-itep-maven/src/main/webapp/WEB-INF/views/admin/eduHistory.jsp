@@ -57,7 +57,7 @@
 														</div>
 													</td>
 													<td style="width: 150px"><b>교육분류</b></td>
-													<td style="width: 150px"><select class="form-control"
+													<td style="width: 300px"><select class="form-control"
 														id="edctClsfCd" style="text-align: left;">
 															<option value="ALL">전체</option>
 															<c:forEach items="${cldVoList }" var="cldVo">
@@ -68,11 +68,12 @@
 												<tr style="height: 10px"></tr>
 												<tr>
 													<td style="width: 100px"><b>부서</b></td>
-													<td colspan="3"><input class="form-control" id="brnm"
+													<td colspan="2"><input class="form-control" id="brnm"
 														type="text" style="text-align: left;" placeholder="부서명">
 													</td>
+													<td style="width: 100px"><b></b></td>
 													<td style="width: 150px"><b>직원명</b></td>
-													<td style="width: 150px"><input class="form-control" id="userNm"
+													<td style="width: 300px"><input class="form-control" id="userNm"
 														type="text" style="text-align: left;" placeholder="직원명"></td>
 												</tr>
 											</tbody>

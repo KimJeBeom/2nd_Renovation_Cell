@@ -496,6 +496,8 @@
 				and	eda.DVCD = cmb.BRCD
  				and	edm.EDCT_CLSF_CD = cld.EDCT_CLSF_CD
 				and	edm.EDIN_CD = cli.EDIN_CD
+				and eda.APLC_STG_CD IN ('EDUFIN')
+				and eda.CTCR_YN IN ('Y')
 	    ]]>
 	    <if test="edctClsfCd != null">
 	    	<![CDATA[#교육구분코드
@@ -519,7 +521,7 @@
 	    </if>
 	    	    <if test="brnm != null">
 	    	<![CDATA[# 부서
-	    		#and cmb.BRNM LIKE CONCAT('%', #{brnm}, '%')
+	    		and cmb.BRNM LIKE CONCAT('%', #{brnm}, '%')
 	    	]]>
 	    </if>
 	    <if test="edctSttgYmd != null and edctFnshYmd != null">
@@ -535,6 +537,9 @@
 	    		and eda.EDCT_APLC_ID = #{edctAplcId}
 	    	]]>
 	    </if>
+	    	 <![CDATA[
+	    	ORDER BY edctSttgYmd desc
+	       ]]>
 	    <if test="pageSet != null and pageSet >= 0">		
 			Limit #{pageSet} ,10
 		</if>

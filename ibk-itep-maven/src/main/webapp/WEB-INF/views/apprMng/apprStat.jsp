@@ -135,7 +135,7 @@
 										    	</c:when>
 												<c:otherwise>
 													<tr height="150">
-														<td colspan="7" class="txt_center"><h4>결재 이력이 없습니다.</h4></td>
+														<td colspan="8" class="txt_center"><h4>결재 이력이 없습니다.</h4></td>
 													</tr>
 												</c:otherwise>
 											</c:choose>	
