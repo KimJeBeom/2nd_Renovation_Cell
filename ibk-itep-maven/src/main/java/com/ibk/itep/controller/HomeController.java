@@ -47,8 +47,19 @@ public class HomeController {
 		model.addAttribute("userId", userId);  	//직원번호
 		model.addAttribute("show", show); 		//수동로그인
 		
-		logger.debug("Login page 호출");
+		logger.debug("Login page 호출 : POST");
 		return "login";
 	}
 	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String loginGet(Model model 
+			,@RequestParam(value="userId", required = false) String userId
+			,@RequestParam(value="show", required = false) String show) {
+		
+		model.addAttribute("userId", userId);  	//직원번호
+		model.addAttribute("show", show); 		//수동로그인
+		
+		logger.debug("Login page 호출 : GET");
+		return "login";
+	}
 }

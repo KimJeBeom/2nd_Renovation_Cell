@@ -53,7 +53,7 @@
 <OBJECT ID="NEXESS_API" CLASSID="CLSID:D4F62B67-8BA3-4A8D-94F6-777A015DB612" width=0 height=0></OBJECT>
 
 <form action="/itep/login" name="form" method="post">
-	<input type="hidden" name="userid" value="<%=userid%>">
+	<input type="hidden" name="userId" value="<%=userid%>">
 	<script>document.form.submit();</script>
 </form>
 
