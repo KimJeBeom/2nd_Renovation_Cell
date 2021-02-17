@@ -50,17 +50,25 @@ public class BatchService {
 	        //파일의 LINE수로 1열씩 update/insert진행
 			while((line = bufReader.readLine()) != null){
 				rCnt++;
-				sArray = line.split("[|]");
+				sArray = line.split("[^|]");
 				sCnt = sArray.length;
 				logger.info("[BATCH] line : "+line+" / count :"+sCnt);
 				if(sCnt>0) {
-					vo.setUserId(sArray[0]);
-					vo.setUserNm(sArray[1].trim());
-					vo.setUserJtm(sArray[2]);
-					vo.setUserTpn(sArray[3]);
-					vo.setTeamCd(sArray[4]);
-					vo.setDvcd(sArray[5]);
-					vo.setUseYn(sArray[6]);
+					vo.setUserId(sArray[1]);
+					vo.setUserNm(sArray[0].trim());
+				  if(sArray[16] != null) {//직원대외호칭명
+					   vo.setUserJtm(sArray[16]);
+			 	  }else{
+					   vo.setUserJtm(sArray[15]); //직급명	
+				  }
+					vo.setUserTpn(sArray[3]); //행내전화
+					vo.setTeamCd(sArray[10]); //팀코드
+				  if(sArray[12] == "0004") {
+					  vo.setDvcd(sArray[10]); //부서급팀인경우 부서코드 팀코드으로 지정
+				  }else {
+					  vo.setDvcd(sArray[7]); //부서코드
+				  }
+					vo.setUseYn("Y"); //사용여부
 					vo.setAthrCd(batchDAO.userAthrChk(vo)); //유저권한획득
 					int regRst = batchDAO.upsertUser(vo);
 					logger.info("[BATCH] RESULT : "+ regRst);
@@ -105,14 +113,14 @@ public class BatchService {
             //파일의 LINE수로 1열씩 update/insert진행
             while((line = bufReader.readLine()) != null){
             	rCnt++;
-            	sArray = line.split("[|]");
+            	sArray = line.split("[^|]");
             	sCnt = sArray.length;
             	logger.info("[BATCH] line : "+ line);
             	if(sCnt>0) {
-            		vo.setBrcd(sArray[0]);
-            		vo.setBrnm(sArray[1].trim());
-            		vo.setHgrn_brcd(sArray[2]);
-            		vo.setUseYn(sArray[3]);
+            		vo.setBrcd(sArray[7]);
+            		vo.setBrnm(sArray[8].trim());
+            		vo.setHgrn_brcd(sArray[13]); //상위부점코드
+            		vo.setUseYn("Y");
             		int regRst = batchDAO.upsertBranch(vo);
             		logger.info("[BATCH] RESULT : "+ regRst);
             	}
