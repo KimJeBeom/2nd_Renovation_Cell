@@ -369,7 +369,7 @@
 					, APLC_STG_CD = 'EDUFIN'
 				WHERE EDCT_APLC_ID = #{eduEmpListVo.edctAplcId}
 				AND APLC_STG_CD IN ('APRFIN')
-				AND USE_YN = 'Y';
+				AND USE_YN = 'Y'
 	    	</foreach>
 	    </update>
 		
@@ -473,8 +473,8 @@
 			SELECT	eda.EDCT_APLC_ID as edctAplcID		# 교육 신청 ID
 				,	cld.EDCT_CLSF_NM as edctClsfNm		# 교육 분류
 				,	edc.EDCT_ID as edctId				# 교육 ID
-				,   (select b.BRNM from itep.tb_iep_cmb001m b where eda.team_cd = b.BRCD) as teamNm #팀명
     			,	cmb.BRNM as brnm 					# 부서명 
+    			,   (select b.BRNM from itep.tb_iep_cmb001m b where eda.team_cd = b.BRCD) as teamNm #팀명
     			,	eda.USER_ID as userId 				# 직원번호
     			,	cmu.USER_NM as userNm 				# 직원명
     			,	edm.EDCT_NM as edctNm 				# 교육명
@@ -482,6 +482,7 @@
     			,	edc.EDCT_STTG_YMD as edctSttgYmd 	# 교육 시작일
     			,	edc.EDCT_FNSH_YMD as edctFnshYmd 	# 교육 종료일
     			,	edc.EDEX as edex 					# 예산
+    			,	eda.CTCR_YN as ctcrYn				# 수료여부
     			,	eda.RFRC_CON as rfrcCon 			# 참고
 			FROM 	itep.tb_iep_eda001m eda 			# 교육신청테이블
 				,	itep.tb_iep_edc001m edc 			# 교육차수테이블
@@ -497,7 +498,6 @@
  				and	edm.EDCT_CLSF_CD = cld.EDCT_CLSF_CD
 				and	edm.EDIN_CD = cli.EDIN_CD
 				and eda.APLC_STG_CD IN ('EDUFIN')
-				and eda.CTCR_YN IN ('Y')
 	    ]]>
 	    <if test="edctClsfCd != null">
 	    	<![CDATA[#교육구분코드
@@ -552,6 +552,7 @@
 			SELECT	eda.EDCT_APLC_ID as edctAplcID		# 교육 신청 ID
 				,	cld.EDCT_CLSF_NM as edctClsfNm		# 교육 분류
     			,	cmb.BRNM as brnm 					# 부서명 
+    			,   (select b.BRNM from itep.tb_iep_cmb001m b where eda.team_cd = b.BRCD) as teamNm #팀명
     			,	cmu.USER_NM as userNm 				# 직원명
     			,	eda.USER_ID as userId 				# 직원번호
 				,	edc.EDCT_ID as edctId				# 교육 ID
@@ -560,6 +561,7 @@
     			,	edc.EDCT_STTG_YMD as edctSttgYmd 	# 교육 시작일
     			,	edc.EDCT_FNSH_YMD as edctFnshYmd 	# 교육 종료일
     			,	edc.EDEX as edex 					# 예산
+    			,	eda.CTCR_YN as ctcrYn				# 수료여부
     			,	eda.RFRC_CON as rfrcCon 			# 참고
 			FROM 	itep.tb_iep_eda001m eda 			# 교육신청테이블
 				,	itep.tb_iep_edc001m edc 			# 교육차수테이블
@@ -574,6 +576,7 @@
 				and	eda.DVCD = cmb.BRCD
  				and	edm.EDCT_CLSF_CD = cld.EDCT_CLSF_CD
 				and	edm.EDIN_CD = cli.EDIN_CD
+				and eda.APLC_STG_CD IN ('EDUFIN')
 	    ]]>
 	    <if test="edctClsfCd != null">
 	    	<![CDATA[#교육구분코드
@@ -608,6 +611,9 @@
         		)   		
 	    	]]>
 	    </if>
+	       <![CDATA[
+	    	ORDER BY edctSttgYmd desc
+	       ]]>
 	</select>
 	<!-- Start - Popup - 참고사항등록 memoRegPop -->
 		<!-- update 신청서 - 참고사항 등록 -->
@@ -615,7 +621,7 @@
 			<![CDATA[
 				UPDATE TB_IEP_EDA001M 
 				SET RFRC_CON = #{rfrcCon}
-				WHERE EDCT_APLC_ID = #{edctAplcId};
+				WHERE EDCT_APLC_ID = #{edctAplcId}
 			]]>
 		</update>
 	<!-- End - Popup - 참고사항등록 memoRegPop -->
@@ -697,7 +703,7 @@
 	    </if>
     	<if test="athrCd != null and !athrCd.equals('')">
 	    	<![CDATA[
-	 	   		and cmu.ATHR_CD =#{athrCd};
+	 	   		and cmu.ATHR_CD =#{athrCd}
 	    	]]>
 	    </if>
 	</select>

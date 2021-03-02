@@ -124,10 +124,10 @@ public class AdminDao {
 		
 	}
 	public List<EduHistoryExcelVo> selectEduHistoryExcel(EduHistoryVo vo){
-		logger.debug("DAO Start - selectEduHistory");
+		logger.debug("DAO Start - selectEduHistoryExcel");
 		cmmService.objFieldTest(vo);
 		List<EduHistoryExcelVo> list = sqlSession.selectList("queryAdmin.selectEduHistoryExcel", vo);
-		logger.debug("DAO End - selectEduHistory");
+		logger.debug("DAO End - selectEduHistoryExcel");
 		return list;
 	}
 	/************************************************************

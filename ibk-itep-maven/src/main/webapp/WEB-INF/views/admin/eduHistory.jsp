@@ -110,7 +110,6 @@
 											<th style="width: 50px">이력ID</th>
 											<th>교육분류</th>
 											<th>부서명</th>
-											<th>팀명</th>
 											<th>직원명</th>
 											<th>직원번호</th>
 											<th>교육ID</th>
@@ -118,6 +117,7 @@
 											<th>교육기관</th>
 											<th>교육기간</th>
 											<th>예산</th>
+											<th>수료여부</th>
 											<th>참고</th>
 										</tr>
 									</thead>
@@ -223,7 +223,6 @@
 						str += '<td>'+responseData[i].edctAplcId+'</td>'
 						str += '<td>'+responseData[i].edctClsfNm+'</td>'
 						str += '<td>'+responseData[i].brnm+'</td>'
-						str += '<td>'+responseData[i].teamNm+'</td>'
 						str += '<td>'+responseData[i].userNm+'</td>'
 						str += '<td>'+responseData[i].userId+'</td>'
 						str += '<td>'+responseData[i].edctId+'</td>'
@@ -231,6 +230,7 @@
 						str += '<td>'+responseData[i].edinNm+'</td>'
 						str += '<td>'+responseData[i].edctSttgYmd.replace(/-/g,'.')+'~'+responseData[i].edctFnshYmd.replace(/-/g,'.')+'</td>'
 						str += '<td>'+responseData[i].edex+'</td>'
+						str += '<td>'+responseData[i].ctcrYn+'</td>'
 						var rfrcCon = responseData[i].rfrcCon;
 						if(rfrcCon.length > 8){
 						str += '<td>'+rfrcCon.substr(0,8)+".."+'</td>'
@@ -315,7 +315,6 @@
 						str += '<td>'+responseData[i].edctAplcId+'</td>'
 						str += '<td>'+responseData[i].edctClsfNm+'</td>'
 						str += '<td>'+responseData[i].brnm+'</td>'
-						str += '<td>'+responseData[i].teamNm+'</td>'
 						str += '<td>'+responseData[i].userNm+'</td>'
 						str += '<td>'+responseData[i].userId+'</td>'
 						str += '<td>'+responseData[i].edctId+'</td>'
@@ -323,6 +322,7 @@
 						str += '<td>'+responseData[i].edinNm+'</td>'
 						str += '<td>'+responseData[i].edctSttgYmd.replace(/-/g,'.')+'~'+responseData[i].edctFnshYmd.replace(/-/g,'.')+'</td>'
 						str += '<td>'+responseData[i].edex+'</td>'
+						str += '<td>'+responseData[i].ctcrYn+'</td>'
 						var rfrcCon = responseData[i].rfrcCon;
 						if(rfrcCon.length > 8){
 						str += '<td>'+rfrcCon.substr(0,8)+".."+'</td>'
