@@ -19,6 +19,7 @@ public class EduHistoryVo {
 	private String 	edctFnshYmd;// 교육 종료일
 	private String 	edex; 		// 예산
 	private String 	rfrcCon; 	// 참고
+	private String ctcrYn;      //수료여부
 	
 	private Integer pageSet; //페이지SetNumber
 	
@@ -123,6 +124,12 @@ public class EduHistoryVo {
 	}
 	public void setRfrcCon(String rfrcCon) {
 		this.rfrcCon = rfrcCon;
+	}
+	public String getCtcrYn() {
+		return ctcrYn;
+	}
+	public void setCtcrYn(String ctcrYn) {
+		this.ctcrYn = ctcrYn;
 	}
 	public Integer getPageSet() {
 		return pageSet;

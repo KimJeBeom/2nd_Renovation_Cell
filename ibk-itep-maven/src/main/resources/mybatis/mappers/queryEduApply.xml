@@ -81,8 +81,8 @@
   			  ,C.EDCT_TRM AS edctTrm #교육기간
 			  ,C.CTCR_TIM AS ctcrTim #이수시간
 			  ,C.EDEX AS edex #교육비용
-              ,C.EDCT_STTG_YMD #학습시작시간
-              ,C.EDCT_FNSH_YMD #학습종료시간
+              ,C.EDCT_STTG_YMD AS edctSttgYmd #학습시작시간
+              ,C.EDCT_FNSH_YMD AS edctFnshYmd #학습종료시간
 		FROM TB_IEP_EDM001M M,
 			 (SELECT EDCT_ID,EDCT_CNT_ID, EDCT_TRM, CTCR_TIM, EDEX, EDCT_STTG_YMD, EDCT_FNSH_YMD FROM TB_IEP_EDC001M WHERE EDCT_CNT_ID = #{edctCntId}) C
         WHERE M.EDCT_ID = C.EDCT_ID

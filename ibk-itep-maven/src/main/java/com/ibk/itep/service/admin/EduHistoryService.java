@@ -118,7 +118,7 @@ public class EduHistoryService {
 		// 엑셀관련 데이터 셋팅
 		req.setAttribute("sheetName", "수강 이력");
 		req.setAttribute("excelName", "ITEP_수강이력");
-		String[] colName = {"이력ID","교육분류","부서명","직원명","직원번호","교육ID","교육명","교육기관","교육시작일자","교육종료일자","예산","참고"};
+		String[] colName = {"이력ID","교육분류","부서명","팀명","직원명","직원번호","교육ID","교육명","교육기관","교육시작일자","교육종료일자","예산","수료여부","참고"};
 		req.setAttribute("colName", colName);
 		req.setAttribute("list", list);
 		

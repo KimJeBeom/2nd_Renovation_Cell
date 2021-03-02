@@ -5,6 +5,7 @@ public class EduHistoryExcelVo {
 	private Integer	edctAplcId;	// 교육 신청 ID
 	private String	edctClsfNm; // 교육 분류
 	private String	brnm; 		// 부서명
+	private String	teamNm; 	// 팀명
 	private String 	userNm; 	// 직원명
 	private String 	userId; 	// 직원번호
 	private Integer edctId;		// 교육 ID
@@ -13,7 +14,9 @@ public class EduHistoryExcelVo {
 	private String 	edctSttgYmd;// 교육 시작일
 	private String 	edctFnshYmd;// 교육 종료일
 	private String 	edex; 		// 예산
+	private String  ctcrYn;     //수료여부
 	private String 	rfrcCon; 	// 참고
+
 	
 	public Integer getEdctAplcId() {
 		return edctAplcId;
@@ -38,6 +41,12 @@ public class EduHistoryExcelVo {
 	}
 	public void setBrnm(String brnm) {
 		this.brnm = brnm;
+	}
+	public String getTeamNm() {
+		return teamNm;
+	}
+	public void setTeamNm(String teamNm) {
+		this.teamNm = teamNm;
 	}
 	public String getUserId() {
 		return userId;
@@ -80,6 +89,12 @@ public class EduHistoryExcelVo {
 	}
 	public void setEdex(String edex) {
 		this.edex = edex;
+	}
+	public String getCtcrYn() {
+		return ctcrYn;
+	}
+	public void setCtcrYn(String ctcrYn) {
+		this.ctcrYn = ctcrYn;
 	}
 	public String getRfrcCon() {
 		return rfrcCon;

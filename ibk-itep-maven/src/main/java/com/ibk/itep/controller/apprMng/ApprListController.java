@@ -1,9 +1,11 @@
 package com.ibk.itep.controller.apprMng;
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ibk.itep.common.file.FileUtil;
 import com.ibk.itep.common.file.FileVo;
 import com.ibk.itep.service.ApprMngService;
+import com.ibk.itep.service.cmm.CmmService;
 import com.ibk.itep.vo.SessionVo;
 import com.ibk.itep.vo.apprMng.ApprListDetailVo;
 import com.ibk.itep.vo.apprMng.ApprListVo;
@@ -30,7 +33,8 @@ public class ApprListController{
 	
 	@Autowired
 	private ApprMngService apprMngService;
-
+	@Autowired
+	private CmmService cmmService;
 	@Autowired 
 	private FileUtil fileUtil;
 
@@ -83,6 +87,31 @@ public class ApprListController{
 		SessionVo ssnInfo = (SessionVo)session.getAttribute("ssnInfo");
 		
 		return apprMngService.updateApprConf(aplcIdArr, ssnInfo);
+	}
+	
+	/* 결재 목록, 첫번째 결재건의 상세내용 조회 */
+	@RequestMapping(value = "/apprListCnt", method = RequestMethod.GET)
+	public void apprListCnt(@RequestParam(required=true) String userId, HttpServletRequest request,HttpServletResponse response) throws Exception {
+
+		SessionVo ssnInfo = new SessionVo();
+		String athrCd = cmmService.selectDpm(userId);
+		ssnInfo.setUserId(userId);
+		ssnInfo.setAthrCd(athrCd);
+		
+		logger.info("아이디  " + userId);
+		logger.info("권한  " + athrCd);
+		
+		/* 결재목록 조회 */
+		if(athrCd.equals("USR")) {
+			String cnt = "callbackFunction" + "({\"ReturnValue\":\"Cnt_IEP#" + 0 +"\"});";
+			PrintWriter out = response.getWriter();
+			out.print(cnt);
+		}else {
+			List<ApprListVo> apprList = apprMngService.selectApprList(ssnInfo);
+			String cnt = "callbackFunction" + "({\"ReturnValue\":\"Cnt_IEP#" + apprList.size()+"\"});";
+			PrintWriter out = response.getWriter();
+			out.print(cnt);
+		}
 	}
 }
 
