@@ -33,8 +33,8 @@ public class BatchService {
         try {
         	logger.info("[BATCH] Cmu001m START ======================");
         	
-	        //파일 객체 생성(root/dat/컨트롤러명/EDW_D_CMU001M.dat)
-	    	read_path = File.separator + FILE_PATH + File.separator + mName + File.separator +"EDW_D_CMU001M.dat";
+	        //파일 객체 생성(root/dat/recv/ADW/EDW_USER_data_%%$ODATE.dat)
+	    	read_path = File.separator + FILE_PATH + File.separator + File.separator +"EDW_USER_data_%%$ODATE.dat";
 	        //입력 스트림 생성(UTF-8변환)
 	        FileInputStream input = new FileInputStream(read_path);
 	        InputStreamReader filereader = new InputStreamReader(input,"UTF-8");
@@ -96,8 +96,8 @@ public class BatchService {
         try{
         	logger.info("[BATCH] Cmb001m START ======================");
 
-	        //파일 객체 생성(root/dat/컨트롤러명/EDW_D_CMB001M.dat)
-        	read_path = File.separator + FILE_PATH + File.separator + mName + File.separator +"EDW_D_CMB001M.dat";
+	        //파일 객체 생성(root/dat/recv/ADW/EDW_USER_data_%%$ODATE.dat)
+        	read_path = File.separator + FILE_PATH + File.separator + File.separator +"EDW_USER_data_%%$ODATE.dat";
 	        //입력 스트림 생성(UTF-8변환)
 	        FileInputStream input = new FileInputStream(read_path);
 	        InputStreamReader filereader = new InputStreamReader(input,"UTF-8");
